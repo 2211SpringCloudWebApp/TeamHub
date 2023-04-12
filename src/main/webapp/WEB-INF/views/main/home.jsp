@@ -10,12 +10,15 @@
 	
 	<body>
 		<div id="container">
-			<jsp:include page="../common/header.jsp"></jsp:include>
-			<div class="index_section">
-				인덱스 코드 작성 부분 
+			<jsp:include page="../common/sideBar.jsp"></jsp:include>
+			<div id="subSideBar">
+				서브 사이드바 코드 작성 부분. 
 			</div>
+			<jsp:include page="../common/header.jsp"></jsp:include>
+			
 			<main>
-				테스트
+				메인 코드 작성 부분
+				
 			</main>
 		</div>
 	</body>

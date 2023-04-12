@@ -1,0 +1,105 @@
+@font-face {
+    font-family: 'RIDIBatang';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+*,
+*::before,
+*::after {
+    font-family: 'RIDIBatang';
+    box-sizing: border-box;
+    margin : 0;
+    padding : 0;
+}
+html {
+    /* 스크롤 내리는 속도를 천천히 */
+    scroll-behavior: smooth;
+}
+body {
+    margin: 0;
+    min-width: 320px;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+li {
+    list-style: none;
+}
+input:focus{
+    outline: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* #container{
+    width: 100%;
+} */
+
+#sideBar {
+    width: 250px;
+    background-color: rgba(60, 114, 221, 0.13);
+    overflow: hidden;
+    position: fixed;
+    height: 200vh;
+    border-right: 1px solid #b3b1b1;
+    font-size: 20px;
+    font-weight: 600;
+}
+    #sideBarLogo {
+        width: 250px;
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
+
+#subSideBar{
+    height: 200vh;
+    width: 300px;
+    margin-left: 250px;
+    padding-top: 100px;
+    position: fixed;
+    text-align: center;
+    border-right: 1px solid #b3b1b1;
+}
+#header{
+    width: calc(100% - 550px);
+    height: 80px;
+    position: fixed;
+    margin-left: 550px;
+    border-bottom: 1px solid #b3b1b1;
+    z-index: 10;
+    background-color: white;
+}
+main{
+    width: calc(100% - 550px);
+    padding-top: 80px;
+    margin-left: 550px;
+    z-index: 8;
+    background-color: white;
+}
+
+#sideBar li {
+	height: 75px;
+}
+
+#sideBar li a {
+    display: block;
+    color: #000;
+    text-decoration: none;
+    padding: 34px;
+    height: 100%;
+    line-height: 0;
+}
+
+#sideBar li a.active {
+    background-color: #2653e8ba;
+    color: white;
+}
+
+#sideBar li a:hover:not(.active) {
+    background-color: #2653e8ba;
+    color: white;
+}
