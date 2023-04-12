@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FreeMapper">
+	<resultMap type="Free" id="freeResultMap">
+		<id  property="freeNo" column="FREE_NO"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="boardCode" column="BOARD_CODE"/>
+		<result property="freeTitle" column="FREE_TITLE"/>
+		<result property="freeContent" column="FREE_CONTENT"/>
+		<result property="freeWriteDate" column="FREE_WRITE_DATE"/>
+		<result property="freeCount" column="FREE_COUNT"/>
+		<result property="freeStatus" column="FREE_STATUS"/>
+	</resultMap>
+	<insert id="insertFree">
+		INSERT INTO BOARD_FREE_TBL VALUES(SEQ_BOARD_FREE_TBL.NEXTVAL, #{userId}, DEFAULT, #{freeTitle}, #{freeContent}, DEFAULT,
+		DEFAULT, DEFAULT)
+	</insert>
+	<select id="selectFreeList" resultMap="freeResultMap">
+		SELECT * FROM BOARD_FREE_TBL
+	</select>
+</mapper>

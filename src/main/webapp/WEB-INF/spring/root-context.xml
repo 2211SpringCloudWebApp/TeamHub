@@ -10,8 +10,8 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- 	DBCP를 사용할 수 있는 데이터소스 완성됨 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" 	value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-		<property name="url" 				value="jdbc:log4jdbc:oracle:thin:@sonof.iptime.org:8510:xe"></property>
+		<property name="driverClassName" 	value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url" 				value="jdbc:oracle:thin:@sonof.iptime.org:8510:xe"></property>
 		<property name="username" 			value="TEAMHUB"></property>
 		<property name="password" 			value="TEAMHUB"></property>
 	</bean>
@@ -33,30 +33,4 @@
 		<property name="maxUploadSize" value="100000000"></property>
 		<property name="maxInMemorySize" value="100000000"></property>
 	</bean>
-	
-	
-	<!-- 스프링 AOP - Transaction -->
-	<!-- 1번. TransactionManager Bean 등록 -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-	
-	<!-- 2번. 트랜잭션 설정 -->
-	<tx:advice id="txAdvice" transaction-manager="transactionManager">
-		<tx:attributes>
-			<tx:method name="insert*" rollback-for="Exception"/>
-			<tx:method name="update*"   rollback-for="Exception"/>
-			<tx:method name="delete*"   rollback-for="Exception"/>
-			<tx:method name="select*"   read-only="true"/>
-		</tx:attributes>
-	</tx:advice>
-	
-	<!-- 3번. Aspect 설정 -->
-	<aop:config proxy-target-class="true">
-		<aop:pointcut expression="execution(* com.kh.teamhub..*Impl.*(..))" id="serviceMethod"/>
-		<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod"/>
-	</aop:config>
-	
-	
-	
 </beans>
