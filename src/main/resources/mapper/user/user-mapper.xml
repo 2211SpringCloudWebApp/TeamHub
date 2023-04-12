@@ -17,5 +17,8 @@
 		<result property="userType" column="USER_TYPE" />
 	</resultMap>
 	
+	<select id="login" resultMap="userResultMap">
+		SELECT * FROM USER_TBL WHERE USER_ID = #{userId} AND USER_PW = #{userPw}
+	</select>
 	
 </mapper>

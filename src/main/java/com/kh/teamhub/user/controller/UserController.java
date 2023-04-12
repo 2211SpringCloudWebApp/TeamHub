@@ -31,14 +31,19 @@ public class UserController {
 	@Qualifier("fileUtil")
 	private FileUtil fileUtil;
 	
+	// 로그인 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Model model, HttpServletRequest request, @ModelAttribute User user) {
 		try {
-			if(loginUtil.checkLogin(request)) {    
-				return "/user/login";	 // 비로그인시 로그인 페이지로 이동.
+			User loginUser = uService.login(user);
+			if(loginUser != null) {
+				HttpSession session = request.getSession();
+				session.setAttribute("user", loginUser);
+				return "main/home";
+			} else {
+				return "main/login";
 			}
 			
-			return "";
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,6 +52,26 @@ public class UserController {
 		}
 	}
 	
+	// 로그아웃
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request, Model model) {
+		try {
+			if(loginUtil.checkLogin(request)) {    
+				return "main/login";	 // 비로그인시 로그인 페이지로 이동.
+			}
+			HttpSession session = request.getSession();
+			if (session != null) {
+				session.invalidate();
+				return "main/login";
+			} else {
+				return "main/login";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", e.getMessage());
+			return "common/error";
+		}
+	}
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String test() {
 		return "main/login";

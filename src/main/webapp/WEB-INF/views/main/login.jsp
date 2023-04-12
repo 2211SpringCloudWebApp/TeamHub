@@ -15,11 +15,13 @@
 	        <div class="login-logo">
 	            <img src="../../../resources/img/main/logo.png" alt="로고">
 	        </div>
-	        <div class="login-wrapper">
-	            <input type="text" placeholder="ID" id="id" class="account">
-	            <input type="password" placeholder="Password" id="password" class="account">
-	            <button id="login" class="account">login</button>
-	        </div>
+	        <form action="/user/login" method="post">
+		        <div class="login-wrapper">
+		            <input type="text" name="userId" placeholder="ID" id="id" class="account" required autofocus>
+		            <input type="password" name="userPw" placeholder="Password" id="password" class="account" required>
+		            <button id="login" class="account">login</button>
+		        </div>
+	        </form>
 	    </div>   
 	</body>
 	
