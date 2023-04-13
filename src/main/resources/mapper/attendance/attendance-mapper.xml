@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AttenMapper">
+		<resultMap type="Atten" id="attenResultMap">
+			<id property="atteNo" column="ATTE_NO"></id>
+			<result property="userId" column="USER_ID" />
+			<result property="atteDate" column="ATTE_DATE" />
+			<result property="startTime" column="START_TIME" />
+			<result property="finishTime" column="FINISH_TIME" />
+			<result property="totalWorkHour" column="TOTAL_WORKHOUR" />
+			<result property="atteStatus" column="ATTE_STATUS" />
+		</resultMap>
+
+
+
+
+	<insert id="insertGoToWork">
+		INSERT INTO ATTENDANCE_TBL VALUES(SEQ_ATTENDANCE_TBL.NEXTVAL, #{userId} , DEFAULT, #{startTime}, null, null, #{atteStatus})
+	</insert>
+	<select id="selectOne" resultMap="attenResultMap">
+		SELECT * FROM ATTENDANCE_TBL WHERE TO_CHAR(ATTE_DATE, 'YY/MM/DD') = TO_DATE(TO_CHAR(SYSDATE, 'YY/MM/DD'), 'YY/MM/DD') and USER_ID = #{userId}
+	</select>
+</mapper>

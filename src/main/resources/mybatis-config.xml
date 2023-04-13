@@ -7,6 +7,7 @@
 	
 	<typeAliases>
 		<typeAlias type="com.kh.teamhub.user.domain.User" alias="User"/>
+		<typeAlias type="com.kh.teamhub.attendance.domain.Attendance" alias="Atten"/>
 	</typeAliases>
 	
 </configuration>

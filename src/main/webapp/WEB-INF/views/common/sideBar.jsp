@@ -12,7 +12,7 @@
 	           <ul>
 	               <li style="height: 235px;"><img id="sideBarLogo" src="../../../resources/img/main/logo.png"></li>
 	               <li><a class="active" href="#">홈</a></li>
-	               <li><a href="#">근태관리</a></li>
+	               <li><a href="/attendance/mainView">근태관리</a></li>
 	               <li><a href="#">일정관리</a></li>
 	               <li><a href="#">업무관리</a></li>
 	               <li><a href="#">사원관리</a></li>

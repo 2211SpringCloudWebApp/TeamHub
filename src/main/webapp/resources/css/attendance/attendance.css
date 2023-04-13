@@ -1,1 +1,46 @@
 @charset "UTF-8";
+
+ul {
+	padding : 0 !important;
+}
+#subSideBar h2 {
+	margin-bottom: 100px;
+}
+#subSideBar h4 {
+	margin : 50px;
+}
+#main-container {
+    padding:1px 16px;
+}
+#main-top{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+#time {
+    text-align: center;
+    font-size: 50px;
+}
+#total-table {
+    width: 700px;
+    text-align: center;
+}
+#board-table {
+    text-align: center;
+    margin-top: 30px;
+}
+.home-btn {
+    width: 100px;
+    height: 50px;
+    background-color: rgba(60, 114, 221, 0.13);
+    border-radius: 5px;
+    border-color: rgba(60, 114, 221, 0.13);
+    margin: 20px;
+
+}
+#submit-btn {
+    background-color: rgba(60, 114, 221, 0.13);
+    border-radius: 5px;
+    border-color: rgba(60, 114, 221, 0.13);
+}
