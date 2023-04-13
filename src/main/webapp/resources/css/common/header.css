@@ -16,6 +16,8 @@ html {
     /* 스크롤 내리는 속도를 천천히 */
     scroll-behavior: smooth;
 }
+
+
 body {
     margin: 0;
     min-width: 320px;
@@ -94,12 +96,12 @@ main{
     line-height: 0;
 }
 
-#sideBar li a.active {
+#sideBar li a:hover {
     background-color: #2653e8ba;
     color: white;
 }
 
-#sideBar li a:hover:not(.active) {
-    background-color: #2653e8ba;
+.nav-item-selected {
+  	background-color: #2653e8ba;
     color: white;
 }

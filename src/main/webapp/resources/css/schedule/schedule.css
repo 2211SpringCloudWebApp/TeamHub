@@ -1,1 +1,24 @@
 @charset "UTF-8";
+
+.scheduleAddBtn{
+	width: 250px;
+    height: 60px;
+    margin: 50px 0px;
+    font-size: 20px;
+}
+
+#subSideBar h3{
+	text-align: left;
+    padding-left: 31px;	
+}
+#subSideBar ul{
+	text-align: left;
+    padding-left: 60px;
+    margin-top: 20px;
+}
+#subSideBar ul li{
+	padding-bottom: 15px;
+}
+#subSideBar ul li input{
+	margin-right: 8px;
+}
