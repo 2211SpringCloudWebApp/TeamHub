@@ -159,11 +159,61 @@
                 			} else if(data == '1') { // 실패
                 				alert("출근 실패 - 다시 눌러주세요");
                 			} else{
-                				alert("이미출근버튼눌렀음"); //-> 중복체크
+                				alert("이미 출근하셨습니다."); //-> 중복체크
                 			}
                 		},
                 		error : function(data){
                 			console.log("서버에러");
+                		}
+                	
+                		
+                	})
+                }
+                
+                function goToHome() {
+                	const now = new Date();
+                    let hours = now.getHours();
+                    let minutes = now.getMinutes();
+                    let seconds = now.getSeconds();
+                    var time = "";
+                    if(hours < 10) {
+                    	time += ('0' + hours);
+                    } else {
+                    	time += hours;
+                    }
+                    if(minutes < 10) {
+                    	time += (":" + '0' + minutes);
+                    } else {
+                    	time += (":" + minutes);
+                    }
+                	if(seconds < 10){
+                		time += (":" + '0' + seconds);
+                	} else {
+                		time += (":" + seconds);
+                	}
+                	
+                	console.log(time);
+                	$.ajax({
+                		url : '/ajaxGoToHome',
+                		data : {
+                			 "date" : time
+                		},
+                		dataType:'json',
+                		type : 'post',
+                		success : function(data){
+//                 			if(data == '0') { 		// 성공
+//                 				alert("퇴근 완료");
+//                 			} else if(data == '1') { // 실패
+//                 				alert("퇴근 실패 - 다시 눌러주세요");
+//                 			} else if(data == '2'){
+//                 				alert("이미 퇴근하셨습니다."); //-> 중복체크
+//                 			} else {
+//                 				alert("출근먼저하시길");
+//                 			}
+							alert(data);
+                		},
+                		error : function(data){
+                			console.log(data);
                 		}
                 	
                 		

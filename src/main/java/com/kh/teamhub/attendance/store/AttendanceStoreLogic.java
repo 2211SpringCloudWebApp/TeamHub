@@ -10,7 +10,7 @@ public class AttendanceStoreLogic implements AttendanceStore{
 
 	@Override
 	public int insertGoToWork(SqlSession session, Attendance attendance) {
-		int result = session.insert("AttenMapper.insertGoToWork", attendance);
+		int result = session.update("AttenMapper.updateGoToWork", attendance);
 		return result;
 	}
 
@@ -18,6 +18,12 @@ public class AttendanceStoreLogic implements AttendanceStore{
 	public Attendance selectOne(SqlSession session, String userId) {
 		Attendance attendance = session.selectOne("AttenMapper.selectOne", userId);
 		return attendance;
+	}
+
+	@Override
+	public int updateGoToHome(SqlSession session, Attendance attendance) {
+		int result = session.update("AttenMapper.updateGoToHome", attendance);
+		return result;
 	}
 
 }

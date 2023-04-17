@@ -13,11 +13,17 @@
 
 
 
-
-	<insert id="insertGoToWork">
-		INSERT INTO ATTENDANCE_TBL VALUES(SEQ_ATTENDANCE_TBL.NEXTVAL, #{userId} , DEFAULT, #{startTime}, null, null, #{atteStatus})
-	</insert>
+<!-- 	출근 체크 -->
+	<update id="updateGoToWork">
+		UPDATE ATTENDANCE_TBL SET ATTE_STATUS = #{atteStatus}, START_TIME=#{startTime} WHERE TO_CHAR(ATTE_DATE, 'YY/MM/DD') = TO_DATE(TO_CHAR(SYSDATE, 'YY/MM/DD'), 'YY/MM/DD') and USER_ID = #{userId}
+	</update>
 	<select id="selectOne" resultMap="attenResultMap">
 		SELECT * FROM ATTENDANCE_TBL WHERE TO_CHAR(ATTE_DATE, 'YY/MM/DD') = TO_DATE(TO_CHAR(SYSDATE, 'YY/MM/DD'), 'YY/MM/DD') and USER_ID = #{userId}
 	</select>
+	
+	<update id="updateGoToHome">
+		UPDATE ATTENDANCE_TBL SET ATTE_STATUS = #{atteStatus}, TOTAL_WORKHOUR=#{totalWorkHour}, FINISH_TIME=#{finishTime} WHERE ATTE_NO =#{atteNo}
+	</update>
+	
+	
 </mapper>
