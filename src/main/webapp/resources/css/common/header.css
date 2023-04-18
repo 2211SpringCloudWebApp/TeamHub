@@ -12,6 +12,20 @@
     margin : 0;
     padding : 0;
 }
+/* @font-face { */
+/* 	font-family: 'Chosunilbo_myungjo'; */
+/* 	src: */
+/* 		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') */
+/* 		format('woff'); */
+/* 	font-weight: normal; */
+/* 	font-style: normal; */
+/* } */
+
+/* * { */
+/* 	font-family: 'Chosunilbo_myungjo'; */
+/* 	font-weight: 600; */
+/* } */
+
 html {
     /* 스크롤 내리는 속도를 천천히 */
     scroll-behavior: smooth;
@@ -59,7 +73,7 @@ table {
 
 #subSideBar{
     height: 200vh;
-    width: 300px;
+    width: 250px;
     margin-left: 250px;
     padding-top: 100px;
     position: fixed;
@@ -67,18 +81,18 @@ table {
     border-right: 1px solid #b3b1b1;
 }
 #header{
-    width: calc(100% - 550px);
+    width: calc(100% - 500px);
     height: 80px;
     position: fixed;
-    margin-left: 550px;
+    margin-left: 500px;
     border-bottom: 1px solid #b3b1b1;
     z-index: 10;
     background-color: white;
 }
 main{
-    width: calc(100% - 550px);
+    width: calc(100% - 500px);
     padding-top: 80px;
-    margin-left: 550px;
+    margin-left: 500px;
     z-index: 8;
     background-color: white;
 }
