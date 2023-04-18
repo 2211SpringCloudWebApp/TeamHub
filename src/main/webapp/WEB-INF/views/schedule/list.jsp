@@ -5,7 +5,7 @@
 	<html>
 	<head>
 		<meta charset="UTF-8">
-		<title>일정관리</title>
+		<title>일정 관리</title>
 		<link rel="stylesheet" href="../../../resources/css/schedule/schedule.css">
 		<link href='../../../resources/css/schedule/packages/core/main.css' rel='stylesheet' />
 		<link href='../../../resources/css/schedule/packages/daygrid/main.css' rel='stylesheet' />
