@@ -1,12 +1,14 @@
 package com.kh.teamhub.attendance.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,10 +30,31 @@ public class AttendanceController {
 	@Autowired
 	private LoginUtil loginUtil;
 	
-	@RequestMapping(value = "/attendance/mainView", method = RequestMethod.GET)
-	public String mainAttenView(HttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/attendance/mainView", method = RequestMethod.GET)	// 근태관리 메인View
+	public String mainAttenView(HttpServletRequest request, Model model) throws Exception {
 		if(loginUtil.checkLogin(request)) {    
 			return "main/login";	 // 비로그인시 로그인 페이지로 이동. -> GET쓸때만 하기
+		}
+		// 출퇴근 리스트
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		List<Attendance> aList = aService.selectAtten(user.getUserId());
+		if(!aList.isEmpty()) {
+			model.addAttribute("aList", aList);
+		}
+		Attendance userId = aService.selectOne(user.getUserId());
+		int result = aService.selectStatus(userId);
+		// result >= 0 : 만약 지각이라는 값이 없어도 결과를 보내줘야 하니까 크거나 같을때라고 해야함
+		if(result >= 0) {
+			model.addAttribute("result", result); //지각
+		}
+		int result2 = aService.selectStatus2(userId);
+		if(result2 >= 0) {
+			model.addAttribute("result2", result2); //조퇴
+		}
+		int result3 = aService.selectStatus3(userId);
+		if(result3 >= 0) {
+			model.addAttribute("result3", result3); //출근
 		}
 		return "attendance/main";
 		

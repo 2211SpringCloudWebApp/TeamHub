@@ -9,6 +9,10 @@
 	    <link rel="stylesheet" href="../../../resources/css/attendance/attendance.css">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ <link rel="stylesheet" href="/resources/demos/style.css">
+ <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	</head>
 	
 	<body>
@@ -44,11 +48,11 @@
 	                            </tr>
 	                        </thead>
 	                        <tbody>
-	                            
+
 	                            <tr>
-	                                <td>ㅇ</td>
-	                                <td>ㅇ</td>
-	                                <td>ㅇ</td>
+	                                <td>${result }</td> <!--지각 -->
+	                                <td>${result2 }</td> <!--조퇴 -->
+	                                <td>${result3 }</td> <!--출근 -->
 	                            </tr>
 	                        </tbody>
 	                    </table>
@@ -56,10 +60,7 @@
 	            </div>
             <div id="select">
                 <form action="">
-                    <select name="" id="">
-                        <option value="">1월</option>
-                        <option value="">2월</option>
-                    </select>
+                <input type="date" id="datepicker">
                     <input type="submit" id="submit-btn" value="검색">
                 </form>
             </div>
@@ -74,21 +75,16 @@
                             <th>근무상태</th>
                         </tr>
                         <tbody>
-                            <tr>
-                                <td>2023-04-11</td>
-                                <td>08:57:00</td>
-                                <td>02:34:00</td>
-                                <td>04:00:00</td>
-                                <td>출근</td>
-                            </tr>
-                            <tr>
-                                <td>2023-04-11</td>
-                                <td>08:57:00</td>
-                                <td>02:34:00</td>
-                                <td>04:00:00</td>
-                                <td>출근</td>
-                            </tr>
-                        </tbody>
+	                        <c:forEach items="${aList }" var="attendance">
+	                            <tr>
+	                                <td>${attendance.atteDate}</td>
+	                                <td>${attendance.startTime}</td>
+	                                <td>${attendance.finishTime}</td>
+	                                <td>${attendance.totalWorkHour}</td>
+	                                <td>${attendance.atteStatus}</td>
+	                            </tr>
+	                        </c:forEach>
+	                    </tbody>
                         
                     </thead>
                 </table>
@@ -98,7 +94,8 @@
 		</div>
 		
 		<script>
-                const dpTime = function () {
+
+                const dpTime = function () { 		// 	실시간시간
                 const now = new Date()
                 let hours = now.getHours()
                 let minutes = now.getMinutes()
@@ -124,7 +121,7 @@
                 setInterval(dpTime, 1000)  // 1초마다 함수 실행되도록 설정
                 
                 
-                function goToWork() {
+                function goToWork() {	// 출근
                 	const now = new Date();
                     let hours = now.getHours();
                     let minutes = now.getMinutes();
@@ -170,7 +167,7 @@
                 	})
                 }
                 
-                function goToHome() {
+                function goToHome() {		// 퇴근
                 	const now = new Date();
                     let hours = now.getHours();
                     let minutes = now.getMinutes();
