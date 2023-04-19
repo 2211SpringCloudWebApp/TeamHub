@@ -57,7 +57,7 @@ table {
 
 #sideBar {
     width: 250px;
-    background-color: rgba(60, 114, 221, 0.13);
+    background-image: linear-gradient(78deg, #a1c4fd 0%, #c2e9fb 100%);
     overflow: hidden;
     position: fixed;
     height: 200vh;

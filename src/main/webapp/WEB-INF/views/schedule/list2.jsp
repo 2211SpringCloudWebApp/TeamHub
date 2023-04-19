@@ -6,7 +6,7 @@
 	<html>
 	<head>
 		<meta charset="UTF-8">
-		<title>일정 관리</title>
+		<title>일정 관리2</title>
 		<link rel="stylesheet" href="../../../resources/css/schedule/schedule.css">
 		<link href='../../../resources/css/schedule/packages/core/main.css' rel='stylesheet' />
 		<link href='../../../resources/css/schedule/packages/daygrid/main.css' rel='stylesheet' />
@@ -24,7 +24,7 @@
 		  	}
 		  	.fc-button-primary {
 			    color: black;
-			    background-image: linear-gradient(275deg, #a1c4fd 0%, #c2e9fb 100%);
+			    background-color: rgba(60, 114, 221, 0.13);
 			    border-color: #b3b1b1;
 			}
 			.fc-icon-chevron-left:before {
@@ -178,7 +178,7 @@
 								<button type="submit" class="modal-input" onclick="scheduleAdd();">
 									<span>등록</span>
 								</button>
-								<button type="button" class="modal-input" onclick="closeModal();">
+								<button type="button" class="modal-input" >
 									<span>닫기</span>
 								</button>
 							</div>
@@ -189,12 +189,12 @@
 			<jsp:include page="../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
 				<h1>일정관리</h1>
-				<button class="scheduleAddBtn" onclick="openModal();">일정등록</button>
+				<button class="scheduleAddBtn">일정등록</button>
 				<h3>내 캘린더</h3>
 				<ul>
-				    <li><input type="checkbox" id ="enterSche" name="enterSche" value="enterSche" checked="checked">전사일정</li>
-				    <li><input type="checkbox" id ="deptSche" name="deptSche" value="deptSche" checked="checked">부서일정</li>
-				    <li><input type="checkbox" id ="userSche" name="userSche" value="userSche" checked="checked">개인일정</li>
+				    <li><input type="checkbox" id ="enterSche" name="enterSche" value="enterSche">전사일정</li>
+				    <li><input type="checkbox" id ="deptSche" name="deptSche" value="deptSche">부서일정</li>
+				    <li><input type="checkbox" id ="userSche" name="userSche" value="userSche">개인일정</li>
 				</ul> 
 			</div>
 			<jsp:include page="../common/header.jsp"></jsp:include>
@@ -206,34 +206,36 @@
 		
 		
 <script>
-document.addEventListener('DOMContentLoaded', function() {
 
+  document.addEventListener('DOMContentLoaded', function() {
+	
     var modal = document.querySelector("#modal");
     modal.style.display = "none";
-    var calendarEl = document.getElementById('calendar');
-
-    // calendarOptions 객체 정의
-    var calendarOptions = {
-        plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
-        header: {
-            left: 'prev,next,today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        },
-        locale : "ko",
-        navLinks: true,
-        selectable: true,
-        selectMirror: true,
-        select: function(arg) {
-            const modal = document.querySelector("#modal");
-            var localOffset = (arg.start).getTimezoneOffset() * 60000;
-            var localDate = new Date(arg.start - localOffset);
-
-            $("#startTime").val(localDate.toISOString().slice(0,16));
-            $("#endTime").val((arg.end).toISOString().slice(0,16));
-
-            openModal();
-//          var title = prompt('Event Title:');
+	var calendarEl = document.getElementById('calendar');
+    
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
+      header: {
+        left: 'prev,next,today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      
+      locale : "ko",
+      defaultDate: '2020-02-12', // 디폴트 날짜, 지우면 현재 날짜로 보여줌.
+      navLinks: true, // can click day/week names to navigate views
+      selectable: true,
+      selectMirror: true,
+      select: function(arg) {
+    	const modal = document.querySelector("#modal");
+    	var localOffset = (arg.start).getTimezoneOffset() * 60000; // 분을 밀리초로 변환
+   		var localDate = new Date(arg.start - localOffset);
+    	
+    	$("#startTime").val(localDate.toISOString().slice(0,16));
+    	$("#endTime").val((arg.end).toISOString().slice(0,16));
+    	
+        openModal();
+        var title = prompt('Event Title:');
 //         console.log(title);
 //         if (title) {
 //           calendar.addEvent({
@@ -247,89 +249,24 @@ document.addEventListener('DOMContentLoaded', function() {
 //             일정등록
 //           })
 //         }
-            calendar.unselect()
-        },
-        editable: true,
-        eventLimit: true,
-        events: []
-    };
-
-    // FullCalendar 인스턴스 초기화
-    var calendar = new FullCalendar.Calendar(calendarEl, calendarOptions);
+        calendar.unselect()
+      },
+      editable: true,
+      eventLimit: true, // allow "more" link when too many events
+      events: []
+    	  
+    });
+    var calendarEvents = [
+    	{
+         title: 'All Day Event',
+         start: '2020-02-01',
+         end: '2020-02-02',
+         color : "#FF0000"  // 빨강
+        }
+    ];
+    calendar.setOption('events', calendarEvents);
     calendar.render();
-
-    function updateCalendar() {
-        // 체크박스의 체크 상태를 가져옴
-        var checkboxAll = $("#enterSche");
-        var checkboxDepartment = $("#deptSche");
-        var checkboxPersonal = $("#userSche");
-        var userId = "${user.userId }";
-        var userDeptName = "${user.deptName}";
-        var all = false;
-        var department = false;
-        var personal = false;
-
-        if (checkboxAll.prop("checked")) {
-            all = true;
-        }
-        if (checkboxDepartment.prop("checked")) {
-            department = true;
-        }
-        if (checkboxPersonal.prop("checked")) {
-            personal = true;
-        }
-        // AJAX 요청 보내기
-        $.ajax({
-            url: "/schedule/events",
-            data: {"userId": userId, "userDeptName":userDeptName, "all":all, "department":department, "personal":personal},
-            type: "GET",
-            success: function(events) {
-                // FullCalendar에 이벤트 데이터 설정
-                var calendarEvents = [];
-                for (var i = 0; i < events.length; i++) {
-                  var startDate = new Date(events[i].scheduleStart);
-                  var endDate = new Date(events[i].scheduleEnd);
-
-                  var year = startDate.getFullYear(); // 년도
-              	  var month = ('0' + (startDate.getMonth() + 1)).slice(-2); // 월 (0부터 시작하므로 1을 더함)
-              	  var day = ('0' + startDate.getDate()).slice(-2); // 일
-              	  startDate = year + '-' + month + '-' + day; // yyyy-mm-dd 형식으로 포맷
-              	  
-              	  var year = endDate.getFullYear(); // 년도
-              	  var month = ('0' + (endDate.getMonth() + 1)).slice(-2); // 월 (0부터 시작하므로 1을 더함)
-              	  var day = ('0' + endDate.getDate()).slice(-2); // 일
-                  endDate = year + '-' + month + '-' + day; // yyyy-mm-dd 형식으로 포맷
-                  var event = {
-                      title: events[i].scheduleName,
-                      start: startDate, // 시작일
-                      end: endDate, // 종료일
-                      color: events[i].scheduleColor // 색상
-                  };
-                  calendarEvents.push(event);
-                }
-                calendar.getEvents().forEach(function(event) {
-                    event.remove();
-                });
-                
-                calendar.addEventSource(calendarEvents);
-                // 이벤트 데이터 다시 가져오기
-                calendar.refetchEvents();
-            },
-            error: function() {
-                // 에러 처리
-                alert('데이터를 가져오는데 실패했습니다.');
-            }
-        });
-    }
-
-    // 체크박스의 변경 이벤트 리스너 등록
-    document.getElementById('enterSche').addEventListener('change', updateCalendar);
-    document.getElementById('deptSche').addEventListener('change', updateCalendar);
-    document.getElementById('userSche').addEventListener('change', updateCalendar);
-
-    updateCalendar();
-});
-
+  });
   
   
   function openModal(start, end, allDay){
@@ -369,7 +306,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	  var scheduleKind = $("input[name='scheduleKind']:checked").val();
 	  var scheduleContent = $("#scheduleContent").val();
 	  var scheduleAlram = $("#scheduleAlram").val();
-	 
+	  
 	  /* 유효성검사하기 */
 	  var scheduleNameCheck = true;
 	  var scheduleColorCheck = true;
@@ -409,8 +346,8 @@ document.addEventListener('DOMContentLoaded', function() {
 				    },
 			 type : "post",
 			 success : function(data){
-				 closeModal();
-				 
+// 				 이벤트 데이터를 받아와서 events 배열에 추가
+			     $('#calendar').fullCalendar('addEventSource', data);  
 			 },
 			 error : function(){
 				 alert("일정 등록 실패! 관리자 문의 요망");
@@ -419,10 +356,52 @@ document.addEventListener('DOMContentLoaded', function() {
 	  } 
   }
   
-  
-  
- 	
+ 	// 일정 데이터를 가져와서 fullCalendar의 events 배열 추가해주기.
+  	 function updateCalendar() {
+        // 체크박스의 체크 상태를 가져옴
+	    var checkboxAll = $("#enterSche");
+	    var checkboxDepartment = $("#deptSche");
+	    var checkboxPersonal = $("#userSche");
+	    var userId = "${user.userId }";
+		var userDeptName = "${user.deptName}";
+		var all = false;
+		var department = false;
+		var personal = false;
+		
+	    if (checkboxAll.prop("checked")) {
+	      all = true;
+	    }
+	    if (checkboxDepartment.prop("checked")) {
+	      department = true;
+	    }
+	    if (checkboxPersonal.prop("checked")) {
+	      personal = true;
+	    }
+	    // AJAX 요청 보내기
+	    $.ajax({
+	      url: "/schedule/events",
+	      data: {"userId": userId, "userDeptName":userDeptName, "all":all, "department":department, "personal":personal}, 
+	      type: "GET",
+	      success: function(events) {
+	    	console.log(events);
+	    	calendarOptions.events = events; // 서버에서 받아온 데이터(events)를 FullCalendar에 설정
+            $('#calendar').fullCalendar('removeEvents'); // 기존의 일정 이벤트 모두 제거
+            $('#calendar').fullCalendar('addEventSource', events); // 새로운 일정 이벤트 추가
+            $('#calendar').fullCalendar('refetchEvents'); // 일정 이벤트 다시 가져오기
+	      },
+	      error: function() {
+	        // 에러 처리
+	        alert('데이터를 가져오는데 실패했습니다.');
+	      }
+	    });
+	  }
+  	  // 체크박스의 변경 이벤트 리스너 등록
+  	  document.getElementById('enterSche').addEventListener('change', updateCalendar);
+  	  document.getElementById('deptSche').addEventListener('change', updateCalendar);
+  	  document.getElementById('userSche').addEventListener('change', updateCalendar);
 
+  	  // 초기 FullCalendar 인스턴스 생성
+  	  $('#calendar').fullCalendar(calendarOptions);
   
 </script>
 		
