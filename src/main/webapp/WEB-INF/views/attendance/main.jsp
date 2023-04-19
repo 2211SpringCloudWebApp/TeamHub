@@ -363,9 +363,7 @@
                		  type : 'post',
                		  dataType: 'json',
                		  success : function(data) {
-               			  console.log(data);
-               			  console.log(data.leaveEarly);
-               			  console.log(data.late);
+               			  // 통계 테이블(total-table)의 td 에 datePicker로 선택한 월의 값들(ex) 지각=2) 넣어줌
                			$("#total-late").text(data.late);
                			$("#total-early").text(data.leaveEarly);
                			$("#total-work").text(data.goToWork);

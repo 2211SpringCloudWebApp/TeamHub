@@ -203,7 +203,6 @@ public class AttendanceController {
 		atten.setUserId(userId);
 		atten.setDate(date);
 		AttenCount aCount = aService.selectListByAtten(atten);
-		System.out.println(aCount);
 		Gson gson = new Gson();
 		return gson.toJson(aCount);
 		

@@ -59,6 +59,7 @@
 		AND TO_CHAR(ATTE_DATE,'YY/MM/DD') LIKE TO_CHAR(SYSDATE,'YY/MM')||'%'
 	</select>
 	
+	<!-- selectListByAtten -->
 	<!-- datepicker로 선택한 월의 지각 -->
 	<select id="selectListByLate" resultType="int">
 		SELECT COUNT(*)
