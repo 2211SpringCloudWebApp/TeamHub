@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AttenMapper">
-		<resultMap type="Atten" id="attenResultMap">
-			<id property="atteNo" column="ATTE_NO"></id>
-			<result property="userId" column="USER_ID" />
-			<result property="atteDate" column="ATTE_DATE" />
-			<result property="startTime" column="START_TIME" />
-			<result property="finishTime" column="FINISH_TIME" />
-			<result property="totalWorkHour" column="TOTAL_WORKHOUR" />
-			<result property="atteStatus" column="ATTE_STATUS" />
-			<result property="count1" column="COUNT1" />
-		</resultMap>
+	<resultMap type="Atten" id="attenResultMap">
+		<id property="atteNo" column="ATTE_NO"></id>
+		<result property="userId" column="USER_ID" />
+		<result property="atteDate" column="ATTE_DATE" />
+		<result property="startTime" column="START_TIME" />
+		<result property="finishTime" column="FINISH_TIME" />
+		<result property="totalWorkHour" column="TOTAL_WORKHOUR" />
+		<result property="atteStatus" column="ATTE_STATUS" />
+	</resultMap>
 
 
 
@@ -27,13 +26,21 @@
 	</update>
 	<!-- 출퇴근 리스트 -->
 	<select id="selectAtten" resultMap="attenResultMap">
-<!-- 		SELECT * FROM ATTENDANCE_TBL WHERE USER_ID = #{userId} order by 3 DESC -->
-		SELECT ATTE_NO, USER_ID, ATTE_DATE, START_TIME, FINISH_TIME, ATTE_STATUS, 
-		       TO_CHAR(TO_DATE('00:00:00', 'HH24:MI:SS') + NUMTODSINTERVAL(TOTAL_WORKHOUR, 'SECOND'), 'HH24:MI:SS') AS TOTAL_WORKHOUR
-		FROM ATTENDANCE_TBL
-		WHERE USER_ID = #{userId} 
-		ORDER BY ATTE_DATE DESC
+		SELECT * FROM ATTENDANCE_TBL WHERE USER_ID = #{userId} order by 3 DESC
+<!-- 		SELECT ATTE_NO, USER_ID, ATTE_DATE, START_TIME, FINISH_TIME, ATTE_STATUS,  -->
+<!-- 		       TO_CHAR(TO_DATE('00:00:00', 'HH24:MI:SS') + NUMTODSINTERVAL(TOTAL_WORKHOUR, 'SECOND'), 'HH24:MI:SS') AS TOTAL_WORKHOUR -->
+<!-- 		FROM ATTENDANCE_TBL -->
+<!-- 		WHERE USER_ID = #{userId}  -->
+<!-- 		ORDER BY ATTE_DATE DESC -->
 	</select>
+<!-- 	년/월 리스트 -->
+	<select id="selectMonthByAtten" parameterType="Atten" resultMap="attenResultMap">
+		SELECT * FROM ATTENDANCE_TBL WHERE USER_ID = #{userId} AND TO_CHAR(ATTE_DATE,'YYYY/MM/DD') LIKE #{date}||'%'
+	</select>
+	
+	
+	
+	
 <!-- 지각통계 -->
 	<select id="selectStatus" resultType="int">
 		SELECT COUNT(*)

@@ -62,4 +62,12 @@ public interface AttendanceStore {
 	 */
 	int selectStatus3(SqlSession session, Attendance userId);
 
+	/**
+	 * 년,월 리스트
+	 * @param session
+	 * @param atten
+	 * @return List<Attendance>
+	 */
+	List<Attendance> selectMonthByAtten(SqlSession session, Attendance atten);
+
 }

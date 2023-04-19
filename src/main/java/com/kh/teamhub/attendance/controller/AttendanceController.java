@@ -1,5 +1,7 @@
 package com.kh.teamhub.attendance.controller;
 
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -7,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.kh.teamhub.attendance.domain.Attendance;
 import com.kh.teamhub.attendance.service.AttendanceService;
 import com.kh.teamhub.common.LoginUtil;
 import com.kh.teamhub.user.domain.User;
+
+import oracle.jdbc.proxy.annotation.Post;
 
 
 @Controller
@@ -108,10 +115,10 @@ public class AttendanceController {
 		
 			HttpSession session = request.getSession();
 			User user = (User)session.getAttribute("user");
-			System.out.println(date);
+//			System.out.println(date);
 			// 출근 시간이 있어야 퇴근버튼 누르기 가능
 			Attendance userId = aService.selectOne(user.getUserId());
-			System.out.println(userId);
+//			System.out.println(userId);
 			// 퇴근 누른적 있으면 break
 //			if(userId.getFinishTime() != null) {
 //				return "3"; // break같은 역할을 함
@@ -143,7 +150,22 @@ public class AttendanceController {
 					userId.setAtteStatus("출근");
 				}
 				userId.setFinishTime(date);
-				userId.setTotalWorkHour(String.valueOf(endTime-startTime));
+				// 근무시간 구하기(TotalWorkHour)
+				// 위에서 endTime이랑 startTime은 int가 됐음
+				// endTime/startTime 변수를 시, 분, 초 각각으로 분리하여 LocalTime.of() 메소드를 사용하여 시간 객체로 변환
+				LocalTime start = LocalTime.of(startTime / 10000, (startTime % 10000) / 100, startTime % 100);
+				LocalTime end = LocalTime.of(endTime / 10000, (endTime % 10000) / 100, endTime % 100);
+				Duration duration = Duration.between(start, end);
+
+				long totalWorkHourInSeconds = duration.getSeconds();
+
+				String formattedTime = String.format("%02d:%02d:%02d", 
+				    totalWorkHourInSeconds / 3600,  // 시
+				    (totalWorkHourInSeconds % 3600) / 60,  // 분
+				    totalWorkHourInSeconds % 60  // 초
+				);
+				userId.setTotalWorkHour(formattedTime);
+				// userId에 TotalWorkHour 까지 넣어서 update해주기
 				int result = aService.updateGoToHome(userId);
 				if(result > 0) {
 					return returnJson("퇴근 완료");
@@ -155,6 +177,34 @@ public class AttendanceController {
 				return returnJson("출근먼저");
 			}
 	}
+	
+	@RequestMapping(value = "/ajaxGetMonthByAtten", method =RequestMethod.POST, produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String ajaxGetMonthByAtten(String userId, String date) {
+		System.out.println(userId);
+			Attendance atten = new Attendance();
+			atten.setUserId(userId);
+			atten.setDate(date);
+			List<Attendance> aList = aService.selectMonthByAtten(atten);
+			if(!aList.isEmpty()) {
+				return new Gson().toJson(aList);
+			}
+		return null;
+	}
+	
+//	@RequestMapping(value = "/ajaxGetMonthByAtten", method =RequestMethod.POST)
+//	@ResponseBody
+//	public ResponseEntity<List<Attendance>> ajaxGetMonthByAtten(String userId, String date) {
+//		System.out.println(userId);
+//			Attendance atten = new Attendance();
+//			atten.setUserId(userId);
+//			atten.setDate(date);
+//			List<Attendance> aList = aService.selectMonthByAtten(atten);
+//			if(!aList.isEmpty()) {
+//				return new ResponseEntity<>(aList, HttpStatus.OK);
+//			}
+//		return new ResponseEntity<>(aList, HttpStatus.OK);
+//	}
 			
 	
 	// 문자열을 Json형태로 바꿔줌

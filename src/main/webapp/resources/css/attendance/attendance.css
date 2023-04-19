@@ -44,3 +44,9 @@ ul {
     border-radius: 5px;
     border-color: rgba(60, 114, 221, 0.13);
 }
+/* 달력버튼 */
+.ui-datepicker-trigger {
+	background-color: rgba(60, 114, 221, 0.13);
+    border-radius: 5px;
+    border-color: rgba(60, 114, 221, 0.13);
+}

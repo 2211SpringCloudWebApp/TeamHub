@@ -54,4 +54,11 @@ public interface AttendanceService {
 	 */
 	int selectStatus3(Attendance userId);
 
+	/**
+	 * 년/월 리스트
+	 * @param atten
+	 * @return
+	 */
+	List<Attendance> selectMonthByAtten(Attendance atten);
+
 }

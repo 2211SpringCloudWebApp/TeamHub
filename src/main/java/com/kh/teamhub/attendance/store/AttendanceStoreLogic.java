@@ -52,4 +52,10 @@ public class AttendanceStoreLogic implements AttendanceStore{
 		return result;
 	}
 
+	@Override
+	public List<Attendance> selectMonthByAtten(SqlSession session, Attendance atten) {
+		List<Attendance> aList = session.selectList("AttenMapper.selectMonthByAtten", atten);
+		return aList;
+	}
+
 }

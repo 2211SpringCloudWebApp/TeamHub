@@ -59,5 +59,11 @@ public class AttendanceServiceImpl implements AttendanceService{
 		return result;
 	}
 
+	@Override
+	public List<Attendance> selectMonthByAtten(Attendance atten) {
+		List<Attendance> aList = aStore.selectMonthByAtten(session, atten);
+		return aList;
+	}
+
 
 }
