@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.kh.teamhub.attendance.domain.AttenCount;
 import com.kh.teamhub.attendance.domain.Attendance;
 import com.kh.teamhub.attendance.service.AttendanceService;
 import com.kh.teamhub.common.LoginUtil;
@@ -42,13 +44,14 @@ public class AttendanceController {
 		if(loginUtil.checkLogin(request)) {    
 			return "main/login";	 // 비로그인시 로그인 페이지로 이동. -> GET쓸때만 하기
 		}
-		// 출퇴근 리스트
+		// 출퇴근 리스트 (근태관리페이지 바로 들어가면 그 달의 리스트 뜸)
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("user");
 		List<Attendance> aList = aService.selectAtten(user.getUserId());
 		if(!aList.isEmpty()) {
 			model.addAttribute("aList", aList);
 		}
+		// 지각, 조퇴, 출근 통계 (근태관리페이지 바로 들어가면 그 달의 통계 뜸)
 		Attendance userId = aService.selectOne(user.getUserId());
 		int result = aService.selectStatus(userId);
 		// result >= 0 : 만약 지각이라는 값이 없어도 결과를 보내줘야 하니까 크거나 같을때라고 해야함
@@ -181,15 +184,29 @@ public class AttendanceController {
 	@RequestMapping(value = "/ajaxGetMonthByAtten", method =RequestMethod.POST, produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String ajaxGetMonthByAtten(String userId, String date) {
-		System.out.println(userId);
 			Attendance atten = new Attendance();
 			atten.setUserId(userId);
 			atten.setDate(date);
 			List<Attendance> aList = aService.selectMonthByAtten(atten);
+			// 날짜가 '4월 19, 2023' 이렇게나오는걸 '2023-04-19' 이렇게 나오도록 변경
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			if(!aList.isEmpty()) {
-				return new Gson().toJson(aList);
+				return gson.toJson(aList);
 			}
 		return null;
+	}
+	
+	@RequestMapping(value = "/ajaxGetListByAtten", method = RequestMethod.POST)
+	@ResponseBody
+	public String ajaxGetListByAtten(String userId, String date) {
+		Attendance atten = new Attendance();
+		atten.setUserId(userId);
+		atten.setDate(date);
+		AttenCount aCount = aService.selectListByAtten(atten);
+		System.out.println(aCount);
+		Gson gson = new Gson();
+		return gson.toJson(aCount);
+		
 	}
 	
 //	@RequestMapping(value = "/ajaxGetMonthByAtten", method =RequestMethod.POST)

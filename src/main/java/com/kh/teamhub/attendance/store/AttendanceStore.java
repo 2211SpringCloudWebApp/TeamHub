@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.kh.teamhub.attendance.domain.AttenCount;
 import com.kh.teamhub.attendance.domain.Attendance;
 
 public interface AttendanceStore {
@@ -69,5 +70,7 @@ public interface AttendanceStore {
 	 * @return List<Attendance>
 	 */
 	List<Attendance> selectMonthByAtten(SqlSession session, Attendance atten);
+
+	AttenCount selectListByAtten(SqlSession session, Attendance atten);
 
 }

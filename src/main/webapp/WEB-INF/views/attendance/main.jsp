@@ -53,9 +53,9 @@
 	                        <tbody>
 
 	                            <tr>
-	                                <td>${result }</td> <!--지각 -->
-	                                <td>${result2 }</td> <!--조퇴 -->
-	                                <td>${result3 }</td> <!--출근 -->
+	                                <td id="total-late">${result }</td> <!--지각 -->
+	                                <td id="total-early">${result2 }</td> <!--조퇴 -->
+	                                <td id="total-work">${result3 }</td> <!--출근 -->
 	                            </tr>
 	                        </tbody>
 	                    </table>
@@ -185,24 +185,24 @@
 			let minutes = now.getMinutes()
 			let seconds = now.getSeconds()
 			let ampm = ''
-			if (hours > 12) {
-			    hours -= 12
-			    ampm = '오후'
-			} else {
-			    ampm = '오전'
-			}
-			if (hours < 10) {
-			    hours = '0' + hours
-			}
-			if (minutes < 10) {
-			    minutes = '0' + minutes
-			}
-			if (seconds < 10) {
-			    seconds = '0' + seconds
-			}
-			document.querySelector('#time').innerHTML = ampm + hours + ":" + minutes + ":" + seconds
-			}
-			setInterval(dpTime, 1000)  // 1초마다 함수 실행되도록 설정
+				if (hours > 12) {
+				    hours -= 12
+				    ampm = '오후'
+				} else {
+				    ampm = '오전'
+				}
+				if (hours < 10) {
+				    hours = '0' + hours
+				}
+				if (minutes < 10) {
+				    minutes = '0' + minutes
+				}
+				if (seconds < 10) {
+				    seconds = '0' + seconds
+				}
+				document.querySelector('#time').innerHTML = ampm + hours + ":" + minutes + ":" + seconds
+				}
+				setInterval(dpTime, 1000)  // 1초마다 함수 실행되도록 설정
 			
 			
 			function goToWork() {	// 출근
@@ -211,21 +211,21 @@
 			    let minutes = now.getMinutes();
 			    let seconds = now.getSeconds();
 			    var time = "";
-			    if(hours < 10) {
-			    	time += ('0' + hours);
-			    } else {
-			    	time += hours;
-			    }
-			    if(minutes < 10) {
-			    	time += (":" + '0' + minutes);
-			    } else {
-			    	time += (":" + minutes);
-			    }
-				if(seconds < 10){
-					time += (":" + '0' + seconds);
-				} else {
-					time += (":" + seconds);
-				}
+				    if(hours < 10) {
+				    	time += ('0' + hours);
+				    } else {
+				    	time += hours;
+				    }
+				    if(minutes < 10) {
+				    	time += (":" + '0' + minutes);
+				    } else {
+				    	time += (":" + minutes);
+				    }
+					if(seconds < 10){
+						time += (":" + '0' + seconds);
+					} else {
+						time += (":" + seconds);
+					}
 				
 				console.log(time);
 				$.ajax({
@@ -311,7 +311,6 @@
               	});
 
                	function dateChange(){
-               	  console.log("dd");
                	  $.ajax ({
                	    url : '/ajaxGetMonthByAtten',
                	    data : {
@@ -324,14 +323,64 @@
                	      //console.log(JSON.parse(data));
                	      console.log(data);
 //                	      tbody에td비우고 data 만큼 나오게해줘야됨
-// 						for문돌려, 그리고 그만큼 뿌려 해내 ㅇㅋ
+// 						for문돌려, 그리고 그만큼 뿌려
+						const tableBody = $("#board-table tbody");
+						tableBody.html("");
+						let tr;
+                        let aDate;
+                        let aStart;
+                        let aFinish;
+                        let aTotal;
+                        let aStatus;
+                        if(data.length > 0) {
+                        	for(let i in data) {
+                        		tr = $("<tr>");
+                        		aDate = $("<td>").text(data[i].atteDate);
+                        		aStart = $("<td>").text(data[i].startTime);
+                        		aFinish = $("<td>").text(data[i].finishTime);
+                        		aTotal = $("<td>").text(data[i].totalWorkHour);
+                        		aStatus = $("<td>").text(data[i].atteStatus);
+                        		tr.append(aDate);
+                        		tr.append(aStart);
+                        		tr.append(aFinish);
+                        		tr.append(aTotal);
+                        		tr.append(aStatus);
+                        		tableBody.append(tr);
+                        	}
+                        }
                	      
                	    },
                	    error : function(data) {
                	      
                	    }
                	  })
-               	}
+               	  $.ajax ({
+               		  url : '/ajaxGetListByAtten',
+               		  data : {
+               			  "date" : $("#sdate").val(),
+               			  "userId" : $("#userId").val()
+               		  },
+               		  type : 'post',
+               		  dataType: 'json',
+               		  success : function(data) {
+               			  console.log(data);
+               			  console.log(data.leaveEarly);
+               			  console.log(data.late);
+               			$("#total-late").text(data.late);
+               			$("#total-early").text(data.leaveEarly);
+               			$("#total-work").text(data.goToWork);
+               			  
+               		  },
+               		  error : function(data) {
+               			  
+               		  }
+               		  
+               		  })
+               	  }
+               	
+               	  
+               	  
+               	  
 //                 function dateChange(){
 //                 	console.log("dd");
 //                 	$.ajax ({
