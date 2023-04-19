@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.teamhub.attendance.domain.AttenCount;
 import com.kh.teamhub.attendance.domain.Attendance;
 import com.kh.teamhub.attendance.store.AttendanceStore;
 
@@ -57,6 +58,18 @@ public class AttendanceServiceImpl implements AttendanceService{
 	public int selectStatus3(Attendance userId) {
 		int result = aStore.selectStatus3(session, userId);
 		return result;
+	}
+
+	@Override
+	public List<Attendance> selectMonthByAtten(Attendance atten) {
+		List<Attendance> aList = aStore.selectMonthByAtten(session, atten);
+		return aList;
+	}
+
+	@Override
+	public AttenCount selectListByAtten(Attendance atten) {
+		AttenCount aCount = aStore.selectListByAtten(session, atten);
+		return aCount;
 	}
 
 

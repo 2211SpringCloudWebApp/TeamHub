@@ -2,6 +2,7 @@ package com.kh.teamhub.attendance.service;
 
 import java.util.List;
 
+import com.kh.teamhub.attendance.domain.AttenCount;
 import com.kh.teamhub.attendance.domain.Attendance;
 
 public interface AttendanceService {
@@ -53,5 +54,19 @@ public interface AttendanceService {
 	 * @return int
 	 */
 	int selectStatus3(Attendance userId);
+
+	/**
+	 * 년/월 리스트
+	 * @param atten
+	 * @return
+	 */
+	List<Attendance> selectMonthByAtten(Attendance atten);
+
+	/**
+	 * 지각.조퇴.출근 통계
+	 * @param atten
+	 * @return
+	 */
+	AttenCount selectListByAtten(Attendance atten);
 
 }
