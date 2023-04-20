@@ -19,8 +19,6 @@
 		<style type="text/css">
 			#calendar {
 		    	margin: 30px 70px;
-		    	max-width: 100%;
-		    	min-height: 500px;
 		  	}
 		  	.fc-button-primary {
 			    color: black;
@@ -116,6 +114,37 @@
 			#scheduleContent{
 				padding: 10px;
 			}
+			.fc-ltr .fc-dayGrid-view .fc-day-top .fc-day-number {
+			    float: left;
+			    font-size: 18px;
+			}
+			.fc th{
+				text-align: left;
+				font-size: 18px;
+			}
+			.fc-sun{
+				color: red;
+			}
+			#input-btn{
+				margin-top: 20px;
+			}
+			
+			#input-btn button{
+				float: right;
+				width: 52px;
+    			height: 30px;
+    			margin-right: 20px;
+   				border: 1px solid #b3b1b1;
+			    font-size: 18px;
+			    background-color: #0060ff;
+			    color: white;
+			}
+			#input-btn a{
+				color: red;
+			    text-decoration-line: underline;
+			    font-size: 18px;
+			    text-underline-offset: 5px;
+			}
 		</style>
 	</head>
 	
@@ -165,7 +194,7 @@
 									</tr>
 									<tr>
 										<td>내용</td>
-										<td><textarea rows="10" cols="40" name="scheduleContent" id="scheduleContent"></textarea> </td>
+										<td><textarea rows="10" cols="50" name="scheduleContent" id="scheduleContent" style="resize: none;"></textarea> </td>
 									</tr>
 									<tr>
 										<td>알림여부</td>
@@ -175,12 +204,14 @@
 							</div>
 							
 							<div id="input-btn">
-								<button type="submit" class="modal-input" onclick="scheduleAdd();">
-									<span>등록</span>
-								</button>
+								<a href="#">일정 삭제</a>	
 								<button type="button" class="modal-input" onclick="closeModal();">
 									<span>닫기</span>
 								</button>
+								<button type="submit" class="modal-input" onclick="scheduleAdd();">
+									<span>등록</span>
+								</button>
+								
 							</div>
 						</div>
 				</div>
@@ -251,7 +282,14 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         editable: true,
         eventLimit: true,
-        events: []
+        events: [],
+        eventRender: function(info) {
+            // 이벤트가 일요일인 경우 배경색과 테두리색을 빨간색으로 설정
+            if (info.event.start.getDay() === 0) {
+                info.el.style.backgroundColor = 'red'; // 배경색
+                info.el.style.borderColor = 'red'; // 테두리색
+            }
+        }
     };
 
     // FullCalendar 인스턴스 초기화
