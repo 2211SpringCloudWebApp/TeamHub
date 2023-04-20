@@ -237,6 +237,7 @@
 					success : function(data){
 						if(data == '0') { 		// 성공
 							alert("출근 완료");
+							location.reload();	// 성공하면 페이지 새로고침
 						} else if(data == '1') { // 실패
 							alert("출근 실패 - 다시 눌러주세요");
 						} else{
@@ -292,6 +293,7 @@
 //                 				alert("출근먼저하시길");
 //                 			}
 							alert(data);
+							location.reload(); 	// 성공하면 페이지 새로고침
                 		},
                 		error : function(data){
                 			console.log(data);
@@ -379,24 +381,6 @@
                	  
                	  
                	  
-//                 function dateChange(){
-//                 	console.log("dd");
-//                 	$.ajax ({
-//                 		url : '/ajaxGetMonthByAtten',
-//                 		data : {
-//                 			"date": $("#sdate").val(),
-//                 			"userId" : $("#userId").val()
-//                 		},
-//                 		type : 'post',
-//                 		success : function(data){
-                			
-//                 		},
-//                 		error : function(data) {
-                			
-//                 		}
-//                 	})
-                	
-//                 }
             </script>
 	</body>
 	

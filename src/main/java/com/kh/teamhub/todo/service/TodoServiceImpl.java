@@ -1,5 +1,8 @@
 package com.kh.teamhub.todo.service;
 
-public class TodoServiceImpl {
+import org.springframework.stereotype.Service;
+
+@Service
+public class TodoServiceImpl implements TodoService{
 
 }
