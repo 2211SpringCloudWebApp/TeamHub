@@ -39,6 +39,14 @@ public class AttendanceController {
 	@Autowired
 	private LoginUtil loginUtil;
 	
+	@RequestMapping(value = "/vacation/mainView", method = RequestMethod.GET)
+	public String vacationMainView(HttpServletRequest request) throws Exception {
+//		if(loginUtil.checkLogin(request)) {    
+//			return "main/login";	 // 비로그인시 로그인 페이지로 이동. -> GET쓸때만 하기
+//		}
+		return "attendance/vacationMain";
+	}
+	
 	@RequestMapping(value = "/attendance/mainView", method = RequestMethod.GET)	// 근태관리 메인View
 	public String mainAttenView(HttpServletRequest request, Model model) throws Exception {
 		if(loginUtil.checkLogin(request)) {    
