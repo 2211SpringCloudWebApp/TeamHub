@@ -18,7 +18,8 @@
 		
 		<style type="text/css">
 			#calendar {
-		    	margin: 30px 70px;
+ 		    	margin: 30px auto; 
+ 		    	width: 55vw;
 		  	}
 		  	.fc-button-primary {
 			    color: black;
@@ -125,6 +126,9 @@
 			.fc-sun{
 				color: red;
 			}
+			.fc-icon-x:before {
+			    content: "X";
+			}
 			#input-btn{
 				margin-top: 20px;
 			}
@@ -154,7 +158,7 @@
 		    <div id="modal" class="modal-overlay">
 		        <div class="modal-window">
 					<div class="title">
-		                <h2>일정 등록</h2>
+		                <h2></h2>
 		            </div>
 		            <div onclick="closeModal()" class="close-area">X</div>
 						<div id="inner">
@@ -187,9 +191,14 @@
 									</tr>
 									<tr>
 										<td>일정구분</td>
-										<td><input type="radio" name="scheduleKind" value="전사"> <span>전사일정</span>
-										    <input type="radio" name="scheduleKind" value="부서"> <span>부서일정</span> 
-										    <input type="radio" name="scheduleKind" value="개인" checked> <span>개인일정</span>  
+										<td>
+											<c:if test="${sessionScope.user.userType == 1}">
+												<input type="radio" name="scheduleKind" value="전사"> <span>전사일정</span>
+											</c:if>
+											<c:if test="${sessionScope.user.userType == 0}">
+											    <input type="radio" name="scheduleKind" value="부서"> <span>부서일정</span> 
+											    <input type="radio" name="scheduleKind" value="개인" checked> <span>개인일정</span>  
+										    </c:if>
 										</td>
 									</tr>
 									<tr>
@@ -208,12 +217,15 @@
 								<button type="button" class="modal-input" onclick="closeModal();">
 									<span>닫기</span>
 								</button>
-								<button type="submit" class="modal-input" onclick="scheduleAdd();">
+								<button type="button" class="modal-input" id="scheduleAdd" onclick="scheduleAdd();">
 									<span>등록</span>
 								</button>
-								
+								<button type="button" class="modal-input" id="scheduleModify" onclick="scheduleMoidfy();">
+									<span>수정</span>
+								</button>
 							</div>
 						</div>
+						<input type="hidden" id="scheduleNo" value="">
 				</div>
 		    </div>
 		    <!-- ------------------------------------------------>
@@ -237,8 +249,8 @@
 		
 		
 <script>
-document.addEventListener('DOMContentLoaded', function() {
 
+	
     var modal = document.querySelector("#modal");
     modal.style.display = "none";
     var calendarEl = document.getElementById('calendar');
@@ -259,43 +271,34 @@ document.addEventListener('DOMContentLoaded', function() {
             const modal = document.querySelector("#modal");
             var localOffset = (arg.start).getTimezoneOffset() * 60000;
             var localDate = new Date(arg.start - localOffset);
-
             $("#startTime").val(localDate.toISOString().slice(0,16));
             $("#endTime").val((arg.end).toISOString().slice(0,16));
 
-            openModal();
-//          var title = prompt('Event Title:');
-//         console.log(title);
-//         if (title) {
-//           calendar.addEvent({
-//             title: title,
-//             start: arg.start,
-//             end: arg.end,
-//             allDay: arg.allDay
-//           })
-// 			 종류, 부서코드, 일정명, 시작날짜, 종료날짜, 선택색상, 내용, 알림여부
-//           $.ajax({
-//             일정등록
-//           })
-//         }
-            calendar.unselect()
+            openModal("일정 등록");
         },
         editable: true,
         eventLimit: true,
         events: [],
-        eventRender: function(info) {
-            // 이벤트가 일요일인 경우 배경색과 테두리색을 빨간색으로 설정
-            if (info.event.start.getDay() === 0) {
-                info.el.style.backgroundColor = 'red'; // 배경색
-                info.el.style.borderColor = 'red'; // 테두리색
-            }
+        eventClick: function(event, jsEvent, view) {
+            console.log(event);
+            console.log("title : " + event.event._def.title);
+            console.log("startTime : " + (event.event._instance.range.start));
+            console.log("endTime : " + (event.event._instance.range.end));
+            console.log("no : " + event.event._def.extendedProps.no);
+            
+            
+            $("#scheduleNo").val(event.event._def.extendedProps.no);
+            
+            
+            openModal("일정 상세", event.event._def.extendedProps.no);
         }
     };
 
     // FullCalendar 인스턴스 초기화
     var calendar = new FullCalendar.Calendar(calendarEl, calendarOptions);
     calendar.render();
-
+	
+	// 일정 체크박스 
     function updateCalendar() {
         // 체크박스의 체크 상태를 가져옴
         var checkboxAll = $("#enterSche");
@@ -337,11 +340,14 @@ document.addEventListener('DOMContentLoaded', function() {
               	  var month = ('0' + (endDate.getMonth() + 1)).slice(-2); // 월 (0부터 시작하므로 1을 더함)
               	  var day = ('0' + endDate.getDate()).slice(-2); // 일
                   endDate = year + '-' + month + '-' + day; // yyyy-mm-dd 형식으로 포맷
+                  
                   var event = {
                       title: events[i].scheduleName,
                       start: startDate, // 시작일
                       end: endDate, // 종료일
-                      color: events[i].scheduleColor // 색상
+                      color: events[i].scheduleColor, // 색상
+                      no: events[i].scheduleNo
+                      
                   };
                   calendarEvents.push(event);
                 }
@@ -366,14 +372,31 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('userSche').addEventListener('change', updateCalendar);
 
     updateCalendar();
-});
-
+    
+ 	
   
-  
-  function openModal(start, end, allDay){
+  function openModal(data, no){
 	  document.querySelector("body").style.overflow="hidden";
 	  window.scrollTo(0,0);
       modal.style.display = "flex"
+      
+      $(".title h2").text(data);
+      if(data=="일정 등록"){
+    	  $("#input-btn a").hide();
+    	  $("#scheduleModify").hide();
+    	  $("#scheduleAdd").show();
+      }
+      if(data=="일정 상세"){
+    	  $("#input-btn a").show();
+    	  $("#scheduleModify").show();
+    	  $("#scheduleAdd").hide();
+		  
+    	  // ajax로 no 값을 넘겨줘서 스케쥴 객체를 success에서 반환받고 
+    	  // 제이쿼리를 이용해 $(~~).text(변경할 값) 값들 변경하면 변경된 값으로 출력됨.
+    	  // 수정 버튼 누르면 값들을 가지고 UPDATE SET을 함.
+    	  // 삭제 버튼 누르면 
+    	  
+      }
   }
   function closeModal(){
 	  document.querySelector("body").style.overflow="visible";
@@ -389,7 +412,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	  scheduleColor = element.style.backgroundColor;  
 	  $("#scheduleColor").val(scheduleColor);   // 선택한 색상의 rgb값을 input태그의 hidden값으로 넣어주기.
   }
-  // 일정 등록
+  
+  // "일정 등록"
   function scheduleAdd(){
 	  var userId = "${user.userId }";
 	  var userDeptName = "${user.deptName}";
@@ -408,6 +432,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	  var scheduleContent = $("#scheduleContent").val();
 	  var scheduleAlram = $("#scheduleAlram").val();
 	 
+	  
 	  /* 유효성검사하기 */
 	  var scheduleNameCheck = true;
 	  var scheduleColorCheck = true;
@@ -448,7 +473,12 @@ document.addEventListener('DOMContentLoaded', function() {
 			 type : "post",
 			 success : function(data){
 				 closeModal();
-				 
+				 updateCalendar();
+				 $("#scheduleName").val(" ");
+				  $("#scheduleColor").val(" ");
+				  $("#startTime").val(" ");
+				  $("#endTime").val(" ");
+				  $("#scheduleContent").val(" ");
 			 },
 			 error : function(){
 				 alert("일정 등록 실패! 관리자 문의 요망");
@@ -459,7 +489,6 @@ document.addEventListener('DOMContentLoaded', function() {
   
   
   
- 	
 
   
 </script>
