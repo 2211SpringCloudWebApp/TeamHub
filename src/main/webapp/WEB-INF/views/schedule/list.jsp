@@ -233,7 +233,7 @@
 			<jsp:include page="../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
 				<h1>일정관리</h1>
-				<button class="scheduleAddBtn" onclick="openModal();">일정등록</button>
+				<button class="scheduleAddBtn" onclick="openModal('일정 등록');">일정등록</button>
 				<h3>내 캘린더</h3>
 				<ul>
 				    <li><input type="checkbox" id ="enterSche" name="enterSche" value="enterSche" checked="checked">전사일정</li>
