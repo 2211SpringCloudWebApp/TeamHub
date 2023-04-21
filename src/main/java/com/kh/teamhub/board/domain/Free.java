@@ -3,14 +3,15 @@ package com.kh.teamhub.board.domain;
 import java.sql.Date;
 
 public class Free {
-	private int freeNo;
-	private String userId;
-	private String boardCode;
-	private String freeTitle;
-	private String freeContent;
-	private Date freeWriteDate;
-	private int freeCount;
+	private int freeNo; //게시글 번호
+	private String userId; //유저 아이디
+	private String boardCode; //직급
+	private String freeTitle; //게시글 제목
+	private String freeContent; // 게시글 내용
+	private Date freeWriteDate; //날짜
+	private int freeCount; //조회수
 	private String freeStatus;
+	private String freeFilename;  //첨부 파일
 	
 	public Free() {
 		super();
@@ -109,6 +110,13 @@ public class Free {
 		this.freeStatus = freeStatus;
 	}
 
+	public String getFreeFilename() {
+		return freeFilename;
+	}
+
+	public void setFreeFilename(String freeFilename) {
+		this.freeFilename = freeFilename;
+	}
 
 	@Override
 	public String toString() {

@@ -8,7 +8,6 @@
 		<title>자유게시판 목록</title>
 		
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  </head>
 		<style>
 		table{
 			border : 1px solid black;
@@ -19,6 +18,7 @@
 		#sideBar ul{
 			padding: 0 !important;
 		}
+	
 		</style>
 	</head>
 	
@@ -42,7 +42,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${fList }" var="free" varStatus="i">
+						<c:forEach items="${sList }" var="free" varStatus="i">
 						<tr>
 							<td>${i.count }</td>
 							<td><a href="/free/detail?freeNo=${free.freeNo }">${free.freeTitle }</a></td>
@@ -58,31 +58,35 @@
 						</c:forEach>
 					</tbody>
 					<tfoot>
-						<tr align="center">
+						 <tr align="center">
 							<td colspan="5">
 								<c:forEach begin="${pi.startNavi}" end="${pi.endNavi }" var="p">
-									<c:url var="pageUrl" value="/free/list">
+									<c:url var="pageUrl" value="/free/search">
 										<c:param name="page" value="${p }"></c:param>
+										<c:param name="searchValue" value="${search.searchValue }"></c:param>
+										<c:param name="searchCondition" 
+										value="${search.searchCondition }"></c:param>
 									</c:url>
 									<a href="${pageUrl }">${p }</a>&nbsp;
-								</c:forEach>
+								</c:forEach><br> <br> <input type="button" value="전체 목록으로 이동"
+								onclick="location='/free/list'">
 							</td>
 						</tr>
 						
 						
 						<tr>
 							<td colspan="4">
-							<form action="/free/search" method="get">
-								<select name="searchCondition">
+								<form action="/free/search" method="get">
+									<select name="searchCondition">
 									<option value="all">전체</option>
-									<option value="id">작성자id</option>
+									<option value="id">작성자Id</option>
 									<option value="title">제목</option>
 									<option value="content">내용</option>
-								</select> <input type="text" id="id" name="searchValue" placeholder="검색어를 입력하세요">
-								<input type="submit" value="검색" onclick="return check()">
-							</form>
-						</td>
-	
+								</select>
+									<input type="text" id="id" name="searchValue" placeholder="검색어를 입력해주세요">
+									<input type="submit" value="검색" onclick="return check()">
+								</form>
+							</td>
 							<td>
 								<button onclick="location.href='/free/writeView'">게시판 쓰기</button>
 							</td>
@@ -91,6 +95,13 @@
 				</table>
 			</main>
 		</div>
+		<script>
+		function check() {
+			var valid = true;
+			valid = valid && validateId();
+			return valid;
+		}
+		</script>
 	</body>
 	
 </html>

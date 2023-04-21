@@ -8,51 +8,15 @@
 						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" 	value="oracle.jdbc.driver.OracleDriver"></property>
-		<property name="url" 				value="jdbc:oracle:thin:@sonof.iptime.org:8510:xe"></property>
-		<property name="username" 			value="TEAMHUB"></property>
-		<property name="password" 			value="TEAMHUB"></property>
-	</bean>
-
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
-<!-- 	mybatis-config.xml파일에 mappers 안 적어도 되는 구문 --><?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
-						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-	
-	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
-		<property name="url" value="jdbc:oracle:thin:@sonof.iptime.org:8510:xe"></property>
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+		<property name="url" value="jdbc:log4jdbc:oracle:thin:@sonof.iptime.org:8510:xe"></property>
 		<property name="username" value="TEAMHUB"></property>
 		<property name="password" value="TEAMHUB"></property>
 	</bean>
-
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
 	<!-- 	mybatis-config.xml파일에 mappers 안 적어도 되는 구문 -->
-		<property name="mapperLocations" value="classpath:mapper/*/*"></property>		
-		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-	
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSession"></constructor-arg>
-	</bean>
-	
-	<!-- 파일 업로드 -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<property name="defaultEncoding" value="utf-8"></property>
-		<property name="maxUploadSize" value="100000000"></property>
-		<property name="maxInMemorySize" value="100000000"></property>
-	</bean>
-</beans>
 		<property name="mapperLocations" value="classpath:mapper/*/*"></property>		
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
