@@ -22,7 +22,7 @@
 		#header nav ul li {
 			padding: 30px 40px;
 			height: 80px;
-		} userInfo
+		} 
 		
 		#userInfo {
 			padding-right: 30px;
@@ -73,7 +73,7 @@
 				</li>
 				<li class="dropdown" style="padding-right: 130px;" ><a><b>${sessionScope.user.userName }</b>님</a>
 					<ul>
-						<li><a href="#">마이페이지</a></li>
+						<li><a href="/user/mypage">마이페이지</a></li>
 						<li><a href="/user/logout">로그아웃</a></li>
 					</ul>
 				</li>

@@ -113,7 +113,7 @@
 									</tr>
 									<tr>
 										<td>
-											<input type="submit" value="등록">
+											<input type="submit" value="수정">
 										</td>
 									</tr>
 								</table>
