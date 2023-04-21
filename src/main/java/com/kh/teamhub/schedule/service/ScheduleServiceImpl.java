@@ -36,6 +36,23 @@ public class ScheduleServiceImpl implements ScheduleService{
 		return sStore.findPersonalEvents(userId);
 	}
 
+	@Override
+	public Schedule selectOneSchedule(int scheduleNo) {
+		Schedule schedule = sStore.selectOneSchedule(scheduleNo);
+		return schedule;
+	}
+
+	@Override
+	public int updateSchedule(Schedule schedule) {
+		int result = sStore.updateSchedule(schedule);
+		return result;
+	}
+
+	@Override
+	public void deleteSchedule(int scheduleNo) {
+		sStore.deleteSchedule(scheduleNo);
+	}
+
 
 	
 }

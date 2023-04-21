@@ -38,4 +38,21 @@ public class ScheduleStoreLogic implements ScheduleStore{
 	public Collection<? extends Schedule> findPersonalEvents(String userId) {
 		return session.selectList("ScheduleMapper.findPersonalEvents", userId);
 	}
+
+	@Override
+	public Schedule selectOneSchedule(int scheduleNo) {
+		Schedule schedule = session.selectOne("ScheduleMapper.selectOneSchedule", scheduleNo);
+		return schedule;
+	}
+
+	@Override
+	public int updateSchedule(Schedule schedule) {
+		int result = session.update("ScheduleMapper.updateSchedule", schedule);
+		return result;
+	}
+
+	@Override
+	public void deleteSchedule(int scheduleNo) {
+		session.delete("ScheduleMapper.deleteSchedule",scheduleNo);
+	}
 }

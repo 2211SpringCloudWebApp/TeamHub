@@ -15,4 +15,10 @@ public interface ScheduleStore {
 
 	Collection<? extends Schedule> findPersonalEvents(String userId);
 
+	Schedule selectOneSchedule(int scheduleNo);
+
+	int updateSchedule(Schedule schedule);
+
+	void deleteSchedule(int scheduleNo);
+
 }

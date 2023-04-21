@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ScheduleMapper">
+
 	<resultMap type="Schedule" id="ScheduleResultMap">
 		<id property="scheduleNo" column="SCHEDULE_NO"></id>
 		<result property="userId" column="USER_ID" />
@@ -34,5 +35,20 @@
 		SELECT * FROM SCHEDULE_TBL WHERE SCHEDULE_KIND = '개인' AND USER_ID = #{userId}
 	</select>
 	
+	<!-- 일정 상세 조회 -->
+	<select id="selectOneSchedule" resultMap="ScheduleResultMap">
+		SELECT * FROM SCHEDULE_TBL WHERE SCHEDULE_NO = #{scheduleNo}
+	</select>
 	
+	<!-- 일정 수정 -->
+	<update id="updateSchedule">
+		UPDATE SCHEDULE_TBL
+		SET SCHEDULE_KIND = #{scheduleKind}, SCHEDULE_NAME= #{scheduleName}, SCHEDULE_COLOR = #{scheduleColor}, SCHEDULE_CONTENT = #{scheduleContent}, SCHEDULE_START = #{scheduleStart}, SCHEDULE_END =#{scheduleEnd}, SCHEDULE_ALRAM = #{scheduleAlram}
+		WHERE SCHEDULE_NO = #{scheduleNo}
+	</update>
+	
+	<!-- 일정 삭제 -->
+	<delete id="deleteSchedule">
+		DELETE FROM SCHEDULE_TBL WHERE SCHEDULE_NO = #{scheduleNo}
+	</delete>
 </mapper>

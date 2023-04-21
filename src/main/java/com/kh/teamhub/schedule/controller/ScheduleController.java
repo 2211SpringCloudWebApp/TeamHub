@@ -43,9 +43,7 @@ public class ScheduleController {
 	@ResponseBody
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String scheduleAdd(@ModelAttribute Schedule schedule) {
-		System.out.println(schedule);
 		int result = sService.insertSchedule(schedule);
-		System.out.println("result 값: " + result);
 		if(result > 0) {
 			
 		} else {
@@ -55,8 +53,8 @@ public class ScheduleController {
 	}
 	
 	// 전사 일정 가져오기.
+	@ResponseBody
 	@RequestMapping(value = "/events", method = RequestMethod.GET, produces="application/json;charset=utf-8")
-    @ResponseBody
     public String getEvents(@RequestParam(value = "all") Boolean all,
 						            @RequestParam(value = "department") Boolean department,
 						            @RequestParam(value = "personal") Boolean personal,
@@ -77,4 +75,29 @@ public class ScheduleController {
 	    System.out.println(new Gson().toJson(sList));
 	    return new Gson().toJson(sList);
     }
+	
+	// 일정 상세정보
+	@ResponseBody
+	@RequestMapping(value = "/detail", method = RequestMethod.POST, produces="application/json;charset=utf-8")
+	public String scheduleDetail(@RequestParam(value = "scheduleNo") int scheduleNo) {
+		Schedule schedule = sService.selectOneSchedule(scheduleNo);
+		return new Gson().toJson(schedule);
+	}
+	
+	// 일정 수정
+	@ResponseBody
+	@RequestMapping(value = "/modify", method = RequestMethod.POST)
+	public String scheduleModify(@ModelAttribute Schedule schedule) {
+		sService.updateSchedule(schedule);
+		return "";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "delete", method = RequestMethod.POST)
+	public String scheduleDelete(@RequestParam("scheduleNo") int scheduleNo) {
+		sService.deleteSchedule(scheduleNo);
+		return "";
+	}
+	
+	
 }

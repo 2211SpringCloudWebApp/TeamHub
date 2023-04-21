@@ -15,6 +15,7 @@
 		<script src='../../../resources/css/schedule/packages/interaction/main.js'></script>
 		<script src='../../../resources/css/schedule/packages/daygrid/main.js'></script>
 		<script src='../../../resources/css/schedule/packages/timegrid/main.js'></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 		
 		<style type="text/css">
 			#calendar {
@@ -213,7 +214,7 @@
 							</div>
 							
 							<div id="input-btn">
-								<a href="#">일정 삭제</a>	
+								<a href="#" onclick="scheduleDelete();">일정 삭제</a>	
 								<button type="button" class="modal-input" onclick="closeModal();">
 									<span>닫기</span>
 								</button>
@@ -273,7 +274,10 @@
             var localDate = new Date(arg.start - localOffset);
             $("#startTime").val(localDate.toISOString().slice(0,16));
             $("#endTime").val((arg.end).toISOString().slice(0,16));
-
+			
+            console.log("select 원래 날짜: " + localDate)
+            console.log("select 수정 날짜: " + localDate.toISOString().slice(0,16))
+            
             openModal("일정 등록");
         },
         editable: true,
@@ -286,8 +290,6 @@
             console.log("endTime : " + (event.event._instance.range.end));
             console.log("no : " + event.event._def.extendedProps.no);
             
-            
-            $("#scheduleNo").val(event.event._def.extendedProps.no);
             
             
             openModal("일정 상세", event.event._def.extendedProps.no);
@@ -338,7 +340,7 @@
               	  
               	  var year = endDate.getFullYear(); // 년도
               	  var month = ('0' + (endDate.getMonth() + 1)).slice(-2); // 월 (0부터 시작하므로 1을 더함)
-              	  var day = ('0' + endDate.getDate()).slice(-2); // 일
+              	  var day = ('0' + (endDate.getDate() + 1)).slice(-2); // 일
                   endDate = year + '-' + month + '-' + day; // yyyy-mm-dd 형식으로 포맷
                   
                   var event = {
@@ -382,21 +384,49 @@
       
       $(".title h2").text(data);
       if(data=="일정 등록"){
+    	  
+    	  $("#scheduleName").val(" ");
+		  $("#scheduleColor").val(" ");
+		  $("#startTime").val("");
+		  $("#endTime").val("");
+		  $("#scheduleContent").val(" ");
+    	  $("#scheduleNo").val("");
+		  
     	  $("#input-btn a").hide();
     	  $("#scheduleModify").hide();
     	  $("#scheduleAdd").show();
       }
       if(data=="일정 상세"){
-    	  $("#input-btn a").show();
-    	  $("#scheduleModify").show();
-    	  $("#scheduleAdd").hide();
-		  
+    	  
+    	  $.ajax({
+    		  url : "/schedule/detail",
+    		  data : {"scheduleNo":no},
+    		  type : "post",
+    		  success : function(data){
+    			  // 스케쥴 객체 modal에 넣어주기.
+    			  $("#scheduleNo").val(data.scheduleNo);
+    			  $("#scheduleName").val(data.scheduleName);
+				  $("#scheduleColor").val(data.scheduleColor);
+				  $("#scheduleContent").val(data.scheduleContent);
+				  var startDate = moment(data.scheduleStart,"MMM DD, YYYY, hh:mm:ss A").format("YYYY-MM-DDTHH:mm:ss");
+				  var endDate = moment(data.scheduleEnd,"MMM DD, YYYY, hh:mm:ss A").format("YYYY-MM-DDTHH:mm:ss");
+                  $("#startTime").val(startDate);
+				  $("#endTime").val(endDate);
+    		  },
+    		  error : function(){
+    			  alert("일정 정보 조회 실패! 관리자 문의 요망");
+    		  }
+    		  
+    	  });
     	  // ajax로 no 값을 넘겨줘서 스케쥴 객체를 success에서 반환받고 
     	  // 제이쿼리를 이용해 $(~~).text(변경할 값) 값들 변경하면 변경된 값으로 출력됨.
     	  // 수정 버튼 누르면 값들을 가지고 UPDATE SET을 함.
     	  // 삭제 버튼 누르면 
-    	  
       }
+      $("#input-btn a").show();
+	  $("#scheduleModify").show();
+	  $("#scheduleAdd").hide();
+	  
   }
   function closeModal(){
 	  document.querySelector("body").style.overflow="visible";
@@ -456,6 +486,7 @@
 		  scheduleContentCheck = false;
 	  }
 	  
+	  
 	  if(scheduleName && scheduleColor && scheduleStartTime && scheduleEndTime && scheduleContent){
 		  $.ajax({
 			 url : "/schedule/add",
@@ -474,11 +505,6 @@
 			 success : function(data){
 				 closeModal();
 				 updateCalendar();
-				 $("#scheduleName").val(" ");
-				  $("#scheduleColor").val(" ");
-				  $("#startTime").val(" ");
-				  $("#endTime").val(" ");
-				  $("#scheduleContent").val(" ");
 			 },
 			 error : function(){
 				 alert("일정 등록 실패! 관리자 문의 요망");
@@ -487,8 +513,93 @@
 	  } 
   }
   
+  // 일정 수정하기.
+  function scheduleMoidfy(){
+	  var userId = "${user.userId }";
+	  var userDeptName = "${user.deptName}";
+	  
+	  if($("#scheduleAlram").is(":checked")){
+		  $("#scheduleAlram").val("y");
+	  } else{
+		  $("#scheduleAlram").val("n");
+	  }
+	  /* 일정 데이터 담기*/
+	  var scheduleName = $("#scheduleName").val();
+	  var scheduleColor = $("#scheduleColor").val();
+	  var scheduleStartTime = new Date($("#startTime").val());
+	  var scheduleEndTime = new Date($("#endTime").val());
+	  var scheduleKind = $("input[name='scheduleKind']:checked").val();
+	  var scheduleContent = $("#scheduleContent").val();
+	  var scheduleAlram = $("#scheduleAlram").val();
+	 
+	  
+	  /* 유효성검사하기 */
+	  var scheduleNameCheck = true;
+	  var scheduleColorCheck = true;
+	  var scheduleStartTimeCheck = true;
+	  var scheduleEndTimeCheck = true;
+	  var scheduleContentCheck = true;
+	  if($("#scheduleName").val() == ''){
+		  alert("일정명을 입력해주세요.")
+		  scheduleNameCheck = false;
+	  } else if($("#scheduleColor").val() == ''){
+		  alert("색상을 선택해주세요.")
+		  scheduleColorCheck = false;
+	  } else if(($("#startTime").val() == '') || ($("#endTime").val() == '')){
+		  alert("날짜를 입력해주세요.");
+		  scheduleStartTimeCheck = false;
+	  }	else if($("#startTime").val() > $("#endTime").val()){
+		  alert("시작날짜는 종료날짜보다 이전이어야 합니다.");
+		  scheduleStartTimeCheck = false;
+	  } else if($("#scheduleContent").val() == ''){
+		  alert("내용을 입력해주세요.")
+		  scheduleContentCheck = false;
+	  }
+	  
+	  var scheduleNo = $("#scheduleNo").val();
+	  
+	  if(scheduleName && scheduleColor && scheduleStartTime && scheduleEndTime && scheduleContent){
+		  $.ajax({
+			 url : "/schedule/modify",
+			 data : {
+				 "scheduleNo": scheduleNo,
+				 "scheduleName": scheduleName,
+				 "scheduleColor": scheduleColor,
+				 "scheduleStart": scheduleStartTime,
+				 "scheduleEnd": scheduleEndTime,
+				 "scheduleKind": scheduleKind,
+				 "scheduleContent":scheduleContent,
+				 "scheduleAlram":scheduleAlram,
+				 "userId": userId,
+				 "deptCode": userDeptName
+				    },
+			 type : "post",
+			 success : function(data){
+				 closeModal();
+				 updateCalendar();
+			 },
+			 error : function(){
+	
+			 }
+		 })
+	 }
+  }
   
-  
+  function scheduleDelete(){
+	  var scheduleNo = $("#scheduleNo").val();
+	  $.ajax({
+		 url : "/schedule/delete",
+		 data : {"scheduleNo": scheduleNo},
+		 type : "post",
+		 success : function(data){
+			 closeModal();
+			 updateCalendar(); 
+		 },
+		 error : function(){
+
+		 }
+	 })
+  }  
 
   
 </script>

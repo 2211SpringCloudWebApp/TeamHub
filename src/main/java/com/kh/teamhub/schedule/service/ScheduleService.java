@@ -14,5 +14,11 @@ public interface ScheduleService {
 
 	Collection<? extends Schedule> getPersonalEvents(String userId);
 
+	Schedule selectOneSchedule(int scheduleNo);
+
+	int updateSchedule(Schedule schedule);
+
+	void deleteSchedule(int scheduleNo);
+
 
 }
