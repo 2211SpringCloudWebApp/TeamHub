@@ -1,5 +1,8 @@
 package com.kh.teamhub.todo.store;
 
-public class TodoStoreLogic {
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class TodoStoreLogic implements TodoStore{
 
 }

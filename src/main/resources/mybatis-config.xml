@@ -8,6 +8,8 @@
 	<typeAliases>
 		<typeAlias type="com.kh.teamhub.user.domain.User" alias="User"/>
 		<typeAlias type="com.kh.teamhub.project.domain.Project" alias="Project"/>
+		<typeAlias type="com.kh.teamhub.attendance.domain.Attendance" alias="Atten"/>
+		<typeAlias type="com.kh.teamhub.schedule.domain.Schedule" alias="Schedule"/>
 	</typeAliases>
 	
 	<mappers>
