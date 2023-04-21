@@ -7,6 +7,11 @@
 	
 	<typeAliases>
 		<typeAlias type="com.kh.teamhub.user.domain.User" alias="User"/>
+		<typeAlias type="com.kh.teamhub.board.domain.Free" alias="Free"/>
+		<typeAlias type="com.kh.teamhub.board.domain.FreeFile" alias="FreeFile"/>
+		<typeAlias type="com.kh.teamhub.board.domain.FreePlus" alias="FreePlus"/>
+		<typeAlias type="com.kh.teamhub.board.domain.Search" alias="Search"/>
+		<typeAlias type="com.kh.teamhub.board.domain.Reply" alias="Reply"/>
 		<typeAlias type="com.kh.teamhub.project.domain.Project" alias="Project"/>
 		<typeAlias type="com.kh.teamhub.attendance.domain.Attendance" alias="Atten"/>
 		<typeAlias type="com.kh.teamhub.schedule.domain.Schedule" alias="Schedule"/>

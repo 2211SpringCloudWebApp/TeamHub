@@ -22,7 +22,7 @@
 		#header nav ul li {
 			padding: 30px 40px;
 			height: 80px;
-		} userInfo
+		} 
 		
 		#userInfo {
 			padding-right: 30px;

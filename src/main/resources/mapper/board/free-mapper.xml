@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FreeMapper">
+	<resultMap type="Free" id="freeResultMap">
+		<id  property="freeNo" column="FREE_NO"/>	
+		<result property="userId" column="USER_ID"/>
+		<result property="boardCode" column="BOARD_CODE"/>
+		<result property="freeTitle" column="FREE_TITLE"/>
+		<result property="freeContent" column="FREE_CONTENT"/>
+		<result property="freeWriteDate" column="FREE_WRITE_DATE"/>
+		<result property="freeCount" column="FREE_COUNT"/>
+		<result property="freeStatus" column="FREE_STATUS"/>
+		<result property="freeFilename" column="FILE_NAME"/>
+	</resultMap>
+	<resultMap type="FreePlus" id="freePlusResultMap">
+		<id  property="freeNo" column="FREE_NO"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="boardCode" column="BOARD_CODE"/>
+		<result property="freeTitle" column="FREE_TITLE"/>
+		<result property="freeContent" column="FREE_CONTENT"/>
+		<result property="freeWriteDate" column="FREE_WRITE_DATE"/>
+		<result property="freeCount" column="FREE_COUNT"/>
+		<result property="freeStatus" column="FREE_STATUS"/>
+		<result property="freeFilename" column="FILE_NAME"/>
+		<result property="fileNo" column="FILE_NO"/>
+		<result property="noticeNo" column="NOTICE_NO"/>
+		<result property="fileName" column="FILE_NAME"/>
+		<result property="fileReName" column="FILE_RENAME"/>
+		<result property="filePath" column="FILE_PATH"/>
+	</resultMap>
+	<resultMap type="FreeFile" id="freeFileResultMap">
+		<id  property="fileNo" column="FILE_NO"/>
+		<result property="freeNo" column="FREE_NO"/>
+		<result property="noticeNo" column="NOTICE_NO"/>
+		<result property="fileName" column="FILE_NAME"/>
+		<result property="fileReName" column="FILE_RENAME"/>
+		<result property="filePath" column="FILE_PATH"/>
+	</resultMap>
+	
+	<resultMap type="Reply" id="replyResultMap">
+		<id  property="replyNo" 			column="REPLY_NO" />
+		<result property="freeNo" 			column="FREE_NO" />
+		<result property="userId" 			column="USER_ID" />
+		<result property="replyContent" 	column="REPLY_CONTENT" />
+		<result property="replyCreateDate" 	column="REPLY_CREATE_DATE" />
+		<result property="replyDepth" 		column="REPLY_DEPTH" />
+		<result property="replyParentNo" 	column="REPLY_PARENT_NO" />
+	
+	</resultMap>
+	
+	<insert id="insertFree">
+		<selectKey keyProperty="freeNo" resultType="int" order="BEFORE">
+        	SELECT SEQ_BOARD_FREE_TBL.NEXTVAL FROM DUAL
+    	</selectKey>
+		INSERT INTO BOARD_FREE_TBL VALUES(#{freeNo}, #{userId}, DEFAULT, #{freeTitle}, #{freeContent}, DEFAULT,
+		DEFAULT, DEFAULT)
+	</insert>
+	<delete id="deleteFree">
+		DELETE FROM BOARD_FREE_TBL WHERE FREE_NO = #{freeNo}
+	</delete>
+	
+	<insert id="insertFreeFiles">
+		INSERT INTO BOARD_ATTACHED_FILE_TBL VALUES(SEQ_BOARD_ATTACHED_FILE_TBL.NEXTVAL, SEQ_BOARD_FREE_TBL.CURRVAL, null,#{fileName}, #{fileReName}, #{filePath} )
+	</insert>
+	<update id="updateFree">
+		UPDATE BOARD_FREE_TBL SET FREE_TITLE = #{freeTitle}, FREE_CONTENT = #{freeContent}
+		WHERE FREE_NO = #{freeNo}
+	</update>
+	<update id="updateFreeFiles">
+		UPDATE BOARD_ATTACHED_FILE_TBL SET FILE_NAME = #{fileName}, FILE_RENAME = #{fileReName}, FILE_PATH = #{filePath}
+        WHERE FREE_NO = #{freeNo}
+	</update>
+	<select id="selectFreeList" resultMap="freeResultMap">
+		SELECT * FROM BOARD_FREE_TBL LEFT JOIN BOARD_ATTACHED_FILE_TBL USING(FREE_NO)
+	</select>
+	<select id="selectOneById" resultMap="freeResultMap">
+		SELECT * FROM BOARD_FREE_TBL WHERE FREE_NO = #{freeNo}
+	</select>
+	<select id="selectListByKeyword" resultMap="freeResultMap">
+		SELECT * FROM BOARD_FREE_TBL 
+		<if test="searchCondition  == 'all'">
+			WHERE FREE_TITLE LIKE '%' || #{searchValue} || '%' OR FREE_CONTENT LIKE '%' || #{searchValue} || '%'
+			OR USER_ID LIKE '%' || #{searchValue} || '%'
+		</if>
+		<if test="searchCondition == 'id'">
+			WHERE USER_ID LIKE '%' || #{searchValue} || '%'
+		</if>
+		<if test="searchCondition == 'title'">
+			WHERE FREE_TITLE LIKE '%' || #{searchValue} || '%'
+		</if>
+		<if test="searchCondition == 'content'">
+			WHERE FREE_CONTENT LIKE '%' || #{searchValue} || '%'
+		</if>
+		ORDER BY FREE_WRITE_DATE DESC	
+	</select>
+	
+	<select id="getsearchListCount" resultType="_int">
+		SELECT COUNT(*) FROM BOARD_FREE_TBL
+		<choose>
+			<when test="searchCondition == 'all'">
+				WHERE FREE_TITLE LIKE '%' || #{searchValue} || '%' OR FREE_CONTENT LIKE '%' || #{searchValue} || '%'
+				OR USER_ID LIKE '%' || #{searchValue} || '%'
+			</when>
+			<when test="searchCondition == 'id'">
+				WHERE USER_ID LIKE '%' || #{searchValue} || '%'
+			</when>
+			<when test="searchCondition == 'title'">
+				WHERE FREE_TITLE LIKE '%' || #{searchValue} || '%'
+			</when>
+			<when test="searchCondition == 'content'">
+				WHERE FREE_CONTENT LIKE '%' || #{searchValue} || '%'
+			</when>
+		</choose>		
+	</select>
+	
+	<insert id="insertReply">
+		INSERT INTO REPLY_TBL VALUES(SEQ_REPLY_TBL.NEXTVAL, #{freeNo}, #{userId}, #{replyContent}, DEFAULT,#{replyDepth}, NULL)
+	</insert>	
+	
+	<select id="selectReplyList" resultMap="replyResultMap">
+		SELECT * FROM REPLY_TBL WHERE FREE_NO = #{freeNo}
+	</select>
+	
+	<select id="selectFileList" resultMap="freeFileResultMap">
+		SELECT * FROM BOARD_ATTACHED_FILE_TBL WHERE FREE_NO = #{freeNo}
+	</select>
+	<!--조회수 업데이트-->
+	<update id="updateView">
+		UPDATE BOARD_FREE_TBL
+		SET FREE_COUNT = FREE_COUNT + 1
+		WHERE FREE_NO = #{freeNo}
+	</update>	
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*) FROM BOARD_FREE_TBL
+	</select>
+</mapper>
