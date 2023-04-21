@@ -5,9 +5,10 @@ ul {
 }
 #subSideBar h2 {
 	margin-bottom: 100px;
+	font-weight: 600;
 }
 #subSideBar h4 {
-	margin : 50px;
+	margin: 40px;
 }
 #main-container {
     padding:1px 16px;

@@ -164,7 +164,7 @@
 		
 		  body {
 		    margin: 20px 0 0 20px;
-		    font-size: 14px;
+/* 		    font-size: 14px; */
 		    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
 		  }
 		
@@ -190,7 +190,7 @@
 			<jsp:include page="../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
 				<h2>업무관리</h2>
-				<h4><a href="#">할일/메모 목록</a></h4>
+				<h4><a href="#">할 일/메모 목록</a></h4>
 				<h4><a href="#">완료 목록</a></h4>
 			</div>
 			<jsp:include page="../common/header.jsp"></jsp:include>
@@ -203,7 +203,7 @@
                                 <h3>Today</h3> 
                             </div>
                             <div id="today-list">
-                                <h1>할 일 목록</h1>
+                                <h3>할 일 목록</h3>
                                 <span></span><br>
                                 <input id="todo">
                                 <button id="add-button">+</button>
