@@ -7,6 +7,10 @@
 	
 	<typeAliases>
 		<typeAlias type="com.kh.teamhub.user.domain.User" alias="User"/>
+		<typeAlias type="com.kh.teamhub.project.domain.Project" alias="Project"/>
 	</typeAliases>
 	
+	<mappers>
+		<mapper resource="mapper/project-mapper.xml"/>
+	</mappers>
 </configuration>

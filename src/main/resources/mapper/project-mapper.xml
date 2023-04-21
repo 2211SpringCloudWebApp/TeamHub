@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProjectMapper">
+	<resultMap type="Project" id="ProjectResultMap">
+		<id property="projectNo" 				column="PROJECT_NO"/>
+		<result property="userId" 				column="USER_ID"/>
+		<result property="projectName" 			column="PROJECT_NAME"/>
+		<result property="projectStart" 		column="PROJECT_START"/>
+		<result property="projectEnd" 			column="PROJECT_END"/>
+		<result property="projectInsertRequest" column="PROJECT_INSERT_REQUEST"/>
+		<result property="projectStatus" 		column="PROJECT_STATUS"/>
+		<result property="userName" 			column="USER_NAME"/>
+	</resultMap>
+	
+	<insert id="insertProject">
+		INSERT INTO PROJECT_TBL VALUES(SEQ_PROJECT_NO.NEXTVAL, #{userId}, #{projectName}, #{projectStart}, #{projectEnd}, DEFAULT, DEFAULT)
+	</insert>
+	<update id="updateProject">
+		UPDATE PROJECT_TBL SET PROJECT_NAME = #{projectName}, PROJECT_START = #{projectStart}, PROJECT_END = #{projectEnd} WHERE PROJECT_NO = #{projectNo}
+	</update>
+	<delete id="deleteProject">
+		DELETE FROM PROJECT_TBL WHERE PROJECT_NO = #{projectNo}
+	</delete>
+	<select id="selectOneByNo" resultMap="ProjectResultMap">
+		SELECT * FROM PROJECT_TBL JOIN USER_TBL USING(USER_ID) WHERE PROJECT_NO = #{projectNo}
+	</select>
+	<select id="selectAllProject" resultMap="ProjectResultMap">
+		SELECT PROJECT_TBL.*, USER_NAME FROM PROJECT_TBL JOIN USER_TBL ON PROJECT_TBL.USER_ID= USER_TBL.USER_ID ORDER BY PROJECT_NO DESC
+	</select>
+</mapper>
