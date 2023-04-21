@@ -24,7 +24,7 @@
 			<div id="subSideBar">
 				<h2>근태관리</h2>
 				<h4><a href="/attendance/mainView">근태관리</a></h4>
-				<h4><a href="#">연차관리</a></h4>
+				<h4><a href="/vacation/mainView">연차관리</a></h4>
 			</div>
 			<jsp:include page="../common/header.jsp"></jsp:include>
 			
