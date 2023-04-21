@@ -214,7 +214,7 @@
 							</div>
 							
 							<div id="input-btn">
-								<a href="#" onclick="scheduleDelete();">일정 삭제</a>	
+								<a id="scheduleDeleteA" href="#" onclick="scheduleDelete();">일정 삭제</a>	
 								<button type="button" class="modal-input" onclick="closeModal();">
 									<span>닫기</span>
 								</button>
@@ -250,7 +250,6 @@
 		
 		
 <script>
-
 	
     var modal = document.querySelector("#modal");
     modal.style.display = "none";
@@ -384,7 +383,7 @@
       
       $(".title h2").text(data);
       if(data=="일정 등록"){
-    	  
+    	  console.log(data);
     	  $("#scheduleName").val(" ");
 		  $("#scheduleColor").val(" ");
 		  $("#startTime").val("");
@@ -392,12 +391,12 @@
 		  $("#scheduleContent").val(" ");
     	  $("#scheduleNo").val("");
 		  
-    	  $("#input-btn a").hide();
+    	  $("#scheduleDeleteA").hide();
     	  $("#scheduleModify").hide();
     	  $("#scheduleAdd").show();
       }
       if(data=="일정 상세"){
-    	  
+    	  console.log(data);
     	  $.ajax({
     		  url : "/schedule/detail",
     		  data : {"scheduleNo":no},
@@ -418,14 +417,11 @@
     		  }
     		  
     	  });
-    	  // ajax로 no 값을 넘겨줘서 스케쥴 객체를 success에서 반환받고 
-    	  // 제이쿼리를 이용해 $(~~).text(변경할 값) 값들 변경하면 변경된 값으로 출력됨.
-    	  // 수정 버튼 누르면 값들을 가지고 UPDATE SET을 함.
-    	  // 삭제 버튼 누르면 
+    	  $("#scheduleDeleteA").show();
+    	  $("#scheduleModify").show();
+    	  $("#scheduleAdd").hide();
       }
-      $("#input-btn a").show();
-	  $("#scheduleModify").show();
-	  $("#scheduleAdd").hide();
+      
 	  
   }
   function closeModal(){
