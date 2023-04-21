@@ -1,1 +1,59 @@
 @charset "UTF-8";
+
+ul {
+	padding : 0 !important;
+}
+#subSideBar h2 {
+	margin-bottom: 100px;
+}
+#subSideBar h4 {
+	margin : 50px;
+}
+
+#main-top {
+    margin-top: 50px;
+}
+#main-top {
+    display: flex;
+    justify-content: space-around;
+}
+#today {
+    width: 50%;
+    border: 1px solid black;
+    padding: 10px;
+    height: 250px;
+    overflow-y: auto;
+}
+#today-title {
+    display: flex;
+    justify-content: space-between;
+}
+#today-list {
+    padding: 10px;
+}
+
+#month {
+    width: 35%;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+#main-bottom {
+    width: 92%;
+    border: 1px solid black;
+    margin-left: 4%;
+}
+#main-bottom {
+    margin-top: 50px;
+    padding: 10px;
+}
+#memo {
+    padding: 20px;
+}
+#memo-title {
+    display: flex;
+    justify-content: space-between;
+}
+#memo h3 #memo h4 {
+    display: inline;
+}
