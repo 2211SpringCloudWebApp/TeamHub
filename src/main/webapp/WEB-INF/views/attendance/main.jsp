@@ -22,7 +22,7 @@
 		<div id="container">
 			<jsp:include page="../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
-				<h2>근태관리</h2>
+				<h2>근태 관리</h2>
 				<h4><a href="/attendance/mainView">근태관리</a></h4>
 				<h4><a href="/vacation/mainView">연차관리</a></h4>
 			</div>
