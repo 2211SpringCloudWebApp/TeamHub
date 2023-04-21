@@ -18,7 +18,7 @@
 	               <li><a href="/user/list">사원관리</a></li>
 	               <li><a href="/project/main">프로젝트</a></li>
 	               <li><a href="#">전자결재</a></li>
-	               <li><a href="#">게시판</a></li>
+	               <li><a href="/free/list">게시판</a></li>
 	           </ul>
 	    </div>
 	</body>
