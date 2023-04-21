@@ -9,7 +9,7 @@ public class TodoController {
 	
 	@RequestMapping(value = "/todo/mainView", method = RequestMethod.GET)
 	public String todoMainView() {
-		return "todo/main";
+		return "todo/main2";
 	}
 
 }
