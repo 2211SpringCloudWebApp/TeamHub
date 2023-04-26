@@ -33,8 +33,36 @@ ul {
 }
 #today-list {
     padding: 10px;
+    font-size: x-large;
 }
-
+#todo {
+	font-size: 25px;
+}
+#add-button {
+	width: 30px;
+    height: 35px;
+    font-size: 25px;
+    background-color: #293a4b;
+    color: white;
+    border-radius: 5px;
+}
+.item {
+  font-size: 2rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid #d2cccc;
+}
+.item button {
+	width: 100px;
+    height: 40px;
+    font-size: 20px;
+    float : right;
+    background-color: #293a4b;
+    color: white;
+    border-radius: 5px;
+}
+.item span {
+	margin-left: 20px;
+}
 
 #month {
     width: 35%;

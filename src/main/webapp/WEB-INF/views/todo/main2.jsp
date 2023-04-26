@@ -29,19 +29,20 @@
 		      selectMirror: true,
 		      locale: 'ko',	// 한국어 설정
 		      select: function(arg) {
-		        var title = prompt('Event Title:');
-		        if (title) {
-		          calendar.addEvent({
-		            title: title,
-		            start: arg.start,
-		            end: arg.end,
-		            allDay: arg.allDay
-		          })
-		        }
-		        calendar.unselect()
+		    	  console.log(arg);
+// 		        var title = prompt('일정 등록:');
+// 		        if (title) {
+// 		          calendar.addEvent({
+// 		            title: title,
+// 		            start: arg.start,
+// 		            end: arg.end,
+// 		            allDay: arg.allDay
+// 		          })
+// 		        }
+// 		        calendar.unselect()
 		      },
 		      eventClick: function(arg) {
-		        if (confirm('Are you sure you want to delete this event?')) {
+		        if (confirm('삭제할까여?')) {
 		          arg.event.remove()
 		        }
 		      },
@@ -108,7 +109,7 @@
 		    calendar.render();
 		  });
 		  
-		  
+		  // 할 일 목록
 		  document.addEventListener('DOMContentLoaded', () => {
 	            const input = document.querySelector('#todo')
 	            const addButton = document.querySelector('#add-button')
@@ -119,6 +120,7 @@
 	            const addTodo = () => {
 	                if (input.value !== '') {
 	                    const item = document.createElement('div')
+	                     item.classList.add('item')
 	      		    // 체크박스
 	                    const checkbox = document.createElement('input')
 	                    checkbox.type='checkbox'
@@ -127,6 +129,7 @@
 	      		    // 제거하기 버튼
 	                    const deleteButton = document.createElement('button')
 	                    deleteButton.textContent="제거하기"
+	                    
 
 	                    text.textContent = input.value
 	                    input.value=''
@@ -160,7 +163,7 @@
 
 	            addButton.addEventListener('click', addTodo)
 	    
-	      		// 할 일 입력창에서 enter key가 눌렸을 때
+// 	      		할 일 입력창에서 enter key가 눌렸을 때
 	            input.addEventListener('keypress', (event) => {
 	                const ENTER = 13
 	                if (event.keyCode === ENTER)
@@ -195,6 +198,7 @@
 	</head>
 	
 	<body>
+	<input type="hidden" id="userId" value="${sessionScope.user.userId }">
 		<div id="container">
 			<jsp:include page="../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
@@ -212,11 +216,27 @@
                                 <h3>Today</h3> 
                             </div>
                             <div id="today-list">
-                                <h3>할 일 목록</h3>
+                                <h2>할 일 목록</h2>
                                 <span></span><br>
                                 <input id="todo">
-                                <button id="add-button">+</button>
-                                <div id="todo-list"></div>
+                                <button id="add-button" onclick="insertTodo();">+</button>
+                                <div id="todo-list">
+                                <c:forEach items="${tList }" var="todo">
+                                	<div class="item">
+                                	<!-- isFinished가 'Y'면 체크박스 체크되어있게 -->
+								        <input class="checkInput" type="checkbox" onclick="checkFinish(this,'${todo.todoNo}');" 
+								            <c:if test="${todo.isFinished == 'Y'}">
+								                checked
+								            </c:if>
+								        >
+								        <!-- isFinished가 'Y'면 글자에 줄 그어지게 -->
+								        <span <c:if test="${todo.isFinished == 'Y'}">style="text-decoration: line-through;"</c:if>>
+								            ${todo.todoContent}
+								        </span>
+								        <button id="${todo.todoNo }" onclick="deleteTodo('${todo.todoNo}');">제거하기</button>
+								    </div>
+                                </c:forEach>
+                                </div>
                             </div>
                         </div>
                         <div id="month">
@@ -240,6 +260,79 @@
 			</main>
 		</div>
 		
+		<script>
+			function insertTodo() {
+				$.ajax ({
+// 					앞에 '/' 까먹지말고..
+					url : '/ajaxInsertTodo',
+					data : {
+// 						컨트롤러에서 Todo todo 로 받으니까 도메인에서 써준거랑 똑같이 써야됨 -todoContent
+						"todoContent" : $("#todo").val(),
+						"userId" : $("#userId").val()
+					},
+					type : 'post',
+					success : function(data) {
+						location.reload();
+					},
+					error : function(date) {
+						
+					}
+				})
+			}
+			
+			function checkFinish(checkbox, todoNo) {
+// 				console.log(checkbox.nextElementSibling);
+				$.ajax ({
+					url : '/ajaxCheckFinish',
+					data : {
+						"todoNo" : todoNo
+					},
+					type : 'post',
+					success : function(data) {
+						console.log(data);
+							console.log(data[4]);
+							console.log(JSON.parse(data).isFinished);
+							var isFinished = JSON.parse(data).isFinished;
+						if (isFinished == 'Y') {
+							checkbox.checked = true;
+							checkbox.nextElementSibling.style.textDecoration = 'line-through';
+						} else {
+							checkbox.checked = false;
+							checkbox.nextElementSibling.style.textDecoration = 'none';
+						}
+					},
+					error : function(data) {
+						
+					}
+				})
+			}
+			
+			function deleteTodo(todoNo) {
+				console.log(todoNo);
+				console.log($("#"+todoNo).parent());
+				if (confirm("정말로 삭제하시겠습니까?")) {
+					$.ajax ({
+						url : '/ajaxDeleteTodo',
+						data : {
+							"todoNo" : todoNo
+						},
+						type : 'post',
+						success : function(data) {
+							console.log(data);
+							$("#"+todoNo).parent().remove();
+						},
+						error : function(data) {
+							
+						}
+					})
+					
+				}
+			}
+			
+			
+			
+			
+		</script>
 	</body>
 	
 </html>
