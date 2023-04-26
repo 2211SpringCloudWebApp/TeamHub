@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+if(session.getAttribute("user") == null){
+    response.sendRedirect("/");
+}
+%>
 <!DOCTYPE html>
 	<html>
 	<head>
@@ -38,12 +43,12 @@
 				첨부파일 : 
 				<c:forEach items="${fileList }" var="freeFile">
 					${freeFile.fileName }
-				</c:forEach>
+				</c:forEach><br>
 				<c:url var="fModify" value="/free/modifyView">
 					<c:param name="freeNo" value="${free.freeNo }"/>
 				</c:url>
-				<a href="${fModify }">수정 페이지로 이동</a>
-				<a href="javascript:void(0);" onclick="removeCheck(${free.freeNo});">게시판 삭제</a>
+				<a href="${fModify }"><button>수정</button></a>
+				<a href="javascript:void(0);" onclick="removeCheck(${free.freeNo});"><button>게시판 삭제</button></a>
 				
 				<!-- 댓글 영역 -->
     				<!-- 댓글 등록 -->
@@ -90,6 +95,7 @@
 						 	  data : { "freeNo" : freeNo },
 						 	  type : "get",
 						 	  success : function(data){
+						 		  $("#replyContent").text("댓글 (" + data.length +")");
 						 		  const tableBody = $("#replyTable tbody");
 						 		  tableBody.html("");
 						 		  let tr;
@@ -103,15 +109,65 @@
 						 				  rWriter = $("<td width='100'>").text(data[i].userId);
 						 				  rContent = $("<td>").text(data[i].replyContent);
 						 				  rCreateDate = $("<td width='100'>").text(data[i].replyCreateDate);
+						 				  btnArea = $("<td width='80'>")
+						 				  .append("<a href='javascript:void(0)' onclick='modifyReply(this, \""+data[i].replyContent+"\","+data[i].replyNo+");'>수정</a>")
+						 				  .append("<a href='javascript:void(0)' onclick='removeReply("+data[i].replyNo+");'>삭제</a>");
 						 				  tr.append(rWriter);
 						 				  tr.append(rContent);
-						 				  tr.append(rCreateDate);
+						 				  tr.append(rCreateDate); // tr 밑에 td 3개가 들어간 상태
+						 				  tr.append(btnArea);
 						 				  tableBody.append(tr);
 						 			  }
 						 		  }
 						 	  },
 							  error : function(){
 								  alert("AJAX 처리 실패! ㅠㅠ");
+							  }
+						  });
+					  }
+					  
+					  function removeReply(replyNo){
+						  $.ajax({
+							  url : "/reply/delete",
+							  data : { "replyNo" : replyNo},
+							  type : "get",
+							  success : function(data){
+								  if(data == "1"){
+									  alert("댓글 삭제 성공");
+									  getReplyList();
+								  }
+							  },
+							  error : function(){
+								  alert("AJAX 처리 실패!!");
+							  }
+						  })
+					  }
+					  
+					  function modifyReply(obj, replyContent, replyNo) {
+						  let trModify = $("<tr>");
+						  trModify.append("<td colspan='3'><input type='text' size='50' value='"+replyContent+"'></td>");
+						  trModify.append("<td><button onclick='modifyReplyContent("+replyNo+", this);'>수정완료</button></td>");
+						  $(obj).parent().parent().after(trModify);
+					  }
+					  
+					  function modifyReplyContent(replyNo, obj){
+						  const modifiedContent = $(obj).parent().prev().children().val();
+						  $.ajax({
+							  url : "/reply/modify",
+							  data : { "replyNo" : replyNo, "replyContent" : modifiedContent },
+							  type : "post",
+							  success : function(data){
+								 if(data == "1"){
+									 alert("댓글 수정 성공");
+									 getReplyList();
+								 }else{
+									 alert("실패 로그확인좀여 ㅜㅜ");
+									 console.log(data);
+								 }
+							  },
+							  error : function(){
+								  alert("아약스 처리 실패!");
+								  
 							  }
 						  });
 					  }

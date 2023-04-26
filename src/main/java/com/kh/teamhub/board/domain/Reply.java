@@ -24,7 +24,7 @@ public class Reply {
 
 	public int getReplyNo() {
 		return replyNo;
-	}
+	} 
 
 	public void setReplyNo(int replyNo) {
 		this.replyNo = replyNo;

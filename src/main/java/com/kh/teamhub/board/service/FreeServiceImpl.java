@@ -97,6 +97,18 @@ public class FreeServiceImpl implements FreeService{
 		return rList;
 	}
 
+	@Override
+	public int updateReply(Reply reply) {
+		int result = fStore.updateReply(session, reply);
+		return result;
+	}
+
+	@Override
+	public int deleteReply(Integer replyNo) {
+		int result = fStore.deleteReply(session, replyNo);
+		return result;
+	}
+
 
 
 }

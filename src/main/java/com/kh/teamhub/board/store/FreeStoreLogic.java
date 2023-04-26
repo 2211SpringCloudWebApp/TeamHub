@@ -100,6 +100,18 @@ public class FreeStoreLogic implements FreeStore {
 		return rList;
 	}
 
+	@Override
+	public int updateReply(SqlSession session, Reply reply) {
+		int result = session.update("FreeMapper.updateReply", reply);
+		return result;
+	}
+
+	@Override
+	public int deleteReply(SqlSession session, Integer replyNo) {
+		int result = session.update("FreeMapper.deleteReply", replyNo);
+		return result;
+	}
+
 	
 	
 	

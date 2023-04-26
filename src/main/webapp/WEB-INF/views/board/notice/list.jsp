@@ -10,18 +10,11 @@ if(session.getAttribute("user") == null){
 	<html>
 	<head>
 		<meta charset="UTF-8">
-		<title>자유게시판 목록</title>
+		<title>공지사항 목록</title>
 		
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   </head>
 		<style>
-		#sideBar li:nth-child(9){
-		    background-color: #2653e8ba;
-  				
-		}
-		#sideBar li:nth-child(9) a{
-			color: white !important;
-		}
 		table{
 			border : 1px solid black;
 		}
@@ -38,7 +31,7 @@ if(session.getAttribute("user") == null){
 		<div id="container">
 			<jsp:include page="../../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
-				<h1>자유게시판 목록</h1> 
+				<h1>공지사항 목록</h1> 
 			</div>
 			<jsp:include page="../../common/header.jsp"></jsp:include>
 			<main>
@@ -54,13 +47,13 @@ if(session.getAttribute("user") == null){
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${fList }" var="free" varStatus="i">
+						<c:forEach items="${nList }" var="notice" varStatus="i">
 						<tr>
 							<td>${i.count }</td>
-							<td><a href="/free/detail?freeNo=${free.freeNo }">${free.freeTitle }</a></td>
-							<td>${free.userId }</td>
-							<td>${free.freeWriteDate }</td>
-							<td>${free.freeCount }</td>
+							<td><a href="/notice/detail?noticeNo=${notice.noticeNo }">${notice.noticeTitle }</a></td>
+							<td>${notice.userId }</td>
+							<td>${notice.noticeWriteDate }</td>
+							<td>${notice.noticeCount }</td>
 							
 						<%-- 	<td>
 								<c:if test= "${not empty free.freeFilename }">O</c:if>
@@ -73,7 +66,7 @@ if(session.getAttribute("user") == null){
 						<tr align="center">
 							<td colspan="5">
 								<c:forEach begin="${pi.startNavi}" end="${pi.endNavi }" var="p">
-									<c:url var="pageUrl" value="/free/list">
+									<c:url var="pageUrl" value="/notice/list">
 										<c:param name="page" value="${p }"></c:param>
 									</c:url>
 									<a href="${pageUrl }">${p }</a>&nbsp;
@@ -84,10 +77,9 @@ if(session.getAttribute("user") == null){
 						
 						<tr>
 							<td colspan="4">
-							<form action="/free/search" method="get">
+							<form action="/notice/search" method="get">
 								<select name="searchCondition">
 									<option value="all">전체</option>
-									<option value="id">ID</option>
 									<option value="title">제목</option>
 									<option value="content">내용</option>
 								</select> <input type="text" id="id" name="searchValue" placeholder="검색어를 입력하세요">
@@ -96,13 +88,22 @@ if(session.getAttribute("user") == null){
 						</td>
 	
 							<td>
-								<button onclick="location.href='/free/writeView'">게시판 쓰기</button>
+								<c:if test="${sessionScope.user.userType == 1}">
+									<button onclick="location.href='/notice/writeView'">게시판 쓰기</button>
+								</c:if>
 							</td>
 						</tr>
 					</tfoot>
 				</table>
 			</main>
 		</div>
+		<script>
+		function check() {
+			var valid = true;
+			valid = valid && validateId();
+			return valid;
+		}
+		</script>
 	</body>
 	
 </html>

@@ -38,6 +38,7 @@ public interface FreeService {
 	 */
 	public Free selectOneById(int freeNo);
 
+	
 	public List<FreeFile> selectFileList(int freeNo);
 	/**
 	 * 자유게시판 삭제
@@ -91,6 +92,20 @@ public interface FreeService {
 	 * @return
 	 */
 	public List<Reply> selectAllReply(Integer freeNo);
+	
+	/**
+	 * 댓글 수정
+	 * @param reply
+	 * @return
+	 */
+	public int updateReply(Reply reply);
+
+	/**
+	 * 댓글 삭제
+	 * @param replyNo
+	 * @return
+	 */
+	public int deleteReply(Integer replyNo);
 
 
 
