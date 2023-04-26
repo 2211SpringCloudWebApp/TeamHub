@@ -42,6 +42,7 @@ public interface FreeStore {
 	 */
 
 	public Free selectOneById(SqlSession session, int freeNo);
+	
 	/**
 	 * 자유게시판 파일 상세 조회 Store
 	 * @return List<Free>
@@ -108,6 +109,20 @@ public interface FreeStore {
 	 * @return
 	 */
 	public List<Reply> selectAllReply(SqlSession session, Integer freeNo);
+	/**
+	 * 댓글 수정
+	 * @param session
+	 * @param reply
+	 * @return
+	 */
+	public int updateReply(SqlSession session, Reply reply);
+	/**
+	 * 댓글 삭제
+	 * @param session
+	 * @param replyNo
+	 * @return
+	 */
+	public int deleteReply(SqlSession session, Integer replyNo);
 
 	
 	

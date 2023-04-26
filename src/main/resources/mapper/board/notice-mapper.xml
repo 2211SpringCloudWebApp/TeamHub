@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="NoticeMapper">
+
+<resultMap type="Notice" id="noticeResultMap">
+		<id  property="noticeNo" column="NOTICE_NO"/>	
+		<result property="boardCode" column="BOARD_CODE"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="noticeTitle" column="NOTICE_TITLE"/>
+		<result property="noticeContent" column="NOTICE_CONTENT"/>
+		<result property="noticeWriteDate" column="NOTICE_WRITE_DATE"/>
+		<result property="noticeCount" column="NOTICE_COUNT"/>
+		<result property="noticeStatus" column="NOTICE_STATUS"/>
+		<result property="fnoticeFilename" column="NOTICE_NAME"/>
+	</resultMap>
+	<resultMap type="FreeFile" id="freeFileResultMap">
+		<id  property="fileNo" column="FILE_NO"/>
+		<result property="freeNo" column="FREE_NO"/>
+		<result property="noticeNo" column="NOTICE_NO"/>
+		<result property="fileName" column="FILE_NAME"/>
+		<result property="fileReName" column="FILE_RENAME"/>
+		<result property="filePath" column="FILE_PATH"/>
+	</resultMap>
+	
+<insert id="insertNotice">
+		<selectKey keyProperty="noticeNo" resultType="int" order="BEFORE">
+        	SELECT SEQ_BOARD_NOTICE_TBL.NEXTVAL FROM DUAL
+    	</selectKey>
+		INSERT INTO BOARD_NOTICE_TBL VALUES(#{noticeNo}, DEFAULT, #{userId}, #{noticeTitle}, #{noticeContent}, DEFAULT,
+		DEFAULT, DEFAULT)
+	</insert>
+	<insert id="insertNoticeFiles">
+		INSERT INTO BOARD_ATTACHED_FILE_TBL VALUES(SEQ_BOARD_ATTACHED_FILE_TBL.NEXTVAL, null, SEQ_BOARD_NOTICE_TBL.CURRVAL,#{fileName}, #{fileReName}, #{filePath} )
+	</insert>
+	<select id="selectNoticeList" resultMap="noticeResultMap">
+		SELECT * FROM BOARD_NOTICE_TBL LEFT JOIN BOARD_ATTACHED_FILE_TBL USING(NOTICE_NO)
+	</select>
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*) FROM BOARD_NOTICE_TBL
+	</select>
+	<select id="selectOneById" resultMap="noticeResultMap">
+		SELECT * FROM BOARD_NOTICE_TBL WHERE NOTICE_NO = #{noticeNo}
+	</select>
+	<select id="selectFileList" resultMap="freeFileResultMap">
+		SELECT * FROM BOARD_ATTACHED_FILE_TBL WHERE NOTICE_NO = #{noticeNo}
+	</select>
+	<update id="updateNotice">
+		UPDATE BOARD_NOTICE_TBL SET NOTICE_TITLE = #{noticeTitle}, NOTICE_CONTENT = #{noticeContent}
+		WHERE NOTICE_NO = #{noticeNo}
+	</update>
+	<update id="updateFreeFiles">
+		UPDATE BOARD_ATTACHED_FILE_TBL SET FILE_NAME = #{fileName}, FILE_RENAME = #{fileReName}, FILE_PATH = #{filePath}
+        WHERE NOTICE_NO = #{noticeNo}
+	</update>
+	<select id="selectListByKeyword" resultMap="noticeResultMap">
+		SELECT * FROM BOARD_NOTICE_TBL 
+		<if test="searchCondition  == 'all'">
+			WHERE NOTICE_TITLE LIKE '%' || #{searchValue} || '%' OR NOTICE_CONTENT LIKE '%' || #{searchValue} || '%'
+			OR USER_ID LIKE '%' || #{searchValue} || '%'
+		</if>
+		
+		<if test="searchCondition == 'title'">
+			WHERE NOTICE_TITLE LIKE '%' || #{searchValue} || '%'
+		</if>
+		<if test="searchCondition == 'content'">
+			WHERE NOTICE_CONTENT LIKE '%' || #{searchValue} || '%'
+		</if>
+		ORDER BY NOTICE_WRITE_DATE DESC	
+	</select>
+	<select id="getsearchListCount" resultType="_int">
+		SELECT COUNT(*) FROM BOARD_NOTICE_TBL
+		<choose>
+			<when test="searchCondition == 'all'">
+				WHERE NOTICE_TITLE LIKE '%' || #{searchValue} || '%' OR NOTICE_CONTENT LIKE '%' || #{searchValue} || '%'
+				OR USER_ID LIKE '%' || #{searchValue} || '%'
+			</when>
+			<when test="searchCondition == 'title'">
+				WHERE NOTICE_TITLE LIKE '%' || #{searchValue} || '%'
+			</when>
+			<when test="searchCondition == 'content'">
+				WHERE NOTICE_CONTENT LIKE '%' || #{searchValue} || '%'
+			</when>
+		</choose>		
+	</select>
+	<delete id="deleteNotice">
+		DELETE FROM BOARD_NOTICE_TBL WHERE NOTICE_NO = #{noticeNo}
+	</delete>
+	
+	<!--조회수 업데이트-->
+	<update id="updateView">
+		UPDATE BOARD_NOTICE_TBL
+		SET NOTICE_COUNT = NOTICE_COUNT + 1
+		WHERE NOTICE_NO = #{noticeNo}
+	</update>
+	
+	
+</mapper>

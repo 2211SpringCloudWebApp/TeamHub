@@ -12,6 +12,7 @@
 		<result property="freeStatus" column="FREE_STATUS"/>
 		<result property="freeFilename" column="FILE_NAME"/>
 	</resultMap>
+	
 	<resultMap type="FreePlus" id="freePlusResultMap">
 		<id  property="freeNo" column="FREE_NO"/>
 		<result property="userId" column="USER_ID"/>
@@ -117,6 +118,14 @@
 		INSERT INTO REPLY_TBL VALUES(SEQ_REPLY_TBL.NEXTVAL, #{freeNo}, #{userId}, #{replyContent}, DEFAULT,#{replyDepth}, NULL)
 	</insert>	
 	
+	<update id="updateReply">
+		UPDATE REPLY_TBL SET REPLY_CONTENT = #{replyContent } WHERE REPLY_NO = #{replyNo }
+	</update>
+	
+	<delete id="deleteReply">
+		DELETE FROM REPLY_TBL WHERE REPLY_NO = #{replyNo}
+	</delete>
+	
 	<select id="selectReplyList" resultMap="replyResultMap">
 		SELECT * FROM REPLY_TBL WHERE FREE_NO = #{freeNo}
 	</select>
@@ -129,7 +138,8 @@
 		UPDATE BOARD_FREE_TBL
 		SET FREE_COUNT = FREE_COUNT + 1
 		WHERE FREE_NO = #{freeNo}
-	</update>	
+	</update>
+		
 	<select id="getListCount" resultType="_int">
 		SELECT COUNT(*) FROM BOARD_FREE_TBL
 	</select>

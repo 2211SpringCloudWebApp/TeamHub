@@ -26,13 +26,13 @@ if(session.getAttribute("user") == null){
 			</div>
 			<jsp:include page="../../common/header.jsp"></jsp:include>
 			<main>
-				<form action="/free/modify" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="freeNo" value="${free.freeNo }">
+				<form action="/notice/modify" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="noticeNo" value="${notice.noticeNo }">
 					<input type="hidden" name="fileName" value="${freefile[0].fileName }">
 					<input type="hidden" name="filePath" value="${freefile[0].filePath }">
-					제목 : <input type="text" name="freeTitle" value="${free.freeTitle }"> <br>
-					작성자 : <input type="text" name="userId" value="${free.userId }" readonly><br>
-					내용 : <textarea rows="5" cols="30" name="freeContent">${free.freeContent }</textarea> <br>
+					제목 : <input type="text" name="noticeTitle" value="${notice.noticeTitle }"> <br>
+					작성자 : <input type="text" name="userId" value="${notice.userId }" readonly><br>
+					내용 : <textarea rows="5" cols="30" name="noticeContent">${notice.noticeContent }</textarea> <br>
 					첨부파일 : <input type="file" name="reloadFile">&nbsp;&nbsp; ${freefile[0].fileName }<br>
 					<input type="submit" value="수정">
 				</form>

@@ -10,6 +10,8 @@
 		<typeAlias type="com.kh.teamhub.board.domain.Free" alias="Free"/>
 		<typeAlias type="com.kh.teamhub.board.domain.FreeFile" alias="FreeFile"/>
 		<typeAlias type="com.kh.teamhub.board.domain.FreePlus" alias="FreePlus"/>
+		<typeAlias type="com.kh.teamhub.board.domain.Notice" alias="Notice"/>
+		<typeAlias type="com.kh.teamhub.board.domain.NoticePlus" alias="NoticePlus"/>
 		<typeAlias type="com.kh.teamhub.board.domain.Search" alias="Search"/>
 		<typeAlias type="com.kh.teamhub.board.domain.Reply" alias="Reply"/>
 		<typeAlias type="com.kh.teamhub.project.domain.Project" alias="Project"/>

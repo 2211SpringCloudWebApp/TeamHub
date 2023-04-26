@@ -72,32 +72,40 @@ public class FreeController {
 			}
 		}
 		
-		//자유게시판 검색
-		@RequestMapping(value="/free/search" , method=RequestMethod.GET)
-		public String freeSearchView(
-				@ModelAttribute Search search
-				, @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage
-				,Model model) {
-			try {
-				int totalCount = fService.getListCount(search);
-				PageInfo pi = this.getPageInfo(currentPage, totalCount);
-				List<Free> searchList = fService.selectListByKeyword(pi, search);
-				if(!searchList.isEmpty()) {
-					model.addAttribute("search", search);
-					model.addAttribute("pi", pi);
-					model.addAttribute("sList", searchList);
-					return "board/free/search";
-				}else {
-					model.addAttribute("msg", "조회에 실패하였습니다.");
-					return "common/error";
-				}
-			} catch (Exception e) {
-				model.addAttribute("msg", e.getMessage());
-				return "common/error";
-			}
+		// 자유게시판 목록 보기
+		@RequestMapping(value="/free/list", method=RequestMethod.GET)
+		public String freeListView(
+				Model model
+				, @RequestParam(value="page", required=false, defaultValue="1") Integer page) {
+			int totalCount = fService.getListCount();
+			PageInfo pi = this.getPageInfo(page, totalCount);
+			List<FreePlus> fList = fService.selectFreeList(page);
+			model.addAttribute("pi", pi);
+			model.addAttribute("fList", fList);
+			return "/board/free/list";
 		}
-
-	// 자유게시판 수정화면
+		
+		// navigator start, end값 설정 method()
+		private PageInfo getPageInfo(int currentPage, int totalCount) {
+			PageInfo pi = null;
+			int boardLimit = 15;
+			int naviLimit = 5;
+			int maxPage;
+			int startNavi;
+			int endNavi;
+			
+			maxPage = (int)((double)totalCount/boardLimit+0.9);
+			//Math.ceil((double)totalCount/boardLimit);
+			startNavi = (((int)((double)currentPage/naviLimit+0.9))-1)*naviLimit+1;
+			endNavi = startNavi + naviLimit - 1;
+			if(endNavi > maxPage) {
+				endNavi = maxPage;
+			}
+			pi = new PageInfo(currentPage, boardLimit, naviLimit, startNavi, endNavi, totalCount, maxPage);
+			return pi;
+		}
+		
+		// 자유게시판 수정화면
 	@RequestMapping(value="/free/modifyView", method=RequestMethod.GET)
 	public String freeModifyView(@RequestParam("freeNo") Integer freeNo
 			, Model model) {
@@ -153,6 +161,31 @@ public class FreeController {
 		}
 	}
 	
+	//자유게시판 검색
+	@RequestMapping(value="/free/search" , method=RequestMethod.GET)
+	public String freeSearchView(
+			@ModelAttribute Search search
+			, @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage
+			,Model model) {
+		try {
+			int totalCount = fService.getListCount(search);
+			PageInfo pi = this.getPageInfo(currentPage, totalCount);
+			List<Free> searchList = fService.selectListByKeyword(pi, search);
+			if(!searchList.isEmpty()) {
+				model.addAttribute("search", search);
+				model.addAttribute("pi", pi);
+				model.addAttribute("sList", searchList);
+				return "board/free/search";
+			}else {
+				model.addAttribute("msg", "조회에 실패하였습니다.");
+				return "common/error";
+			}
+		} catch (Exception e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/error";
+		}
+	}
+
 	// 자유게시판 삭제
 	@RequestMapping(value="/free/remove",method=RequestMethod.GET)
 	public String freeRemove(@RequestParam("freeNo") int freeNo, Model model) {
@@ -187,38 +220,6 @@ public class FreeController {
 		}
 	}
 
-	// 자유게시판 목록 보기
-	@RequestMapping(value="/free/list", method=RequestMethod.GET)
-	public String freeListView(
-			Model model
-			, @RequestParam(value="page", required=false, defaultValue="1") Integer page) {
-		int totalCount = fService.getListCount();
-		PageInfo pi = this.getPageInfo(page, totalCount);
-		List<FreePlus> fList = fService.selectFreeList(page);
-		model.addAttribute("pi", pi);
-		model.addAttribute("fList", fList);
-		return "/board/free/list";
-	}
-	
-	// navigator start, end값 설정 method()
-	private PageInfo getPageInfo(int currentPage, int totalCount) {
-		PageInfo pi = null;
-		int boardLimit = 15;
-		int naviLimit = 5;
-		int maxPage;
-		int startNavi;
-		int endNavi;
-		
-		maxPage = (int)((double)totalCount/boardLimit+0.9);
-		//Math.ceil((double)totalCount/boardLimit);
-		startNavi = (((int)((double)currentPage/naviLimit+0.9))-1)*naviLimit+1;
-		endNavi = startNavi + naviLimit - 1;
-		if(endNavi > maxPage) {
-			endNavi = maxPage;
-		}
-		pi = new PageInfo(currentPage, boardLimit, naviLimit, startNavi, endNavi, totalCount, maxPage);
-		return pi;
-	}
 	
 	//댓글 달기
 	@ResponseBody
@@ -243,6 +244,38 @@ public class FreeController {
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		return gson.toJson(rList);
 	}
-	// 댓글 
 	
+	// 댓글 수정
+	@ResponseBody
+	@RequestMapping(value="/reply/modify", method=RequestMethod.POST)
+	public String doReplyUpdate(@ModelAttribute Reply reply) {
+		try {
+			int result = fService.updateReply(reply);
+			if(result > 0) {
+				return "1";
+			}else {
+				return "0"; 
+			}
+		} catch (Exception e) {
+			return e.getMessage();
+		} 
+			
+	
+	}
+	//댓글 삭제
+	@ResponseBody
+	@RequestMapping(value="/reply/delete", method=RequestMethod.GET)
+	public String doReplyDelete(Integer replyNo) {
+		try {
+			int result = fService.deleteReply(replyNo);
+			if(result > 0) {
+				return "1";
+			}else {
+				return "0";
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			return e.getMessage();
+		}
+	}
 }

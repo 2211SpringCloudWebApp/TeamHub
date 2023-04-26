@@ -47,13 +47,13 @@ if(session.getAttribute("user") == null){
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${sList }" var="free" varStatus="i">
+						<c:forEach items="${sList }" var="notice" varStatus="i">
 						<tr>
 							<td>${i.count }</td>
-							<td><a href="/free/detail?freeNo=${free.freeNo }">${free.freeTitle }</a></td>
-							<td>${free.userId }</td>
-							<td>${free.freeWriteDate }</td>
-							<td>${free.freeCount }</td>
+							<td><a href="/notice/detail?noticeNo=${notice.noticeNo }">${notice.noticeTitle }</a></td>
+							<td>${notice.userId }</td>
+							<td>${notice.noticeWriteDate }</td>
+							<td>${notice.noticeCount }</td>
 							
 						<%-- 	<td>
 								<c:if test= "${not empty free.freeFilename }">O</c:if>
@@ -66,7 +66,7 @@ if(session.getAttribute("user") == null){
 						 <tr align="center">
 							<td colspan="5">
 								<c:forEach begin="${pi.startNavi}" end="${pi.endNavi }" var="p">
-									<c:url var="pageUrl" value="/free/search">
+									<c:url var="pageUrl" value="/notice/search">
 										<c:param name="page" value="${p }"></c:param>
 										<c:param name="searchValue" value="${search.searchValue }"></c:param>
 										<c:param name="searchCondition" 
@@ -74,17 +74,16 @@ if(session.getAttribute("user") == null){
 									</c:url>
 									<a href="${pageUrl }">${p }</a>&nbsp;
 								</c:forEach><br> <br> <input type="button" value="전체 목록으로 이동"
-								onclick="location='/free/list'">
+								onclick="location='/notice/list'">
 							</td>
 						</tr>
 						
 						
 						<tr>
 							<td colspan="4">
-								<form action="/free/search" method="get">
+								<form action="/notice/search" method="get">
 									<select name="searchCondition">
 									<option value="all">전체</option>
-									<option value="id">작성자Id</option>
 									<option value="title">제목</option>
 									<option value="content">내용</option>
 								</select>
@@ -93,7 +92,9 @@ if(session.getAttribute("user") == null){
 								</form>
 							</td>
 							<td>
-								<button onclick="location.href='/free/writeView'">게시판 쓰기</button>
+								<c:if test="${sessionScope.user.userType == 1}">
+									<button onclick="location.href='/notice/writeView'">게시판 쓰기</button>
+								</c:if>
 							</td>
 						</tr>
 					</tfoot>
