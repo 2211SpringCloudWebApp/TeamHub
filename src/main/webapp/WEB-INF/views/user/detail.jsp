@@ -18,9 +18,16 @@
 			
 			<main>
 				<form action="/user/modify" action="post" enctype="multipart/form-data">
+					<c:if test="${!empty user.userFileName }">
 					<div>
-						<img alt="" src="../resources/fileUploads/${user.userFileName }">
+						<img alt="" src="../resources/fileUploads/${user.userFileName }" width="200px" height="200px";>
 					</div>
+					</c:if>
+					<c:if test="${empty user.userFileName }">
+					<div>
+						<img alt="" src="../resources/img/main/userlogo.png" width="200px" height="200px";>
+					</div>
+					</c:if>
 					<div>
 						사원번호 <input type="text" name="userId" value="${user.userId }"><br>
 						이름 <input type="text" name="userName" value="${user.userName }"><br>
@@ -54,6 +61,11 @@
 						연락처 <input type="text" name="userPhone" value="${user.userPhone }"><br>
 						이메일 <input type="text" name="userEmail" value="${user.userEmail }"><br>
 						생년월일 <input type="text" name="userBirth" value="${user.userBirth }"><br>
+<%-- 						<c:if test="${user.userType eq 1 }"> --%>
+<!-- 						재직상태  -->
+<!-- 						<label for="E"><input type="radio" name="userState" id="E" value="재직" checked> 재직</label>  -->
+<!-- 						<label for="R"><input type="radio" name="userState" id="R" value="퇴직"> 퇴직</label><br> -->
+<%-- 						</c:if> --%>
 					</div>
 					<input type="submit" value="수정">
 					<input type="reset" value="취소">

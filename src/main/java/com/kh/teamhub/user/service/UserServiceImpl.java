@@ -59,15 +59,15 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<User> selectUserState(PageInfo pi) {
-		List<User> stateList = uStore.selectUserState(pi);
-		return stateList;
-	}
-
-	@Override
 	public User selectOneById(String userId) {
 		User user = uStore.selectOneById(userId);
 		return user;
+	}
+
+	@Override
+	public List<User> selectUserState() {
+		List<User> userStateList = uStore.selectUserState();
+		return userStateList;
 	}
 
 	@Override
@@ -83,9 +83,27 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
+	public int getStateListCount() {
+		int result = uStore.getStateListCount();
+		return result;
+	}
+
+	@Override
 	public int getListCount(Search search) {
 		int result = uStore.getListCount(search);
 		return result;
+	}
+
+	@Override
+	public int getStateListCount(Search search) {
+		int result = uStore.getStateListCount(search);
+		return result;
+	}
+
+	@Override
+	public List<User> selectListByKeyword(Search search) {
+		List<User> userStateList = uStore.selectListByKeyword(search);
+		return userStateList;
 	}
 	
 	

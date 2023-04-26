@@ -64,19 +64,21 @@ public class UserStoreLogic implements UserStore{
 	}
 
 	@Override
-	public List<User> selectUserState(PageInfo pi) {
-		int limit = pi.getBoardLimit();
-		int currentPage = pi.getCurrentPage();
-		int offset = (currentPage - 1) * limit;
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		List<User> stateList = session.selectList("UserMapper.selectUserState", null, rowBounds);
-		return stateList;
-	}
-
-	@Override
 	public User selectOneById(String userId) {
 		User user = session.selectOne("UserMapper.selecOndById", userId);
 		return user;
+	}
+
+	@Override
+	public List<User> selectUserState() {
+		List<User> userStateList = session.selectList("UserMapper.selectUserStateList");
+		return userStateList;
+	}
+
+	@Override
+	public List<User> selectListByKeyword(Search search) {
+		List<User> userStateList = session.selectList("UserMapper.selectListByKeyword", search);
+		return userStateList;
 	}
 
 	@Override
@@ -96,8 +98,20 @@ public class UserStoreLogic implements UserStore{
 	}
 
 	@Override
+	public int getStateListCount(Search search) {
+		int result = session.selectOne("UserMapper.getStateListCount", search);
+		return result;
+	}
+
+	@Override
 	public int getListCount() {
 		int result = session.selectOne("UserMapper.getListCount");
+		return result;
+	}
+
+	@Override
+	public int getStateListCount() {
+		int result = session.selectOne("UserMapper.getStateListCount");
 		return result;
 	}
 

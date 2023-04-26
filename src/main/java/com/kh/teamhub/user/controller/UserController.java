@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,9 +127,11 @@ public class UserController {
 			, @RequestParam(value="uploadFile", required=false) MultipartFile multi) {
 		Map<String, String> fileInfo = null;
 		try {
-			fileInfo = fileUtil.saveFile(multi, request);
-			user.setUserFileName(fileInfo.get("rename"));
-			user.setUserfilePath(fileInfo.get("renameFilePath"));
+			if(multi.getSize() != 0 && !multi.getOriginalFilename().equals("")) {
+				fileInfo = fileUtil.saveFile(multi, request);
+				user.setUserFileName(fileInfo.get("rename"));
+				user.setUserfilePath(fileInfo.get("renameFilePath"));
+			}
 			int result = uService.registerUser(user);
 			if(result > 0) {
 				return "redirect:/user/list";
@@ -205,18 +206,20 @@ public class UserController {
 	}
 	
 	// 사원 목록 조회(재직상태)
-	@RequestMapping(value="/userState", method = RequestMethod.GET)
+	@RequestMapping(value="/userStateList", method = RequestMethod.GET)
 	public String selectUserState(HttpSession session
 			, Model model
 			, @RequestParam(value="page", required=false, defaultValue="1") Integer page) {
-		int totalCount = uService.getListCount();
-		PageInfo pi = this.getPageInfo(page, totalCount);
-		List<User> stateList = uService.selectUserState(pi);
+//		int totalCount = uService.getListCount();
+//		PageInfo pi = this.getPageInfo(page, totalCount);
+		List<User> userStateList = uService.selectUserState();
 		
-		model.addAttribute("pi", pi);
-		model.addAttribute("stateList", stateList);
+//		model.addAttribute("pi", pi);
+		model.addAttribute("userStateList", userStateList);
 		return "user/listAdmin";
 	}
+	
+	
 	
 	// 사원 상세 조회
 	@RequestMapping(value="/detail", method = RequestMethod.GET)
@@ -253,6 +256,50 @@ public class UserController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			model.addAttribute("msg", e.getMessage());
+			return "common/error";
+		}
+	}
+	
+	// 사원 검색 (재직 상태)
+	@RequestMapping(value="/stateYSearch", method = RequestMethod.GET)
+	public String stateYSearch(Model model
+			, @ModelAttribute Search search) {
+		try {
+//			int totalCount = uService.getListCount(search);
+//			PageInfo pi = this.getPageInfo(currentPage, totalCount);
+			List<User> userStateList = uService.selectListByKeyword(search);
+			List<User> retireList = uService.selectUserState();
+			if(!userStateList.isEmpty()) {
+				model.addAttribute("search", search);
+//				model.addAttribute("pi", pi);
+				model.addAttribute("userStateList", userStateList);
+//				model.addAttribute("retireList", retireList);
+				return "user/stateSearch";
+			}else {
+				model.addAttribute("msg", "검색이 완료되지 않았습니다.");
+				return "common/error";
+			}
+		} catch (Exception e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/error";
+		}
+	}
+	
+	// 사원 검색 (퇴직 상태)
+	@RequestMapping(value="/stateNSearch", method = RequestMethod.GET)
+	public String stateNSearch(Model model, @ModelAttribute Search search) {
+		try {
+			List<User> userStateList = uService.selectListByKeyword(search);
+			if(!userStateList.isEmpty()) {
+				model.addAttribute("search", search);
+				model.addAttribute("userStateList", userStateList);
+				return "user/stateSearch";
+			}else {
+				model.addAttribute("msg", "검색이 완료되지 않았습니다.");
+				return "common/error";
+			}
+		} catch (Exception e) {
 			model.addAttribute("msg", e.getMessage());
 			return "common/error";
 		}
