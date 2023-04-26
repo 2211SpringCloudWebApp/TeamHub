@@ -2,6 +2,7 @@ package com.kh.teamhub.project.service;
 
 import java.util.List;
 
+import com.kh.teamhub.project.domain.PageInfo;
 import com.kh.teamhub.project.domain.Project;
 
 public interface ProjectService {
@@ -38,6 +39,12 @@ public interface ProjectService {
 	 * 프로젝트 목록 조회 Service
 	 * @return
 	 */
-	List<Project> selectAllProject();
+	List<Project> selectAllProject(PageInfo pi);
+	
+	/**
+	 * 
+	 * @return
+	 */
+	int getListCount();
 
 }

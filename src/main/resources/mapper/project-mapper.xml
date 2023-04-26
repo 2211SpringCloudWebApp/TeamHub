@@ -27,4 +27,7 @@
 	<select id="selectAllProject" resultMap="ProjectResultMap">
 		SELECT PROJECT_TBL.*, USER_NAME FROM PROJECT_TBL JOIN USER_TBL ON PROJECT_TBL.USER_ID= USER_TBL.USER_ID ORDER BY PROJECT_NO DESC
 	</select>
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*) FROM PROJECT_TBL
+	</select>
 </mapper>
