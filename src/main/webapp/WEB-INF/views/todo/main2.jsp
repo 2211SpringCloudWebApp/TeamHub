@@ -7,6 +7,15 @@
 		<meta charset="UTF-8">
 		<title>업무관리</title>
 		<link rel="stylesheet" href="../../../resources/css/todo/todo2.css">
+		<style type="text/css">
+			#sideBar li:nth-child(5){
+			    background-color: #2653e8ba;
+   				
+			}
+			#sideBar li:nth-child(5) a{
+				color: white !important;
+			}
+		</style>
 		<script src='../../../resources/css/todo/fullcalendar-6.1.5/dist/index.global.js'></script>
 		<script>
 		

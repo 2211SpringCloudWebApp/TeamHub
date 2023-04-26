@@ -39,12 +39,14 @@ public class UserController {
 	@Qualifier("fileUtil")
 	private FileUtil fileUtil;
 	
-	// 로그인 화면
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public String test() {
-		return "main/login";
+	// 메인 페이지(홈) 이동
+	@RequestMapping(value="/home", method = RequestMethod.GET)
+	public String home() {
+		
+		return "main/home";
 	}
-
+	
+	
 	// 로그인 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Model model, HttpServletRequest request, @ModelAttribute User user) {
@@ -70,9 +72,7 @@ public class UserController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request, Model model) {
 		try {
-			if(loginUtil.checkLogin(request)) {    
-				return "main/login";	 // 비로그인시 로그인 페이지로 이동.
-			}
+			
 			HttpSession session = request.getSession();
 			if (session != null) {
 				session.invalidate();

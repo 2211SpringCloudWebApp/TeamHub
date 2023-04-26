@@ -1,32 +1,27 @@
 package com.kh.teamhub.common;
 
 public class PageInfo {
-
-	private int currentPage;
-	private int boardLimit;
-	private int tatalCount;
-	private int navLimit;
-	private int startNav;
-	private int endNav;
-	private int maxPage;
+	private int currentPage;   // 현재 페이지
+	private int boardLimit;    // 한 페이지당 게시글 갯수
+	private int naviLimit;     // 한 페이지당 pagNavi 갯수
+	private int startNavi;     // pageNavi 시작값
+	private int endNavi;       // pageNavi 끝값
+	private int totalCount;    // 전체 게시물 갯수
+	private int maxPage;       // 페이지의 마지막 번호
 	
 	public PageInfo() {}
-	
-	
 
-	public PageInfo(int currentPage, int boardLimit, int tatalCount, int navLimit, int startNav, int endNav,
+	public PageInfo(int currentPage, int boardLimit, int naviLimit, int startNavi, int endNavi, int totalCount,
 			int maxPage) {
 		super();
 		this.currentPage = currentPage;
 		this.boardLimit = boardLimit;
-		this.tatalCount = tatalCount;
-		this.navLimit = navLimit;
-		this.startNav = startNav;
-		this.endNav = endNav;
+		this.naviLimit = naviLimit;
+		this.startNavi = startNavi;
+		this.endNavi = endNavi;
+		this.totalCount = totalCount;
 		this.maxPage = maxPage;
 	}
-
-
 
 	public int getCurrentPage() {
 		return currentPage;
@@ -44,36 +39,36 @@ public class PageInfo {
 		this.boardLimit = boardLimit;
 	}
 
-	public int getTatalCount() {
-		return tatalCount;
+	public int getNaviLimit() {
+		return naviLimit;
 	}
 
-	public void setTatalCount(int tatalCount) {
-		this.tatalCount = tatalCount;
+	public void setNaviLimit(int naviLimit) {
+		this.naviLimit = naviLimit;
 	}
 
-	public int getNavLimit() {
-		return navLimit;
+	public int getStartNavi() {
+		return startNavi;
 	}
 
-	public void setNavLimit(int navLimit) {
-		this.navLimit = navLimit;
+	public void setStartNavi(int startNavi) {
+		this.startNavi = startNavi;
 	}
 
-	public int getStartNav() {
-		return startNav;
+	public int getEndNavi() {
+		return endNavi;
 	}
 
-	public void setStartNav(int startNav) {
-		this.startNav = startNav;
+	public void setEndNavi(int endNavi) {
+		this.endNavi = endNavi;
 	}
 
-	public int getEndNav() {
-		return endNav;
+	public int getTotalCount() {
+		return totalCount;
 	}
 
-	public void setEndNav(int endNav) {
-		this.endNav = endNav;
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
 	}
 
 	public int getMaxPage() {
@@ -86,10 +81,11 @@ public class PageInfo {
 
 	@Override
 	public String toString() {
-		return "PageInfo [currentPage=" + currentPage + ", boardLimit=" + boardLimit + ", tatalCount=" + tatalCount
-				+ ", navLimit=" + navLimit + ", startNav=" + startNav + ", endNav=" + endNav + ", maxPage=" + maxPage
-				+ "]";
+		return "PageInfo [currentPage=" + currentPage + ", boardLimit=" + boardLimit + ", naviLimit=" + naviLimit
+				+ ", startNavi=" + startNavi + ", endNavi=" + endNavi + ", totalCount=" + totalCount + ", maxPage="
+				+ maxPage + "]";
 	}
 	
+
 	
 }

@@ -18,6 +18,13 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 		
 		<style type="text/css">
+			#sideBar li:nth-child(4){
+			    background-color: #2653e8ba;
+   				
+			}
+			#sideBar li:nth-child(4) a{
+				color: white !important;
+			}
 			#calendar {
  		    	margin: 30px auto; 
  		    	width: 55vw;
@@ -155,7 +162,7 @@
 	
 	<body>
 		<div id="container">
-			<!-- 비로그인으로 예약 버튼 클릭시 모달창 띄우기 -->
+			<!-- 일정 등록시 모달창 띄우기 -->
 		    <div id="modal" class="modal-overlay">
 		        <div class="modal-window">
 					<div class="title">
@@ -383,11 +390,8 @@
       
       $(".title h2").text(data);
       if(data=="일정 등록"){
-    	  console.log(data);
     	  $("#scheduleName").val(" ");
 		  $("#scheduleColor").val(" ");
-		  $("#startTime").val("");
-		  $("#endTime").val("");
 		  $("#scheduleContent").val(" ");
     	  $("#scheduleNo").val("");
 		  

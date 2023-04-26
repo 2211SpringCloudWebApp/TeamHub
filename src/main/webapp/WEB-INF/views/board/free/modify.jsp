@@ -7,6 +7,13 @@
 		<meta charset="UTF-8">
 		<title>자유게시판 수정</title>
 		<style>
+		#sideBar li:nth-child(9){
+		    background-color: #2653e8ba;
+  				
+		}
+		#sideBar li:nth-child(9) a{
+			color: white !important;
+		}
 		#sideBar ul{
 			padding: 0 !important;
 		}

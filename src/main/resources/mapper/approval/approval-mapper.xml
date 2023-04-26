@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ApprovalMapper">
+	<resultMap type="ApprovalJoinForm"     id="approvalJoinFormResultMap">
+		<id 	property="apprNo" 	       column="APPR_NO" />
+		<result property="formNo" 	       column="FORM_NO" />
+		<result property="userId" 	       column="USER_ID" />
+		<result property="apprTitle" 	   column="APPR_TITLE" />
+		<result property="apprContent" 	   column="APPR_CONTENT"/>
+		<result property="apprStatus" 	   column="APPR_STATUS" />
+		<result property="apprStorage" 	   column="APPR_STORAGE" />
+		<result property="apprCreateDate"  column="APPR_CREATE_DATE" />
+		<result property="formTitle" 	   column="FORM_TITLE" />
+		<result property="formContent" 	   column="FORM_CONTENT" />
+	</resultMap>
+	
+	<select id="getListCount" resultType="Integer">
+		SELECT COUNT(*) FROM APPROVAL_TBL WHERE USER_ID = #{userId} AND APPR_STORAGE = 'N'
+		<choose>
+			<when test="apprStatus == '전체'">
+				
+			</when>
+			<when test="apprStatus == '대기'">
+				AND APPR_STATUS = #{apprStatus}
+			</when>
+			<when test="apprStatus == '진행'">
+				AND APPR_STATUS = #{apprStatus} 
+			</when>
+			<when test="apprStatus == '완료'">
+				AND APPR_STATUS = #{apprStatus}
+			</when>
+			<when test="apprStatus == '반려'">
+				AND APPR_STATUS = #{apprStatus}
+			</when>
+		</choose>
+	</select>
+
+	<select id="selectApprovalList" resultMap="approvalJoinFormResultMap">
+		SELECT * FROM APPROVAL_TBL A
+		         JOIN APPR_FORM_TBL F
+			     ON A.FORM_NO = F.FORM_NO
+	     WHERE USER_ID = #{userId} AND A.APPR_STORAGE = 'N'
+	     <choose>
+			<when test="apprStatus == '전체'">
+				
+			</when>
+			<when test="apprStatus == '대기'">
+				AND APPR_STATUS = #{apprStatus}
+			</when>
+			<when test="apprStatus == '진행'">
+				AND APPR_STATUS = #{apprStatus} 
+			</when>
+			<when test="apprStatus == '완료'">
+				AND APPR_STATUS = #{apprStatus}
+			</when>
+			<when test="apprStatus == '반려'">
+				AND APPR_STATUS = #{apprStatus}
+			</when>
+		</choose>
+		 ORDER BY APPR_NO DESC
+	</select>
+	
+	
+	<select id="getSearchListCount" resultType="Integer">
+		SELECT COUNT(*) FROM APPROVAL_TBL A
+				        JOIN APPR_FORM_TBL F
+					    ON A.FORM_NO = F.FORM_NO WHERE USER_ID = #{userId} AND A.APPR_STORAGE = 'N'
+		<choose>
+			<when test="searchCondition == 'title'">
+				AND A.APPR_TITLE LIKE '%' || #{searchKeyword} || '%'
+				<choose>
+					<when test="apprStatus == '전체'">
+						
+					</when>
+					<when test="apprStatus == '대기'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+					<when test="apprStatus == '진행'">
+						AND APPR_STATUS = #{apprStatus} 
+					</when>
+					<when test="apprStatus == '완료'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+					<when test="apprStatus == '반려'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+				</choose>
+			</when>
+			<when test="searchCondition == 'content'">
+				AND A.APPR_CONTENT LIKE '%' || #{searchKeyword} || '%' 
+				<choose>
+					<when test="apprStatus == '전체'">
+						
+					</when>
+					<when test="apprStatus == '대기'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+					<when test="apprStatus == '진행'">
+						AND APPR_STATUS = #{apprStatus} 
+					</when>
+					<when test="apprStatus == '완료'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+					<when test="apprStatus == '반려'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+				</choose>
+			</when>
+			<when test="searchCondition == 'form'">
+				AND F.FORM_TITLE LIKE '%' || #{searchKeyword} || '%'
+				<choose>
+					<when test="apprStatus == '전체'">
+						
+					</when>
+					<when test="apprStatus == '대기'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+					<when test="apprStatus == '진행'">
+						AND APPR_STATUS = #{apprStatus} 
+					</when>
+					<when test="apprStatus == '완료'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+					<when test="apprStatus == '반려'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+				</choose>
+			</when>
+			<otherwise>
+				AND A.APPR_TITLE LIKE '%' || #{searchKeyword} || '%' OR A.APPR_CONTENT LIKE '%' || #{searchKeyword} || '%' OR F.FORM_TITLE LIKE '%' || #{searchKeyword} || '%'
+				<choose>
+					<when test="apprStatus == '전체'">
+						
+					</when>
+					<when test="apprStatus == '대기'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+					<when test="apprStatus == '진행'">
+						AND APPR_STATUS = #{apprStatus} 
+					</when>
+					<when test="apprStatus == '완료'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+					<when test="apprStatus == '반려'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+				</choose>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="selectListByKeword" resultMap="approvalJoinFormResultMap">
+		SELECT * FROM APPROVAL_TBL A
+				 JOIN APPR_FORM_TBL F
+			       ON A.FORM_NO = F.FORM_NO WHERE USER_ID = #{userId} AND A.APPR_STORAGE = 'N'
+
+		<choose>
+			<when test="searchCondition == 'title'">
+				AND A.APPR_TITLE LIKE '%' || #{searchKeyword} || '%'
+				<choose>
+					<when test="apprStatus == '전체'">
+						
+					</when>
+					<when test="apprStatus == '대기'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+					<when test="apprStatus == '진행'">
+						AND APPR_STATUS = #{apprStatus} 
+					</when>
+					<when test="apprStatus == '완료'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+					<when test="apprStatus == '반려'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+				</choose>
+			</when>
+			
+			<when test="searchCondition == 'content'">
+				AND A.APPR_CONTENT LIKE '%' || #{searchKeyword} || '%' 
+				<choose>
+					<when test="apprStatus == '전체'">
+						
+					</when>
+					<when test="apprStatus == '대기'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+					<when test="apprStatus == '진행'">
+						AND APPR_STATUS = #{apprStatus} 
+					</when>
+					<when test="apprStatus == '완료'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+					<when test="apprStatus == '반려'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+				</choose>
+			</when>
+			<when test="searchCondition == 'form'">
+				AND F.FORM_TITLE LIKE '%' || #{searchKeyword} || '%'  
+				<choose>
+					<when test="apprStatus == '전체'">
+						
+					</when>
+					<when test="apprStatus == '대기'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+					<when test="apprStatus == '진행'">
+						AND APPR_STATUS = #{apprStatus} 
+					</when>
+					<when test="apprStatus == '완료'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+					<when test="apprStatus == '반려'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+				</choose>
+			</when>
+			<otherwise>
+				AND A.APPR_TITLE LIKE '%' || #{searchKeyword} || '%' OR A.APPR_CONTENT LIKE '%' || #{searchKeyword} || '%' OR F.FORM_TITLE LIKE '%' || #{searchKeyword} || '%'
+				<choose>
+					<when test="apprStatus == '전체'">
+						
+					</when>
+					<when test="apprStatus == '대기'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+					<when test="apprStatus == '진행'">
+						AND APPR_STATUS = #{apprStatus} 
+					</when>
+					<when test="apprStatus == '완료'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+					<when test="apprStatus == '반려'">
+						AND APPR_STATUS = #{apprStatus}
+					</when>
+				</choose>
+			</otherwise>
+		</choose>
+		ORDER BY APPR_CREATE_DATE DESC
+	</select>
+	
+</mapper>

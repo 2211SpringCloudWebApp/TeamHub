@@ -10,6 +10,13 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 		<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 		<style>
+		#sideBar li:nth-child(7){
+		    background-color: #2653e8ba;
+  				
+		}
+		#sideBar li:nth-child(7) a{
+			color: white !important;
+		}
 		.modal {
 		  display: none;
 		  position: fixed;

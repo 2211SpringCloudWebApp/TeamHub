@@ -6,7 +6,14 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>상세 조회</title>
-		<style>
+		<style type="text/css">
+		#sideBar li:nth-child(9){
+		    background-color: #2653e8ba;
+  				
+		}
+		#sideBar li:nth-child(9) a{
+			color: white !important;
+		}
 		#sideBar ul{
 			padding: 0 !important;
 		}

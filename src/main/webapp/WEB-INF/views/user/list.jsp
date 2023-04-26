@@ -8,6 +8,13 @@
 		<title>Insert title here</title>
 	</head>
 	<style>
+		#sideBar li:nth-child(6){
+		    background-color: #2653e8ba;
+  				
+		}
+		#sideBar li:nth-child(6) a{
+			color: white !important;
+		}
 		table {
 			border : 1px solid black;
 		}

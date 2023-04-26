@@ -2,7 +2,7 @@ package com.kh.teamhub.approval.domain;
 
 import java.sql.Date;
 
-public class Approval {
+public class ApprovalJoinForm {
 	
 	private int apprNo;
 	private int formNo;
@@ -12,8 +12,10 @@ public class Approval {
 	private String apprStatus;
 	private String apprStorage;
 	private Date apprCreateDate;
+	private String formTitle;
+	private String formContent;
 	
-	public Approval() {}
+	public ApprovalJoinForm() {}
 
 	public int getApprNo() {
 		return apprNo;
@@ -79,13 +81,30 @@ public class Approval {
 		this.apprCreateDate = apprCreateDate;
 	}
 
+	public String getFormTitle() {
+		return formTitle;
+	}
+
+	public void setFormTitle(String formTitle) {
+		this.formTitle = formTitle;
+	}
+
+	public String getFormContent() {
+		return formContent;
+	}
+
+	public void setFormContent(String formContent) {
+		this.formContent = formContent;
+	}
+
 	@Override
 	public String toString() {
-		return "Approval [apprNo=" + apprNo + ", formNo=" + formNo + ", userId=" + userId + ", apprTitle=" + apprTitle
-				+ ", apprContent=" + apprContent + ", apprStatus=" + apprStatus + ", apprStorage=" + apprStorage
-				+ ", apprCreateDate=" + apprCreateDate + "]";
+		return "ApprovalJoinForm [apprNo=" + apprNo + ", formNo=" + formNo + ", userId=" + userId + ", apprTitle="
+				+ apprTitle + ", apprContent=" + apprContent + ", apprStatus=" + apprStatus + ", apprStorage="
+				+ apprStorage + ", apprCreateDate=" + apprCreateDate + ", formTitle=" + formTitle + ", formContent="
+				+ formContent + "]";
 	}
 	
 	
-
+	
 }
