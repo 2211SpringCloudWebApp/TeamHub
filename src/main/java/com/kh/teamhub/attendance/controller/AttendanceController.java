@@ -207,6 +207,7 @@ public class AttendanceController {
 	@RequestMapping(value = "/ajaxGetListByAtten", method = RequestMethod.POST)
 	@ResponseBody
 	public String ajaxGetListByAtten(String userId, String date) {
+		System.out.println(date);
 		Attendance atten = new Attendance();
 		atten.setUserId(userId);
 		atten.setDate(date);

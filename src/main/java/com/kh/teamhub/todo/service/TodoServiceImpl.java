@@ -48,5 +48,11 @@ public class TodoServiceImpl implements TodoService{
 		return result;
 	}
 
+	@Override
+	public List<Todo> selectDayList(Todo todo) {
+		List<Todo> tList = tStore.selectDayList(session, todo);
+		return tList;
+	}
+
 
 }

@@ -41,5 +41,11 @@ public class TodoStoreLogic implements TodoStore{
 		return result;
 	}
 
+	@Override
+	public List<Todo> selectDayList(SqlSession session, Todo todo) {
+		List<Todo> tList = session.selectList("TodoMapper.selectDayList", todo);
+		return tList;
+	}
+
 
 }

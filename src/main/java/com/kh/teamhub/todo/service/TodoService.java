@@ -42,5 +42,7 @@ public interface TodoService {
 	 */
 	int deleteTodo(int todoNo);
 
+	List<Todo> selectDayList(Todo todo);
+
 
 }
