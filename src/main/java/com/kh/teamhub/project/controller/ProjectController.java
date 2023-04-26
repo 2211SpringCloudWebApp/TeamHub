@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.teamhub.project.domain.PageInfo;
 import com.kh.teamhub.project.domain.Project;
 import com.kh.teamhub.project.service.ProjectService;
 import com.kh.teamhub.user.domain.User;
@@ -31,6 +32,7 @@ public class ProjectController {
 //		return mv;
 //	}
 	
+	// 프로젝트 생성
 	@RequestMapping(value="/project/create", method=RequestMethod.POST)
 	public ModelAndView createProject(ModelAndView mv
 			, HttpServletRequest request
@@ -56,6 +58,7 @@ public class ProjectController {
 		return mv;
 	}
 
+	// 프로젝트 수정
 	@RequestMapping(value="/project/modify", method=RequestMethod.POST)
 	public ModelAndView modifyProject(ModelAndView mv, @ModelAttribute Project project) {
 		try {
@@ -71,6 +74,7 @@ public class ProjectController {
 		return mv;
 	}
 	
+	// 프로젝트 삭제
 	@RequestMapping(value="/project/delete/{projectNo}", method=RequestMethod.GET)
 	public ModelAndView removeProject(ModelAndView mv, @PathVariable Integer projectNo) {
 		try {
@@ -86,6 +90,7 @@ public class ProjectController {
 		return mv;
 	}
 
+	// 프로젝트 상세 조회
 	@RequestMapping(value="/project/detail/{projectNo}", method=RequestMethod.GET)
 	public ModelAndView printOneByNo(ModelAndView mv, @PathVariable Integer projectNo) {
 		try {
@@ -98,10 +103,15 @@ public class ProjectController {
 		return mv;	
 	}
 	
+	// 프로젝트 목록 조회
 	@RequestMapping(value="/project/main", method=RequestMethod.GET)
-	public ModelAndView printAllProject(ModelAndView mv) {
+	public ModelAndView printAllProject(ModelAndView mv
+			, @RequestParam(value="page", required=false, defaultValue="1") Integer page) {
 		try {
-			List<Project> pList = pService.selectAllProject();
+			int totalCount = pService.getListCount();
+			PageInfo pi = this.getPageInfo(page, totalCount);
+			List<Project> pList = pService.selectAllProject(pi);
+			mv.addObject("pi", pi);
 			mv.addObject("pList", pList).setViewName("/project/main");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -110,4 +120,22 @@ public class ProjectController {
 		return mv;
 	}
 	
+	// 페이징
+	private PageInfo getPageInfo(int currentPage, int totalCount) {
+		PageInfo pi = null;
+		int boardLimit = 10;
+		int navLimit = 5;
+		int maxPage;
+		int startNav;
+		int endNav;
+
+		maxPage = (int) Math.ceil((double) totalCount / boardLimit);
+		startNav = (((int) ((double) currentPage / navLimit + 0.9)) - 1) * navLimit + 1;
+		endNav = startNav + navLimit - 1;
+		if (endNav > maxPage) {
+			endNav = maxPage;
+		}
+		pi = new PageInfo(currentPage, boardLimit, navLimit, startNav, endNav, totalCount, maxPage);
+		return pi;
+	}
 }

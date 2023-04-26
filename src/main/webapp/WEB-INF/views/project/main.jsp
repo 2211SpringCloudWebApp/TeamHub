@@ -90,7 +90,13 @@
 								<td>${project.projectStatus }</td>
 							</tr>
 						</c:forEach>
+						<tr>
+							<td colspan="5">
+								
+							</td>
+						</tr>
 					</table>
+					
 					<table id="ingProject" class="table" style="display: none;">
 						<tr>
 							<th>번호</th>
@@ -117,6 +123,7 @@
 							</c:choose>
 						</c:forEach>
 					</table>
+					
 					<table id="finProject" class="table" style="display: none;">
 						<tr>
 							<th>번호</th>
@@ -143,6 +150,27 @@
 							</c:choose>
 						</c:forEach>
 					</table>
+					
+					<div id="page-nav">
+					<c:if test="${pi.currentPage > 1 }">
+						<a href="/project/main?page=1"><<</a>
+					</c:if>
+					<c:if test="${pi.currentPage > 1 }">
+						<a href="/project/main?page=${pi.currentPage -1 }"><</a>
+					</c:if>
+					<c:forEach begin="${pi.startNav }" end="${pi.endNav }" var="page">
+						<c:url var="pageUrl" value="/project/main">
+							<c:param name="page" value="${page }" />
+						</c:url>
+						<a href="${pageUrl }">${page }</a>
+					</c:forEach>
+					<c:if test="${pi.currentPage < pi.maxPage }">
+						<a href="/project/main?page=${pi.currentPage +1}">></a>
+					</c:if>
+					<c:if test="${pi.currentPage < pi.maxPage }">
+						<a href="/project/main?page=${pi.maxPage }">>></a>
+					</c:if>
+				</div>
 				</div>
 					<div id="modal" class="modal">
 						<div class="modal-content">
