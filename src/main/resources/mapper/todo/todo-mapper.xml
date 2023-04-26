@@ -10,14 +10,17 @@
 	</resultMap>
 	
 	<insert id="insertTodo">
-		INSERT INTO TODO_TBL VALUES (SEQ_TODO_TBL.NEXTVAL, #{userId}, #{todoContent}, DEFAULT, DEFAULT)
+		INSERT INTO TODO_TBL VALUES (SEQ_TODO_TBL.NEXTVAL, #{userId}, #{todoContent}, #{todoCreateDate}, DEFAULT)
 	</insert>
 	
 	<select id="selectTodoList" resultMap="todoResultMap">
-		SELECT * FROM TODO_TBL WHERE USER_ID = #{userId} AND TO_CHAR(TODO_CREATE_DATE,'YY/MM/DD') LIKE TO_CHAR(SYSDATE,'YY/MM/DD')||'%'
+		SELECT * FROM TODO_TBL WHERE USER_ID = #{userId} AND TO_CHAR(TODO_CREATE_DATE,'YY/MM/DD') LIKE TO_CHAR(SYSDATE,'YY/MM/DD')||'%' ORDER BY TODO_NO ASC
 	</select>
 	<select id="selectUpdateTodo" resultMap="todoResultMap">
 		SELECT * FROM TODO_TBL WHERE TODO_NO = #{todoNo}
+	</select>
+	<select id="selectDayList" resultMap="todoResultMap">
+		SELECT * FROM TODO_TBL WHERE USER_ID = #{userId} AND TO_CHAR(TODO_CREATE_DATE,'YY/MM/DD') LIKE #{date} ORDER BY TODO_NO ASC
 	</select>
 	
 	<update id="updateFinish">

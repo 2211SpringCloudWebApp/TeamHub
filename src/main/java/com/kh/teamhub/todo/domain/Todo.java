@@ -9,6 +9,9 @@ public class Todo {
 	private String todoContent;
 	private Date todoCreateDate;
 	private String isFinished;
+	private String date; // 달력에서 내가 선택한 날짜
+	
+	
 	
 	public int getTodoNo() {
 		return todoNo;
@@ -48,6 +51,14 @@ public class Todo {
 	
 	public void setIsFinished(String isFinished) {
 		this.isFinished = isFinished;
+	}
+	
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 	
 	

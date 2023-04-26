@@ -1,5 +1,9 @@
 package com.kh.teamhub.todo.controller;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.EventObject;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -46,10 +51,28 @@ public class TodoController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/ajaxInsertTodo", method = RequestMethod.POST)
-	public int insertTodo(@ModelAttribute Todo todo) {
-		System.out.println(todo);
-		int result = tService.insertTodo(todo);
-		return result;
+	public String insertTodo(
+			@ModelAttribute Todo todo
+			, @RequestParam String tdCreateDate) {
+		try {
+			
+			
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("yy/MM/dd");
+	        Date date = (Date) dateFormat.parse(tdCreateDate);
+	        
+	        
+	        todo.setTodoCreateDate(date);
+	        int result = tService.insertTodo(todo);
+	        if(result > 0) {
+	        	Gson gson = new Gson();
+				return gson.toJson(result);
+	        }
+	        return "성공";
+	    } catch (ParseException e) {
+	        e.printStackTrace();
+	        return "날짜 형식이 잘못되었습니다.";
+	    }
+
 	}
 	
 	@ResponseBody
@@ -73,6 +96,22 @@ public class TodoController {
 		int result = tService.deleteTodo(todoNo);
 		return "성공";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/ajaxSelectDay", method = RequestMethod.POST, produces="application/json;charset=utf-8")
+	public String selectDay(HttpServletRequest request, @RequestParam("date") String date) {
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+//		System.out.println(date);
+		Todo todo = new Todo();
+		todo.setUserId(user.getUserId());
+		todo.setDate(date);
+		List<Todo> tList = tService.selectDayList(todo);
+//		System.out.println(tList);
+		Gson gson = new Gson();
+		return gson.toJson(tList);
+	}
+	
 
 	// 문자열을 Json형태로 바꿔줌
 	// ajax는 json 으로 리턴을 받는다. 

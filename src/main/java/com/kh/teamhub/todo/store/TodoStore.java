@@ -45,5 +45,7 @@ public interface TodoStore {
 	 */
 	int deleteTodo(SqlSession session, int todoNo);
 
+	List<Todo> selectDayList(SqlSession session, Todo todo);
+
 
 }

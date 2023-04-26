@@ -31,6 +31,55 @@
 // 		          })
 // 		        }
 // 		        calendar.unselect()
+				const dateString = JSON.stringify(arg.startStr); // 받아온 문자열을 JSON 형식으로 변환
+				console.log(dateString);
+				const dateObj = new Date(dateString); // Date 객체 생성
+				console.log(dateObj);
+				const year = dateObj.getFullYear().toString().substring(2); // 년도의 뒤 두 자리만 추출
+				console.log(year);
+				const month = (dateObj.getMonth() + 1).toString().padStart(2, "0"); // 월(4월이면 4 말고 04 이렇게되게)
+				console.log(month);
+				const day = dateObj.getDate().toString().padStart(2, "0"); // 일
+				console.log(day);
+				let formattedDate = '';
+				formattedDate = year + '/' +month + '/' +day;
+				console.log(formattedDate);
+// 				#todoCreateDate의 val을 내가 선택한 날짜로
+// <input type="hidden" id="todoCreateDate" value="23/04/26"> 4/26 선택하면 이렇게됨
+// <input type="hidden" id="todoCreateDate" value="23/04/25"> 4/25 선택하면 이렇게됨
+				$("#todoCreateDate").val(formattedDate);
+		    	  $.ajax({ 
+		    		  url: '/ajaxSelectDay',
+		    		  data: {
+		    		    "date": formattedDate
+		    		  },
+		    		  type: 'post',
+		    		  dataType: 'json',
+		    		  success: function(data) {
+		    		    // 성공 시 처리할 코드
+		    		    const todoList = $("#todo-list");
+		    		    todoList.html("");
+		    		    for (let i = 0; i < data.length; i++) {
+		    		    	  var todo = data[i];
+		    		    	  const isChecked = todo.isFinished === 'Y' ? 'checked' : ''; // 체크 여부에 따른 checked 속성 추가
+		    		    	  console.log(todo.todoNo);
+		    		    	  var itemHTML = '<div class="item">';
+		    		    	        if(todo.isFinished == 'Y') {
+			    		    	        itemHTML+= '<input class="checkInput" type="checkbox" onclick="checkFinish(this, '+todo.todoNo+');" checked>';
+			    		    	        itemHTML+=  '<span style="text-decoration: line-through;">'+todo.todoContent+'</span>';
+		    		    	        }else {
+			    		    	        itemHTML+= '<input class="checkInput" type="checkbox" onclick="checkFinish(this, '+todo.todoNo+');">';
+			    		    	        itemHTML+=  '<span style="text-decoration: none;">'+todo.todoContent+'</span>';
+		    		    	        }
+		    		    	        itemHTML+=    '<button id="'+todo.todoNo+'" onclick="deleteTodo('+todo.todoNo+');">제거하기</button></div>';
+		    		    	     
+		    		    	  todoList.append(itemHTML); 
+		    		    }
+		    		  },
+		    		  error: function(data) {
+		    		    // 오류 시 처리할 코드
+		    		  }
+		    		});
 		      },
 		      eventClick: function(arg) {
 		        if (confirm('삭제할까여?')) {
@@ -155,11 +204,11 @@
 	            addButton.addEventListener('click', addTodo)
 	    
 // 	      		할 일 입력창에서 enter key가 눌렸을 때
-	            input.addEventListener('keypress', (event) => {
-	                const ENTER = 13
-	                if (event.keyCode === ENTER)
-	                    addTodo();
-	            })
+// 	            input.addEventListener('keypress', (event) => {
+// 	                const ENTER = 13
+// 	                if (event.keyCode === ENTER)
+// 	                    addTodo();
+// 	            })
 	        })
 		
 		</script>
@@ -209,7 +258,8 @@
                             <div id="today-list">
                                 <h2>할 일 목록</h2>
                                 <span></span><br>
-                                <input id="todo">
+                                <input type="text" id="todo">
+                                <input type="hidden" id="todoCreateDate" value="">
                                 <button id="add-button" onclick="insertTodo();">+</button>
                                 <div id="todo-list">
                                 <c:forEach items="${tList }" var="todo">
@@ -224,6 +274,7 @@
 								        <span <c:if test="${todo.isFinished == 'Y'}">style="text-decoration: line-through;"</c:if>>
 								            ${todo.todoContent}
 								        </span>
+										<!-- 버튼 id를 todoNo로 줘서 삭제한 div를 선택할수 있도록 함 -->
 								        <button id="${todo.todoNo }" onclick="deleteTodo('${todo.todoNo}');">제거하기</button>
 								    </div>
                                 </c:forEach>
@@ -252,6 +303,15 @@
 		</div>
 		
 		<script>
+			
+			var today = new Date(); // 현재 날짜와 시간을 가져옵니다.
+			var year = today.getFullYear().toString().slice(-2); // 년도의 마지막 두 자리를 추출합니다.
+			var month = (today.getMonth() + 1).toString().padStart(2, "0"); // 월을 추출하고, 한 자리 숫자인 경우 0을 채워서 두 자리로 만듭니다.
+			var day = today.getDate().toString().padStart(2, "0"); // 일을 추출하고, 한 자리 숫자인 경우 0을 채워서 두 자리로 만듭니다.
+			var formattedDate = '';
+			formattedDate = year + '/' +month + '/' +day;
+			$("#todoCreateDate").val(formattedDate);
+			
 			function insertTodo() {
 				$.ajax ({
 // 					앞에 '/' 까먹지말고..
@@ -259,11 +319,12 @@
 					data : {
 // 						컨트롤러에서 Todo todo 로 받으니까 도메인에서 써준거랑 똑같이 써야됨 -todoContent
 						"todoContent" : $("#todo").val(),
-						"userId" : $("#userId").val()
+						"userId" : $("#userId").val(),
+						"tdCreateDate" : $("#todoCreateDate").val()
 					},
 					type : 'post',
 					success : function(data) {
-						location.reload();
+// 						location.reload();
 					},
 					error : function(date) {
 						
@@ -278,12 +339,12 @@
 					data : {
 						"todoNo" : todoNo
 					},
+					dataType : "json",
 					type : 'post',
 					success : function(data) {
 						console.log(data);
-							console.log(data[4]);
-							console.log(JSON.parse(data).isFinished);
-							var isFinished = JSON.parse(data).isFinished;
+						console.log(data.isFinished);
+						var isFinished = data.isFinished;
 						if (isFinished == 'Y') {
 							checkbox.checked = true;
 							checkbox.nextElementSibling.style.textDecoration = 'line-through';
@@ -310,6 +371,7 @@
 						type : 'post',
 						success : function(data) {
 							console.log(data);
+// 							id를 todoNo로가진 버튼(내가 지운거)의 부모(div)를 지워줌
 							$("#"+todoNo).parent().remove();
 						},
 						error : function(data) {
