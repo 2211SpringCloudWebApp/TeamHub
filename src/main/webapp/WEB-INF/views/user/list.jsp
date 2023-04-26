@@ -16,9 +16,8 @@
 		<div id="container">
 			<jsp:include page="../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
-				서브 사이드바 코드 작성 부분. 
-				<br>
-				<a href="/user/registerView">사원 등록</a>
+				<a href="/user/registerView">사원 등록</a><br>
+				<a href="/user/userStateList">사원 관리</a>
 				<br>
 			</div>
 			<jsp:include page="../common/header.jsp"></jsp:include>

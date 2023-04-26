@@ -57,18 +57,25 @@ public interface UserService {
 	List<User> selectAllUser(PageInfo pi);
 
 	/**
-	 * 사원 목록 재직 상태로 조회 Service
-	 * @param pi
-	 * @return List<User>
-	 */
-	List<User> selectUserState(PageInfo pi);
-
-	/**
 	 * 사원 아이디로 조회 Service
 	 * @param userId
 	 * @return User
 	 */
 	User selectOneById(String userId);
+
+	/**
+	 * 사원 재직상태로 조회 Service
+	 * @param pi
+	 * @return List<User>
+	 */
+	List<User> selectUserState();
+
+	/**
+	 * 사원 검색 Service
+	 * @param search
+	 * @return List<User>
+	 */
+	List<User> selectListByKeyword(Search search);
 
 	/**
 	 * 사원 검색 Service
@@ -85,10 +92,24 @@ public interface UserService {
 	int getListCount();
 
 	/**
+	 * 사원 재직상태 목록 전체 개수 Service
+	 * @param search 
+	 * @return int
+	 */
+	int getStateListCount();
+
+	/**
 	 * 사원 검색 게시글 전체 개수 Service
 	 * @param search
 	 * @return int
 	 */
 	int getListCount(Search search);
+
+	/**
+	 * 사원 재직상태 검색 게시글 전체 개수 Service
+	 * @param search
+	 * @return int
+	 */
+	int getStateListCount(Search search);
 
 }

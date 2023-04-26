@@ -41,8 +41,8 @@
 		SELECT * FROM USER_TBL
 	</select>
 <!-- 	사원 재직상태로 조회 -->
-	<select id="selectUserState" resultMap="userResultMap">
-		SELECT * FROM USER_TBL WHERE USER_STATE = #{userState }
+	<select id="selectUserStateList" resultMap="userResultMap">
+		SELECT * FROM USER_TBL
 	</select>
 <!-- 	사원 아이디로 조회 -->
 	<select id="selecOndById" resultMap="userResultMap">
@@ -63,12 +63,14 @@
 		<if test="condition == 'name'">
 			USER_NAME LIKE '%' || #{keyword} || '%'
 		</if>
+		OR USER_STATE = '퇴직'
 	</select>
+
 <!-- 	페이징 -->
 	<select id="getListCount" resultType="_int">
 		SELECT COUNT(*) FROM USER_TBL
 	</select>
-<!-- 	검색 페이징 -->
+	
 	<select id="getSearchListCount" resultType="_int">
 		SELECT COUNT(*) FROM USER_TBL WHERE
 		<choose>
@@ -86,6 +88,7 @@
 			</when>
 		</choose>
 	</select>
+
 <!-- 	아이디 중복 체크 -->
 	<select id="checkId" resultType="int">
 		SELECT COUNT(*) FROM USER_TBL WHERE USER_ID = #{userId }

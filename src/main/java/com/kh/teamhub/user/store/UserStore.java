@@ -57,18 +57,25 @@ public interface UserStore {
 	List<User> selectAllUser(PageInfo pi);
 
 	/**
-	 * 사원 목록 재직상태로 조회 Store
-	 * @param pi
-	 * @return List<User>
-	 */
-	List<User> selectUserState(PageInfo pi);
-
-	/**
 	 * 사원 아이디로 조회 Store
 	 * @param userId
 	 * @return User
 	 */
 	User selectOneById(String userId);
+
+	/**
+	 * 사원 재직상태로 조회 Store
+	 * @param pi
+	 * @return List<User>
+	 */
+	List<User> selectUserState();
+
+	/**
+	 * 사원 검색 Store
+	 * @param search
+	 * @return List<User>
+	 */
+	List<User> selectListByKeyword(Search search);
 
 	/**
 	 * 사원 검색 Store
@@ -85,10 +92,23 @@ public interface UserStore {
 	int getListCount();
 
 	/**
+	 * 사원 재직상태 목록 전체 개수 Store
+	 * @return int
+	 */
+	int getStateListCount();
+
+	/**
 	 * 사원 검색 게시글 전체 개수 Store
 	 * @param search
 	 * @return int
 	 */
 	int getListCount(Search search);
+
+	/**
+	 * 사원 재직상태 검색 게시글 전체 개수 Store
+	 * @param search
+	 * @return int
+	 */
+	int getStateListCount(Search search);
 
 }

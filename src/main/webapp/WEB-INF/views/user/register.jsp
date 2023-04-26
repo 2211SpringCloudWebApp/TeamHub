@@ -13,14 +13,16 @@
 		<div id="container">
 			<jsp:include page="../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
-				서브 사이드바 코드 작성 부분. 
+				서브 사이드바 코드 작성 부분. <br>
+				<a href="/user/registerView">사원 등록</a><br>
+				<a href="/user/userStateList">사원 관리</a>
 			</div>
 			<jsp:include page="../common/header.jsp"></jsp:include>
 			
 			<main>
 				<form action="/user/register" method="post" enctype="multipart/form-data">
 					<div id="img-viewer">
-						<img id="img-view" alt="" src="" width="200" height="200">
+						<img id="img-view" alt="" src="../../../resources/img/main/userlogo.png" width="200" height="200">
 					</div>
 					사진 <input type="file" name="uploadFile" onchange="loadImg(this)"><br>
 <!-- 					<input type="hidden" name="userFilePath"><br> -->
