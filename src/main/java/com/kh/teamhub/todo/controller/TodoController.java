@@ -1,8 +1,8 @@
 package com.kh.teamhub.todo.controller;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.EventObject;
 import java.util.List;
 
@@ -56,19 +56,16 @@ public class TodoController {
 			, @RequestParam String tdCreateDate) {
 		try {
 			
-			
-	        SimpleDateFormat dateFormat = new SimpleDateFormat("yy/MM/dd");
-	        Date date = (Date) dateFormat.parse(tdCreateDate);
-	        
-	        
-	        todo.setTodoCreateDate(date);
-	        int result = tService.insertTodo(todo);
+	        // Todo에서 tdCreateDate 변환시킨거 새로 담아서
+	        Todo newTodo = new Todo(tdCreateDate, todo.getUserId(), todo.getTodoContent());
+	        // newTodo 보내주기
+	        int result = tService.insertTodo(newTodo);
 	        if(result > 0) {
 	        	Gson gson = new Gson();
 				return gson.toJson(result);
 	        }
 	        return "성공";
-	    } catch (ParseException e) {
+	    } catch (Exception e) {
 	        e.printStackTrace();
 	        return "날짜 형식이 잘못되었습니다.";
 	    }
@@ -112,7 +109,15 @@ public class TodoController {
 		return gson.toJson(tList);
 	}
 	
-
+	@ResponseBody
+	@RequestMapping(value = "/ajaxCalendarEvents", method = RequestMethod.POST, produces="application/json;charset=utf-8")
+	public String selectEvents(String userId) {
+		List<Todo> tList = tService.selectEvents(userId);
+		Gson gson = new Gson();
+		return gson.toJson(tList);
+	}
+	
+	
 	// 문자열을 Json형태로 바꿔줌
 	// ajax는 json 으로 리턴을 받는다. 
 	 public String returnJson(String result){

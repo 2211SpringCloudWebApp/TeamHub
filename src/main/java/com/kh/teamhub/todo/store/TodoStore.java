@@ -47,5 +47,7 @@ public interface TodoStore {
 
 	List<Todo> selectDayList(SqlSession session, Todo todo);
 
+	List<Todo> selectEvents(SqlSession session, String userId);
+
 
 }

@@ -22,6 +22,9 @@
 	<select id="selectDayList" resultMap="todoResultMap">
 		SELECT * FROM TODO_TBL WHERE USER_ID = #{userId} AND TO_CHAR(TODO_CREATE_DATE,'YY/MM/DD') LIKE #{date} ORDER BY TODO_NO ASC
 	</select>
+	<select id="selectEvents" resultMap="todoResultMap">
+		SELECT * FROM TODO_TBL WHERE USER_ID = #{userId}
+	</select>
 	
 	<update id="updateFinish">
 		UPDATE TODO_TBL
