@@ -35,6 +35,7 @@ public class TodoController {
 	@Autowired
 	private LoginUtil loginUtil;
 	
+	/// 메인 ///
 	@RequestMapping(value = "/todo/mainView", method = RequestMethod.GET)
 	public String todoMainView(HttpServletRequest request, Model model) throws Exception {
 		if(loginUtil.checkLogin(request)) {    
@@ -49,6 +50,7 @@ public class TodoController {
 		return "todo/main2";
 	}
 	
+	/// 할 일 등록 ///
 	@ResponseBody
 	@RequestMapping(value = "/ajaxInsertTodo", method = RequestMethod.POST)
 	public String insertTodo(
@@ -56,9 +58,9 @@ public class TodoController {
 			, @RequestParam String tdCreateDate) {
 		try {
 			
-	        // Todo에서 tdCreateDate 변환시킨거 새로 담아서
+	        // Todo에서 tdCreateDate 변환시킨거 newTodo에 새로 담아서
 	        Todo newTodo = new Todo(tdCreateDate, todo.getUserId(), todo.getTodoContent());
-	        // newTodo 보내주기
+	        // newTodo 보내주고 등록
 	        int result = tService.insertTodo(newTodo);
 	        if(result > 0) {
 	        	Gson gson = new Gson();
@@ -72,6 +74,7 @@ public class TodoController {
 
 	}
 	
+	/// IS_FINISHED Y인지 N인지 체크해서 체크박스랑 글씨에 줄긋게 ///
 	@ResponseBody
 	@RequestMapping(value = "/ajaxCheckFinish", method = RequestMethod.POST)
 	public String checkFinish(int todoNo) {
@@ -87,6 +90,7 @@ public class TodoController {
 		}
 	}
 	
+	/// 할 일 삭제 ///
 	@ResponseBody
 	@RequestMapping(value = "/ajaxDeleteTodo", method = RequestMethod.POST)
 	public String deleteTodo(int todoNo) {
@@ -94,6 +98,7 @@ public class TodoController {
 		return "성공";
 	}
 	
+	/// 달력에서 선택한 날짜의 리스트 가져오기 ///
 	@ResponseBody
 	@RequestMapping(value = "/ajaxSelectDay", method = RequestMethod.POST, produces="application/json;charset=utf-8")
 	public String selectDay(HttpServletRequest request, @RequestParam("date") String date) {
@@ -102,13 +107,15 @@ public class TodoController {
 //		System.out.println(date);
 		Todo todo = new Todo();
 		todo.setUserId(user.getUserId());
-		todo.setDate(date);
+		todo.setDate(date); // 달력에서 내가 선택한 날짜로 set해주기
+		// 선택한 날짜를 보내서 그 날짜의 리스트 불러오기
 		List<Todo> tList = tService.selectDayList(todo);
 //		System.out.println(tList);
 		Gson gson = new Gson();
 		return gson.toJson(tList);
 	}
 	
+	/// 로그인한 아이디의 할일 리스트를 달력에 보여주기 ///
 	@ResponseBody
 	@RequestMapping(value = "/ajaxCalendarEvents", method = RequestMethod.POST, produces="application/json;charset=utf-8")
 	public String selectEvents(String userId) {
