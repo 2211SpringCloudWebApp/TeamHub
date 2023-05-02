@@ -47,5 +47,11 @@ public class TodoStoreLogic implements TodoStore{
 		return tList;
 	}
 
+	@Override
+	public List<Todo> selectEvents(SqlSession session, String userId) {
+		List<Todo> tList = session.selectList("TodoMapper.selectEvents", userId);
+		return tList;
+	}
+
 
 }

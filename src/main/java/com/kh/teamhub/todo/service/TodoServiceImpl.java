@@ -54,5 +54,11 @@ public class TodoServiceImpl implements TodoService{
 		return tList;
 	}
 
+	@Override
+	public List<Todo> selectEvents(String userId) {
+		List<Todo> tList = tStore.selectEvents(session, userId);
+		return tList;
+	}
+
 
 }
