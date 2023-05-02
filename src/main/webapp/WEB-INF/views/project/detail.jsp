@@ -6,127 +6,152 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>프로젝트 상세</title>
+		<link rel="stylesheet" href="../../../resources/css/project/detail.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-		<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-		<style>
-		#sideBar li:nth-child(7){
-		    background-color: #2653e8ba;
-   				
-		}
-		#sideBar li:nth-child(7) a{
-			color: white !important;
-		}
-		.modal {
-		  display: none;
-		  position: fixed;
-		  z-index: 1;
-		  left: 0;
-		  top: 0;
-		  width: 100%;
-		  height: 100%;
-		  overflow: auto;
-		  background-color: rgba(0,0,0,0.3);
-		}
-		
-		.modal-content {
-		  background-color: #fefefe;
-		  margin: 15% auto;
-		  padding: 20px;
-		  border: 1px solid #888;
-		  border-radius:10px;
-		  width: 30%;
-		  height: 30%;
-		}
-		
-		.modal-content p{
-			font-size:25px;
-			font-weight:bolder;
-			text-align: center;
-		}
-		
-		.close {
-		  color: #aaa;
-		  float: right;
-		  font-size: 28px;
-		  font-weight: bold;
-		}
-		
-		.close:hover, .close:focus {
-		  color: black;
-		  text-decoration: none;
-		  cursor: pointer;
-		}
-		</style>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	</head>
+	<style>
+	.modal {
+		display: none;
+		position: fixed;
+		z-index: 1;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		overflow: auto;
+		background-color: rgba(0, 0, 0, 0.3);
+	}	
+	.close {
+		color: #aaa;
+		text-align: right;
+		font-size: 28px;
+		font-weight: bold;
+	}	
+	.close:hover, .close:focus {
+		color: black;
+		text-decoration: none;
+		cursor: pointer;
+	}	
+	.modal-content {
+		background-color: #fefefe;
+		margin: 15% auto;
+		padding: 10px 20px 20px 20px;
+		border: 1px solid #888;
+		border-radius: 10px;
+		width: 600px;
+		height: 400px;
+	}
+	.modal-content p {
+		font-size: 25px;
+		font-weight: bold;
+		text-align: center;
+		padding-bottom: 10px;
+	}
+	.modal-content td {
+		padding-left: 20px;
+		padding-right: 10px;
+		font-size: 18px;
+		font-weight: bold;
+		height: 50px;
+		line-height : 2.5;
+	}
+	.modal-content input[type=text] {
+		line-height: normal;
+		border:none;
+    	border-bottom: 1px solid #bebebe;
+		width: 395px;
+		height: 30px;
+	}
+	.modal-content input[type=date] {
+		line-height: normal;
+		width: 185px;
+		border: 1px solid #bebebe;
+	}
+	.modal-content input[type=submit] {
+		margin-top: 30px;
+	    margin-left: 175px;
+	    width: 150px;
+	    height: 50px;
+	    border: 1px solid #bebebe;
+	    border-radius: 5px;
+	}
+	</style>
 	</head>
 		
 	<body>
 		<div id="container">
 			<jsp:include page="../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
-				<h2>프로젝트 관리</h2>
+				<h2 class="thProject">프로젝트 관리</h2>
 				<ul>
-					<li><a href="/project/main">전체보기</a></li>
-					<li>프로젝트 상세</li>
+					<li><a href="/project/list?status=all">전체보기</a></li>
+					<li style="color: #275ab5;">프로젝트 상세 보기</li>
 	           </ul>
 			</div>
 			<jsp:include page="../common/header.jsp"></jsp:include>
 			
 			<main>
-				<div id="contents-area" style="height : 300px; border : 1px solid #ccc;">
-					<h2 id="titleTop">프로젝트 정보</h2>
-					<c:if test="${project.userName == user.userName && project.projectStatus != '종료'}">
-					<button onclick="showModal();">수정</button>
-					<button onclick="removeCheck('${project.projectNo}');">삭제</button>
-					</c:if>
+				<div id="contents-area">
+					<div id="top-area">
+						<h2 id="titleTop" class="thProject">프로젝트 정보</h2>
+						<div id="btn-area">
+							<c:if test="${project.userName == user.userName && project.projectStatus != '종료'}">
+								<button onclick="showModal();">수정</button>
+								<button onclick="removeCheck('${project.projectNo}');">삭제</button>
+							</c:if>
+						</div>
+					</div>
 					<table id="projectInfo" class="table">
 						<tr>
-							<td>프로젝트명</td>
+							<td class="titletxt">프로젝트명</td>
 							<td>${project.projectName }</td>
 						</tr>
 						<tr>
-							<td>담당자</td>
+							<td class="titletxt">담당자</td>
 							<td>${project.userName }</td>
 						</tr>
 						<tr>
-							<td>진행기간</td>
+							<td class="titletxt">진행기간</td>
 							<td>${project.projectStart } ~ ${project.projectEnd }</td>
 						</tr>
 					</table>
 				</div>
-				<div id="kanban-area" style="height : 300px; border : 1px solid #ccc;">
-					<p>칸반보드</p>
-				</div>
-				<div id="progress-area" style="height : 400px; border : 1px solid #ccc;">
+				
+				<div id="progress-area" style="height : 150px; border : 1px solid #ccc;">
 					<p>진행률</p>
 				</div>
+				
+				<div id="kanban-area" style="height : 400px; border : 1px solid #ccc;">
+					<p>칸반보드</p>
+				</div>
+				
 				<div id="modal" class="modal">
-						<div class="modal-content">
-							<span class="close">×</span>
-							<p>프로젝트 수정</p>
-							<form action="/project/modify" method="POST">
-								<input type="hidden" name="projectNo" value="${project.projectNo }">
-								<table>
-									<tr>
-										<td>프로젝트명</td>
-										<td><input type="text" name="projectName" value="${project.projectName }"></td>
-									</tr>
-									<tr>
-										<td>담당자</td>
-										<td><input type="text" value="${project.userName }" readonly></td>
-									</tr>
-									<tr>
-										<td>진행기간</td>
-										<td><input type="date" id="start" name="projectStart" value="${project.projectStart }"> ~ <input type="date" id="end" name="projectEnd" value="${project.projectEnd }"></td>
-									</tr>
-									<tr>
-										<td>
-											<input type="submit" value="수정">
-										</td>
-									</tr>
-								</table>
-							</form>
-						</div>
+					<div class="modal-content">
+						<span class="close">×</span>
+						<p>프로젝트 수정</p>
+						<form action="/project/modify" method="POST">
+							<input type="hidden" name="projectNo" value="${project.projectNo }">
+							<table>
+								<tr>
+									<td>프로젝트명</td>
+									<td><input type="text" id="ptitle" name="projectName" value="${project.projectName }"></td>
+								</tr>
+								<tr>
+									<td>담당자</td>
+									<td><input type="text" value="${project.userName }" readonly></td>
+								</tr>
+								<tr>
+									<td>진행기간</td>
+									<td><input type="date" id="start" name="projectStart" value="${project.projectStart }"> ~ <input type="date" id="end" name="projectEnd" value="${project.projectEnd }"></td>
+								</tr>
+								<tr>
+									<td  colspan="2"><input type="submit" onclick="return checkValid();" value="수정"></td>
+								</tr>
+							</table>
+						</form>
 					</div>
+				</div>
 			</main>
 		</div>
 		<script>
@@ -189,6 +214,17 @@
 			start.addEventListener("input", function () {
 				updateEndDate();
 			});
+			
+			// 등록 유효성 검사
+			var ptitle = document.getElementById("ptitle");
+			function checkValid() {
+				if (ptitle.value === "") {
+					alert("프로젝트명을 입력해 주세요");
+					return false;
+				} else {
+					return true;
+				}
+			}
 		</script>
 	</body>
 	

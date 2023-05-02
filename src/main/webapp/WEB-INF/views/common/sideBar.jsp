@@ -16,7 +16,7 @@
 	               <li><a href="/schedule/list">일정관리</a></li>
 	               <li><a href="/todo/mainView">업무관리</a></li>
 	               <li><a href="/user/list">사원관리</a></li>
-	               <li><a href="/project/main">프로젝트</a></li>
+	               <li><a href="/project/list">프로젝트</a></li>
 	               <li><a href="/approval/draftDocuments">전자결재</a></li>
 	               <li><a href="/free/list">게시판</a></li>
 	           </ul>

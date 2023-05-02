@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+a:hover{
+	text-decoration: none !important;
+}
+#sideBar li:nth-child(7){
+    background-color: #2653e8ba;			
+}
+#sideBar li:nth-child(7) a{
+	color: white !important;
+}
+#subSideBar a:hover{
+	text-decoration: none !important;
+}
+#subSideBar ul{
+	text-align: left;
+	padding-left: 40px;
+    margin-top: 70px;
+}
+#subSideBar ul li{
+	padding-bottom: 22px;
+	font-size: 20px;
+}
+
+.createBtn{
+	width: 200px;
+    height: 60px;
+    margin: 50px 0px;
+    font-size: 21px;
+    border-radius: 5px;
+}
+
+.thProject{
+	font-weight: bold;
+}
+
+#contents-area{
+	margin-left: 50px;
+    margin-right: 50px;
+	margin-top: 50px;
+	height : 250px
+}
+#top-area{
+	display: flex;
+	justify-content: space-between;
+	--margin-right: 200px;
+}
+#btn-area button{
+	width: 64px;
+	height: 46px;
+	border: 1px solid #bebebe;
+	border-radius: 5px;
+}
+.table{
+	margin-top: 30px;
+    font-size: 18px;
+    --padding: 1rem;
+}
+.table td{
+    font-size: 18px;
+}
+.titletxt{
+	width: 200px;
+	align-items: center;
+	font-weight: bold;
+}

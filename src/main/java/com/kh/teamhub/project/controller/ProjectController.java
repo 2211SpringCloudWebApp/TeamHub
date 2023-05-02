@@ -18,9 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.teamhub.project.domain.PageInfo;
 import com.kh.teamhub.project.domain.Project;
 import com.kh.teamhub.project.service.ProjectService;
+import com.kh.teamhub.user.domain.Search;
 import com.kh.teamhub.user.domain.User;
 
 @Controller
+@RequestMapping("/project")
 public class ProjectController {
 	
 	@Autowired
@@ -33,12 +35,12 @@ public class ProjectController {
 //	}
 	
 	// 프로젝트 생성
-	@RequestMapping(value="/project/create", method=RequestMethod.POST)
+	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public ModelAndView createProject(ModelAndView mv
 			, HttpServletRequest request
 			, @ModelAttribute Project project
-			, @RequestParam("projectStart") String projectStart
-			, @RequestParam("projectEnd") String projectEnd) {
+			, @RequestParam(value="projectStart") String projectStart
+			, @RequestParam(value="projectEnd") String projectEnd) {
 		try {
 			HttpSession session = request.getSession();
 			String userId = ((User)session.getAttribute("user")).getUserId();
@@ -47,19 +49,20 @@ public class ProjectController {
 			project.setProjectEnd(Date.valueOf(projectEnd));
 			int result = pService.insertProject(project);
 			if(result > 0) {
-				mv.setViewName("redirect:/project/main");
+				mv.setViewName("redirect:/project/list?status=all");
 			} else {
 				mv.addObject("msg", "프로젝트 생성 실패").setViewName("common/error");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			mv.addObject("msg", e.getMessage()).setViewName("common/error");
+			mv.addObject("msg", "프로젝트 생성 실패").setViewName("common/error");
+//			mv.addObject("msg", e.getMessage()).setViewName("common/error");
 		}
 		return mv;
 	}
 
 	// 프로젝트 수정
-	@RequestMapping(value="/project/modify", method=RequestMethod.POST)
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public ModelAndView modifyProject(ModelAndView mv, @ModelAttribute Project project) {
 		try {
 			int result = pService.updateProject(project);
@@ -75,12 +78,12 @@ public class ProjectController {
 	}
 	
 	// 프로젝트 삭제
-	@RequestMapping(value="/project/delete/{projectNo}", method=RequestMethod.GET)
+	@RequestMapping(value="/delete/{projectNo}", method=RequestMethod.GET)
 	public ModelAndView removeProject(ModelAndView mv, @PathVariable Integer projectNo) {
 		try {
 			int result = pService.deleteProject(projectNo);
 			if(result > 0) {
-				mv.setViewName("redirect:/project/main");
+				mv.setViewName("redirect:/project/list");
 			}else {
 				mv.addObject("msg", "프로젝트 삭제 실패").setViewName("common/error");
 			}
@@ -91,7 +94,7 @@ public class ProjectController {
 	}
 
 	// 프로젝트 상세 조회
-	@RequestMapping(value="/project/detail/{projectNo}", method=RequestMethod.GET)
+	@RequestMapping(value="/detail/{projectNo}", method=RequestMethod.GET)
 	public ModelAndView printOneByNo(ModelAndView mv, @PathVariable Integer projectNo) {
 		try {
 			Project project = pService.selectOneByNo(projectNo);
@@ -104,15 +107,39 @@ public class ProjectController {
 	}
 	
 	// 프로젝트 목록 조회
-	@RequestMapping(value="/project/main", method=RequestMethod.GET)
+	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public ModelAndView printAllProject(ModelAndView mv
-			, @RequestParam(value="page", required=false, defaultValue="1") Integer page) {
+			, @RequestParam(value="page", required=false, defaultValue="1") Integer page
+			, @RequestParam(value="status", required=false, defaultValue="all") String status) {
 		try {
-			int totalCount = pService.getListCount();
+			int allTotalCnt = pService.getListCount(status);
+			PageInfo allPi = this.getPageInfo(page, allTotalCnt);
+			List<Project> pList = pService.selectAllProject(allPi, status);
+			mv.addObject("pi", allPi).addObject("status", status);
+			mv.addObject("pList", pList).setViewName("/project/list");
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("msg", e.getMessage()).setViewName("common/error");
+		}	
+		return mv;
+	}
+	
+	// 프로젝트 검색
+	@RequestMapping(value="/search", method=RequestMethod.GET)
+	public ModelAndView searchProject(ModelAndView mv
+			, @RequestParam(value="page", required=false, defaultValue="1") Integer page
+			, @ModelAttribute Search search) {
+		try {
+			int totalCount = pService.getListCount(search);
 			PageInfo pi = this.getPageInfo(page, totalCount);
-			List<Project> pList = pService.selectAllProject(pi);
-			mv.addObject("pi", pi);
-			mv.addObject("pList", pList).setViewName("/project/main");
+			List<Project> sList = pService.selectListByKeyword(pi, search);
+			if(!sList.isEmpty()) {
+				mv.setViewName("/project/search");
+				mv.addObject("search", search).addObject("pi", pi).addObject("sList", sList);
+			} else {
+				mv.setViewName("common/error");
+				mv.addObject("msg", "검색 실패");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.addObject("msg", e.getMessage()).setViewName("common/error");

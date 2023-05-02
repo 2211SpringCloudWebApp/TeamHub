@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.teamhub.project.domain.PageInfo;
 import com.kh.teamhub.project.domain.Project;
+import com.kh.teamhub.user.domain.Search;
 
 public interface ProjectStore {
 
@@ -41,15 +42,32 @@ public interface ProjectStore {
 
 	/**
 	 * 프로젝트 목록 조회 Store
+	 * @param status 
 	 * @param session
 	 * @return
 	 */
-	List<Project> selectAllProject(PageInfo pi);
+	List<Project> selectAllProject(PageInfo pi, String status);
 
 	/**
 	 * 
+	 * @param status 
 	 * @return
 	 */
-	int getListCount();
+	int getListCount(String status);
+
+	/**
+	 * 
+	 * @param pi
+	 * @param search
+	 * @return
+	 */
+	List<Project> selectListByKeyword(PageInfo pi, Search search);
+
+	/**
+	 * 
+	 * @param search
+	 * @return
+	 */
+	int getListCount(Search search);
 
 }

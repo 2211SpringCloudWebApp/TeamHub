@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kh.teamhub.project.domain.PageInfo;
 import com.kh.teamhub.project.domain.Project;
 import com.kh.teamhub.project.store.ProjectStore;
+import com.kh.teamhub.user.domain.Search;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
@@ -40,14 +41,26 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public List<Project> selectAllProject(PageInfo pi) {
-		List<Project> pList = pStore.selectAllProject(pi);
+	public List<Project> selectAllProject(PageInfo pi, String status) {
+		List<Project> pList = pStore.selectAllProject(pi, status);
 		return pList;
 	}
 
 	@Override
-	public int getListCount() {
-		int result = pStore.getListCount();
+	public int getListCount(String status) {
+		int result = pStore.getListCount(status);
+		return result;
+	}
+
+	@Override
+	public List<Project> selectListByKeyword(PageInfo pi, Search search) {
+		List<Project> sList = pStore.selectListByKeyword(pi, search);
+		return sList;
+	}
+
+	@Override
+	public int getListCount(Search search) {
+		int result = pStore.getListCount(search);
 		return result;
 	}
 
