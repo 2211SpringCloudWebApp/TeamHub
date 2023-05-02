@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.teamhub.todo.domain.Memo;
 import com.kh.teamhub.todo.domain.Todo;
 import com.kh.teamhub.todo.store.TodoStore;
 import com.kh.teamhub.user.domain.User;
@@ -58,6 +59,24 @@ public class TodoServiceImpl implements TodoService{
 	public List<Todo> selectEvents(String userId) {
 		List<Todo> tList = tStore.selectEvents(session, userId);
 		return tList;
+	}
+
+	@Override
+	public int insertMemo(Memo memo) {
+		int result = tStore.insertMemo(session, memo);
+		return result;
+	}
+
+	@Override
+	public List<Memo> selectMemoList(String userId) {
+		List<Memo> mList = tStore.selectMemoList(session, userId);
+		return mList;
+	}
+
+	@Override
+	public int deleteMemo(int memoNo) {
+		int result = tStore.deleteMemo(session, memoNo);
+		return result;
 	}
 
 

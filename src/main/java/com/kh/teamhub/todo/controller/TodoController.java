@@ -22,6 +22,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.kh.teamhub.common.LoginUtil;
+import com.kh.teamhub.todo.domain.Memo;
 import com.kh.teamhub.todo.domain.Todo;
 import com.kh.teamhub.todo.service.TodoService;
 import com.kh.teamhub.user.domain.User;
@@ -43,9 +44,15 @@ public class TodoController {
 		}
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("user");
+		// 할 일 리스트
 		List<Todo> tList = tService.selectTodoList(user);
 		if(!tList.isEmpty()) {
 			model.addAttribute("tList", tList);
+		}
+		// 메모 리스트
+		List<Memo> mList = tService.selectMemoList(user.getUserId());
+		if(!mList.isEmpty()) {
+			model.addAttribute("mList", mList);
 		}
 		return "todo/main2";
 	}
@@ -57,7 +64,8 @@ public class TodoController {
 			@ModelAttribute Todo todo
 			, @RequestParam String tdCreateDate) {
 		try {
-			
+//			System.out.println("todo : " +todo);
+//			System.out.println("tdCreateDate : " +tdCreateDate);
 	        // Todo에서 tdCreateDate 변환시킨거 newTodo에 새로 담아서
 	        Todo newTodo = new Todo(tdCreateDate, todo.getUserId(), todo.getTodoContent());
 	        // newTodo 보내주고 등록
@@ -123,6 +131,26 @@ public class TodoController {
 		Gson gson = new Gson();
 		return gson.toJson(tList);
 	}
+	
+	/// 메모 ///
+	@ResponseBody
+	@RequestMapping(value = "/ajaxInsertMemo", method = RequestMethod.POST)
+	public String insertMemo(@ModelAttribute Memo memo) {
+//		System.out.println("memo : " + memo);
+		int result = tService.insertMemo(memo);
+		Gson gson = new Gson();
+		return gson.toJson(result);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/ajaxDeleteMemo", method = RequestMethod.POST)
+	public String deleteMemo(int memoNo) {
+		int result = tService.deleteMemo(memoNo);
+		Gson gson = new Gson();
+		return gson.toJson(result);
+	}
+	
+	
 	
 	
 	// 문자열을 Json형태로 바꿔줌

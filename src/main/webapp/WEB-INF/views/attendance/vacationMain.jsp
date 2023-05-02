@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -49,7 +50,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
+                                    <td>15</td>
                                     <td>1</td>
                                     <td>1</td>
                                 </tr>
@@ -71,12 +72,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>연차</td>
-                                    <td>2023-04-20~2023-04-20</td>
-                                    <td>1.0</td>
-                                </tr>
+                            	<c:forEach items="${vList }" var="vacation" varStatus="i">
+                            		<tr>
+                            			<td>${i.count }</td>
+                            			<td>${vacation.vacationDivision }</td>
+                            			<td>${vacation.vacationStart }~${vacation.vacationEnd }</td>
+                            			<td>${vacation.vacationUsed }</td>
+                            		</tr>
+                            	</c:forEach>
                             </tbody>
                         </table>
                     </div>

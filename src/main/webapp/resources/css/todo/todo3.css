@@ -1,8 +1,5 @@
 @charset "UTF-8";
 
-#main-container {
-	padding-bottom: 100px;
-}
 ul {
 	padding : 0 !important;
 }
@@ -26,8 +23,6 @@ ul {
 #today {
     width: 50%;
     border: 1px solid black;
-    box-shadow: 4px 4px 4px -1px #9e9e9e;
-    border-radius: 2px;
     padding: 10px;
     height: 400px;
     overflow-y: auto;
@@ -79,19 +74,17 @@ ul {
 
 #main-bottom {
     width: 92%;
-    /* border: 1px solid black; */
+    border: 1px solid black;
     margin-left: 4%;
+}
+#main-bottom {
     margin-top: 50px;
     padding: 10px;
-    /* height: calc(4 * (300px + 20px) + 40px); */
-    border: 1px solid black;
+    height: 500px;
 }
-
 #memo {
     padding: 20px;
-    height: auto;
-    display: flex;
-    flex-wrap: wrap;  /*복수의 행*/
+    height: 500px;
 }
 #memo-title {
     display: flex;
@@ -100,37 +93,3 @@ ul {
 #memo h3 #memo h4 {
     display: inline;
 }
-
-.memo-note {
-    border: 1px solid rgba(167, 239, 255, 0.792);
-    width: 20%;
-    height: 300px;
-    background-color: rgba(167, 239, 255, 0.792);
-    box-shadow: 4px 4px 4px -1px #666;
-    padding: 30px;
-    margin: 40px;
-    font-size: large;
-}
-#memo-content {
-    white-space : pre-line;  /*줄바꿈*/
-    overflow-y: auto;
-}
-#memo-btn1 {
-    background-color: white;
-    border: 1px solid white;
-    /* color: white; */
-    width: 50px;
-    font-size: 40px;
-}
-.memo-btn2 {
-    background-color: rgba(167, 239, 255, 0.792);
-    border: 1px solid rgba(167, 239, 255, 0.792);
-    float: right;
-    color: #6b6b6b;
-    font-size: 20px;
-}
-#memo-text {
-    background-color: rgba(167, 239, 255, 0.792);
-
-}
-

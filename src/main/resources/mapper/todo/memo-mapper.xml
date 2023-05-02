@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemoMapper">
+	<resultMap type="Memo" id="memoResultMap">
+		<id property="memoNo" column="MEMO_NO"></id>
+		<result property="userId" column="USER_ID" />
+		<result property="memoContent" column="MEMO_CONTENT" />
+		<result property="memoCreateDate" column="MEMO_CREATE_DATE" />
+	</resultMap>
+	
+	<insert id="insertMemo">
+		INSERT INTO MEMO_TBL VALUES(SEQ_MEMO_TBL.NEXTVAL, #{userId}, #{memoContent}, DEFAULT)
+	</insert>
+	<select id="selectMemoList" resultMap="memoResultMap">
+		SELECT * FROM MEMO_TBL WHERE USER_ID = #{user_id} ORDER BY MEMO_NO ASC
+	</select>
+	<delete id="deleteMemo">
+		DELETE FROM MEMO_TBL WHERE MEMO_NO = #{memoNo} 
+	</delete>
+	
+</mapper>

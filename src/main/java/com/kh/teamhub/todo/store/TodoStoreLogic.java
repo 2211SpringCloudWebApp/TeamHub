@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.teamhub.todo.domain.Memo;
 import com.kh.teamhub.todo.domain.Todo;
 import com.kh.teamhub.user.domain.User;
 
@@ -51,6 +52,24 @@ public class TodoStoreLogic implements TodoStore{
 	public List<Todo> selectEvents(SqlSession session, String userId) {
 		List<Todo> tList = session.selectList("TodoMapper.selectEvents", userId);
 		return tList;
+	}
+
+	@Override
+	public int insertMemo(SqlSession session, Memo memo) {
+		int result = session.insert("MemoMapper.insertMemo", memo);
+		return result;
+	}
+
+	@Override
+	public List<Memo> selectMemoList(SqlSession session, String userId) {
+		List<Memo> mList = session.selectList("MemoMapper.selectMemoList", userId);
+		return mList;
+	}
+
+	@Override
+	public int deleteMemo(SqlSession session, int memoNo) {
+		int result = session.delete("MemoMapper.deleteMemo", memoNo);
+		return result;
 	}
 
 
