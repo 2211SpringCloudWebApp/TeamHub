@@ -12,10 +12,21 @@
 	<body>
 		<div id="container">
 			<jsp:include page="../common/sideBar.jsp"></jsp:include>
-			<div id="subSideBar">
-				서브 사이드바 코드 작성 부분. <br>
-				<a href="/user/registerView">사원 등록</a><br>
-				<a href="/user/userStateList">사원 관리</a>
+			<div id="subSideBar" style="overflow:auto;">
+				<c:if test="${sessionScope.user.userType eq 1 }">
+					<a href="/user/list">사원 목록</a><br>
+					<a href="#">조직도</a><br>
+					<a href="/user/registerView">사원 등록</a><br>
+					<a href="/user/userStateList">사원 관리</a>
+					<hr>
+					<div>//조직도//</div>
+				</c:if>
+				<c:if test="${sessionScope.user.userType ne 1 }">
+					<a href="/user/list">사원 목록</a><br>
+					<a href="#">조직도</a>
+					<hr>
+					<div>//조직도//</div>
+				</c:if> 
 			</div>
 			<jsp:include page="../common/header.jsp"></jsp:include>
 			

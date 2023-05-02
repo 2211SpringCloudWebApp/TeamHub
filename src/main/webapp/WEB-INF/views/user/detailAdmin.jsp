@@ -94,34 +94,6 @@
 						모달창 내용
 					</div>
 				</c:if>
-				
-<!-- 				관리자가 아닐때 사원상세정보 -->
-				<c:if test="${sessionScope.user.userType ne 1 }">
-					<form action="/user/modify" action="post" enctype="multipart/form-data">
-						<c:if test="${!empty user.userFileName }">
-						<div>
-							<img alt="" src="../resources/fileUploads/${user.userFileName }" width="200px" height="200px";>
-						</div>
-						</c:if>
-						<c:if test="${empty user.userFileName }">
-						<div>
-							<img alt="" src="../resources/img/main/userlogo.png" width="200px" height="200px";>
-						</div>
-						</c:if>
-						<div>
-							사원번호 <input type="text" name="userId" value="${user.userId }" readonly><br>
-							이름 <input type="text" name="userName" value="${user.userName }" readonly><br>
-							부서 <input type="text" name="deptName" value="${user.deptName }" readonly><br>
-							직급 <input type="text" name="positionName" value="${user.positionName }" readonly><br>
-							연락처 <input type="text" name="userPhone" value="${user.userPhone }" readonly><br>
-							이메일 <input type="text" name="userEmail" value="${user.userEmail }" readonly><br>
-							생년월일 <input type="text" name="userBirth" value="${user.userBirth }" readonly><br>
-							상태 <input type="text" name="userState" value="${user.userState }" readonly>
-						</div>
-					</form>
-					<a href="/user/list">목록</a>
-					<br>
-				</c:if>
 			</main>
 		</div>
 	<script>

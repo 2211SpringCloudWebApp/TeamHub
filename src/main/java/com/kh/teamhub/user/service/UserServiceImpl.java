@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.teamhub.common.PageInfo;
+import com.kh.teamhub.user.domain.OrgUser;
 import com.kh.teamhub.user.domain.Search;
 import com.kh.teamhub.user.domain.User;
 import com.kh.teamhub.user.store.UserStore;
@@ -68,6 +69,12 @@ public class UserServiceImpl implements UserService{
 	public List<User> selectUserState() {
 		List<User> userStateList = uStore.selectUserState();
 		return userStateList;
+	}
+
+	@Override
+	public List<OrgUser> selectOrganization() {
+		List<OrgUser> oList = uStore.selectOrganization();
+		return oList;
 	}
 
 	@Override

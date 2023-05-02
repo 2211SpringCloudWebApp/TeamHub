@@ -21,6 +21,9 @@
 		<typeAlias type="com.kh.teamhub.todo.domain.Todo" alias="Todo"/>
 		<typeAlias type="com.kh.teamhub.todo.domain.Memo" alias="Memo"/>
 		<typeAlias type="com.kh.teamhub.approval.domain.ApprovalJoinForm" alias="ApprovalJoinForm"/>
+		<typeAlias type="com.kh.teamhub.user.domain.OrgUser" alias="OrgUser"/>
+		
+		
 	</typeAliases>
 	
 	<mappers>

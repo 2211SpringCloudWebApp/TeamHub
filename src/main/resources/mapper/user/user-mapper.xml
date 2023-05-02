@@ -16,6 +16,15 @@
 		<result property="userBoardGrant" column="USER_BOARD_GRANT" />
 		<result property="userType" column="USER_TYPE" />
 	</resultMap>
+	
+	<resultMap type="OrgUser" id="orgUserResultMap">
+		<result property="deptLevel" column="DEPT_LEVEL" />
+		<result property="deptCode" column="DEPT_CODE" />
+		<result property="deptName" column="DEPT_NAME" />
+		<result property="deptUppercode" column="DEPT_UPPERCODE" />
+		<result property="positionName" column="POSITION_NAME" />
+		<result property="userName" column="USER_NAME" />
+	</resultMap>
 <!-- 	사원 등록 -->
 	<insert id="registerUser">
 		INSERT INTO USER_TBL VALUES(#{userId }, #{userPw }, #{userName }, #{deptName }, #{positionName }, #{userEmail }, #{userPhone }, #{userBirth }, #{userState }, #{userFileName }, #{userfilePath }, DEFAULT, #{userType})
@@ -48,6 +57,23 @@
 	<select id="selecOndById" resultMap="userResultMap">
 		SELECT * FROM USER_TBL WHERE USER_ID = #{userId }
 	</select>
+	
+<!-- 	조직도 -->
+	<select id="selectOrganization" resultMap="orgUserResultMap"> 
+	SELECT
+    DEPT_CODE
+    , DEPT_TBL.DEPT_NAME AS DEPT_NAME
+    , USER_TBL.USER_NAME AS USER_NAME
+    , USER_TBL.POSITION_NAME AS POSITION_NAME
+    , DEPT_LEVEL
+	FROM DEPT_TBL
+	LEFT JOIN USER_TBL ON DEPT_TBL.DEPT_NAME = USER_TBL.DEPT_NAME
+	LEFT JOIN POSITION_TBL ON USER_TBL.POSITION_NAME = POSITION_TBL.POSITION_NAME
+	START WITH DEPT_UPPERCODE IS NULL
+	CONNECT BY PRIOR DEPT_CODE = DEPT_UPPERCODE
+	ORDER SIBLINGS BY DEPT_CODE ASC, POSITION_TBL.POSITION_LEVEL ASC
+	</select>
+	
 <!-- 	사원 검색 -->
 	<select id="selectListByKeyword" resultMap="userResultMap">
 		SELECT * FROM USER_TBL WHERE
@@ -63,7 +89,7 @@
 		<if test="condition == 'name'">
 			USER_NAME LIKE '%' || #{keyword} || '%'
 		</if>
-		OR USER_STATE = '퇴직'
+<!-- 		OR USER_STATE = '퇴직' -->
 	</select>
 
 <!-- 	페이징 -->

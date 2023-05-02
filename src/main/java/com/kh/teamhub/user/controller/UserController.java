@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.kh.teamhub.common.LoginUtil;
 import com.kh.teamhub.common.PageInfo;
 import com.kh.teamhub.common.file.FileUtil;
+import com.kh.teamhub.user.domain.OrgUser;
 import com.kh.teamhub.user.domain.Search;
 import com.kh.teamhub.user.domain.User;
 import com.kh.teamhub.user.service.UserService;
@@ -89,11 +91,16 @@ public class UserController {
 	// 마이페이지
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String mypageInfo(Model model, HttpSession session) {
-			User userOne = (User)session.getAttribute("user");
-			String userId = userOne.getUserId();
-			User user = uService.selectOneById(userId);
-			model.addAttribute("user", user);
-			return "user/mypage";
+			try {
+				User userOne = (User)session.getAttribute("user");
+				String userId = userOne.getUserId();
+				User user = uService.selectOneById(userId);
+				model.addAttribute("user", user);
+				return "user/mypage";
+			} catch (Exception e) {
+				model.addAttribute("msg", e.getMessage());
+				return "common/error";
+			}
 	}
 	
 	// 회원 정보 수정
@@ -102,7 +109,7 @@ public class UserController {
 			try {
 				int result = uService.updateUserInfo(user);
 				if(result > 0) {
-					return "redirect:/user/list";
+					return "redirect:/user/home";
 				}else {
 					model.addAttribute("msg", "수정이 완료되지 않았습니다.");
 					return "common/error";
@@ -208,19 +215,25 @@ public class UserController {
 	// 사원 목록 조회(재직상태)
 	@RequestMapping(value="/userStateList", method = RequestMethod.GET)
 	public String selectUserState(HttpSession session
-			, Model model
-			, @RequestParam(value="page", required=false, defaultValue="1") Integer page) {
-//		int totalCount = uService.getListCount();
-//		PageInfo pi = this.getPageInfo(page, totalCount);
+			, Model model) {
 		List<User> userStateList = uService.selectUserState();
 		
-//		model.addAttribute("pi", pi);
 		model.addAttribute("userStateList", userStateList);
 		return "user/listAdmin";
 	}
 	
 	
 	
+	// 조직도
+	@ResponseBody
+	@RequestMapping(value="/org", method = RequestMethod.GET, produces="application/json;charset=utf-8")
+	public String selectOrganization(Model model) {
+		List<OrgUser> oList = uService.selectOrganization();
+		model.addAttribute("oList", oList);
+		return new Gson().toJson(oList);
+	}
+
+
 	// 사원 상세 조회
 	@RequestMapping(value="/detail", method = RequestMethod.GET)
 	public String userDetailView(Model model
@@ -261,18 +274,15 @@ public class UserController {
 		}
 	}
 	
-	// 사원 검색 (재직 상태)
-	@RequestMapping(value="/stateYSearch", method = RequestMethod.GET)
+	// 사원 검색 (재직/퇴직 상태)
+	@RequestMapping(value="/stateSearch", method = RequestMethod.GET)
 	public String stateYSearch(Model model
 			, @ModelAttribute Search search) {
 		try {
-//			int totalCount = uService.getListCount(search);
-//			PageInfo pi = this.getPageInfo(currentPage, totalCount);
 			List<User> userStateList = uService.selectListByKeyword(search);
-			List<User> retireList = uService.selectUserState();
+//			List<User> retireList = uService.selectUserState();
 			if(!userStateList.isEmpty()) {
 				model.addAttribute("search", search);
-//				model.addAttribute("pi", pi);
 				model.addAttribute("userStateList", userStateList);
 //				model.addAttribute("retireList", retireList);
 				return "user/stateSearch";
@@ -286,24 +296,6 @@ public class UserController {
 		}
 	}
 	
-	// 사원 검색 (퇴직 상태)
-	@RequestMapping(value="/stateNSearch", method = RequestMethod.GET)
-	public String stateNSearch(Model model, @ModelAttribute Search search) {
-		try {
-			List<User> userStateList = uService.selectListByKeyword(search);
-			if(!userStateList.isEmpty()) {
-				model.addAttribute("search", search);
-				model.addAttribute("userStateList", userStateList);
-				return "user/stateSearch";
-			}else {
-				model.addAttribute("msg", "검색이 완료되지 않았습니다.");
-				return "common/error";
-			}
-		} catch (Exception e) {
-			model.addAttribute("msg", e.getMessage());
-			return "common/error";
-		}
-	}
 	
 	// 페이징
 	private PageInfo getPageInfo(int currentPage, int totalCount) {
@@ -311,16 +303,16 @@ public class UserController {
 		int boardLimit = 10;
 		int navLimit = 10;
 		int maxPage;
-		int startNav;
-		int endNav;
+		int startNavi;
+		int endNavi;
 		
 		maxPage = (int)Math.ceil((double) totalCount / boardLimit);
-		startNav = (((int)((double)currentPage / navLimit + 0.9)) -1 ) * navLimit +1;
-		endNav = startNav + navLimit -1;
-		if(endNav > maxPage) {
-			endNav = maxPage;
+		startNavi = (((int)((double)currentPage / navLimit + 0.9)) -1 ) * navLimit +1;
+		endNavi = startNavi + navLimit -1;
+		if(endNavi > maxPage) {
+			endNavi = maxPage;
 		}
-		pi = new PageInfo(currentPage, boardLimit, totalCount, navLimit, startNav, endNav, maxPage);
+		pi = new PageInfo(currentPage, boardLimit, navLimit, startNavi, endNavi, totalCount, maxPage);
 		return pi;
 	}
 }

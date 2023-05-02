@@ -12,13 +12,24 @@
 		<div id="container">
 			<jsp:include page="../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
-				서브 사이드바 코드 작성 부분. 
+				마이페이지<br><br>
+				<a href="/user/mypage">회원 수정</a><br>
+				<a href="javascript:void(0);" onclick="removeCheck('${user.userId }');">회원 탈퇴</a>
 			</div>
 			<jsp:include page="../common/header.jsp"></jsp:include>
 			
 			<main>
 				<form action="/user/modifyMypage" action="post">
-					<div><img alt="" src="../resources/fileUploads/${user.userFileName }"></div>
+					<c:if test="${!empty user.userFileName }">
+					<div>
+						<img alt="" src="../resources/fileUploads/${user.userFileName }" width="200px" height="200px;">
+					</div>
+					</c:if>
+					<c:if test="${empty user.userFileName }">
+					<div>
+						<img alt="" src="../resources/img/main/userlogo.png" width="200px" height="200px;">
+					</div>
+					</c:if>
 					<div>
 					아이디 <input type="text" name="userId" value="${user.userId }" readonly><br>
 					비밀번호 <input type="password" name="userPw" value="${user.userPw }"><br>
@@ -34,6 +45,13 @@
 				</form>
 			</main>
 		</div>
+		<script>
+			function removeCheck(userId) {
+		 		if(confirm("탈퇴하시겠습니까?")){
+		 			location.href="/user/delete?userId="+userId;
+		 		}
+		 	}
+		</script>
 	</body>
 	
 </html>
