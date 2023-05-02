@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.teamhub.project.domain.PageInfo;
 import com.kh.teamhub.project.domain.Project;
+import com.kh.teamhub.user.domain.Search;
 
 @Repository
 public class ProjectStoreLogic implements ProjectStore {
@@ -41,18 +42,34 @@ public class ProjectStoreLogic implements ProjectStore {
 	}
 
 	@Override
-	public List<Project> selectAllProject(PageInfo pi) {
+	public List<Project> selectAllProject(PageInfo pi, String status) {
 		int limit = pi.getBoardLimit();
 		int currentPage = pi.getCurrentPage();
 		int offset = (currentPage -1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		List<Project> pList = session.selectList("ProjectMapper.selectAllProject", null, rowBounds);
+		List<Project> pList = session.selectList("ProjectMapper.selectAllProject", status, rowBounds);
 		return pList;
 	}
 
 	@Override
-	public int getListCount() {
-		int result = session.selectOne("ProjectMapper.getListCount");
+	public int getListCount(String status) {
+		int result = session.selectOne("ProjectMapper.getListCount", status);
+		return result;
+	}
+
+	@Override
+	public List<Project> selectListByKeyword(PageInfo pi, Search search) {
+		int limit = pi.getBoardLimit();
+		int currentPage = pi.getCurrentPage();
+		int offset = (currentPage -1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Project> sList = session.selectList("ProjectMapper.selectListByKeyword", search, rowBounds);
+		return sList;
+	}
+
+	@Override
+	public int getListCount(Search search) {
+		int result = session.selectOne("ProjectMapper.getSearchListCount", search);
 		return result;
 	}
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.teamhub.project.domain.PageInfo;
 import com.kh.teamhub.project.domain.Project;
+import com.kh.teamhub.user.domain.Search;
 
 public interface ProjectService {
 
@@ -37,14 +38,31 @@ public interface ProjectService {
 
 	/**
 	 * 프로젝트 목록 조회 Service
+	 * @param status 
 	 * @return
 	 */
-	List<Project> selectAllProject(PageInfo pi);
+	List<Project> selectAllProject(PageInfo pi, String status);
 	
 	/**
-	 * 
+	 * 프로젝트 상태별 개수 Service 
+	 * @param status 
 	 * @return
 	 */
-	int getListCount();
+	int getListCount(String status);
+
+	/**
+	 * 프로젝트 검색 Service
+	 * @param pi
+	 * @param search
+	 * @return
+	 */
+	List<Project> selectListByKeyword(PageInfo pi, Search search);
+
+	/**
+	 * 프로젝트 검색 결과 개수 Service
+	 * @param search
+	 * @return
+	 */
+	int getListCount(Search search);
 
 }

@@ -9,7 +9,7 @@
 		<style type="text/css">
 			#sideBar li:nth-child(2){
 			    background-color: #2653e8ba;
-   				
+  				
 			}
 			#sideBar li:nth-child(2) a{
 				color: white !important;
