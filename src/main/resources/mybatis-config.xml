@@ -25,8 +25,4 @@
 		
 		
 	</typeAliases>
-	
-	<mappers>
-		<mapper resource="mapper/project-mapper.xml"/>
-	</mappers>
 </configuration>
