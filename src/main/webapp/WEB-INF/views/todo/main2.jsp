@@ -135,7 +135,7 @@
 				// trim() : 앞뒤 공백을 제거
 				  var memoContent = $(button).siblings("#memo-content").html().trim();
 				  if (memoContent.length === 0) {
-				    alert("Please enter memo content.");
+					alert("내용을 입력해주세요~");
 				    return;
 				  }
 				  console.log(memoContent);
@@ -317,10 +317,10 @@
 		  
 		  // 할 일 목록
 // 		  document.addEventListener('DOMContentLoaded', () => {
-            const input = document.querySelector('#todo')
-            const addButton = document.querySelector('#add-button')
-            const todoList = document.querySelector('#todo-list')
-            const alert = document.querySelector('span')
+//             const input = document.querySelector('#todo')
+//             const addButton = document.querySelector('#add-button')
+//             const todoList = document.querySelector('#todo-list')
+//             const alert = document.querySelector('span')
 
 	        // 오늘 날짜 구하기
 			var today = new Date(); // 현재 날짜와 시간을 가져옴

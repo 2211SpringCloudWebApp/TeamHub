@@ -31,13 +31,13 @@
 			<main>
 				<div id="main-container">
                     <div id="select">
-                    	<form action="/vacation/search" method="get">
+	                    <form action="/vacation/search" method="get">
 	                        검색일 <select name="searchCondition" id="searchCondition">
-		                             <option value="2023" <c:if test="${searchVacation.searchCondition == '2023' }">selected</c:if>>2023</option>
-		                            <option value="2022" <c:if test="${searchVacation.searchCondition == '2022' }">selected</c:if>>2022</option>
-		                            <option value="2021" <c:if test="${searchVacation.searchCondition == '2021' }">selected</c:if>>2021</option>
-		                            <option value="2020" <c:if test="${searchVacation.searchCondition == '2020' }">selected</c:if>>2020</option>
-		                        </select>
+	                            <option value="2023" <c:if test="${searchVacation.searchCondition == '2023' }">selected</c:if>>2023</option>
+	                            <option value="2022" <c:if test="${searchVacation.searchCondition == '2022' }">selected</c:if>>2022</option>
+	                            <option value="2021" <c:if test="${searchVacation.searchCondition == '2021' }">selected</c:if>>2021</option>
+	                            <option value="2020" <c:if test="${searchVacation.searchCondition == '2020' }">selected</c:if>>2020</option>
+	                        </select>
 	                        <input type="submit" id="search-btn" name="search-btn"value="검색">
                         </form>
                     </div>
@@ -74,7 +74,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            	<c:forEach items="${vList }" var="vacation" varStatus="i">
+                            	<c:forEach items="${searchVlist }" var="vacation" varStatus="i">
                             		<tr>
                             			<td>${i.count }</td>
                             			<td>${vacation.vacationDivision }</td>
