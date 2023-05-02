@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="VacationMapper">
+	<resultMap type="Vacation" id="vaResultMap">
+		<id property="vacationNo" column="VACATION_NO"></id>
+		<result property="userId" column="USER_ID" />
+		<result property="vacationName" column="VACATION_NAME" />
+		<result property="vacationDept" column="VACATION_DEPT" />
+		<result property="vacationDivision" column="VACATION_DIVISION" />
+		<result property="vacationCount" column="VACATION_COUNT" />
+		<result property="vacationCreateDate" column="VACATION_CREATE_DATE" />
+		<result property="vacationUsed" column="VACATION_USED" />
+		<result property="vacationStart" column="VACATION_START" />
+		<result property="vacationEnd" column="VACATION_END" />
+		<result property="vacationContent" column="VACATION_CONTENT" />
+		<result property="vacationState" column="VACATION_STATE" />
+	</resultMap>
+	
+	<select id="selectVacationList" resultMap="vaResultMap">
+		SELECT * FROM VACATION_TBL WHERE USER_ID = #{userId}
+	</select>
+	
+	
+</mapper>

@@ -2,6 +2,7 @@ package com.kh.teamhub.todo.service;
 
 import java.util.List;
 
+import com.kh.teamhub.todo.domain.Memo;
 import com.kh.teamhub.todo.domain.Todo;
 import com.kh.teamhub.user.domain.User;
 
@@ -45,6 +46,27 @@ public interface TodoService {
 	List<Todo> selectDayList(Todo todo);
 
 	List<Todo> selectEvents(String userId);
+
+	/**
+	 * 메모 등록
+	 * @param memo
+	 * @return int
+	 */
+	int insertMemo(Memo memo);
+
+	/**
+	 * 메모 리스트
+	 * @param userId
+	 * @return List<Memo>
+	 */
+	List<Memo> selectMemoList(String userId);
+
+	/**
+	 * 메모 삭제
+	 * @param memoNo
+	 * @return int
+	 */
+	int deleteMemo(int memoNo);
 
 
 }

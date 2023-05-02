@@ -49,6 +49,7 @@
 			<div id="subSideBar">
 				<h2>업무관리</h2>
 				<h4><a href="#">할 일/메모 목록</a></h4>
+				<h4><a href="#">완료 목록</a></h4>
 			</div>
 			<jsp:include page="../common/header.jsp"></jsp:include>
 			
@@ -94,18 +95,10 @@
                     <div id="main-bottom">
                         <div id="memo-title">
                             <h3>Memo</h3>
-                            <button id="memo-btn1" onclick="insertMemo();">+</button>
                         </div>
                         
                         <div id="memo">
-                            <c:forEach items="${mList }" var="memo">
-                            	<div class="memo-note">
-                            	<input type="hidden" value="${memo.memoNo }" id="memoNo">
-                            	<button class="memo-btn2" onclick="deleteMemo(this);">X</button>
-							    <button class="memo-btn2" onclick="saveMemo(this);">✓</button>
-							    <div contenteditable id="memo-content">${memo.memoContent }</div>
-                            	</div>
-                            </c:forEach>
+                            여기는 메모장
                         </div>
                     </div>
                     
@@ -116,74 +109,6 @@
 		</div>
 		
 		<script>
-
-			// '+' 버튼 눌렀을때 메모장 생성
-			function insertMemo() {
-			  $("#memo").append(
-			    '<div class="memo-note">' +
-			    '<button class="memo-btn2" onclick="deleteMemo(this);">X</button>' +
-			    '<button class="memo-btn2" onclick="saveMemo(this);">✓</button>' +
-			    '<div contenteditable id="memo-content"></div>' +
-			    '</div>'
-			  );
-			}
-			
-			// '✓' 버튼 눌렀을때 메모내용 저장
-			function saveMemo(button) {
-				// ("#memo-content").html() -> 줄바꿈까지 저장하려고
-				// ("#memo-content").text() -> 줄바꿈 저장안됨
-				// trim() : 앞뒤 공백을 제거
-				  var memoContent = $(button).siblings("#memo-content").html().trim();
-				  if (memoContent.length === 0) {
-				    alert("Please enter memo content.");
-				    return;
-				  }
-				  console.log(memoContent);
-// 			  var memoData = {
-// 					    "userId": $("#userId").val(),
-// 					    "memoContent": memoContent
-// 					  };
-
-			  
-			  $.ajax({
-				    type: "POST",
-				    url: "/ajaxInsertMemo",
-				    data: {
-				    	"userId": $("#userId").val(),
-					    "memoContent": memoContent
-				    },
-				    success: function(result) {
-				    },
-				    error: function(xhr, status, error) {
-				    	
-				    }
-				  });
-				}
-			
-			function deleteMemo(button) {
-				// closest : 현재 선택한 요소를 포함하여 가장 가까운 상위 요소를 선택
-				  var memoNote = $(button).closest(".memo-note");
-				  var memoNo = $(button).siblings("#memoNo").val();
-
-				  if (confirm("정말로 삭제하시겠습니까?")) {
-				    $.ajax({
-				      type: 'post',
-				      url: '/ajaxDeleteMemo',
-				      data: {
-				        "memoNo": memoNo
-				      },
-				      success: function (data) {
-				        memoNote.remove();
-				      },
-				      error: function (data) {
-				        memoNote.show();
-				      }
-				    });
-				  } else {
-				    memoNote.show();
-				  }
-				}
-			
 		
 			// 달력
 		    var calendarEl = document.getElementById('calendar');
@@ -331,8 +256,6 @@
 			formattedDate = year + '/' +month + '/' +day;
 			// #formattedDate를 오늘날짜로 만들어주기
 			$("#formattedDate").val(formattedDate);
-			// 처음에 업무관리 페이지 들어갔을때 오늘날짜로 만들어주기(페이지 들어가자마자 달력선택안해도 등록될 수 있도록)
-			$("#todoCreateDate").val(formattedDate);
 			
 			// 등록
 			function insertTodo() {
@@ -343,7 +266,6 @@
 // 						컨트롤러에서 Todo todo 로 받으니까 도메인에서 써준거랑 똑같이 써야됨 -todoContent
 						"todoContent" : $("#todo").val(),
 						"userId" : $("#userId").val(),
-						// 위에서 오늘날짜로 만들어준거 보내주기
 						"tdCreateDate" : $("#todoCreateDate").val()
 					},
 					type : 'post',
@@ -450,6 +372,10 @@
 					
 				}
 			}
+			
+			
+			
+			
 		</script>
 	</body>
 	

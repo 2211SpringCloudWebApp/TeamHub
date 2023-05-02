@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.kh.teamhub.todo.domain.Memo;
 import com.kh.teamhub.todo.domain.Todo;
 import com.kh.teamhub.user.domain.User;
 
@@ -48,6 +49,29 @@ public interface TodoStore {
 	List<Todo> selectDayList(SqlSession session, Todo todo);
 
 	List<Todo> selectEvents(SqlSession session, String userId);
+
+	/**
+	 * 메모 등록
+	 * @param memo
+	 * @return int
+	 */
+	int insertMemo(SqlSession session, Memo memo);
+
+	/**
+	 * 메모 리스트
+	 * @param session
+	 * @param userId
+	 * @return List<Memo>
+	 */
+	List<Memo> selectMemoList(SqlSession session, String userId);
+
+	/**
+	 * 메모 삭제
+	 * @param session
+	 * @param memoNo
+	 * @return int
+	 */
+	int deleteMemo(SqlSession session, int memoNo);
 
 
 }
