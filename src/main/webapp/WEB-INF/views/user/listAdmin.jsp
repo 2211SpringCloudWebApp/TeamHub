@@ -15,19 +15,30 @@
 	<body>
 		<div id="container">
 			<jsp:include page="../common/sideBar.jsp"></jsp:include>
-			<div id="subSideBar">
-				<a href="/user/registerView">사원 등록</a><br>
-				<a href="/user/userStateList">사원 관리</a>
-				<br>
+			<div id="subSideBar" style="overflow:auto;">
+				<c:if test="${sessionScope.user.userType eq 1 }">
+					<a href="/user/list">사원 목록</a><br>
+					<a href="#">조직도</a><br>
+					<a href="/user/registerView">사원 등록</a><br>
+					<a href="/user/userStateList">사원 관리</a>
+					<hr>
+					<div>//조직도//</div>
+				</c:if>
+				<c:if test="${sessionScope.user.userType ne 1 }">
+					<a href="/user/list">사원 목록</a><br>
+					<a href="#">조직도</a>
+					<hr>
+					<div>//조직도//</div>
+				</c:if>
 			</div>
 			<jsp:include page="../common/header.jsp"></jsp:include>
 			
 			<main>
-				<form action="/user/stateYSearch" method="get">
+				<form action="/user/stateSearch" method="get">
 					<select name="condition" id="">
 						<option value="name">이름</option>
 					</select>
-					<input type="text" id="" name="keyword" placeholder="이름으로 검색">
+					<input type="text" id="" name="keyword" placeholder="이름을 입력하세요">
 					<input type="submit" value="검색">
 				</form>
 				재직자목록
@@ -62,34 +73,7 @@
 					</tfoot>
 				</table>
 				</div>
-<!-- 				<div> -->
-<%-- 					<c:if test="${pi.currentPage > 1 }"> --%>
-<!-- 						<a href="/user/userStateList?page=1"><<</a> -->
-<%-- 					</c:if> --%>
-<%-- 					<c:if test="${pi.currentPage > 1 }"> --%>
-<%-- 						<a href="/user/userStateList?page=${pi.currentPage -1 }"><</a> --%>
-<%-- 					</c:if> --%>
-<%-- 					<c:forEach begin="${pi.startNav }" end="${pi.endNav }" var="page"> --%>
-<%-- 						<c:url var="pageUrl" value="/user/userStateList"> --%>
-<%-- 							<c:param name="page" value="${page }" /> --%>
-<%-- 						</c:url> --%>
-<%-- 						<a href="${pageUrl }">${page }</a> --%>
-<%-- 					</c:forEach> --%>
-<%-- 					<c:if test="${pi.currentPage < pi.maxPage }"> --%>
-<%-- 						<a href="/user/userStateList?page=${pi.currentPage +1}">></a> --%>
-<%-- 					</c:if> --%>
-<%-- 					<c:if test="${pi.currentPage < pi.maxPage }"> --%>
-<%-- 						<a href="/user/userStateList?page=${pi.maxPage }">>></a> --%>
-<%-- 					</c:if> --%>
-<!-- 				</div> -->
 				<hr>
-<!-- 				<form action="/user/stateNSearch" method="get"> -->
-<!-- 					<select name="condition" id=""> -->
-<!-- 						<option value="name">이름</option> -->
-<!-- 					</select> -->
-<!-- 					<input type="text" id="" name="keyword" placeholder="이름으로 검색"> -->
-<!-- 					<input type="submit" value="검색"> -->
-<!-- 				</form> -->
 				퇴직자목록
 				<div style="overflow:auto;">
 				<table>
@@ -124,26 +108,6 @@
 					</tfoot>
 				</table>
 				</div>
-<!-- 				<div> -->
-<%-- 					<c:if test="${pi.currentPage > 1 }"> --%>
-<!-- 						<a href="/user/userStateList?page=1"><<</a> -->
-<%-- 					</c:if> --%>
-<%-- 					<c:if test="${pi.currentPage > 1 }"> --%>
-<%-- 						<a href="/user/userStateList?page=${pi.currentPage -1 }"><</a> --%>
-<%-- 					</c:if> --%>
-<%-- 					<c:forEach begin="${pi.startNav }" end="${pi.endNav }" var="page"> --%>
-<%-- 						<c:url var="pageUrl" value="/user/userStateList"> --%>
-<%-- 							<c:param name="page" value="${page }" /> --%>
-<%-- 						</c:url> --%>
-<%-- 						<a href="${pageUrl }">${page }</a> --%>
-<%-- 					</c:forEach> --%>
-<%-- 					<c:if test="${pi.currentPage < pi.maxPage }"> --%>
-<%-- 						<a href="/user/userStateList?page=${pi.currentPage +1}">></a> --%>
-<%-- 					</c:if> --%>
-<%-- 					<c:if test="${pi.currentPage < pi.maxPage }"> --%>
-<%-- 						<a href="/user/userStateList?page=${pi.maxPage }">>></a> --%>
-<%-- 					</c:if> --%>
-<!-- 				</div> -->
 			</main>
 		</div>
 	</body>

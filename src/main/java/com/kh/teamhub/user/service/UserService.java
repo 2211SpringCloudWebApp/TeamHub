@@ -3,6 +3,7 @@ package com.kh.teamhub.user.service;
 import java.util.List;
 
 import com.kh.teamhub.common.PageInfo;
+import com.kh.teamhub.user.domain.OrgUser;
 import com.kh.teamhub.user.domain.Search;
 import com.kh.teamhub.user.domain.User;
 
@@ -69,6 +70,12 @@ public interface UserService {
 	 * @return List<User>
 	 */
 	List<User> selectUserState();
+
+	/**
+	 * 조직도 조회 Service
+	 * @return List<OrgUser>
+	 */
+	List<OrgUser> selectOrganization();
 
 	/**
 	 * 사원 검색 Service

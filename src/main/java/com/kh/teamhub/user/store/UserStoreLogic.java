@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.teamhub.common.PageInfo;
+import com.kh.teamhub.user.domain.OrgUser;
 import com.kh.teamhub.user.domain.Search;
 import com.kh.teamhub.user.domain.User;
 
@@ -73,6 +74,12 @@ public class UserStoreLogic implements UserStore{
 	public List<User> selectUserState() {
 		List<User> userStateList = session.selectList("UserMapper.selectUserStateList");
 		return userStateList;
+	}
+
+	@Override
+	public List<OrgUser> selectOrganization() {
+		List<OrgUser> oList = session.selectList("UserMapper.selectOrganization");
+		return oList;
 	}
 
 	@Override

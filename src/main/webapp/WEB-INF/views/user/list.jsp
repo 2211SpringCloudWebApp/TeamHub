@@ -5,7 +5,11 @@
 	<html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>사원 전체 목록</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+		<script src="../../../resources/js/jquery.treeview.js"></script>
+		<link rel="stylesheet" href="../../../resources/css/user/jquery.treeview.css" />
+<!-- 		<link rel="stylesheet" href="../../../resources/css/user/screen.css" /> -->
 	</head>
 	<style>
 		#sideBar li:nth-child(6){
@@ -22,10 +26,35 @@
 	<body>
 		<div id="container">
 			<jsp:include page="../common/sideBar.jsp"></jsp:include>
-			<div id="subSideBar">
-				<a href="/user/registerView">사원 등록</a><br>
-				<a href="/user/userStateList">사원 관리</a>
-				<br>
+			<div id="subSideBar" style="overflow:auto;">
+				<c:if test="${sessionScope.user.userType eq 1 }">
+					<a href="/user/list">사원 목록</a><br>
+					<a href="javascript:void(0)" onclick="getOrg();">조직도</a><br>
+					<a href="/user/registerView">사원 등록</a><br>
+					<a href="/user/userStateList">사원 관리</a>
+					<hr>
+					<div style="overflow:auto;" id="orgList">
+					
+					<ul>
+					
+					</ul>
+					
+				
+					</div>
+				</c:if>
+				<c:if test="${sessionScope.user.userType ne 1 }">
+					<a href="/user/list">사원 목록</a><br>
+					<a href="javascript:void(0)" onclick="getOrg();">조직도</a>
+					<hr>
+					<div style="overflow:auto;" id="orgList">
+						<c:forEach items="${oList }" var="orgUser">
+						<ul>
+							<li>${orgUser.deptName }</li>
+							<li>${orgUser.userName }+" "+${orgUser.positionName }</li>
+						</ul>
+						</c:forEach>
+					</div>
+				</c:if>
 			</div>
 			<jsp:include page="../common/header.jsp"></jsp:include>
 			
@@ -43,7 +72,7 @@
 				<table>
 					<thead>
 						<tr>
-							<th>사원번호</th>
+<!-- 							<th>사원번호</th> -->
 							<th>이름</th>
 							<th>부서</th>
 							<th>직급</th>
@@ -54,7 +83,7 @@
 					<tbody>
 						<c:forEach items="${uList }" var="user">
 							<tr>
-								<td><a href="/user/detail?userId=${user.userId }">${user.userId }</a></td>
+<%-- 								<td><a href="/user/detail?userId=${user.userId }">${user.userId }</a></td> --%>
 								<td><a href="/user/detail?userId=${user.userId }">${user.userName }</a></td>
 								<td>${user.deptName }</td>
 								<td>${user.positionName }</td>
@@ -66,6 +95,7 @@
 					<tfoot>
 					
 					</tfoot>
+					
 				</table>
 				<div>
 					<c:if test="${pi.currentPage > 1 }">
@@ -74,7 +104,7 @@
 					<c:if test="${pi.currentPage > 1 }">
 						<a href="/user/list?page=${pi.currentPage -1 }"><</a>
 					</c:if>
-					<c:forEach begin="${pi.startNav }" end="${pi.endNav }" var="page">
+					<c:forEach begin="${pi.startNavi }" end="${pi.endNavi }" var="page">
 						<c:url var="pageUrl" value="/user/list">
 							<c:param name="page" value="${page }" />
 						</c:url>
@@ -89,6 +119,25 @@
 				</div>
 			</main>
 		</div>
-	</body>
-	
+	<script>
+		getOrg();
+		function getOrg() {
+			$.ajax({
+				url : "/user/org",
+				type : "get",
+				data : {},
+				success : function(data) {
+					if(data.length != 0) {
+						data.forEach(function(e, i) {
+// 							var 
+						})
+					}
+				},
+				error : function() {
+					alert("Ajax 처리 실패");
+				}
+			});
+		}
+	</script>
+	</body>	
 </html>
