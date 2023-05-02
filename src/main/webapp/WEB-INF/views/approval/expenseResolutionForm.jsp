@@ -41,6 +41,31 @@
 		   .input-chek:checked + .form-chek, .input-radio:checked + .form-radio{ color: #5b18ff; }
 		   .leaveDetailTextArea { font-size: 25px; }
 		   .leaveDate { padding: 10px; }
+		   input{
+				border: 0px;
+				font-size: 17px;
+	   			text-align: center;
+			}
+			.tr3 td:nth-child(1), .tr3 td:nth-child(2){
+				height: 70px;
+			}
+			.tr3 td:nth-child(1) button{
+				width: 200px;
+			    height: 52px;
+			    background-color: #f0f0f0;
+			    border: 1px solid gray;
+			    font-size: 22px;
+			    cursor: pointer;
+			}
+			
+			.tr3 td:nth-child(2) textArea{
+				border:none;
+				margin-bottom:-12px; 
+				font-size:19px;
+				width:600px; 
+				height:60px; 
+				resize: none;
+			}
 		</style>
 	</head>
 	
@@ -55,10 +80,10 @@
 					<div id="inner">
 						<div id="input-main">
 							<select name="document" id="document">                     <!-- name : 키-->
-				                <option value="draft">기안서</option>         <!-- value : 값-->
 				                <option value="requisition">품의서</option>
 				                <option value="leaveRequest">휴가신청서</option>
 				                <option value="expenseResolution">지출결의서</option>
+				                <option value="draft">기안서</option>         <!-- value : 값-->
 				            </select>
 						</div>
 						
@@ -88,7 +113,7 @@
 			<jsp:include page="../common/header.jsp"></jsp:include>
 			
 			<main>
-				 <div class="cash-form-section" style="height: 100%; margin: 0 300px 0 300px;">
+				 <div class="cash-form-section" style="height: 100%; margin: 0 200px 0 200px;">
 			        <div class="cash-disbursement" style="text-align: center; margin: 80px 200px 80px 0px; border: 2px solid black;">
 			            <table border="2" style="width: 100%; font-size: 20px; border-collapse: collapse;">
 			                <tr>
@@ -160,13 +185,13 @@
 				                    </c:otherwise>
 			                    </c:choose>
 			                </tr>
-			                <tr>
-			                    <td colspan="2" style="height: 70px;">
-			                        <button class="send-open" type="button" disabled>수신참조자 +</button>
+			                <tr class="tr3">
+			                    <td colspan="2">
+			                        <button class="send-open" type="button" onclick="openApprovalModal();">수신참조자 +</button>
 			                    </td>
-			                    <td colspan="6" style="height: 70px;">
-			                    	<textArea readonly name="referList" id="referList" style="border:none;margin-bottom:-12px; font-size:19px; width:600px; height:60px; text-align: center; resize: none;">${approval.referList}</textArea>
-			                    </td>	
+			                    <td colspan="6">
+			                       <textArea readonly name="referList" id="referList"></textArea>
+			                    </td>   
 			                </tr>
 			                <tr>
 			                    <td style="height: 70px; width: 80px;">성 명</td>
@@ -178,10 +203,9 @@
 			                </tr>
 			                <tr>                    
 			                    <td colspan="1">마감일</td>
-			                    <td colspan="1"><input type="date" name="erDeadline" id="erDeadline" style="background:none;margin-left:35px;font-size:30px;" readonly value="${approval.erDeadline}" ></td>
+			                    <td colspan="1"></td>
 			                    <td colspan="1" style="height: 70px; width: 80px;">지출금액</td>
-			                    <td colspan="3" ><input type="text" name="allAmount" id="allAmount" readonly value="${approval.allAmount}"/></td>
-			                    <td colspan="2" style="border:0px"><input type="text" name="monetaryUnit" id="monetaryUnit" readonly value="${approval.monetaryUnit}"/></td>
+			                    <td colspan="5" ><input type="text" name="allAmount" id="allAmount" readonly value="${approval.allAmount}"/></td>
 			                </tr>
 			                <tr>
 			                    <td style="height: 70px; width: 80px;">제 목</td>
@@ -193,8 +217,23 @@
 			                    <td colspan="2">금 액</td>
 			                    <td colspan="3">비 고</td>
 			                </tr>
-			                
-			            
+			                <tr>
+			                	<td colspan="2">&nbsp;</td>
+			                	<td colspan="2">&nbsp;</td>
+			                	<td colspan="3">&nbsp;</td>
+			            	</tr>
+			            	<tr>
+			                	<td colspan="2">&nbsp;</td>
+			                	<td colspan="2">&nbsp;</td>
+			                	<td colspan="3">&nbsp;</td>
+			            	</tr>
+			            	<tr>
+			                	<td colspan="2">&nbsp;</td>
+			                	<td colspan="2">&nbsp;</td>
+			                	<td colspan="3">&nbsp;</td>
+			            	</tr>
+			            	
+			            	
 			            	
 			                <tr> 
 			                    <td colspan="8" style="text-align: center; height: 100px; border-bottom: none;">위 금액을 청구하오니 결재바랍니다.</td>

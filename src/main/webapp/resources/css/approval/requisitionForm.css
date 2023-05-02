@@ -1,0 +1,153 @@
+@charset "UTF-8";
+input{
+	border: 0px;
+}
+textarea:focus{
+	outline: none;
+}
+.cash-form-section {
+	height: 100%; 
+	width:68%; 
+	margin: 0 300px 0 300px;
+}
+.cash-disbursement{
+	text-align: center; 
+	margin: 80px 0px 80px 0px; 
+	border: 2px solid black;
+}
+.cash-disbursement table{
+	width: 100%; 
+	font-size: 20px; 
+	border-collapse: collapse;
+}
+.tr1 .formTitle{
+	width: 300px; 
+	height: 120px; 
+	font-size: 40px; 
+	font-weight: 600;
+}
+.tr1 td:nth-child(2){
+	font-size: 25px;
+}
+.tr1 td:nth-child(2) span{
+	 border: none; 
+	 width: 80px;
+}
+.tr1 td:nth-child(3){
+	height: 30px;
+}
+.tr1 td:nth-child(3), .tr1 td:nth-child(4), .tr1 td:nth-child(5){
+	width: 100px;
+}
+.tr2 .nameView{
+    text-align: center;
+    height: 70px;
+    border-bottom: 1px solid black;
+}
+.tr2 .searchMember{
+	font-size: 20px;
+    height: 40px;
+    background-color: #f0f0f0;
+    width: 131px;
+    cursor: pointer;
+    border: 1px solid gray;
+    margin: 7px;
+}
+
+.tr3 td:nth-child(1), .tr3 td:nth-child(2){
+	height: 70px;
+}
+.tr3 td:nth-child(1) button{
+	width: 200px;
+    height: 52px;
+    background-color: #f0f0f0;
+    border: 1px solid gray;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.tr3 td:nth-child(2) textArea{
+	border:none;
+	margin-bottom:-12px; 
+	font-size:19px;
+	width:600px; 
+	height:60px; 
+	resize: none;
+}
+.tr4 td:nth-child(1){
+	height: 70px; 
+	width: 80px;
+	font-weight: 600;
+}
+.tr4 td:nth-child(3), .tr4 td:nth-child(5){
+	width: 80px;
+	font-weight: 600;
+}
+.tr4 input{
+	font-size: 17px;
+	text-align: center;
+}
+.tr5 td:nth-child(1){
+	height: 70px; 
+	width: 80px;
+	font-weight: 600;
+}
+.tr5 td:nth-child(2) input{
+	font-size: 18px;
+    width: 100%;
+    text-align: center;
+}
+.tr6 td:nth-child(1) {
+	height: 70px; 
+	width: 80px;
+}
+.tr7 textarea{
+	width: 100%; 
+	height: 100%; 
+	border: none; 
+	resize: none; 
+	overflow: hidden; 
+	font-size: 22px;	
+	padding: 20px;
+}
+.tr8 td{
+	text-align: center; 
+	height: 100px; 
+	border-bottom: none;
+}
+.tr9 {
+	border: white;
+	
+}
+.tr9 input{
+	text-align:center; 
+	font-size: 30px;
+}
+.tr9 td{
+	text-align: center; 
+	height: 100px;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+}
+.tr10 td{
+	text-align: right; 
+	height: 100px; 
+	padding-right: 50px;
+}
+.tr10 input{
+	font-size:15px; 
+	width:70px; 
+	height:30px; 
+	border: none; 
+	text-align: center; 
+	border-radius:20px; 
+	margin-right:10px;
+}
+.tr10 textarea{
+	width:130px; 
+	border: none; 
+	text-align: center; 
+	resize: none; 
+	font-size:24px; 
+	margin-bottom:-42px;
+}

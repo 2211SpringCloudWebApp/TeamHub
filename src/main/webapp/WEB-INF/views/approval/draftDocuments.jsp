@@ -25,10 +25,10 @@
 					<div id="inner">
 						<div id="input-main">
 							<select name="document" id="document">                     <!-- name : 키-->
-				                <option value="draft">기안서</option>         <!-- value : 값-->
 				                <option value="requisition">품의서</option>
 				                <option value="leaveRequest">휴가신청서</option>
 				                <option value="expenseResolution">지출결의서</option>
+				                <option value="draft">기안서</option>         <!-- value : 값-->
 				            </select>
 						</div>
 						

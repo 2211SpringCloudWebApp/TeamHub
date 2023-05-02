@@ -281,23 +281,12 @@
             $("#startTime").val(localDate.toISOString().slice(0,16));
             $("#endTime").val((arg.end).toISOString().slice(0,16));
 			
-            console.log("select 원래 날짜: " + localDate)
-            console.log("select 수정 날짜: " + localDate.toISOString().slice(0,16))
-            
             openModal("일정 등록");
         },
         editable: true,
         eventLimit: true,
         events: [],
         eventClick: function(event, jsEvent, view) {
-            console.log(event);
-            console.log("title : " + event.event._def.title);
-            console.log("startTime : " + (event.event._instance.range.start));
-            console.log("endTime : " + (event.event._instance.range.end));
-            console.log("no : " + event.event._def.extendedProps.no);
-            
-            
-            
             openModal("일정 상세", event.event._def.extendedProps.no);
         }
     };
@@ -336,6 +325,9 @@
                 // FullCalendar에 이벤트 데이터 설정
                 var calendarEvents = [];
                 for (var i = 0; i < events.length; i++) {
+                  console.log("체크 : " + events[i].scheduleStart);
+                  
+                  
                   var startDate = new Date(events[i].scheduleStart);
                   var endDate = new Date(events[i].scheduleEnd);
 

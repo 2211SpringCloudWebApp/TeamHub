@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/*  ------ 모달창 CSS ---------   */
+/*  ------ 결재 상신모달창 CSS ---------   */
 #modal.modal-overlay {
     width: 100%; 
     height: 100%;
@@ -50,6 +50,92 @@
 	    margin-bottom:30px;
 	    padding: 10px;
 }
+#input-btn button{
+   height: 45px;
+   width: 90px;
+}
+/*  -------------------------  */
+/*  ------ 결재 검색 버튼 모달창 CSS ---------   */
+#modalApproval.modal-overlay {
+    width: 100%; 
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.4); 
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    z-index: 100;
+    display: none;
+}
+#modalApproval .modal-window {
+    background: white;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    width: 370px;
+    height: 560px;
+    position: relative;
+    top: -50px;
+    padding: 10px;
+}
+#modalApproval .title {
+    padding-left: 143px;
+    margin-bottom: 30px;
+    margin-top: 15px;
+    color: black;
+}
+#modalApproval .title h2 {
+    display: inline;
+}
+#inner{
+ padding-left: 38px;	
+}
+
+#searchUser form{
+	display: flex;
+}
+#searchUser form div{
+	display: flex;
+	border: 1px solid gray;
+}
+
+#selectUser{
+	margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid gray;
+    width: 266px;
+	height: 210px;
+    overflow-y: auto;
+}
+#selectUser tr{
+	height: 35px;
+}
+#selectUser td:nth-child(2){
+padding-left: 84px;	
+}
+#selectUserList{
+	height: 125px;
+}
+
+
+#input-main{
+	margin-top: 42px;
+}
+#input-main select{
+     width: 200px;
+    height: 44px;
+    margin-bottom:30px;
+    padding: 10px;
+}
+
 #input-btn button{
    height: 45px;
    width: 90px;
