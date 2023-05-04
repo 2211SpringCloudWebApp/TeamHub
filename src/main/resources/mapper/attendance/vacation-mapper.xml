@@ -15,25 +15,25 @@
 		<result property="vacationContent" column="VACATION_CONTENT" />
 		<result property="vacationState" column="VACATION_STATE" />
 	</resultMap>
-	
+	<!-- 연차 리스트 -->
 	<select id="selectVacationList" resultMap="vaResultMap">
-		SELECT * FROM VACATION_TBL WHERE USER_ID = #{userId} AND TO_CHAR(VACATION_START, 'YYYY') LIKE TO_CHAR(SYSDATE,'YYYY')
+		SELECT * FROM VACATION_TBL WHERE USER_ID = #{userId} AND TO_CHAR(VACATION_START, 'YYYY') LIKE TO_CHAR(SYSDATE,'YYYY') ORDER BY VACATION_END DESC
 	</select>
 	
 	<select id="searchListByYear" resultMap="vaResultMap">
 		SELECT * FROM VACATION_TBL
 		<choose>
 			<when test="searchCondition == '2023'">
-				WHERE USER_ID = #{userId} AND TO_CHAR(VACATION_START, 'YYYY') = 2023
+				WHERE USER_ID = #{userId} AND TO_CHAR(VACATION_START, 'YYYY') = 2023 ORDER BY VACATION_END DESC
 			</when>
 			<when test="searchCondition == '2022'">
-				WHERE USER_ID = #{userId} AND TO_CHAR(VACATION_START, 'YYYY') = 2022
+				WHERE USER_ID = #{userId} AND TO_CHAR(VACATION_START, 'YYYY') = 2022 ORDER BY VACATION_END DESC
 			</when>
 			<when test="searchCondition == '2021'">
-				WHERE USER_ID = #{userId} AND TO_CHAR(VACATION_START, 'YYYY') = 2021
+				WHERE USER_ID = #{userId} AND TO_CHAR(VACATION_START, 'YYYY') = 2021 ORDER BY VACATION_END DESC
 			</when>
 			<when test="searchCondition == '2020'">
-				WHERE USER_ID = #{userId} AND TO_CHAR(VACATION_START, 'YYYY') = 2020
+				WHERE USER_ID = #{userId} AND TO_CHAR(VACATION_START, 'YYYY') = 2020 ORDER BY VACATION_END DESC
 			</when>
 		</choose>
 	</select>

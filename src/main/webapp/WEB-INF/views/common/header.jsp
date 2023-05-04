@@ -48,6 +48,7 @@
 		#header nav ul li ul li {
 			width: 155px;
 			display: block;
+			background-color: white;
 		}
 		
 		#header nav ul li ul li:hover {
@@ -65,9 +66,6 @@
 	<div id="header">
 		<nav>
 			<ul>
-				<li class="dropdown">
-					<a>쪽지</a>
-				</li>
 				<li class="dropdown">
 					<a>알림</a>
 				</li>

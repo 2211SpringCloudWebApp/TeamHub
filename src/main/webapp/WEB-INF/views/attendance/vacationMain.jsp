@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -24,7 +24,7 @@
 				<div id="subSideBar">
 					<h2>근태관리</h2>
 					<h4><a href="/attendance/mainView">근태관리</a></h4>
-					<h4><a href="#">연차관리</a></h4>
+					<h4><a href="/vacation/mainView">연차관리</a></h4>
 				</div>
 			<jsp:include page="../common/header.jsp"></jsp:include>
 			
@@ -51,16 +51,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>15</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                </tr>
+                            <c:set var="totalVacationUsed" value="0" />
+                            <c:set var="vacationCount" value="${vList[0].vacationCount}" />
+                            <c:forEach items="${vList}" var="vacation">
+							    <c:set var="totalVacationUsed" value="${totalVacationUsed + vacation.vacationUsed}" />
+							</c:forEach>
+	                                <tr>
+	                                    <td>15</td>
+	                                    <td><c:out value="${totalVacationUsed}" /></td>
+	                                    <td>${vacationCount}</td>
+	                                </tr>
                             </tbody>
                         </table>
                     </div>
                     <div id="btn">
-                        <h3>2020년도 조회</h3>
+                        <h3><span id="selectedYear">${searchVacation.searchCondition}</span>년도 조회</h3>
                         <input type="button" id="vacation-btn" value="연차신청">
                     </div>
                     <div id="list">
@@ -88,5 +93,10 @@
                 </div>
 			</main>
 		</div>
+		
+		<script>
+			const selectedYear = document.getElementById('searchCondition').value;
+			document.getElementById('selectedYear').textContent = selectedYear;
+		</script>
 	</body>
 </html>
