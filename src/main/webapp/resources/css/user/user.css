@@ -1,1 +1,30 @@
 @charset "UTF-8";
+
+/* 사이드바 */
+
+#sideBar li:nth-child(6){	
+	background-color: #2653e8ba;  				
+}
+
+#sideBar li:nth-child(6) a{
+	color: white !important;
+}
+		
+#subSideBar ul {
+	text-align : left;
+	margin-top : 30px;
+	margin-left : 50px;
+}
+		
+#subSideBar ul li {
+	line-height : 30px;
+}
+		
+#orgList {
+ 	height : 80vh; 
+	overflow : auto;
+}
+		
+table {
+	border : 1px solid black;
+}

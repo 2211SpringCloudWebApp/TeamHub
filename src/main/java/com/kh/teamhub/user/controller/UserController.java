@@ -156,10 +156,16 @@ public class UserController {
 	
 	// 아이디 중복 체크
 	@ResponseBody
-	@RequestMapping(value="/checkId", method = RequestMethod.POST, produces="application/json;charset=utf-8")
-	public int checkId(@RequestParam("userId") String userId) {
+	@RequestMapping(value="/checkId", method = RequestMethod.GET, produces="application/json;charset=utf-8")
+	public String checkId(@RequestParam String userId) {
 		int result = uService.checkId(userId);
-		return result;
+		if(result > 0) {
+			// 아이디 중복
+			return "1";
+		} else {
+			// 아이디 중복 X
+			return "0";
+		}
 	}
 	
 	// 사원 정보 수정
@@ -169,6 +175,23 @@ public class UserController {
 			int result = uService.updateUser(user);
 			if(result > 0) {
 				return "redirect:/user/list";
+			}else {
+				model.addAttribute("msg", "수정이 완료되지 않았습니다.");
+				return "common/error";
+			}
+		} catch (Exception e) {
+			model.addAttribute("msg", e.getMessage());
+			return "common/error";
+		}
+	}
+	
+	// 사원 정보 수정(퇴직처리)
+	@RequestMapping(value="/modifyState", method = {RequestMethod.POST, RequestMethod.GET})
+	public String modifyUserState(Model model, @ModelAttribute User user) {
+		try {
+			int result = uService.updateUserState(user);
+			if(result > 0) {
+				return "redirect:/user/userStateList";
 			}else {
 				model.addAttribute("msg", "수정이 완료되지 않았습니다.");
 				return "common/error";
@@ -212,7 +235,7 @@ public class UserController {
 		return "user/list";
 	}
 	
-	// 사원 목록 조회(재직상태)
+	// 사원 목록 조회(관리자)
 	@RequestMapping(value="/userStateList", method = RequestMethod.GET)
 	public String selectUserState(HttpSession session
 			, Model model) {
@@ -224,7 +247,7 @@ public class UserController {
 	
 	
 	
-	// 조직도
+	// 조직도 조회
 	@ResponseBody
 	@RequestMapping(value="/org", method = RequestMethod.GET, produces="application/json;charset=utf-8")
 	public String selectOrganization(Model model) {
@@ -242,6 +265,21 @@ public class UserController {
 			User user = uService.selectOneById(userId);
 			model.addAttribute("user", user);
 			return "user/detail";
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", e.getMessage());
+			return "common/error";
+		}
+	}
+	
+	// 사원 상세 조회(관리자)
+	@RequestMapping(value="/detailAdmin", method = RequestMethod.GET)
+	public String userDetailViewAdmin(Model model
+			, @RequestParam("userId") String userId) {
+		try {
+			User user = uService.selectOneById(userId);
+			model.addAttribute("user", user);
+			return "user/detailAdmin";
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("msg", e.getMessage());
@@ -274,7 +312,7 @@ public class UserController {
 		}
 	}
 	
-	// 사원 검색 (재직/퇴직 상태)
+	// 사원 검색 (관리자)
 	@RequestMapping(value="/stateSearch", method = RequestMethod.GET)
 	public String stateYSearch(Model model
 			, @ModelAttribute Search search) {

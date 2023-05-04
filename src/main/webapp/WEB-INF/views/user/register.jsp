@@ -38,7 +38,7 @@
 					사진 <input type="file" name="uploadFile" onchange="loadImg(this)"><br>
 <!-- 					<input type="hidden" name="userFilePath"><br> -->
 					아이디 <input type="text" name="userId" id="userId">
-					<button onclick="checkId()">중복체크</button><br>
+					<button type="button" onclick="idDuplicateCheck()">중복체크</button><br>
 					비밀번호 <input type="password" name="userPw"><br>
 					이름 <input type="text" name="userName"><br>
 					부서 
@@ -94,25 +94,29 @@
 				}
 			}
 			
-			// 아이디 중복 체크
-			function checkId(){
-				id = $("#userId").val();
+			
+			// 아이디 중복체크
+			function idDuplicateCheck(){
+				var id = $("#userId").val();
 				$.ajax({
 					url : "/user/checkId",
-					data : id,
-					type : "post",
-					success : function(result) {
-						if(reselt == 0) {
+					data : { userId : id },
+					type : "get",
+					success : function(result){
+						console.log(result);
+						if(result == '0') {
 							alert("사용할 수 있는 아이디입니다.");
 						}else {
 							alert("중복된 아이디가 존재합니다.");
 						}
 					},
-					error : function(){
-						alert("AJAX 처리 실패");
+					error : function() {
+						alert("Ajax 처리 실패");
 					}
 				});
 			}
+			
+
 		</script>
 	</body>
 	

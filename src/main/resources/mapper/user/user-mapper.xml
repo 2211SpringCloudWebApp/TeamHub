@@ -24,6 +24,8 @@
 		<result property="deptUppercode" column="DEPT_UPPERCODE" />
 		<result property="positionName" column="POSITION_NAME" />
 		<result property="userName" column="USER_NAME" />
+		<result property="userId" column="USER_ID" />
+		<result property="userState" column="USER_STATE" />
 	</resultMap>
 <!-- 	사원 등록 -->
 	<insert id="registerUser">
@@ -36,6 +38,9 @@
 <!-- 	사원 정보 수정 -->
 	<update id="updateUser">
 		UPDATE USER_TBL SET USER_NAME = #{userName }, DEPT_NAME = #{deptName }, POSITION_NAME = #{positionName }, USER_PHONE = #{userPhone }, USER_EMAIL = #{userEmail }, USER_BIRTH = #{userBirth } WHERE USER_ID = #{userId }
+	</update>
+	<update id="updateUserState">
+		UPDATE USER_TBL SET USER_STATE = '퇴직' WHERE USER_ID = #{userId }
 	</update>
 <!-- 	사원 삭제 -->
 	<delete id="deleteUser">
@@ -66,9 +71,11 @@
     , USER_TBL.USER_NAME AS USER_NAME
     , USER_TBL.POSITION_NAME AS POSITION_NAME
     , DEPT_LEVEL
+    , USER_ID
 	FROM DEPT_TBL
 	LEFT JOIN USER_TBL ON DEPT_TBL.DEPT_NAME = USER_TBL.DEPT_NAME
 	LEFT JOIN POSITION_TBL ON USER_TBL.POSITION_NAME = POSITION_TBL.POSITION_NAME
+	WHERE USER_TBL.USER_STATE = '재직' OR USER_TBL.USER_STATE IS NULL
 	START WITH DEPT_UPPERCODE IS NULL
 	CONNECT BY PRIOR DEPT_CODE = DEPT_UPPERCODE
 	ORDER SIBLINGS BY DEPT_CODE ASC, POSITION_TBL.POSITION_LEVEL ASC
