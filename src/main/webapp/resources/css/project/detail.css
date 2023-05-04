@@ -43,7 +43,6 @@ a:hover{
 #top-area{
 	display: flex;
 	justify-content: space-between;
-	--margin-right: 200px;
 }
 #btn-area button{
 	width: 64px;
@@ -63,4 +62,101 @@ a:hover{
 	width: 200px;
 	align-items: center;
 	font-weight: bold;
+}
+
+#mid-area{
+	margin-left: 60px;
+    margin-right: 60px;
+	height : 60px;
+	padding: 15px 10px 15px 10px;
+}
+.progress-bar{
+	height: 1.75rem !important;
+}
+/* .progress-bar {
+	width: 100%;
+	height: 30px;
+	background-color: #dedede;
+	font-weight: 600;
+	font-size: .8rem;
+} */
+.progress-bar .progress {
+	width: 0; /* 나타내고자하는 퍼센트 값 */
+	height: 30px;
+	padding: 0;
+	text-align: center;
+	background-color: #0b2a60;
+	color: #111;
+	--background: linear-gradient(to right, #000 10%, #0b2a60, #00498c);
+    --transition: width 1.4s;
+}
+
+#btm-area{
+	margin: 20px 60px 0px 60px;
+	border : 1px solid #ccc;
+	height : 450px;
+}
+#kanban-area{
+	margin: 10px;
+	padding: 10px;
+	display: flex;
+    border: 1px solid #ccc;
+}
+.kanban-wrap{
+	border: 1px solid #ccc;
+}
+.kanbanCloseBtn:before {
+	content: "\f00d";
+	color: white;
+	font-size: 14px;
+	font-family: fontawesome;
+}
+.kanbanCloseBtn {
+	font-size: 0;
+	padding: 0;
+	width: auto;
+	height: auto;
+	background: none;
+	position: absolute;
+	right: 12px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+.kanban {
+	position: relative;
+	width: 100%;
+	cursor: pointer;
+	margin: 10px 0;
+}
+.kanbanCard {
+	box-sizing: border-box;
+}
+.kanbanHead {
+	background-color: #0b2a60;
+	color: white;
+}
+.kanbanHead td,
+.kanbanBody td {
+	position: relative;
+	padding: 10px 4px;
+}
+
+.section-modal {
+	display : flex;
+	display : none;
+}
+/* .progress-bar+h3 {
+    font-size: 18px;
+    text-align: right;
+    font-weight: 300;
+}
+.progress-bar+h3 strong {
+    font-weight: 700;
+    color: #0b2a60;
+} */
+
+btns-wrap button {
+    width: 100px;
+    height: 36px;
+    margin: 40px 4px;
 }

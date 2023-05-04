@@ -14,7 +14,7 @@
 		.modal {
 			display: none;
 			position: fixed;
-			z-index: 1;
+			z-index: 100;
 			left: 0;
 			top: 0;
 			width: 100%;
@@ -84,8 +84,9 @@
 				<h2 class="thProject">프로젝트 관리</h2>
 				<button class="createBtn" onclick="showModal();">프로젝트 생성</button>
 				<ul>
-					<li><a href="/project/list?status=all">전체보기</a></li>
+					<li><a href="/project/list?status=all">전체 프로젝트</a></li>
 					<li><a href="/project/list?status=working">진행 중인 프로젝트</a></li>
+					<li><a href="/project/list?status=wait">대기 중인 프로젝트</a></li>
 					<li><a href="/project/list?status=done">종료된 프로젝트</a></li>
 	           </ul>
 			</div>
@@ -107,7 +108,7 @@
 							<tr class="table-light">
 								<th>번호</th>
 								<th>프로젝트명</th>
-								<th>담당자</th>
+								<th>책임자</th>
 								<th>시작일</th>
 								<th>종료일</th>
 								<th>상태</th>
@@ -124,7 +125,7 @@
 									<td>${project.userName }</td>
 									<td>${project.projectStart }</td>
 									<td>${project.projectEnd }</td>
-									<td>${project.projectStatus }</td>
+									<td class="pstatus">${project.projectStatus }</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -160,7 +161,7 @@
 										<select name="condition" id="">
 											<option value="all">전체</option>
 											<option value="title">프로젝트명</option>
-											<option value="manager">담당자</option>
+											<option value="manager">책임자</option>
 										</select>
 										<input type="text" id="" name="keyword" placeholder="검색어를 입력하세요">
 										<input type="submit" value="검색">
@@ -182,9 +183,9 @@
 									<td><input type="text" id="ptitle" name="projectName"></td>
 								</tr>
 								<tr>
-									<td>담당자</td>
+									<td>책임자</td>
 									<td><input type="text"
-										value="${asessionScope.user.userName }" readonly></td>
+										value="${user.userName }" readonly></td>
 								</tr>
 								<tr>
 									<td>진행기간</td>
@@ -248,6 +249,20 @@
 					return true;
 				}
 			}
+			
+			// 페이지 로드 시 상태에 따른 색상 출력
+ 			window.addEventListener("load", function() {
+ 				// 클래스 이름이 "pstatus"인 요소들을 모두 선택
+				var statusElements = document.querySelectorAll(".pstatus");
+				for (var i = 0; i < statusElements.length; i++) {
+					var statusElement = statusElements[i];
+					if (statusElement.innerHTML === "진행") {
+						statusElement.style.color = "#2653e8";
+					} else if (statusElement.innerHTML === "종료") {
+						statusElement.style.color = "#808080";
+					}
+				}
+ 			});
 		</script>
 	</body>
 	

@@ -2,6 +2,7 @@ package com.kh.teamhub.project.service;
 
 import java.util.List;
 
+import com.kh.teamhub.project.domain.Kanban;
 import com.kh.teamhub.project.domain.PageInfo;
 import com.kh.teamhub.project.domain.Project;
 import com.kh.teamhub.user.domain.Search;
@@ -64,5 +65,19 @@ public interface ProjectService {
 	 * @return
 	 */
 	int getListCount(Search search);
+
+	/**
+	 * 칸반보드 추가 Service
+	 * @param kanban
+	 * @return
+	 */
+	int insertKanban(Kanban kanban);
+
+	/**
+	 * 칸반보드 조회 Service
+	 * @param projectNo
+	 * @return
+	 */
+	List<Kanban> selectAllKanban(int projectNo);
 
 }

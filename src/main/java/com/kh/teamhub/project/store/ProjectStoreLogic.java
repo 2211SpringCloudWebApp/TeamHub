@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.teamhub.project.domain.Kanban;
 import com.kh.teamhub.project.domain.PageInfo;
 import com.kh.teamhub.project.domain.Project;
 import com.kh.teamhub.user.domain.Search;
@@ -71,6 +72,18 @@ public class ProjectStoreLogic implements ProjectStore {
 	public int getListCount(Search search) {
 		int result = session.selectOne("ProjectMapper.getSearchListCount", search);
 		return result;
+	}
+
+	@Override
+	public int insertKanban(Kanban kanban) {
+		int result = session.insert("ProjectMapper.insertKanban", kanban);
+		return result;
+	}
+
+	@Override
+	public List<Kanban> selectAllKanban(int kanbanNo) {
+		List<Kanban> kList = session.selectList("ProjectMapper.selectAllKanban");
+		return kList;
 	}
 
 }

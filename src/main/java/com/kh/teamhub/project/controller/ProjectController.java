@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.kh.teamhub.project.domain.Kanban;
 import com.kh.teamhub.project.domain.PageInfo;
 import com.kh.teamhub.project.domain.Project;
 import com.kh.teamhub.project.service.ProjectService;
@@ -27,12 +30,6 @@ public class ProjectController {
 	
 	@Autowired
 	private ProjectService pService;
-	
-//	@RequestMapping(value="/project/create", method=RequestMethod.GET)
-//	public ModelAndView showCreateProject(ModelAndView mv) {		
-//		mv.setViewName("/project/create");
-//		return mv;
-//	}
 	
 	// 프로젝트 생성
 	@RequestMapping(value="/create", method=RequestMethod.POST)
@@ -165,4 +162,43 @@ public class ProjectController {
 		pi = new PageInfo(currentPage, boardLimit, navLimit, startNav, endNav, totalCount, maxPage);
 		return pi;
 	}
+	
+	// 칸반보드 추가
+	@ResponseBody
+	@RequestMapping(value="/addKanban", method=RequestMethod.POST)
+	public String addKanban(@ModelAttribute Kanban kanban) {
+		int result = pService.insertKanban(kanban);
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	// 칸반보드 수정
+	@ResponseBody
+	@RequestMapping(value="/editKanban", method=RequestMethod.POST)
+	public String editKanban() {
+		return null;
+	}
+	
+	// 칸반보드 삭제
+	@ResponseBody
+	@RequestMapping(value="/deleteKanban", method=RequestMethod.GET)
+	public String deleteKanban() {
+		return null;
+	}
+	
+	// 칸반보드 조회
+	@ResponseBody
+	@RequestMapping(value="/showKanban", method=RequestMethod.GET)
+	public String showKanban(@RequestParam("projectNo") int projectNo) {
+		List<Kanban> kList = pService.selectAllKanban(projectNo);
+		if(!kList.isEmpty()) {
+			Gson gson = new Gson();
+			return gson.toJson(kList);
+		}
+		return "";
+	}
+	
 }

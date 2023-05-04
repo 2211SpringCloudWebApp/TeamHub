@@ -62,7 +62,7 @@ a:hover{
 	line-height : normal;
 }
 #search-area select{
-	width: 100px;
+	width: 110px;
 	height : 35px;
 	border-style:none;
 }
@@ -73,7 +73,7 @@ a:hover{
     border-bottom: 1px solid #bebebe;
 }
 #search-area input[type=submit]{
-	width: 100px;
+	width: 110px;
 	height : 35px;
 	border: 1px solid #bebebe;
 	border-radius: 5px;

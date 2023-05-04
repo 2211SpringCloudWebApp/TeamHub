@@ -2,6 +2,7 @@ package com.kh.teamhub.project.store;
 
 import java.util.List;
 
+import com.kh.teamhub.project.domain.Kanban;
 import com.kh.teamhub.project.domain.PageInfo;
 import com.kh.teamhub.project.domain.Project;
 import com.kh.teamhub.user.domain.Search;
@@ -49,14 +50,14 @@ public interface ProjectStore {
 	List<Project> selectAllProject(PageInfo pi, String status);
 
 	/**
-	 * 
+	 * 프로젝트 상태별 개수 Store
 	 * @param status 
 	 * @return
 	 */
 	int getListCount(String status);
 
 	/**
-	 * 
+	 * 프로젝트 검색 Store
 	 * @param pi
 	 * @param search
 	 * @return
@@ -64,10 +65,24 @@ public interface ProjectStore {
 	List<Project> selectListByKeyword(PageInfo pi, Search search);
 
 	/**
-	 * 
+	 * 프로젝트 검색 결과 개수 Store
 	 * @param search
 	 * @return
 	 */
 	int getListCount(Search search);
+
+	/**
+	 * 칸반보드 추가 Store
+	 * @param kanban
+	 * @return
+	 */
+	int insertKanban(Kanban kanban);
+
+	/**
+	 * 칸반보드 조회 Store
+	 * @param projectNo
+	 * @return
+	 */
+	List<Kanban> selectAllKanban(int kanbanNo);
 
 }
