@@ -12,13 +12,21 @@ public class Free {
 	private int freeCount; //조회수
 	private String freeStatus;
 	private String freeFilename;  //첨부 파일
+	private int replyCount; //리스트 댓글 갯수
+	
+	
 	
 	public Free() {
 		super();
 	}
 
+	
+	
+	
+	
+	
 	public Free(int freeNo, String userId, String boardCode, String freeTitle, String freeContent, Date freeWriteDate,
-			int freeCount, String freeStatus) {
+			int freeCount, String freeStatus, String freeFilename, int replyCount) {
 		super();
 		this.freeNo = freeNo;
 		this.userId = userId;
@@ -28,7 +36,13 @@ public class Free {
 		this.freeWriteDate = freeWriteDate;
 		this.freeCount = freeCount;
 		this.freeStatus = freeStatus;
+		this.freeFilename = freeFilename;
+		this.replyCount = replyCount;
 	}
+
+
+
+
 
 
 	public int getFreeNo() {
@@ -36,9 +50,17 @@ public class Free {
 	}
 
 
+
+
+
+
 	public void setFreeNo(int freeNo) {
 		this.freeNo = freeNo;
 	}
+
+
+
+
 
 
 	public String getUserId() {
@@ -46,9 +68,17 @@ public class Free {
 	}
 
 
+
+
+
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+
+
+
+
 
 
 	public String getBoardCode() {
@@ -56,9 +86,17 @@ public class Free {
 	}
 
 
+
+
+
+
 	public void setBoardCode(String boardCode) {
 		this.boardCode = boardCode;
 	}
+
+
+
+
 
 
 	public String getFreeTitle() {
@@ -66,9 +104,17 @@ public class Free {
 	}
 
 
+
+
+
+
 	public void setFreeTitle(String freeTitle) {
 		this.freeTitle = freeTitle;
 	}
+
+
+
+
 
 
 	public String getFreeContent() {
@@ -76,9 +122,17 @@ public class Free {
 	}
 
 
+
+
+
+
 	public void setFreeContent(String freeContent) {
 		this.freeContent = freeContent;
 	}
+
+
+
+
 
 
 	public Date getFreeWriteDate() {
@@ -86,9 +140,17 @@ public class Free {
 	}
 
 
+
+
+
+
 	public void setFreeWriteDate(Date freeWriteDate) {
 		this.freeWriteDate = freeWriteDate;
 	}
+
+
+
+
 
 
 	public int getFreeCount() {
@@ -96,9 +158,17 @@ public class Free {
 	}
 
 
+
+
+
+
 	public void setFreeCount(int freeCount) {
 		this.freeCount = freeCount;
 	}
+
+
+
+
 
 
 	public String getFreeStatus() {
@@ -106,24 +176,61 @@ public class Free {
 	}
 
 
+
+
+
+
 	public void setFreeStatus(String freeStatus) {
 		this.freeStatus = freeStatus;
 	}
+
+
+
+
+
 
 	public String getFreeFilename() {
 		return freeFilename;
 	}
 
+
+
+
+
+
 	public void setFreeFilename(String freeFilename) {
 		this.freeFilename = freeFilename;
 	}
+
+
+
+
+
+
+	public int getReplyCount() {
+		return replyCount;
+	}
+
+
+
+
+
+
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}
+
+
+
+
+
 
 	@Override
 	public String toString() {
 		return "Free [freeNo=" + freeNo + ", userId=" + userId + ", boardCode=" + boardCode + ", freeTitle=" + freeTitle
 				+ ", freeContent=" + freeContent + ", freeWriteDate=" + freeWriteDate + ", freeCount=" + freeCount
-				+ ", freeStatus=" + freeStatus + "]";
+				+ ", freeStatus=" + freeStatus + ", freeFilename=" + freeFilename + ", replyCount=" + replyCount + "]";
 	}
-	
+
 	
 }

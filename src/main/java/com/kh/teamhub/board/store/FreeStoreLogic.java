@@ -51,6 +51,7 @@ public class FreeStoreLogic implements FreeStore {
 	@Override
 	public int deleteFree(SqlSession session, int freeNo) {
 		int result = session.delete("FreeMapper.deleteFree", freeNo);
+		int result2 = session.delete("FreeMapper.deleteReport", freeNo);
 		return result;
 	}
 
@@ -109,6 +110,18 @@ public class FreeStoreLogic implements FreeStore {
 	@Override
 	public int deleteReply(SqlSession session, Integer replyNo) {
 		int result = session.update("FreeMapper.deleteReply", replyNo);
+		return result;
+	}
+
+	@Override
+	public int insertRereply(SqlSession session, Reply reply) {
+		int result = session.insert("FreeMapper.insertRereply", reply);
+		return result;
+	}
+
+	@Override
+	public int limitUser(SqlSession session, String userId) {
+		int result = session.update("FreeMapper.limitUser", userId);
 		return result;
 	}
 

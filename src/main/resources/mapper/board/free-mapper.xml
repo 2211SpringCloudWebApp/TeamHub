@@ -11,6 +11,7 @@
 		<result property="freeCount" column="FREE_COUNT"/>
 		<result property="freeStatus" column="FREE_STATUS"/>
 		<result property="freeFilename" column="FILE_NAME"/>
+		<result property="replyCount" column="REPLY_COUNT"/>
 	</resultMap>
 	
 	<resultMap type="FreePlus" id="freePlusResultMap">
@@ -49,6 +50,22 @@
 	
 	</resultMap>
 	
+	<resultMap type="User" id="userResultMap">
+		<id property="userId" column="USER_ID"></id>
+		<result property="userPw" column="USER_PW" />
+		<result property="userName" column="USER_NAME" />
+		<result property="deptName" column="DEPT_NAME" />
+		<result property="positionName" column="POSITION_NAME" />
+		<result property="userEmail" column="USER_EMAIL" />
+		<result property="userPhone" column="USER_PHONE" />
+		<result property="userBirth" column="USER_BIRTH" />
+		<result property="userState" column="USER_STATE" />
+		<result property="userFileName" column="USER_FILENAME" />
+		<result property="userfilePath" column="USER_FILEPATH" />
+		<result property="userBoardGrant" column="USER_BOARD_GRANT" />
+		<result property="userType" column="USER_TYPE" />
+	</resultMap>
+	
 	<insert id="insertFree">
 		<selectKey keyProperty="freeNo" resultType="int" order="BEFORE">
         	SELECT SEQ_BOARD_FREE_TBL.NEXTVAL FROM DUAL
@@ -59,7 +76,10 @@
 	<delete id="deleteFree">
 		DELETE FROM BOARD_FREE_TBL WHERE FREE_NO = #{freeNo}
 	</delete>
-	
+	<!-- 신고 게시판 같이 삭제 -->
+	<delete id="deleteReport">
+		DELETE FROM BOARD_REPORT_TBL WHERE BOARD_NO = #{freeNo}
+	</delete>
 	<insert id="insertFreeFiles">
 		INSERT INTO BOARD_ATTACHED_FILE_TBL VALUES(SEQ_BOARD_ATTACHED_FILE_TBL.NEXTVAL, SEQ_BOARD_FREE_TBL.CURRVAL, null,#{fileName}, #{fileReName}, #{filePath} )
 	</insert>
@@ -72,13 +92,26 @@
         WHERE FREE_NO = #{freeNo}
 	</update>
 	<select id="selectFreeList" resultMap="freeResultMap">
-		SELECT * FROM BOARD_FREE_TBL LEFT JOIN BOARD_ATTACHED_FILE_TBL USING(FREE_NO)
+		SELECT B2.*
+		,BA.FILE_NAME, (SELECT COUNT(*) 
+		FROM REPLY_TBL R 
+		JOIN BOARD_FREE_TBL B1 ON R.FREE_NO= B1.FREE_NO 
+		WHERE R.FREE_NO= B2.FREE_NO) AS REPLY_COUNT 
+		FROM BOARD_FREE_TBL B2 
+		LEFT JOIN BOARD_ATTACHED_FILE_TBL BA ON B2.FREE_NO=BA.FREE_NO 
+		ORDER BY B2.FREE_WRITE_DATE DESC
 	</select>
 	<select id="selectOneById" resultMap="freeResultMap">
 		SELECT * FROM BOARD_FREE_TBL WHERE FREE_NO = #{freeNo}
 	</select>
 	<select id="selectListByKeyword" resultMap="freeResultMap">
-		SELECT * FROM BOARD_FREE_TBL 
+		SELECT B2.*
+		,BA.FILE_NAME, (SELECT COUNT(*) 
+		FROM REPLY_TBL R 
+		JOIN BOARD_FREE_TBL B1 ON R.FREE_NO= B1.FREE_NO 
+		WHERE R.FREE_NO= B2.FREE_NO) AS REPLY_COUNT 
+		FROM BOARD_FREE_TBL B2 
+		LEFT JOIN BOARD_ATTACHED_FILE_TBL BA ON B2.FREE_NO=BA.FREE_NO 
 		<if test="searchCondition  == 'all'">
 			WHERE FREE_TITLE LIKE '%' || #{searchValue} || '%' OR FREE_CONTENT LIKE '%' || #{searchValue} || '%'
 			OR USER_ID LIKE '%' || #{searchValue} || '%'
@@ -127,12 +160,14 @@
 	</delete>
 	
 	<select id="selectReplyList" resultMap="replyResultMap">
-		SELECT * FROM REPLY_TBL WHERE FREE_NO = #{freeNo}
+		SELECT * FROM REPLY_TBL WHERE FREE_NO = #{freeNo} START WITH REPLY_DEPTH = 0 CONNECT BY PRIOR REPLY_NO = REPLY_PARENT_NO ORDER SIBLINGS BY REPLY_CREATE_DATE
 	</select>
+	
 	
 	<select id="selectFileList" resultMap="freeFileResultMap">
 		SELECT * FROM BOARD_ATTACHED_FILE_TBL WHERE FREE_NO = #{freeNo}
 	</select>
+	
 	<!--조회수 업데이트-->
 	<update id="updateView">
 		UPDATE BOARD_FREE_TBL
@@ -143,4 +178,13 @@
 	<select id="getListCount" resultType="_int">
 		SELECT COUNT(*) FROM BOARD_FREE_TBL
 	</select>
+	
+	<!-- list 댓글 갯수 -->
+	<insert id="insertRereply">
+		INSERT INTO REPLY_TBL VALUES(SEQ_REPLY_TBL.NEXTVAL, #{freeNo}, #{userId}, #{replyContent}, DEFAULT,#{replyDepth}, #{replyParentNo})
+	</insert>
+	<!-- 유저 제한 -->
+	<update id="limitUser">
+		UPDATE USER_TBL SET USER_BOARD_GRANT = 'N' WHERE USER_ID = #{userId}
+	</update>
 </mapper>
