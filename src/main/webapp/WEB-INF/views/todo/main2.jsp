@@ -6,6 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>업무관리</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 		<link rel="stylesheet" href="../../../resources/css/todo/todo2.css">
 		<style type="text/css">
 			#sideBar li:nth-child(5){
@@ -48,7 +49,7 @@
 			<jsp:include page="../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
 				<h2>업무관리</h2>
-				<h4><a href="#">할 일/메모 목록</a></h4>
+				<h4><a href="/todo/mainView">할 일/메모 목록</a></h4>
 			</div>
 			<jsp:include page="../common/header.jsp"></jsp:include>
 			

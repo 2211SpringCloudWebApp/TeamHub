@@ -40,6 +40,13 @@ public class AttendanceController {
 	private LoginUtil loginUtil;
 	
 	
+	@RequestMapping(value = "/attendance/adminView", method = RequestMethod.GET)
+	public String mainAdmin(HttpServletRequest request, String searchValue) {
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		return "attendance/adminMain";
+	}
+	
 	@RequestMapping(value = "/attendance/mainView", method = RequestMethod.GET)	// 근태관리 메인View
 	public String mainAttenView(HttpServletRequest request, Model model) throws Exception {
 		if(loginUtil.checkLogin(request)) {    

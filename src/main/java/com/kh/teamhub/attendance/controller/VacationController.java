@@ -44,6 +44,7 @@ public class VacationController {
 		return "attendance/vacationMain";
 	}
 	
+	// 년도로 연차리스트 검색
 	@RequestMapping(value = "/vacation/search", method = RequestMethod.GET)
 	public String vacationSearch(
 			@ModelAttribute SearchVacation searchVacation
@@ -54,8 +55,9 @@ public class VacationController {
 		}
 		HttpSession session = request.getSession();
 		User user = (User)session.getAttribute("user");
+		// searchVacation에다가 userId값도 넣어서 Service에 한번에 보내주도록 함
 		searchVacation.setUserId(user.getUserId());
-		System.out.println(searchVacation);
+		// userId값도 넣어서 한번에 보내주기
 		List<Vacation> searchVlist = vService.searchListByYear(searchVacation);
 		if(!searchVlist.isEmpty()) {
 			model.addAttribute("searchVacation", searchVacation);

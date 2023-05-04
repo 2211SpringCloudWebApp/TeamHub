@@ -6,6 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>메인</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 		<style type="text/css">
 			#sideBar li:nth-child(2){
 			    background-color: #2653e8ba;

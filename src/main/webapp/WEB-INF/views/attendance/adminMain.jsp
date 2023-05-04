@@ -72,86 +72,12 @@
 	            </div>
             <div id="select">
             
-			<!-- datepicker 검색 -->
                 <div id="document_wrap">
 		        <div id="content_box">
-		            <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-		            <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-		            <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-		 
-		            <script>
-		                $(document).ready(function () {
-		                    $.datepicker.regional['ko'] = {
-		                        closeText: '닫기',
-		                        prevText: '이전달',
-		                        nextText: '다음달',
-		                        currentText: '오늘',
-		                        monthNames: ['1월(JAN)', '2월(FEB)', '3월(MAR)', '4월(APR)', '5월(MAY)', '6월(JUN)',
-		                            '7월(JUL)', '8월(AUG)', '9월(SEP)', '10월(OCT)', '11월(NOV)', '12월(DEC)'],
-		                        monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월',
-		                            '7월', '8월', '9월', '10월', '11월', '12월'],
-		                        dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-		                        dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-		                        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-		                        weekHeader: 'Wk',
-		                        dateFormat: 'yy-mm-dd',
-		                        firstDay: 0,
-		                        isRTL: false,
-		                        showMonthAfterYear: true,
-		                        yearSuffix: '',
-		                        showOn: 'both',
-		                        buttonText: "검색",
-		                        changeMonth: true,
-		                        changeYear: true,
-		                        showButtonPanel: true,
-		                        yearRange: 'c-99:c+99',
-		                    };
-		                    $.datepicker.setDefaults($.datepicker.regional['ko']);
-		 
-		                    var datepicker_default = {
-		                        showOn: 'both',
-		                        buttonText: "검색",
-		                        currentText: "이번달",
-		                        changeMonth: true,
-		                        changeYear: true,
-		                        showButtonPanel: true,
-		                        yearRange: 'c-99:c+99',
-		                        showOtherMonths: true,
-		                        selectOtherMonths: true
-		                    }
-		 
-		                    datepicker_default.closeText = "선택";
-		                    datepicker_default.dateFormat = "yy/mm";
-		                    datepicker_default.onClose = function (dateText, inst) {
-		                        var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-		                        var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-		                        $(this).datepicker("option", "defaultDate", new Date(year, month, 1));
-		                        $(this).datepicker('setDate', new Date(year, month, 1));
-		
-		                        month = (parseInt(month, 10) + 1);
-		                        
-		                        console.log("선택된 년도: " + year);
-		                         // 선택된 월 값을 1 증가시켜서 출력
-		                        console.log("선택된 월: " + month);
-		                         dateChange();
-		                    }
-		 
-		                    datepicker_default.beforeShow = function () {
-		                        var selectDate = $("#sdate").val().split("-");
-		                        var year = Number(selectDate[0]);
-		                        var month = Number(selectDate[1]) - 1;
-		                        $(this).datepicker("option", "defaultDate", new Date(year, month, 1));
-		                    }
-		                    $("#sdate").datepicker(datepicker_default);
-		                });
-		
-		                
-		            </script>
-		 
-		 
-		            <form name="frmEX">
-		                검색일 : 
-		                <input type="text" name="sdate" id="sdate" size="15" maxlength="15" onchange="dateChange();" />
+		            <form action="/admin/searchUser" method="get">
+		                이름 : 
+		                <input type="text" name="searchValue" value="${keyword }"placeholder="검색">
+		                <input type="submit" id="search-btn" name="search-btn"value="검색">
 		                <br />
 		            </form>
 		        </div>
@@ -179,7 +105,14 @@
 	                            </tr>
 	                        </c:forEach>
 	                    </tbody>
-                        
+	                    
+                        <tfoot>
+                              <tr align="center">
+                                  <td colspan="5">
+                                      1 2 >>
+                                  </td>
+                              </tr>
+                            </tfoot>
                     </thead>
                 </table>
             </div>
