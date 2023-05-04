@@ -107,6 +107,20 @@ public interface FreeService {
 	 */
 	public int deleteReply(Integer replyNo);
 
+	/**
+	 * 대댓글
+	 * @param reply
+	 * @return
+	 */
+	public int insertRereply(Reply reply);
+
+	/**
+	 * 사용자 게시판 작성 권한
+	 * @param userId
+	 * @return
+	 */
+	public int limitUser(String userId);
+
 
 
 	

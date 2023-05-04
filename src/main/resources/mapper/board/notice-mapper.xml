@@ -11,7 +11,7 @@
 		<result property="noticeWriteDate" column="NOTICE_WRITE_DATE"/>
 		<result property="noticeCount" column="NOTICE_COUNT"/>
 		<result property="noticeStatus" column="NOTICE_STATUS"/>
-		<result property="fnoticeFilename" column="NOTICE_NAME"/>
+		<result property="noticeFilename" column="FILE_NAME"/>
 	</resultMap>
 	<resultMap type="FreeFile" id="freeFileResultMap">
 		<id  property="fileNo" column="FILE_NO"/>
@@ -33,7 +33,7 @@
 		INSERT INTO BOARD_ATTACHED_FILE_TBL VALUES(SEQ_BOARD_ATTACHED_FILE_TBL.NEXTVAL, null, SEQ_BOARD_NOTICE_TBL.CURRVAL,#{fileName}, #{fileReName}, #{filePath} )
 	</insert>
 	<select id="selectNoticeList" resultMap="noticeResultMap">
-		SELECT * FROM BOARD_NOTICE_TBL LEFT JOIN BOARD_ATTACHED_FILE_TBL USING(NOTICE_NO)
+		SELECT * FROM BOARD_NOTICE_TBL LEFT JOIN BOARD_ATTACHED_FILE_TBL USING(NOTICE_NO) ORDER BY NOTICE_WRITE_DATE DESC
 	</select>
 	<select id="getListCount" resultType="_int">
 		SELECT COUNT(*) FROM BOARD_NOTICE_TBL
@@ -53,7 +53,7 @@
         WHERE NOTICE_NO = #{noticeNo}
 	</update>
 	<select id="selectListByKeyword" resultMap="noticeResultMap">
-		SELECT * FROM BOARD_NOTICE_TBL 
+		SELECT * FROM BOARD_NOTICE_TBL LEFT JOIN BOARD_ATTACHED_FILE_TBL USING(NOTICE_NO)
 		<if test="searchCondition  == 'all'">
 			WHERE NOTICE_TITLE LIKE '%' || #{searchValue} || '%' OR NOTICE_CONTENT LIKE '%' || #{searchValue} || '%'
 			OR USER_ID LIKE '%' || #{searchValue} || '%'

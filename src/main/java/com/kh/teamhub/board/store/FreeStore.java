@@ -124,6 +124,22 @@ public interface FreeStore {
 	 */
 	public int deleteReply(SqlSession session, Integer replyNo);
 
+	/**
+	 * 대댓글 작성
+	 * @param session
+	 * @param reply
+	 * @return
+	 */
+	public int insertRereply(SqlSession session, Reply reply);
+
+	/**
+	 * 유저 권한 제한
+	 * @param session
+	 * @param userId
+	 * @return
+	 */
+	public int limitUser(SqlSession session, String userId);
+
 	
 	
 	

@@ -1,81 +1,260 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-if(session.getAttribute("user") == null){
-    response.sendRedirect("/");
+if (session.getAttribute("user") == null) {
+	response.sendRedirect("/");
 }
 %>
 <!DOCTYPE html>
-	<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>상세 조회</title>
-		<style type="text/css">
-		#sideBar li:nth-child(9){
-		    background-color: #2653e8ba;
-  				
+<html>
+<head>
+<meta charset="UTF-8">
+<title>상세 조회</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<style type="text/css">
+#sideBar li:nth-child(9) {
+	background-color: #2653e8ba;
+}
+
+#sideBar li:nth-child(9) a {
+	color: white !important;
+}
+
+#sideBar ul {
+	padding: 0 !important;
+}
+
+.rereply-box {
+	display: none;
+}
+
+/* 모달 스타일 */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid black;
+  width: 500px;
+}
+
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+#search li{
+			list-style-type: square !important;
 		}
-		#sideBar li:nth-child(9) a{
-			color: white !important;
-		}
-		#sideBar ul{
-			padding: 0 !important;
-		}
-		</style>
-	</head>
-	
-	<body>
-		<div id="container">
-			<jsp:include page="../../common/sideBar.jsp"></jsp:include>
+		
+
+</style>
+</head>
+
+<body>
+	<div id="container">
+		<jsp:include page="../../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
-				<h1>자유게시판 상세조회</h1> 
+			<h1> 자유게시판 </h1>
+			<ul id="search">
+				<li style="color: #275ab5"><a href="/free/list"><h5>자유게시판</h5></a></li>
+				<li><a href="/notice/list"><h5>공지사항</h5></a></li>
+				 <c:if test="${sessionScope.user.userType eq 1}">
+                <li><a href="/report/list"><h5>신고게시판</h5></a></li>
+                <li><a href="/free/blacklist"><h5>정지 리스트</h5></a></li>
+            </c:if>
+            
+			</ul>
 			</div>
 			<jsp:include page="../../common/header.jsp"></jsp:include>
-			<main>
-				<h1>게시글 보기</h1>
-				<button id="report">신고</button>
-				번호 : ${free.freeNo } / 제목 : ${free.freeTitle } / 작성자 : ${free.userId }
-				/ 작성날짜 : ${free.freeWriteDate }
-				<br>
-				내용 : ${free.freeContent }
-				<br>
-				첨부파일 : 
-				<c:forEach items="${fileList }" var="freeFile">
+		<main>
+			<h1 data-freeno='${free.freeNo }' id="freeNo">게시글 보기</h1>
+
+			<!--모달창 안 버튼  -->
+			<!-- 모달 버튼 -->
+			<c:if test="${sessionScope.user.userId != free.userId}">
+			    <button class="btn btn-danger" onclick="openModal()">신고하기</button>
+			</c:if>
+			
+			<!-- 모달 창 -->
+			<div id="myModal" class="modal">
+			  <div class="modal-content">
+			    <span class="close" onclick="closeModal()">&times;</span>
+			    <select id="reportTitle">
+			      <option value="욕설">욕설</option>
+			      <option value="혐오발언">혐오발언</option>
+			      <option value="부적절 발언">부적절 발언</option>
+			      <option value="기타">기타</option>
+			    </select> <br> <br>
+			    <textarea id="reportContent" name="reportContent" rows="4" cols="50"></textarea>
+			    <br><br>
+			    <button id="report" class="btn btn-danger" onclick="sendReport2()">신고완료</button>
+			  </div>
+			</div>
+			
+			번호 : ${free.freeNo } <br>
+			 제목 : ${free.freeTitle } <br>
+			  작성자 : ${free.userId } <button id="limit" onclick="limit()" class="btn btn-warning">제한하기</button><br>
+			 작성날짜 : ${free.freeWriteDate } <br>
+			 <br> 내용 : ${free.freeContent } <br>
+			첨부파일 :
+			<c:forEach items="${fileList }" var="freeFile">
 					${freeFile.fileName }
-				</c:forEach><br>
-				<c:url var="fModify" value="/free/modifyView">
-					<c:param name="freeNo" value="${free.freeNo }"/>
-				</c:url>
-				<a href="${fModify }"><button>수정</button></a>
-				<a href="javascript:void(0);" onclick="removeCheck(${free.freeNo});"><button>게시판 삭제</button></a>
+				</c:forEach>
+			<br>
+			<c:url var="fModify" value="/free/modifyView">
+				<c:param name="freeNo" value="${free.freeNo }" />
+			</c:url>
+			<c:if test="${sessionScope.user.userId eq free.userId}">
+				<a href="${fModify }"><button class="btn btn-primary">수정</button></a>
+			</c:if>
+			<c:if test="${sessionScope.user.userId eq free.userId or sessionScope.user.userType eq 1}">
+				<a href="javascript:void(0);" onclick="removeCheck(${free.freeNo});"><button
+						class="btn btn-warning">게시판 삭제</button></a>
+			</c:if>
+			<!-- 댓글 영역 -->
+			<!-- 댓글 등록 -->
+			<table align="center" width="500" border="1">
+				<tr>
+					<td>작성자</td>
+					<td><input type="text" id="rWriter"
+						value="${sessionScope.user.userId }" readonly></td>
+				</tr>
+				<tr>
+					<td><textarea rows="3" cols="55" id="rContent"></textarea></td>
+
+					<td><button id="rSubmit" class="btn btn-primary">등록하기</button>
+				</tr>
+			</table>
+			<!-- 댓글 목록 -->
+			<table align="center" width="500" border="1" id="replyTable">
+				<thead>
+					<tr>
+						<!--댓굴갯수  -->
+						<td colspan="4"><b id="replyCount"></b></td>
+					</tr>
+					<tr>
+						<th width="50">댓글</th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td width="100"></td>
+					</tr>
+				</tbody>
+
+				<tfoot id="tfoot">
+					<tr class="rereply-box" id="rereplyBox">
+						<td colspan='2'><input type="hidden"><span
+							id="rereplyWriter">${sessionScope.user.userId }</span></td>
+						<td colspan="3" width='350'><input type="text"
+							placeholder="내용 입력" id="rereplyContent"></td>
+						<td><a href="#" id="rereply">등록</a></td>
+					</tr>
+					<!-- 대댓글 영역 -->
+				</tfoot>
+
+			</table>
+			<script>
+			
+				// 사용자 게시판 제한
+				function limit(){
+					var userId = "${free.userId }";
+					$.ajax({
+					      type: 'POST',
+					      url: '/free/limit',
+					      data: { 
+					        "userId" : userId
+					      },
+					      success: function(response) {
+					       alert('제한 완료');
+					      },
+					      error: function(xhr, status, error) {
+					        // 에러 발생 시 처리
+					        alert('에러가 발생하였습니다.');
+					      }
+					    }); 
+					
+				}
+			
+				// 모달 열기
+				function openModal() {
+				  document.getElementById("myModal").style.display = "block";
+				}
+				// 모달 닫기
+				function closeModal() {
+				  document.getElementById("myModal").style.display = "none";
+				}
+				// 신고 보내기
+				function sendReport() {
+				  const category = document.getElementById("select").value;
+				  const comment = document.getElementById("select2").value;
+				  // TODO: 서버로 신고 내용 전송하는 코드 작성
+				  closeModal(); // 신고 완료 후 모달 창 닫기
+				}
+			
+					
 				
-				<!-- 댓글 영역 -->
-    				<!-- 댓글 등록 -->
-    				<table align="center" width="500" border="1">
-    					<tr>
-    						<td>작성자</td>
-    						<td><input type="text"id="rWriter" value="${sessionScope.user.userId }" readonly></td>
-    					</tr>
-    					<tr>
-    						<td><textarea rows="3" cols="55" id="rContent"></textarea></td>
-    						
-    						<td><button id="rSubmit">등록하기</button>
-    					</tr>
-    				</table>
-					<!-- 댓글 목록 -->
-    				<table align="center" width="500" border="1" id="replyTable">
-    					<thead>
-    						<tr>
-    					<!--댓굴갯수  -->
-    							<td colspan="4"><b id="replyCount"></b></td>
-    						</tr>
-    					</thead>
-    					<tbody>
-    						<tr><td width="100"></td></tr>
-    					</tbody>
-    				</table>
-				<script>
+					//신고
+					  function sendReport2() {
+						    // "내용", "id", "번호" 정보 가져오기
+						    var number = "${free.freeNo }";
+						    var id = "${sessionScope.user.userId }";
+						    var title = $("#reportTitle").val();
+						     var content = $("#reportContent").val();
+						    // 서버로 데이터 전송하기
+						    $.ajax({
+						      type: 'POST',
+						      url: '/report/send',
+						      data: { 
+						    	"reportTitle" : title,
+						        "reportContent" : content,
+						        "reportId" : id,
+						        "boardNo": number
+						      },
+						      success: function(response) {
+						        // 서버로부터 응답을 받았을 때 처리
+						        alert('신고가 완료되었습니다.');
+						        document.getElementById("myModal").style.display = "none";
+						      },
+						      error: function(xhr, status, error) {
+						        // 에러 발생 시 처리
+						        alert('에러가 발생하였습니다.');
+						      }
+						    }); 
+						   
+						    
+						  }
+					
+				
 					function removeCheck(freeNo){
 						if(confirm("정말 삭제하시겠습니까?"))
 						location.href="/free/remove?freeNo="+freeNo;
@@ -103,20 +282,49 @@ if(session.getAttribute("user") == null){
 						 		  let rContent;
 						 		  let rCreateDate;
 						 		  let btnArea;
+						 		  let reBtn;//대댓글 bt
 						 		  if(data.length > 0) {
 						 			  for(let i in data){
-						 				  tr = $("<tr>");
-						 				  rWriter = $("<td width='100'>").text(data[i].userId);
+						 				  if(data[i].replyDepth == 0){
+								 				  tr = $("<tr data-replyno = '"+data[i].replyNo+"'>");
+								 				  rWriter = $("<td colspan='2'>").text(data[i].userId);
+								 				  rContent = $("<td>").text(data[i].replyContent);
+								 				  rCreateDate = $("<td>").text(data[i].replyCreateDate);
+								 				  btnArea = $("<td>");
+								 				  reBtn = $("<td>");
+								 				  reBtn.append("<a href='#' onclick ='insertRereply()'>답글</a>");
+								 				  if (data[i].userId === "${sessionScope.user.userId}") {
+								 				      btnArea.append("<a href='javascript:void(0)' onclick='modifyReply(this, \""+data[i].replyContent+"\","+data[i].replyNo+");'>수정</a>")
+								 				          .append("<a href='javascript:void(0)' onclick='removeReply("+data[i].replyNo+");'>삭제</a>");
+								 				  }
+								 				
+
+								 				  tr.append(rWriter);
+								 				  tr.append(rContent);
+								 				  tr.append(rCreateDate); // tr 밑에 td 3개가 들어간 상태
+								 				  tr.append(btnArea);
+								 				  tr.append(reBtn);
+								 				  tableBody.append(tr);
+						 			  }else{
+						 				 tr = $("<tr data-replyno = '"+data[i].replyNo+"'>");
+						 				  rWriter = $("<td>").text(data[i].userId);
 						 				  rContent = $("<td>").text(data[i].replyContent);
-						 				  rCreateDate = $("<td width='100'>").text(data[i].replyCreateDate);
-						 				  btnArea = $("<td width='80'>")
-						 				  .append("<a href='javascript:void(0)' onclick='modifyReply(this, \""+data[i].replyContent+"\","+data[i].replyNo+");'>수정</a>")
-						 				  .append("<a href='javascript:void(0)' onclick='removeReply("+data[i].replyNo+");'>삭제</a>");
+						 				  rCreateDate = $("<td>").text(data[i].replyCreateDate);
+						 				  btnArea = $("<td>");
+						 				  reBtn = $("<td>");
+						 				  if (data[i].userId === "${sessionScope.user.userId}") {
+						 				      btnArea.append("<a href='javascript:void(0)' onclick='modifyReply(this, \""+data[i].replyContent+"\","+data[i].replyNo+");'>수정</a>")
+						 				          .append("<a href='javascript:void(0)' onclick='removeReply("+data[i].replyNo+");'>삭제</a>");
+						 				  }
+						 				
+										  tr.append($("<tr>"));
 						 				  tr.append(rWriter);
 						 				  tr.append(rContent);
 						 				  tr.append(rCreateDate); // tr 밑에 td 3개가 들어간 상태
 						 				  tr.append(btnArea);
+						 				  tr.append(reBtn);
 						 				  tableBody.append(tr);
+						 			  }
 						 			  }
 						 		  }
 						 	  },
@@ -144,10 +352,20 @@ if(session.getAttribute("user") == null){
 					  }
 					  
 					  function modifyReply(obj, replyContent, replyNo) {
-						  let trModify = $("<tr>");
+						  if(document.getElementById('mBox') != null){
+							  document.getElementById('mBox').remove();
+						  }
+						  let trModify = $("<tr id='mBox'>");
 						  trModify.append("<td colspan='3'><input type='text' size='50' value='"+replyContent+"'></td>");
 						  trModify.append("<td><button onclick='modifyReplyContent("+replyNo+", this);'>수정완료</button></td>");
-						  $(obj).parent().parent().after(trModify);
+						  if(document.getElementById('mBox') != null){
+							  if(document.getElementById('mBox') != obj.parentElement.parentElement.nextElementSibling){
+								  $(obj).parent().parent().after(trModify);							  							  
+							  }							  
+						  }else{
+							  $(obj).parent().parent().after(trModify);
+						  }
+						  
 					  }
 					  
 					  function modifyReplyContent(replyNo, obj){
@@ -186,8 +404,9 @@ if(session.getAttribute("user") == null){
 							success : function(result){
 								if(result == '1'){
 									alert("댓글등록 성공");
-									$("#rWriter").val("");
-									$("#rContents").val("");
+								//	$("#rWriter").val("");
+									$("#rContent").val("");
+									getReplyList();
 								}else{
 									alert("[에러 발생] 로그 확인 필요")
 									console.log(result);
@@ -198,9 +417,60 @@ if(session.getAttribute("user") == null){
 							}
 						})
 					})
+					
+					//대댓글 아약스,자바스크립트
+					function insertRereply(){
+						let event = window.event;
+						event.preventDefault();
+						let rereplyWriteBtn = event.target;
+						let replyBox = rereplyWriteBtn.parentElement.parentElement;
+						let rereplyBox = document.getElementById('rereplyBox');
+						if(replyBox.nextElementSibling == rereplyBox){
+							rereplyBox.style.display = 'none';
+							document.getElementById('tfoot').append(rereplyBox)
+						}else{
+							replyBox.after(rereplyBox);
+							rereplyBox.style.display = 'block';							
+						}
+					}
+					
+					document.getElementById('rereply').addEventListener('click',function(e){
+						e.preventDefault();
+						let rereplyBox = e.target.parentElement.parentElement;
+						let replyBox = rereplyBox.previousElementSibling; 
+						let replyNum = replyBox.dataset.replyno;
+						let rereplyWriter = document.getElementById('rereplyWriter').innerHTML;
+						let rereplyContent = document.getElementById('rereplyContent').value;
+						let freeNo = document.getElementById('freeNo').dataset.freeno;
+						$.ajax({
+							url : "/rereply/register",
+							data : { 
+								"freeNo" : freeNo ,
+								"userId" : rereplyWriter,
+								"replyContent" : rereplyContent,
+								"replyParentNo" : replyNum},
+							type : "post",
+							success : function(result){
+								if(result == '1'){
+									alert("댓글등록 성공");
+									$("#rWriter").val("");
+									$("#rContents").val(""); 
+									rereplyBox.style.display = 'none'
+									document.getElementById('tfoot').append(rereplyBox);
+									getReplyList();
+								}else{
+									alert("[에러 발생] 로그 확인 필요")
+									console.log(result);
+								}
+							},
+							error : function(){
+								alert("Ajax 실패! 관리자한테 문의ㄱㄱ");
+							}
+						})
+					});
 				</script>
-			</main>
-		</div>
-	</body>
-	
+		</main>
+	</div>
+</body>
+
 </html>

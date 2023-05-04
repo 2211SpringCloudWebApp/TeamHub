@@ -59,11 +59,10 @@ public class NoticeController {
 				, @RequestParam(value="page", required=false, defaultValue="1") Integer currentPage
 				,Model model) {
 			try {
-				
-				
 				int totalCount = nService.getListCount(search);
 				PageInfo pi = this.getPageInfo(currentPage, totalCount);
 				List<Notice> searchList = nService.selectListByKeyword(pi, search);
+				
 				if(!searchList.isEmpty()) {
 					model.addAttribute("search", search);
 					model.addAttribute("pi", pi);

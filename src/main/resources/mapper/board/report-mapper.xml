@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReportMapper">
+	<resultMap type="Report" id="reportResultMap">
+		<id property="reportNo" column="REPORT_NO"/>
+		<result property="boardCode" column="BOARD_CODE"/>
+		<result property="boardNo" column="BOARD_NO"/>
+		<result property="reportTitle" column="REPORT_TITLE"/>
+		<result property="reportContent" column="REPORT_CONTENT"/>
+		<result property="reportId" column="REPORT_ID"/>
+		<result property="reportCreateDate" column="REPORT_CREATE_DATE"/>
+		<result property="reportStatus" column="REPORT_STATUS"/>
+		<result property="freeNo" column="FREE_NO"/>
+	</resultMap>
+		
+		<resultMap type="Free" id="freeResultMap">
+		<id  property="freeNo" column="FREE_NO"/>	
+		<result property="userId" column="USER_ID"/>
+		<result property="boardCode" column="BOARD_CODE"/>
+		<result property="freeTitle" column="FREE_TITLE"/>
+		<result property="freeContent" column="FREE_CONTENT"/>
+		<result property="freeWriteDate" column="FREE_WRITE_DATE"/>
+		<result property="freeCount" column="FREE_COUNT"/>
+		<result property="freeStatus" column="FREE_STATUS"/>
+		<result property="freeFilename" column="FILE_NAME"/>
+		<result property="replyCount" column="REPLY_COUNT"/>
+	</resultMap>
+	
+	
+	<insert id="insertReport">
+		INSERT INTO BOARD_REPORT_TBL VALUES(SEQ_BOARD_REPORT_TBL.NEXTVAL, 'F', #{boardNo}, #{reportTitle}, #{reportContent}, #{reportId}, DEFAULT, DEFAULT)
+	</insert>
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*) FROM BOARD_REPORT_TBL
+	</select>
+	<select id="selectReportList" resultMap="reportResultMap">
+		SELECT * FROM BOARD_REPORT_TBL
+	</select>
+	<delete id="deleteReport">
+		DELETE FROM BOARD_REPORT_TBL WHERE REPORT_NO IN
+		<foreach collection="reportNums" item="rNum" open="(" close=")" separator=",">
+		 	#{rNum }
+		 </foreach>
+	</delete>
+</mapper>

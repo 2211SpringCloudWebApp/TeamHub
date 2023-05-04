@@ -24,6 +24,7 @@ import com.kh.teamhub.board.domain.FreeFile;
 import com.kh.teamhub.board.domain.FreePlus;
 import com.kh.teamhub.board.domain.PageInfo;
 import com.kh.teamhub.board.domain.Reply;
+import com.kh.teamhub.board.domain.Report;
 import com.kh.teamhub.board.domain.Search;
 import com.kh.teamhub.board.service.FreeService;
 import com.kh.teamhub.common.file.FileUtil;
@@ -68,7 +69,7 @@ public class FreeController {
 			}catch (Exception e) {
 				e.printStackTrace();
 				model.addAttribute("msg", e.getMessage());
-				return "common/error";
+				return "/board/free/write";
 			}
 		}
 		
@@ -80,6 +81,7 @@ public class FreeController {
 			int totalCount = fService.getListCount();
 			PageInfo pi = this.getPageInfo(page, totalCount);
 			List<FreePlus> fList = fService.selectFreeList(page);
+			//fList.get(0).getFreeNo();
 			model.addAttribute("pi", pi);
 			model.addAttribute("fList", fList);
 			return "/board/free/list";
@@ -278,4 +280,33 @@ public class FreeController {
 			return e.getMessage();
 		}
 	}
+	//대댓글 작성
+	@ResponseBody
+	@RequestMapping(value="/rereply/register", method=RequestMethod.POST)
+	public String doRereplyInsert(@ModelAttribute Reply reply) {
+		try {
+			reply.setReplyDepth(1);
+			int result = fService.insertRereply(reply);
+			if(result > 0) {
+				return "1";
+			}else {
+				return "0";
+			}
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+	// 사용자권한 제한
+	@ResponseBody
+	@RequestMapping(value="/free/limit", method=RequestMethod.POST)
+	public String doFreeLimit(String userId) {
+		try {
+			int result = fService.limitUser(userId);
+			return "";
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+	
+	
 }

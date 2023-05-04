@@ -10,10 +10,14 @@ if(session.getAttribute("user") == null){
 	<html>
 	<head>
 		<meta charset="UTF-8">
-		<title>자유게시판 목록</title>
+		<title>공지사항 목록</title>
 		
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-		<style>
+		<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<style type="text/css">
 		table{
 			border : 1px solid black;
 		}
@@ -23,18 +27,30 @@ if(session.getAttribute("user") == null){
 		#sideBar ul{
 			padding: 0 !important;
 		}
-	
+		#search li{
+			list-style-type: square !important;
+		}
+		
 		</style>
+		
+		
 	</head>
 	
 	<body>
 		<div id="container">
-			<jsp:include page="../../common/sideBar.jsp"></jsp:include>
+		<jsp:include page="../../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
-				<h1>자유게시판 목록</h1> 
+			<h1> 자유게시판 </h1>
+			<ul id="search">
+				<li style="color: #275ab5"><a href="/free/list"><h5>자유게시판</h5></a></li>
+				<li><a href="/notice/list"><h5>공지사항</h5></a></li>
+				 <c:if test="${sessionScope.user.userType eq 1}">
+                <li><a href="/report/list"><h5>신고게시판</h5></a></li>
+                <li><a href="/free/blacklist"><h5>정지 리스트</h5></a></li>
+            </c:if>
+			</ul>
 			</div>
-			<jsp:include page="../../common/header.jsp"></jsp:include>
-			<main>
+			<jsp:include page="../../common/header.jsp"></jsp:include>			<main>
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -50,7 +66,18 @@ if(session.getAttribute("user") == null){
 						<c:forEach items="${sList }" var="notice" varStatus="i">
 						<tr>
 							<td>${i.count }</td>
-							<td><a href="/notice/detail?noticeNo=${notice.noticeNo }">${notice.noticeTitle }</a></td>
+							<td><a href="/notice/detail?noticeNo=${notice.noticeNo }">${notice.noticeTitle }</a>
+								<c:choose>
+								    <c:when test="${notice.noticeFilename eq null }">
+								    </c:when>
+								    <c:when test="${notice.noticeFilename ne null }">
+								        <img alt="" src="../../../../resources/img/kooimg/Web_(35).jpg" width="20px" height="20px">
+								    </c:when>
+								    <c:otherwise>
+								        <!-- ${free.freefilename}이 null인 경우 처리할 내용 작성 -->
+								    </c:otherwise>
+								</c:choose>
+							</td>
 							<td>${notice.userId }</td>
 							<td>${notice.noticeWriteDate }</td>
 							<td>${notice.noticeCount }</td>

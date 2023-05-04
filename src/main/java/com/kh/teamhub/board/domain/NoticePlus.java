@@ -16,6 +16,7 @@ public class NoticePlus {
 	private String fileName;
 	private String fileReName;
 	private String filePath;
+	private String noticeFilename;  //첨부 파일
 	
 	public NoticePlus() {
 		super();
@@ -23,7 +24,7 @@ public class NoticePlus {
 
 	public NoticePlus(int noticeNo, String boardCode, String userId, String noticeTitle, String noticeContent,
 			Date noticeWriteDate, int noticeCount, String noticeStatus, int fileNo, int freeNo, String fileName,
-			String fileReName, String filePath) {
+			String fileReName, String filePath, String noticeFilename) {
 		super();
 		this.noticeNo = noticeNo;
 		this.boardCode = boardCode;
@@ -38,6 +39,7 @@ public class NoticePlus {
 		this.fileName = fileName;
 		this.fileReName = fileReName;
 		this.filePath = filePath;
+		this.noticeFilename = noticeFilename;
 	}
 
 	public int getNoticeNo() {
@@ -144,13 +146,23 @@ public class NoticePlus {
 		this.filePath = filePath;
 	}
 
+	public String getNoticeFilename() {
+		return noticeFilename;
+	}
+
+	public void setNoticeFilename(String noticeFilename) {
+		this.noticeFilename = noticeFilename;
+	}
+
 	@Override
 	public String toString() {
 		return "NoticePlus [noticeNo=" + noticeNo + ", boardCode=" + boardCode + ", userId=" + userId + ", noticeTitle="
 				+ noticeTitle + ", noticeContent=" + noticeContent + ", noticeWriteDate=" + noticeWriteDate
 				+ ", noticeCount=" + noticeCount + ", noticeStatus=" + noticeStatus + ", fileNo=" + fileNo + ", freeNo="
-				+ freeNo + ", fileName=" + fileName + ", fileReName=" + fileReName + ", filePath=" + filePath + "]";
+				+ freeNo + ", fileName=" + fileName + ", fileReName=" + fileReName + ", filePath=" + filePath
+				+ ", noticeFilename=" + noticeFilename + "]";
 	}
+
 	
 	
 }

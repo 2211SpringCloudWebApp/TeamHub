@@ -30,15 +30,27 @@ if(session.getAttribute("user") == null){
 		#sideBar ul{
 			padding: 0 !important;
 		}
+		#search li{
+			list-style-type: square !important;
+		}
 	
 		</style>
 	</head>
 	
 	<body>
 		<div id="container">
-			<jsp:include page="../../common/sideBar.jsp"></jsp:include>
+		<jsp:include page="../../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
-				<h1>자유게시판 목록</h1> 
+			<h1> 자유게시판 </h1>
+			<ul id="search">
+				<li style="color: #275ab5"><a href="/free/list"><h5>자유게시판</h5></a></li>
+				<li><a href="/notice/list"><h5>공지사항</h5></a></li>
+				 <c:if test="${sessionScope.user.userType eq 1}">
+                <li><a href="/report/list"><h5>신고게시판</h5></a></li>
+                <li><a href="/free/blacklist"><h5>정지 리스트</h5></a></li>
+            	</c:if>
+	           
+			</ul>
 			</div>
 			<jsp:include page="../../common/header.jsp"></jsp:include>
 			<main>
@@ -57,7 +69,25 @@ if(session.getAttribute("user") == null){
 						<c:forEach items="${sList }" var="free" varStatus="i">
 						<tr>
 							<td>${i.count }</td>
-							<td><a href="/free/detail?freeNo=${free.freeNo }">${free.freeTitle }</a></td>
+							<td><a href="/free/detail?freeNo=${free.freeNo }">${free.freeTitle }</a>
+							<c:choose>
+								    <c:when test="${free.freeFilename eq null }">
+								    </c:when>
+								    <c:when test="${free.freeFilename ne null }">
+								        <img alt="" src="../../../../resources/img/kooimg/Web_(35).jpg" width="20px" height="20px">
+								    </c:when>
+								    <c:otherwise>
+								        <!-- ${free.freefilename}이 null인 경우 처리할 내용 작성 -->
+								    </c:otherwise>
+								</c:choose>
+								<c:choose>
+										<c:when test="${free.replyCount eq 0 }">
+									</c:when>
+										<c:when test="${free.replyCount > 0 }">
+										<small>(${free.replyCount })</small>
+									</c:when>
+								</c:choose>
+							</td>
 							<td>${free.userId }</td>
 							<td>${free.freeWriteDate }</td>
 							<td>${free.freeCount }</td>
@@ -80,7 +110,7 @@ if(session.getAttribute("user") == null){
 										value="${search.searchCondition }"></c:param>
 									</c:url>
 									<a href="${pageUrl }">${p }</a>&nbsp;
-								</c:forEach><br> <br> <input type="button" value="전체 목록으로 이동"
+								</c:forEach><br> <br> <input type="button" value="전체 목록으로 이동" class="btn btn-primary"
 								onclick="location='/free/list'">
 							</td>
 						</tr>
@@ -96,11 +126,23 @@ if(session.getAttribute("user") == null){
 									<option value="content">내용</option>
 								</select>
 									<input type="text" id="id" name="searchValue" placeholder="검색어를 입력해주세요">
-									<input type="submit" value="검색" onclick="return check()">
+									<input type="submit" value="검색" onclick="return check()" class="btn btn-primary">
 								</form>
 							</td>
 							<td>
-								<button onclick="location.href='/free/writeView'">게시판 쓰기</button>
+								<button 
+										  onclick="
+										    <c:choose>
+										      <c:when test='${sessionScope.user.userBoardGrant eq "N"}'>
+										        alert('게시판을 쓸 수 있는 권한이 없습니다.');
+										      </c:when>
+										      <c:otherwise>
+										        location.href='/free/writeView';
+										      </c:otherwise>
+										    </c:choose>
+										  " 
+										  class="btn btn-primary">게시판 쓰기
+										</button>
 							</td>
 						</tr>
 					</tfoot>

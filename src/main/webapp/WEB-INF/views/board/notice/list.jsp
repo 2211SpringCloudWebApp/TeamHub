@@ -24,18 +24,31 @@ if(session.getAttribute("user") == null){
 		#sideBar ul{
 			padding: 0 !important;
 		}
+		#search li{
+			list-style-type: square !important;
+		}
+		
 		</style>
-	</head>
+	
 	
 	<body>
 		<div id="container">
 			<jsp:include page="../../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
-				<h1>공지사항 목록</h1> 
+			<h1> 자유게시판 </h1>
+			<ul id="search">
+				<li><a href="/free/list"><h5>자유게시판</h5></a></li>
+				<li style="color: #275ab5"><a href="/notice/list"><h5>공지사항</h5></a></li>
+				 <c:if test="${sessionScope.user.userType eq 1}">
+                <li><a href="/report/list"><h5>신고게시판</h5></a></li>
+                <li><a href="/free/blacklist"><h5>정지 리스트</h5></a></li>
+            </c:if>
+			</ul>
 			</div>
 			<jsp:include page="../../common/header.jsp"></jsp:include>
 			<main>
 				<table class="table table-hover">
+				<h2>공지사항 </h2>
 					<thead>
 						<tr>
 							<th>번호</th>
@@ -50,10 +63,22 @@ if(session.getAttribute("user") == null){
 						<c:forEach items="${nList }" var="notice" varStatus="i">
 						<tr>
 							<td>${i.count }</td>
-							<td><a href="/notice/detail?noticeNo=${notice.noticeNo }">${notice.noticeTitle }</a></td>
+							<td><a href="/notice/detail?noticeNo=${notice.noticeNo }">${notice.noticeTitle }</a>
+								<c:choose>
+								    <c:when test="${notice.noticeFilename eq null }">
+								    </c:when>
+								    <c:when test="${notice.noticeFilename ne null }">
+								        <img alt="" src="../../../../resources/img/kooimg/Web_(35).jpg" width="20px" height="20px">
+								    </c:when>
+								    <c:otherwise>
+								        <!-- ${free.freefilename}이 null인 경우 처리할 내용 작성 -->
+								    </c:otherwise>
+								</c:choose>
+							</td>
 							<td>${notice.userId }</td>
 							<td>${notice.noticeWriteDate }</td>
 							<td>${notice.noticeCount }</td>
+							
 							
 						<%-- 	<td>
 								<c:if test= "${not empty free.freeFilename }">O</c:if>
@@ -89,7 +114,7 @@ if(session.getAttribute("user") == null){
 	
 							<td>
 								<c:if test="${sessionScope.user.userType == 1}">
-									<button onclick="location.href='/notice/writeView'">게시판 쓰기</button>
+									<button onclick="location.href='/notice/writeView'" class="btn btn-primary">게시판 쓰기</button>
 								</c:if>
 							</td>
 						</tr>

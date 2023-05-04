@@ -13,6 +13,7 @@
 		<typeAlias type="com.kh.teamhub.board.domain.Notice" alias="Notice"/>
 		<typeAlias type="com.kh.teamhub.board.domain.NoticePlus" alias="NoticePlus"/>
 		<typeAlias type="com.kh.teamhub.board.domain.Search" alias="Search"/>
+		<typeAlias type="com.kh.teamhub.board.domain.Report" alias="Report"/>
 		<typeAlias type="com.kh.teamhub.board.domain.Reply" alias="Reply"/>
 		<typeAlias type="com.kh.teamhub.project.domain.Project" alias="Project"/>
 		<typeAlias type="com.kh.teamhub.project.domain.Kanban" alias="Kanban"/>

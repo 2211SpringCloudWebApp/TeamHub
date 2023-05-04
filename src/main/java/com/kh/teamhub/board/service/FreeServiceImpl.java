@@ -109,6 +109,18 @@ public class FreeServiceImpl implements FreeService{
 		return result;
 	}
 
+	@Override
+	public int insertRereply(Reply reply) {
+		int result = fStore.insertRereply(session, reply);
+		return result;
+	}
+
+	@Override
+	public int limitUser(String userId) {
+		int result = fStore.limitUser(session, userId);
+		return result;
+	}
+
 
 
 }

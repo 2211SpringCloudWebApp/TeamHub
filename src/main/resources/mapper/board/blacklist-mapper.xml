@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BlacklistMapper">
+
+	<resultMap type="User" id="userResultMap">
+		<id property="userId" column="USER_ID"></id>
+		<result property="userPw" column="USER_PW" />
+		<result property="userName" column="USER_NAME" />
+		<result property="deptName" column="DEPT_NAME" />
+		<result property="positionName" column="POSITION_NAME" />
+		<result property="userEmail" column="USER_EMAIL" />
+		<result property="userPhone" column="USER_PHONE" />
+		<result property="userBirth" column="USER_BIRTH" />
+		<result property="userState" column="USER_STATE" />
+		<result property="userFileName" column="USER_FILENAME" />
+		<result property="userfilePath" column="USER_FILEPATH" />
+		<result property="userBoardGrant" column="USER_BOARD_GRANT" />
+		<result property="userType" column="USER_TYPE" />
+	</resultMap>
+
+	<select id="selectBlackList" resultMap="userResultMap">
+		SELECT * FROM USER_TBL WHERE USER_BOARD_GRANT = 'N'
+	</select>
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*) FROM
+		USER_TBL
+	</select>
+	 <update id="updateBlacklist">
+		UPDATE USER_TBL SET USER_BOARD_GRANT = 'Y' WHERE USER_ID IN
+		<foreach collection="blackIds" item="userId" open="(" close=")" separator=",">
+		 	#{userId }
+		 </foreach>
+	</update>
+</mapper>
