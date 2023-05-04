@@ -38,6 +38,13 @@ public interface UserStore {
 	int updateUser(User user);
 
 	/**
+	 * 사원 정보 수정 Store
+	 * @param user
+	 * @return int
+	 */
+	int updateUserState(User user);
+
+	/**
 	 * 사원 삭제 Store
 	 * @param userId
 	 * @return int

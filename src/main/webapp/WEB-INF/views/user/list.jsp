@@ -6,53 +6,31 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>사원 전체 목록</title>
+		<link rel="stylesheet" href="../../../resources/css/user/user.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 		<script src="../../../resources/js/jquery.treeview.js"></script>
 		<link rel="stylesheet" href="../../../resources/css/user/jquery.treeview.css" />
 <!-- 		<link rel="stylesheet" href="../../../resources/css/user/screen.css" /> -->
 	</head>
-	<style>
-		#sideBar li:nth-child(6){
-		    background-color: #2653e8ba;
-  				
-		}
-		#sideBar li:nth-child(6) a{
-			color: white !important;
-		}
-		table {
-			border : 1px solid black;
-		}
-	</style>
+
 	<body>
 		<div id="container">
 			<jsp:include page="../common/sideBar.jsp"></jsp:include>
-			<div id="subSideBar" style="overflow:auto;">
+			<div id="subSideBar" >
 				<c:if test="${sessionScope.user.userType eq 1 }">
 					<a href="/user/list">사원 목록</a><br>
-					<a href="javascript:void(0)" onclick="getOrg();">조직도</a><br>
+<!-- 					<a href="javascript:void(0)" onclick="getOrg();">조직도</a><br> -->
 					<a href="/user/registerView">사원 등록</a><br>
-					<a href="/user/userStateList">사원 관리</a>
-					<hr>
-					<div style="overflow:auto;" id="orgList">
-					
-					<ul>
-					
-					</ul>
-					
-				
+					<a href="/user/userStateList">사원 관리</a><br>
+					<button onclick="toggleOrg();">조직도</button>
+					<div id="orgList">
 					</div>
 				</c:if>
 				<c:if test="${sessionScope.user.userType ne 1 }">
 					<a href="/user/list">사원 목록</a><br>
-					<a href="javascript:void(0)" onclick="getOrg();">조직도</a>
-					<hr>
-					<div style="overflow:auto;" id="orgList">
-						<c:forEach items="${oList }" var="orgUser">
-						<ul>
-							<li>${orgUser.deptName }</li>
-							<li>${orgUser.userName }+" "+${orgUser.positionName }</li>
-						</ul>
-						</c:forEach>
+<!-- 					<a href="javascript:void(0)" onclick="getOrg();">조직도</a> -->
+					<button onclick="toggleOrg();">조직도</button>
+					<div id="orgList">
 					</div>
 				</c:if>
 			</div>
@@ -81,16 +59,16 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${uList }" var="user">
-							<tr>
-<%-- 								<td><a href="/user/detail?userId=${user.userId }">${user.userId }</a></td> --%>
-								<td><a href="/user/detail?userId=${user.userId }">${user.userName }</a></td>
-								<td>${user.deptName }</td>
-								<td>${user.positionName }</td>
-								<td>${user.userEmail }</td>
-								<td>${user.userPhone }</td>
-							</tr>
-						</c:forEach>
+							<c:forEach items="${uList }" var="user">
+								<tr>
+	<%-- 								<td><a href="/user/detail?userId=${user.userId }">${user.userId }</a></td> --%>
+									<td><a href="/user/detail?userId=${user.userId }">${user.userName }</a></td>
+									<td>${user.deptName }</td>
+									<td>${user.positionName }</td>
+									<td>${user.userEmail }</td>
+									<td>${user.userPhone }</td>
+								</tr>
+							</c:forEach>
 					</tbody>
 					<tfoot>
 					
@@ -120,24 +98,68 @@
 			</main>
 		</div>
 	<script>
-		getOrg();
+	
+		
+		var orgList = $("#orgList");
+		var isVisible = false;
+		
+		
+ 		/* 조직도 버튼 클릭시 */
+		function toggleOrg(){
+			if(isVisible) {
+				orgList.css("display", "none");
+			}else {
+				getOrg();
+				orgList.css("display", "block");
+			}
+			isVisible = !isVisible;
+		}
+		
+		/* 조직도 조회 */
 		function getOrg() {
 			$.ajax({
 				url : "/user/org",
 				type : "get",
-				data : {},
+				dataType : "json",
 				success : function(data) {
-					if(data.length != 0) {
-						data.forEach(function(e, i) {
-// 							var 
-						})
-					}
+// 					var orgList = $("#orgList");
+					orgList.empty();
+					var ul = $("<ul>");
+					var li, span;
+					var prevDept = null;
+					
+					$.each(data, function(e, i) {
+						if(prevDept !== i.deptName) {
+							li = $("<li>").text(i.deptName);
+// 							var img = $("<img>").attr("src", "/resources/img/main/minus.gif");
+							ul.append(li);
+							prevDept = i.deptName;
+						}
+						
+						if(i.userName != null && i.positionName != null){
+							var span = $("<span>");
+							  var nameLink = $("<a>").attr("href", "/user/detail?userId=" + i.userId);
+							  var nameSpan = $("<span>").text(i.userName).addClass("user-name");
+// 							  var img = $("<img>").attr("src", "/resources/img/main/minus.gif");
+							  var positionSpan = $("<span>").text(i.positionName);
+							  
+							  nameLink.append(nameSpan);
+							  span.append("&#10551;").append(nameLink).append(" ").append(positionSpan);
+							  var li = $("<li>");
+							  li.append(span);
+							  ul.append(li);
+						}
+					});
+					
+					orgList.append(ul);
 				},
 				error : function() {
 					alert("Ajax 처리 실패");
 				}
 			});
 		}
+		
+		
 	</script>
 	</body>	
 </html>

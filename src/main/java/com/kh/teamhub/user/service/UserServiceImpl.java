@@ -42,6 +42,12 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
+	public int updateUserState(User user) {
+		int result = uStore.updateUserState(user);
+		return result;
+	}
+
+	@Override
 	public int deleteUser(String userId) {
 		int result = uStore.deleteUser(userId);
 		return result;

@@ -7,14 +7,15 @@ public class OrgUser {
 	private String deptName;
 	private String deptUppercode;
 	private String userName;
+	private String userId;
+	private String userState;
 	private int positionLevel;
 	private String positionName;
-	
 	
 	public int getDeptLevel() {
 		return deptLevel;
 	}
-	public void setLevel(int deptLevel) {
+	public void setDeptLevel(int deptLevel) {
 		this.deptLevel = deptLevel;
 	}
 	public String getDeptCode() {
@@ -29,10 +30,10 @@ public class OrgUser {
 	public void setDeptName(String deptName) {
 		this.deptName = deptName;
 	}
-	public String getDeptUpperCode() {
+	public String getDeptUppercode() {
 		return deptUppercode;
 	}
-	public void setDeptUpperCode(String deptUppercode) {
+	public void setDeptUppercode(String deptUppercode) {
 		this.deptUppercode = deptUppercode;
 	}
 	public String getUserName() {
@@ -40,6 +41,18 @@ public class OrgUser {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getUserState() {
+		return userState;
+	}
+	public void setUserState(String userState) {
+		this.userState = userState;
 	}
 	public int getPositionLevel() {
 		return positionLevel;
@@ -56,9 +69,9 @@ public class OrgUser {
 	
 	@Override
 	public String toString() {
-		return "OrgUser [deptLevel=" + deptLevel + ", deptCode=" + deptCode + ", deptName=" + deptName + " deptUppercode=" + deptUppercode + ", userName="
-				+ userName + ", positionLevel=" + positionLevel + ", positionName=" + positionName + "]";
+		return "OrgUser [deptLevel=" + deptLevel + ", deptCode=" + deptCode + ", deptName=" + deptName
+				+ ", deptUppercode=" + deptUppercode + ", userName=" + userName + ", userId=" + userId
+				+ ", userState=" + userState + ", positionLevel=" + positionLevel + ", positionName=" + positionName + "]";
 	}
-	
 	
 }

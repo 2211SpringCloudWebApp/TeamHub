@@ -43,6 +43,12 @@ public class UserStoreLogic implements UserStore{
 	}
 
 	@Override
+	public int updateUserState(User user) {
+		int result = session.update("UserMapper.updateUserState", user);
+		return result;
+	}
+
+	@Override
 	public int deleteUser(String userId) {
 		int result = session.delete("UserMapper.deleteUser", userId);
 		return result;

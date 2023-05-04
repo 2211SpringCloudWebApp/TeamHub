@@ -38,6 +38,13 @@ public interface UserService {
 	int updateUser(User user);
 
 	/**
+	 * 사원 정보 수정 (퇴직처리) Service
+	 * @param user
+	 * @return int
+	 */
+	int updateUserState(User user);
+
+	/**
 	 * 사원 삭제 Service
 	 * @param userId
 	 * @return int

@@ -8,8 +8,27 @@
 		<title>Insert title here</title>
 	</head>
 	<style>
+		#sideBar li:nth-child(6){
+		    background-color: #2653e8ba;
+  				
+		}
+		#sideBar li:nth-child(6) a{
+			color: white !important;
+		}
 		table {
 			border : 1px solid black;
+		}
+		#subSideBar ul {
+			text-align : left;
+			margin-top : 30px;
+			margin-left : 50px;
+		}
+		#subSideBar ul li {
+			line-height : 30px;
+		}
+		#orgList {
+			height : 82vh;
+			overflow : auto;
 		}
 	</style>
 	<body>
@@ -63,7 +82,7 @@
 								<td>${user.deptName }</td>
 								<td>${user.positionName }</td>
 								<td>${user.userState }</td>
-								<td><button onclick="location.href='/user/detail?userId=${user.userId }'">조회/수정</button></td>
+								<td><button onclick="location.href='/user/detailAdmin?userId=${user.userId }'">조회/수정</button></td>
 							</tr>
 						</c:if>
 						</c:forEach>
@@ -92,12 +111,12 @@
 						<c:forEach items="${userStateList }" var="user">
 						<c:if test="${user.userState == '퇴직' }">
 							<tr>
-								<td><a href="/user/detail?userId=${user.userId }">${user.userId }</a></td>
-								<td><a href="/user/detail?userId=${user.userId }">${user.userName }</a></td>
+								<td>${user.userId }</td>
+								<td>${user.userName }</td>
 								<td>${user.deptName }</td>
 								<td>${user.positionName }</td>
 								<td>${user.userState }</td>
-								<td><button onclick="location.href='/user/detail?userId=${user.userId }'"
+								<td><button onclick="location.href='/user/detailAdmin?userId=${user.userId }'"
 								>조회/수정</button></td>
 							</tr>
 						</c:if>
