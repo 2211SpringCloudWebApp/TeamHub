@@ -11,6 +11,13 @@
 		<result property="projectStatus" 		column="PROJECT_STATUS"/>
 		<result property="userName" 			column="USER_NAME"/>
 	</resultMap>
+	<resultMap type="Kanban" id="KanbanResultMap">
+		<id property="kanbanNo" 				column="KANBAN_NO"/>
+		<result property="projectNo" 			column="PROJECT_NO"/>
+		<result property="userName" 			column="USER_NAME"/>
+		<result property="kanbanContent" 		column="KANBAN_CONTENT"/>
+		<result property="kanbanStatus" 		column="KANBAN_STATUS"/>
+	</resultMap>
 	<!-- 프로젝트 생성 -->
 	<insert id="insertProject">
 		INSERT INTO PROJECT_TBL VALUES(SEQ_PROJECT_NO.NEXTVAL, #{userId}, #{projectName}, #{projectStart}, #{projectEnd}, DEFAULT, DEFAULT)
@@ -31,6 +38,9 @@
 	<select id="selectAllProject" resultMap="ProjectResultMap">
 		SELECT PROJECT_TBL.*, USER_NAME FROM PROJECT_TBL JOIN USER_TBL ON PROJECT_TBL.USER_ID= USER_TBL.USER_ID
 		<where>
+			<if test="status == 'wait'">
+				PROJECT_STATUS = '대기'
+			</if>
 			<if test="status == 'working'">
 				PROJECT_STATUS = '진행'
 			</if>
@@ -47,6 +57,9 @@
 	<select id="getListCount" resultType="_int">
 		SELECT COUNT(*) FROM PROJECT_TBL
 		<where>
+			<if test="status == 'wait'">
+				PROJECT_STATUS = '대기'
+			</if>
 			<if test="status == 'working'">
 				PROJECT_STATUS = '진행'
 			</if>
@@ -57,6 +70,7 @@
 				PROJECT_STATUS = '대기' OR PROJECT_STATUS = '진행' OR PROJECT_STATUS = '종료'
 			</if>
 		</where>
+		ORDER BY PROJECT_NO DESC
 	</select>
 	<!-- 검색 -->
 	<select id="selectListByKeyword" resultMap="ProjectResultMap">
@@ -77,6 +91,7 @@
 	            U.USER_ID IN (SELECT U.USER_ID FROM USER_TBL WHERE U.USER_NAME LIKE '%' || #{keyword} || '%')
 	        </where>
 	    </if>
+	    ORDER BY PROJECT_NO DESC
 	</select>
 	<!-- 검색 페이징 -->
 	<select id="getSearchListCount" resultType="_int">
@@ -97,5 +112,18 @@
 	            USER_ID IN (SELECT USER_ID FROM USER_TBL WHERE USER_NAME LIKE '%' || #{keyword} || '%')
 	        </where>
 	    </if>
+	    ORDER BY PROJECT_NO DESC
+	</select>
+	
+	<!-- 칸반보드 추가 -->
+	<insert id="insertKanban" parameterType="Kanban">
+		INSERT INTO PROJECT_KANBAN_TBL VALUES(SEQ_PROJECT_KANBAN_NO.NEXTVAL, #{projectNo}, #{userName}, #{kanbanContent}, #{kanbanStatus})
+	</insert>
+	<!-- 칸반보드 조회 -->
+	<select id="selectAllKanban" resultMap="KanbanResultMap">
+		SELECT * 
+		FROM PROJECT_KANBAN_TBL 
+		WHERE PROJECT_NO = #{projectNo}
+		ORDER BY KANBAN_NO DESC
 	</select>
 </mapper>

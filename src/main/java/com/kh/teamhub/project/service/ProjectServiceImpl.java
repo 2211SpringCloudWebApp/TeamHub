@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.teamhub.project.domain.Kanban;
 import com.kh.teamhub.project.domain.PageInfo;
 import com.kh.teamhub.project.domain.Project;
 import com.kh.teamhub.project.store.ProjectStore;
@@ -62,6 +63,18 @@ public class ProjectServiceImpl implements ProjectService {
 	public int getListCount(Search search) {
 		int result = pStore.getListCount(search);
 		return result;
+	}
+
+	@Override
+	public int insertKanban(Kanban kanban) {
+		int result = pStore.insertKanban(kanban);
+		return result;
+	}
+
+	@Override
+	public List<Kanban> selectAllKanban(int projectNo) {
+		List<Kanban> kList = pStore.selectAllKanban(projectNo);
+		return kList;
 	}
 
 }
