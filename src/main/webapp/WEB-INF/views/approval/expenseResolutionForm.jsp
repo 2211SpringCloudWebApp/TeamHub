@@ -43,29 +43,61 @@
 		   .leaveDate { padding: 10px; }
 		   input{
 				border: 0px;
-				font-size: 17px;
+				font-size: 20px;
 	   			text-align: center;
 			}
-			.tr3 td:nth-child(1), .tr3 td:nth-child(2){
-				height: 70px;
-			}
-			.tr3 td:nth-child(1) button{
-				width: 200px;
-			    height: 52px;
-			    background-color: #f0f0f0;
-			    border: 1px solid gray;
-			    font-size: 22px;
-			    cursor: pointer;
-			}
-			
-			.tr3 td:nth-child(2) textArea{
-				border:none;
-				margin-bottom:-12px; 
-				font-size:19px;
-				width:600px; 
-				height:60px; 
-				resize: none;
-			}
+			.tr2 input{
+			font-size: 15px;
+		    width: 70px;
+		    height: 25px;
+		    text-align: center;
+		    border: 1px solid gray;
+		    background-color: #f0f0f0;
+		    cursor: pointer;
+		    margin: 11px;
+		}
+		.tr3 td:nth-child(1), .tr3 td:nth-child(2){
+			height: 70px;
+		}
+		.tr3 td:nth-child(1) button{
+			width: 200px;
+		    height: 52px;
+		    background-color: #f0f0f0;
+		    border: 1px solid gray;
+		    font-size: 22px;
+		    cursor: pointer;
+		}
+		
+		.tr3 td:nth-child(2) textArea{
+			border:none;
+			margin-bottom:-12px; 
+			font-size:19px;
+			width:600px; 
+			height:60px; 
+			resize: none;
+		}
+		.tr10 td{
+			text-align: right; 
+			height: 100px; 
+			padding-right: 50px;
+		}
+		.tr10 input{
+			font-size:15px; 
+			width:70px; 
+			height:30px; 
+			border: none; 
+			text-align: center; 
+			border-radius:20px; 
+			margin-right:10px;
+		}
+		.tr10 textarea{
+			width:130px; 
+			border: none; 
+			text-align: center; 
+			resize: none; 
+			font-size:24px; 
+			margin-bottom:-42px;
+		}
 		</style>
 	</head>
 	
@@ -123,396 +155,304 @@
 			                    <td style="height: 25px; width: 100px; font-size:17px">중간승인자</td>
 			                    <td style="height: 25px; width: 100px; font-size:17px">최종승인자</td>
 			                </tr>
-			                <tr>
-			                    <c:choose>
-									<c:when test="${approval.appPresent eq 'A'}">
-								    	<td name="firstA" id="firstA">${approval.firstApprover}</td>
-								    	<td name="interimA" id="interimA">${approval.interimApprover}</td>
-								    	<td name="finalA" id="finalA">${approval.finalApprover}</td>
-								    </c:when>
-									<c:when test="${approval.appPresent eq 'B'}">
-								        <td name="firstA" id="firstA">${approval.firstApprover}<img src="${path}/images/approved.png" style="position:absolute; width:130px; height:130px; margin-left:-92px; margin-top:-50px" /></td>
-								        <td name="interimA" id="interimA">${approval.interimApprover}</td>
-								        <td name="finalA" id="finalA">${approval.finalApprover}</td>
-								    </c:when>
-									<c:when test="${approval.appPresent eq 'C'}">
-								        <td name="firstA" id="firstA">${approval.firstApprover}<img src="${path}/images/approved.png" style="position:absolute; width:130px; height:130px; margin-left:-92px; margin-top:-50px" /></td>
-								        <td name="interimA" id="interimA">${approval.interimApprover}<img src="${path}/images/approved.png" style="position:absolute; width:130px; height:130px; margin-left:-92px; margin-top:-50px" /></td>
-								        <td name="finalA" id="finalA">${approval.finalApprover}</td>
-								    </c:when>
-									<c:when test="${approval.appPresent eq 'D'}">
-								        <td name="firstA" id="firstA">${approval.firstApprover}<img src="${path}/images/approved.png" style="position:absolute; width:130px; height:130px; margin-left:-92px; margin-top:-50px" /></td>
-								        <td name="interimA" id="interimA">${approval.interimApprover}<img src="${path}/images/approved.png" style="position:absolute; width:130px; height:130px; margin-left:-92px; margin-top:-50px" /></td>
-								        <td name="finalA" id="finalA">${approval.finalApprover}<img src="${path}/images/approved.png" style="position:absolute; width:130px; height:130px; margin-left:-92px; margin-top:-50px" /></td>
-								    </c:when>
-									<c:otherwise>
-								        <td name="firstA" id="firstA">${approval.firstApprover}</td>
-								        <td name="interimA" id="interimA">${approval.interimApprover}</td>
-								        <td name="finalA" id="finalA">${approval.finalApprover}</td>
-									</c:otherwise>
-								</c:choose>
-			                </tr>
-			                <tr style="height: 30px;">
-			                    <c:choose>
-				                    <c:when test="${!empty approval.appReason}">
-				                    	<td><input type="button" name="Approver1" id="Approver1" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-										<td><input type="button" name="Approver2" id="Approver2" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-										<td><input type="button" name="Approver3" id="Approver3" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-				                    </c:when>
-				                    <c:otherwise>
-				                    	<c:choose>
-											<c:when test="${loginMember.user_name eq approval.firstApprover && approval.appPresent eq 'A'}">
-										    	<td><input type="button" name="Approver1" id="Approver1" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" /></td>
-										    	<td><input type="button" name="Approver2" id="Approver2" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-										    	<td><input type="button" name="Approver3" id="Approver3" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-											</c:when>
-											<c:when test="${loginMember.user_name eq approval.interimApprover && approval.appPresent eq 'B'}">
-										    	<td><input type="button" name="Approver1" id="Approver1" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-										    	<td><input type="button" name="Approver2" id="Approver2" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" /></td>
-										    	<td><input type="button" name="Approver3" id="Approver3" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-											</c:when>
-											<c:when test="${loginMember.user_name eq approval.finalApprover && approval.appPresent eq 'C'}">
-							                    <td><input type="button" name="Approver1" id="Approver1" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-							                    <td><input type="button" name="Approver2" id="Approver2" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-							                    <td><input type="button" name="Approver3" id="Approver3" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" /></td>
-											</c:when>
-											<c:otherwise>
-												<td><input type="button" name="Approver1" id="Approver1" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-												<td><input type="button" name="Approver2" id="Approver2" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-												<td><input type="button" name="Approver3" id="Approver3" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-											</c:otherwise>
-										</c:choose>
-				                    </c:otherwise>
-			                    </c:choose>
-			                </tr>
-			                <tr class="tr3">
-			                    <td colspan="2">
-			                        <button class="send-open" type="button" onclick="openApprovalModal();">수신참조자 +</button>
-			                    </td>
-			                    <td colspan="6">
-			                       <textArea readonly name="referList" id="referList"></textArea>
-			                    </td>   
-			                </tr>
+			                <tr class="tr1">
+		                         <td id="firstA"> </td> 
+		                         <td id="interimA"> </td>
+		                         <td id="finalA"> </td>
+			                   </tr>
+			                   <tr class="tr2" style="height: 30px;">
+		                            <td><input type="button" value="검색" class="searchMember" id="thirdBtn" name="finalApprover" onclick="openApprovalModal('결재자');"></td>
+			                        <td><input type="button" value="검색" class="searchMember" id="thirdBtn" name="finalApprover" onclick="openApprovalModal('결재자');"></td>
+			                        <td><input type="button" value="검색" class="searchMember" id="thirdBtn" name="finalApprover" onclick="openApprovalModal('결재자');"></td>
+			                   </tr>
+			                   <tr class="tr3">
+				                    <td colspan="2">
+				                        <button class="send-open" type="button" onclick="openApprovalModal();">수신참조자 +</button>
+				                    </td>
+				                    <td colspan="6">
+				                       <textArea readonly name="referList" id="referList"></textArea>
+				                    </td>   
+				                </tr>
 			                <tr>
 			                    <td style="height: 70px; width: 80px;">성 명</td>
-			                    <td><input type="text" readonly value="${approval.userName}"></td>
+			                    <td><input type="text" readonly value="${sessionScope.user.userName}" id="userName"></td>
 			                    <td style="width: 80px;">부 서</td>
-			                    <td><input type="text" readonly value="${approval.deptName}"></td>
+			                    <td><input type="text" readonly value="${sessionScope.user.deptName}"></td>
 			                    <td style="width: 80px;">직 급</td>
-			                    <td colspan="3"><input type="text" readonly value="${approval.rank}"></td>
+			                    <td colspan="3"><input type="text" readonly value="${sessionScope.user.positionName}"></td>
 			                </tr>
 			                <tr>                    
 			                    <td colspan="1">마감일</td>
-			                    <td colspan="1"></td>
+			                    <td colspan="1"><input type="text"></td>
 			                    <td colspan="1" style="height: 70px; width: 80px;">지출금액</td>
-			                    <td colspan="5" ><input type="text" name="allAmount" id="allAmount" readonly value="${approval.allAmount}"/></td>
+			                    <td colspan="5" ><input type="text" name="allAmount" id="allAmount" /></td>
 			                </tr>
 			                <tr>
 			                    <td style="height: 70px; width: 80px;">제 목</td>
-			                    <td colspan="7"><input type="text" readonly value="${approval.erTitle}"></td>
+			                    <td colspan="7"><input type="text"></td>
 			                </tr>
-			                <tr>
+			                <tr style="height: 50px">
 			                    <td rowspan="10" style="width: 80px;">내 역</td>
 			                    <td colspan="2">적 요</td>
 			                    <td colspan="2">금 액</td>
 			                    <td colspan="3">비 고</td>
 			                </tr>
-			                <tr>
+			                <tr style="height: 50px">
 			                	<td colspan="2">&nbsp;</td>
 			                	<td colspan="2">&nbsp;</td>
 			                	<td colspan="3">&nbsp;</td>
 			            	</tr>
-			            	<tr>
+			            	<tr style="height: 50px">
 			                	<td colspan="2">&nbsp;</td>
 			                	<td colspan="2">&nbsp;</td>
 			                	<td colspan="3">&nbsp;</td>
 			            	</tr>
-			            	<tr>
+			            	<tr style="height: 50px">
 			                	<td colspan="2">&nbsp;</td>
 			                	<td colspan="2">&nbsp;</td>
 			                	<td colspan="3">&nbsp;</td>
 			            	</tr>
-			            	
-			            	
+			            	<tr style="height: 50px">
+			                	<td colspan="2">&nbsp;</td>
+			                	<td colspan="2">&nbsp;</td>
+			                	<td colspan="3">&nbsp;</td>
+			            	</tr>
 			            	
 			                <tr> 
 			                    <td colspan="8" style="text-align: center; height: 100px; border-bottom: none;">위 금액을 청구하오니 결재바랍니다.</td>
 			                </tr>
 			                <tr style="border: white;">
 			                    <td colspan="8" style="text-align: center; height: 100px;">
-			                        <input type="text" style="text-align:center; font-size: 30px;" readonly><fmt:formatDate value="${approval.appWriteDate}" pattern="yyyy 년 MM 월 dd 일"/>
+			                        <input type="text" style="text-align:center; font-size: 30px;" id="today" readonly>
 			                    </td>
 			                </tr>
-			                <tr>
-			                    <td colspan="8" style="text-align: right; height: 100px; padding-right: 50px;">
-			                        영수인 : <input type="text" style=" width:200px; border: none; text-align: center;" maxlength="4" readonly value="${approval.userName}">
+			                <tr class="tr10">
+			                    <td colspan="8">
+			                        <input type="button" name="proposer" id="proposer" value="서명" />
+			                        신청자 : 
+			                        <textArea name="proposerText" id="proposerText" readonly></textArea>
 			                        (인)
 			                    </td>
 			                </tr>
 			            </table>
 			        </div>
-			        <div id="button">
-			        	<input type="hidden" name="appNo" value = "${approval.appNo}"/>
-				        	
-				        <%-- <c:if test="${loginMember.user_name eq approval.firstApprover || approval.interimApprover || approval.finalApprover}">
-			       			 --%><c:choose>
-			       				<c:when test="${!empty approval.appReason}">
-			       					<button type="button" class="openRejectionWhy">반려사유</button>
-			        				<input type="text" style="border: none; width: 40px;" disabled>
-				        		</c:when>
-				        		<c:otherwise>
-				        			<c:choose>
-					        			<c:when test="${(loginMember.user_name eq approval.firstApprover && approval.appPresent eq 'A') || 
-					        						(loginMember.user_name eq approval.interimApprover && approval.appPresent eq 'B') ||
-					        						(loginMember.user_name eq approval.finalApprover && approval.appPresent eq 'C')}">
-						        			<button type="submit" id="approveddone">결재</button>
-					       					<input type="text" style="border: none; width: 40px;"disabled >
-					       					<button type="button" style="color:red" id="openRejection">반려</button>
-					        				<input type="text" style="border: none; width: 40px;" disabled>
-				        				</c:when>
-			        					<c:otherwise>
-			        						<button type="submit" id="approveddone" disabled>결재</button>
-				       						<input type="text" style="border: none; width: 40px;"disabled >
-				       						<button type="button" id="openRejection" disabled>반려</button>
-				        					<input type="text" style="border: none; width: 40px;" disabled>
-			        					</c:otherwise>
-			        				</c:choose>
-				        		</c:otherwise>
-			        		</c:choose>
-						<%-- </c:if> --%>
-						<button><a href="${path}/approval/approvalMain" style="color:black">취소</a></button>
-			        </div>
-			    </div>
-			    
-			    <!-- 모달 테이블(반려 확인) -->
-			    
-				<div class="modal modal1 hidden">
-			        <div class="bg"></div>
-			        <div class="modalBox" style="width:600px; height:400px; border-radius:20px">
-			            <div style="font-size:26px; margin:30px">
-			            	정말 반려처리 하시겠습니까?
-			            </div>
-			            <div style="margin: 43% 0px 0% 53%;">
-			                <span style="padding-right: 20px; margin-left:46px; float: left;" >
-			                    <button type="submit" class="closeBtn-in rejModalOk1" id="rejectOrNo">확인</button>
-			                </span>
-			                <button class="closeBtn-out rejModalNo1">취소</button>
-			            </div>
-			        </div>
-			    </div>
-			    
-			    <!-- 모달 테이블(반려 사유 작성) -->
-			    
-				<div class="modal modal2 hidden">
-			        <div class="bg"></div>
-			        <div class="modalBox" style="width:600px; height:400px; border-radius:20px">
-			            <div style="font-size:26px; margin:30px">
-			            	반려 사유를 입력해주세요.
-			            </div>
-			            <textarea name="rejectReasonText" rows="5" cols="45" style="font-size:23px; margin-left:23px; resize: none;"></textarea>
-			            <div style="margin: 8.8% 0px 0% 53%;">
-			                <span style="padding-right: 20px; margin-left:46px;float: left;" >
-			                    <button type="submit" class="closeBtn-in rejModalOk2" id="rejectReason">확인</button>
-			                </span>
-			                <button class="closeBtn-out rejModalNo2">취소</button>
-			            </div>
-			        </div>
-			    </div>
-			    
-			    <!-- 반려사유 보여주는 모달 -->
-			    
-			    <div class="modal modal3 hidden">
-			        <div class="bg"></div>
-			        <div class="modalBox" style="width:600px; height:400px; border-radius:20px">
-			            <div style="font-size:26px; margin:30px">
-			            	반려사유 :
-			            </div>
-			            <textarea name="rejectReasonText" rows="6" cols="45" style="font-size:23px; margin-left:23px; resize: none;" readonly>${approval.appReason}</textarea>
-			            <div style="margin: 5% 0px 0% 69%;">
-			                <span style="padding-right: 20px; margin-left:46px; float: left;" >
-			                    <button type="button" class="closeBtn-in3">확인</button>
-			                </span>
-			            </div>
-			        </div>
-			    </div>
-			    
-			    <script>
-			    /* 반려사유 확인 모달 */
-				const open3 = () => {
-			    	document.querySelector(".modal3").classList.remove("hidden");
-			    }
-			    const close3 = () => {
-			        document.querySelector(".modal3").classList.add("hidden");
-			    }
-				
-			    document.querySelector(".openRejectionWhy").addEventListener("click", open3);
-			    document.querySelector(".closeBtn-in3").addEventListener("click", close3);
-				
-			    </script>
-			    
-			    <!-- 모달 스크립트 -->
-			    <script>
-			    	const open = () => {
-				    	document.querySelector(".modal1").classList.remove("hidden");
-				    }
-				
-				    const close = () => {
-				        document.querySelector(".modal1").classList.add("hidden");
-				    }
-				
-				    document.querySelector("#openRejection").addEventListener("click", open);
-				    document.querySelector(".rejModalNo1").addEventListener("click", close);
-			    		
-				    /* 모달 반려사유 */
-				    
-			    	const open2 = () => {
-				    	document.querySelector(".modal2").classList.remove("hidden");
-				    }
-				
-				    const close2 = () => {
-				        document.querySelector(".modal2").classList.add("hidden");
-				    }
-					
-				    document.querySelector(".rejModalOk1").addEventListener("click", close);
-				    document.querySelector(".rejModalOk1").addEventListener("click", open2);
-				    document.querySelector(".rejModalNo2").addEventListener("click", close2);
-				    
-			    	document.querySelector(".rejModalOk2").addEventListener("click",close2);
-			    	
-			    	$(document).ready(function() {
-				    	$('#rejectReason').click(function() {
-				    		var rejectReasonText = $("textarea[name='rejectReasonText']").val();
-				    		var appNo = $("input[name=appNo]").val();
-				    		
-				    		console.log(rejectReasonText);
-				    		$.ajax({
-				                   type: "post",
-				                   url: "${path}/approval/letterOfApprovalUpdate?appNo="+appNo,
-				                   data: {
-				                	   rejectReasonText:rejectReasonText
-				   				   },
-				                   success: function(data){
-				                	   var url = "${path}/approval/approvalMain";
-			               	           
-				                	   if(data != 0) {
-				                		   /* alert("결재반려 처리가 정상적으로 완료되었습니다."); */
-				                		   Swal.fire({
-				                			   icon: 'success',
-				                			   title: '결재반려 처리가 \n정상적으로 완료되었습니다.'
-				                			})
-			      		    	   	       $(location).attr('href',url);
-				                	   } else {
-				                		   /* alert("결재반려 처리에 \n실패하였습니다."); */
-				                		   Swal.fire({
-				                  			   icon: 'error',
-				                  			   title: '결재반려 처리에 \n실패하였습니다.'
-				                  			})
-			      		    	   	       $(location).attr('href',url);
-				                	   }
-				            	   },
-				                   error: function(){ alert("잠시 후 다시 시도해주세요."); }
-				       		});
-				    	});
-			    	});
-			    </script>
-			    
-			    <!-- 결재승인버튼 스크립트 -->
-			    <script>
-			    	$("#Approver1").one("click",function(){
-			    		
-			    		$.ajax({
-			                type: "post",
-			                url: "${path}/approval/loaApproved1?appNo="+${approval.appNo},
-			                success: function(){
-			           		   /* alert("결재서명이 완료되었습니다."); */
-				           		/* Swal.fire({
-				     			   icon: 'success',
-				     			   title: '결재서명이 \n완료되었습니다.'
-				     			}) */
-			   				   $("#firstA").append('<img src="${path}/images/approved.png" id="checkIfApproved" style="position:absolute; width:130px; height:130px; margin-left:-92px; margin-top:-50px" />');
-			         	   },
-			                error: function(){ alert("잠시 후 다시 시도해주세요."); }
-			    		});
-			    	});
-			    	
-					$("#Approver2").one("click",function(){
-			    		
-			    		$.ajax({
-			                type: "post",
-			                url: "${path}/approval/loaApproved2?appNo="+${approval.appNo},
-			                success: function(){
-			                	/* alert("결재서명이 완료되었습니다."); */
-				           		Swal.fire({
-				     			   icon: 'success',
-				     			   title: '결재서명이 \n완료되었습니다.'
-				     			})
-			   				   $("#interimA").append('<img src="${path}/images/approved.png" id="checkIfApproved" style="position:absolute; width:130px; height:130px; margin-left:-92px; margin-top:-50px" />');
-			         	   },
-			                error: function(){ alert("잠시 후 다시 시도해주세요."); }
-			    		});
-			    	});
-					
-					$("#Approver3").one("click",function(){
-			    		
-			    		$.ajax({
-			                type: "post",
-			                url: "${path}/approval/loaApproved3?appNo="+${approval.appNo},
-			                success: function(){
-			                	/* alert("결재서명이 완료되었습니다."); */
-				           		Swal.fire({
-				     			   icon: 'success',
-				     			   title: '결재서명이 \n완료되었습니다.'
-				     			})
-			   				   $("#finalA").append('<img src="${path}/images/approved.png" id="checkIfApproved" style="position:absolute; width:130px; height:130px; margin-left:-92px; margin-top:-50px" />');
-			         	   },
-			                error: function(){ alert("잠시 후 다시 시도해주세요."); }
-			    		});
-			    	});
-			   	</script>
-			   	
-			   	<!-- 하단 결재버튼 -->
-			   	<script>
-			   		$("#approveddone").click(function() {
-			   			if($('#checkIfApproved').length > 0) {
-			   				var url = "${path}/approval/approvalMain";
-				   			alert("결재가 완료되었습니다.");
-				   	        $(location).attr('href', url);  			
-			   			} else {
-			   				var url = "${path}/approval/letterOfApprovalView?appNo="+${approval.appNo};
-			   				alert("결재서명 후 결재를 진행해주세요.");
-			   			}
-			   		});
-			   		
-			   		/* function checkIfApproved() {
-					    if(document.getElementById('checkIfApproved')){
-					        alert("결재가 완료되었습니다.");
-					        
-							return true;
-						} else {
-					        alert("결재서명 후 결재를 진행해주세요.");
-					        
-					        return false;
-						}
-					} */
-			   	</script>
-			</main>
+				</main>
+				<!-- 결재 상신 버튼 클릭시 모달창 -->
+		    <div id="modal" class="modal-overlay">
+		        <div class="modal-window">
+					<div class="title">
+		                <h2>문서양식</h2>
+		            </div>
+					<div id="inner">
+						<div id="input-main">
+							<select name="document" id="document">                     <!-- name : 키-->
+				                <option value="requisition">품의서</option>
+				                <option value="leaveRequest">휴가신청서</option>
+				                <option value="expenseResolution">지출결의서</option>
+				                <option value="draft">기안서</option>         <!-- value : 값-->
+				            </select>
+						</div>
+						
+						<div id="input-btn">
+							<button type="button" onclick="closeModal();" style="background-color: #ffdea0;">
+								<span>취소</span>
+							</button>
+							<button type="button" onclick="approvalAdd();" style="margin-left: 17px; background-color: #d2e8ff;">
+								<span>확인</span>
+							</button>
+						</div>
+					</div>
+				</div>
+		    </div>
+		    <!-- ------------------------------------------------>
+		    <!-- 결재자 검색 버튼 클릭시 모달창 -->
+		    <div id="modalApproval" class="modal-overlay">
+		        <div class="modal-window">
+					<div class="title">
+		                <h2 id="title-h2"></h2>
+		            </div>
+					<div id="inner">
+						<div id="searchUser">
+							<form action="" method="">
+								<select name="searchCondition" style="height: 30px;">
+									<option value="all"     <c:if test="${searchCondition == 'all' }">selected</c:if>>전체</option>
+									<option value="dept"    <c:if test="${searchCondition == 'dept' }">selected</c:if>>부서</option>
+									<option value="position"   <c:if test="${searchCondition == 'position' }">selected</c:if>>직급</option>
+									<option value="name" <c:if test="${searchCondition == 'name' }">selected</c:if>>이름</option>
+								</select>
+								<div>
+									<input type="text" name="searchKeyword" value="${searchKeyword }" style="width: 150px;">
+									<input type="submit" value="검색" style="width: 60px;">
+								</div>
+								<input type="hidden" name="userId" value="${sessionScope.user.userId }">
+							</form>
+						</div>
+						
+						<div id="selectUser" onclick="approvalUser();" style="cursor: pointer;">
+							<table>
+							 	<tr>
+							 		<td>경영팀</td>
+							 		<td>민봉식 회장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>경영팀</td>
+							 		<td>박수정 부회장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>인사팀</td>
+							 		<td>정기진 사장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>개발팀</td>
+							 		<td>서정민 사장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>회계팀</td>
+							 		<td>이유정 사장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>인사팀</td>
+							 		<td>유현주 전무</td>
+							 	</tr>
+							 	<tr>
+							 		<td>회계팀</td>
+							 		<td>양민경 전무</td>
+							 	</tr>
+							 	<tr>
+							 		<td>개발팀</td>
+							 		<td>박상은 전무</td>
+							 	</tr>
+							 	<tr>
+							 		<td>디자인팀</td>
+							 		<td>김하얀 상무</td>
+							 	</tr>
+							 	<tr>
+							 		<td>경영팀</td>
+							 		<td>구기효 상무</td>
+							 	</tr>
+							 	<tr>
+							 		<td>인사팀</td>
+							 		<td>허민아 이사</td>
+							 	</tr>
+							 	<tr>
+							 		<td>회계팀</td>
+							 		<td>설석현 이사</td>
+							 	</tr>
+							 	<tr>
+							 		<td>개발팀</td>
+							 		<td>김진하 이사</td>
+							 	</tr>
+							 	<tr>
+							 		<td>디자인팀</td>
+							 		<td>김승현 부장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>경영팀</td>
+							 		<td>전효성 부장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>인사팀</td>
+							 		<td>이지환 부장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>회계팀</td>
+							 		<td>박소현 부장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>개발팀</td>
+							 		<td>황세원 부장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>경영팀</td>
+							 		<td>김은지 부장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>인사팀</td>
+							 		<td>김은지 부장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>회계팀</td>
+							 		<td>김은지 부장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>개발팀</td>
+							 		<td>박은서 차장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>디자인팀</td>
+							 		<td>이수민 차장</td>
+							 	</tr> 
+							 	<tr>
+							 		<td>경영팀</td>
+							 		<td>박주혜 과장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>인사팀</td>
+							 		<td>유현주 과장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>회계팀</td>
+							 		<td>최민준 사원</td>
+							 	</tr>
+							 	<tr>
+							 		<td>개발팀</td>
+							 		<td>윤지연 사원</td>
+							 	</tr>
+							 	<tr>
+							 		<td>디자인팀</td>
+							 		<td>박세정 사원</td>
+							 	</tr>
+							 	<tr>
+							 		<td>경영팀</td>
+							 		<td>이정훈 사원</td>
+							 	</tr>
+							</table>
+						</div>
+						<div id="selectUserList" onclick="removeApproval();">
+							
+						
+						</div>
+						
+						<div id="input-btn">
+							<button type="button" onclick="closeApprovalModal();" style="background-color: #ffdea0;">
+								<span>취소</span>
+							</button>
+							<button type="button" onclick="approvalUserAdd();" style="margin-left: 85px; background-color: #d2e8ff;">
+								<span>확인</span>
+							</button>
+						</div>
+					</div>
+				</div>
+		    </div>
+		    <!-- ------------------------------------------------>
 		</div>
 		
 		
-		
-	<script type="text/javascript">
+		<script type="text/javascript">
 	///////////////////// 모달창 ///////////////
 	var modal = document.querySelector("#modal");
+	var modalApproval = document.querySelector("#modalApproval");
     modal.style.display = "none";
+    modalApproval.style.display ="none";
     
 	function openModal(){
 		  document.querySelector("body").style.overflow="hidden";
 		  window.scrollTo(0,0);
-	      modal.style.display = "flex"
+	      modal.style.display = "flex";
 	}
 	function closeModal(){
 		  document.querySelector("body").style.overflow="visible";
-	      modal.style.display = "none"
+	      modal.style.display = "none";
+	}
+	function openApprovalModal(title){
+		  $("#title-h2").html(title);
+		  document.querySelector("body").style.overflow="hidden";
+		  window.scrollTo(0,0);
+		  modalApproval.style.display = "flex";
+	}
+	function closeApprovalModal(){
+		  document.querySelector("body").style.overflow="visible";
+		  modalApproval.style.display = "none";
 	}
     /////////////////////////////////////////////
     
@@ -529,9 +469,69 @@
 			location.href="/approval/expenseResolutionForm";
 		}
 		
+	} 
+	function approvalUserAdd(){ 
+		$("#firstA").html("박수정");
+		$("#interimA").html("정기진");
+		$("#finalA").html("이유정");
+		closeApprovalModal();
+		$("#selectUserList").html("");
 	}
-
-	</script>
-	</body>
 	
+    var checkNum = 0;
+    function approvalUser(){
+	   	var selectUserList = "";
+    	if(checkNum == 0){
+    		selectUserList += "박수정 부회장<br>";
+			$("#selectUserList").html(selectUserList);
+    	} else if(checkNum == 1){
+    		selectUserList += "박수정 부회장<br>정기진 사장<br>";
+			$("#selectUserList").html(selectUserList);
+    	} else if(checkNum == 2){
+    		selectUserList += "박수정 부회장<br>정기진 사장<br>서정민 사장<br>";
+			$("#selectUserList").html(selectUserList);
+    	} else if(checkNum == 3){
+    		alert("3명만 선택하실 수 있습니다.")
+    		checkNum--;
+    	} 
+    	checkNum++;
+    }
+    
+    var checkNum2 = 0;
+    function removeApproval(){
+    	var selectUserList = "";
+    	if(checkNum2 == 0){
+    		selectUserList += "박수정 부회장<br>정기진 사장<br>";
+			$("#selectUserList").html(selectUserList);
+    	} else if(checkNum2 == 1){
+    		selectUserList += "박수정 부회장<br>";
+			$("#selectUserList").html(selectUserList);
+    	} else if(checkNum2 == 2){
+    		selectUserList += "";
+			$("#selectUserList").html(selectUserList);
+    	} 
+    	checkNum2++;
+    }
+    </script>
+    <!-- 오늘 날짜 스크립트 -->
+	<script>
+		const today = new Date();
+		const year = today.getFullYear();
+		const month = String(today.getMonth() + 1).padStart(2, '0');
+		const day = String(today.getDate()).padStart(2, '0');
+		var todayString = year + "-" + month + "-" + day;
+		$("#today").val(todayString);
+	</script>
+	
+    
+	</script>
+	<!-- 서명 클릭 스크립트  -->
+    <script>
+       $("#proposer").one("click",function(){
+           var proposerValue = $("#userName").val();
+        
+           $("#proposerText").append(proposerValue);
+       });
+    </script>
+	</body>
 </html>

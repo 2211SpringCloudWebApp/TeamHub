@@ -18,4 +18,8 @@ public interface ApprovalService {
 
 	List<ApprovalJoinForm> selectListByKeword(PageInfo pi, Map<String, String> progressMap);
 
+	int apprGetListCount(Map<String, String> progressMap);
+
+	Approval selectApproval(String apprNo);
+
 }

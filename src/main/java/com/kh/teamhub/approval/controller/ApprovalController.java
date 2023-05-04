@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.teamhub.approval.domain.Approval;
 import com.kh.teamhub.approval.domain.ApprovalJoinForm;
 import com.kh.teamhub.approval.domain.Search;
 import com.kh.teamhub.approval.service.ApprovalService;
@@ -51,10 +52,6 @@ public class ApprovalController {
 		progressMap.put("userId", user.getUserId());
 		progressMap.put("apprStatus", progress);
 		
-		System.out.println("진행상태 : " + progress);
-		System.out.println("페이지 : " + page);
-		System.out.println("서치 : " + search);
-		
 		// 검색 안했을 경우
 		if((search.getSearchCondition() == null && search.getSearchKeyword() == null && search.getUserId() == null) 
 				|| (search.getSearchCondition() == "" && search.getSearchKeyword() == "")) {
@@ -78,11 +75,8 @@ public class ApprovalController {
 			progressMap.put("searchKeyword", search.getSearchKeyword());
 			
 			int totalCount = aService.getSearchListCount(progressMap);  // 서치대신 맵 대입
-			System.out.println("검색했을때 - totalCount : " + totalCount);
 			PageInfo pi = this.getPageInfo(page, totalCount);
-			System.out.println("검색했을때 - pi : " + pi);
 			List<ApprovalJoinForm> aList = aService.selectListByKeword(pi, progressMap);   // 서치대신 맵 대입
-			System.out.println("검색했을때 - aList : " + aList);
 			if(!aList.isEmpty()) {
 				model.addAttribute("progressMap", progressMap);    // 서치대신 맵 대입
 				model.addAttribute("pi", pi);
@@ -98,10 +92,59 @@ public class ApprovalController {
 	
 	// 결재문서함 페이지로 이동
 	@RequestMapping(value = "/approvalDocuments", method = RequestMethod.GET)
-	public String approvalDocuments(HttpServletRequest request) throws Exception {
+	public String approvalDocuments(HttpServletRequest request
+						          , Model model
+						          , @RequestParam(value = "progress", required = false, defaultValue = "전체") String progress
+						          , @RequestParam(value="page", required=false, defaultValue="1") Integer page
+						          , @ModelAttribute Search search) throws Exception {
 		if(loginUtil.checkLogin(request)) {    
 			return "main/login";	 // 비로그인시 로그인 페이지로 이동.
 		}		
+//		HttpSession session = request.getSession();
+//		User user = (User)session.getAttribute("user");
+//		
+//		Map<String, String> progressMap = new HashMap<String, String>();
+//		progressMap.put("userId", user.getUserId());
+//		progressMap.put("apprStatus", progress);
+//		
+//		// 검색 안했을 경우
+//		if((search.getSearchCondition() == null && search.getSearchKeyword() == null && search.getUserId() == null) 
+//				|| (search.getSearchCondition() == "" && search.getSearchKeyword() == "")) {
+//			
+//			int totalCount = aService.apprGetListCount(progressMap);
+//			
+//			PageInfo pi = this.getPageInfo(page, totalCount);
+//			
+//			List<ApprovalJoinForm> aList = aService.selectApprovalList(pi, progressMap);
+//			if(!aList.isEmpty()) {
+//				model.addAttribute("progressMap", progressMap);
+//				model.addAttribute("pi", pi);
+//				model.addAttribute("aList", aList);
+//			}
+//			return "approval/draftDocuments";
+//		} 
+//		
+//		// 검색했을 경우
+//		else {
+//			progressMap.put("searchCondition", search.getSearchCondition());
+//			progressMap.put("searchKeyword", search.getSearchKeyword());
+//			
+//			int totalCount = aService.getSearchListCount(progressMap);  // 서치대신 맵 대입
+//			PageInfo pi = this.getPageInfo(page, totalCount);
+//			List<ApprovalJoinForm> aList = aService.selectListByKeword(pi, progressMap);   // 서치대신 맵 대입
+//			if(!aList.isEmpty()) {
+//				model.addAttribute("progressMap", progressMap);    // 서치대신 맵 대입
+//				model.addAttribute("pi", pi);
+//				model.addAttribute("aList", aList);
+//				return "approval/draftDocuments";
+//			} else {
+//				model.addAttribute("aList", aList);
+//				return "approval/draftDocuments";
+//			}
+//		}
+//		
+		
+		
 		return "approval/approvalDocuments";
 	}
 
@@ -133,6 +176,18 @@ public class ApprovalController {
 		}		
 		return "approval/draftForm";
 	}
+	// 기안서 뷰 페이지로 이동
+	@RequestMapping(value = "/draftFormView", method = RequestMethod.GET)
+	public String draftFormView(HttpServletRequest request, Model model, String apprNo) throws Exception {
+		if(loginUtil.checkLogin(request)) {    
+			return "main/login";	 // 비로그인시 로그인 페이지로 이동.
+		}		
+		Approval appr = aService.selectApproval(apprNo);
+		model.addAttribute("appr",appr);
+		return "approval/draftFormView";
+	}
+	
+	
 	
 	// 품의서 페이지로 이동
 	@RequestMapping(value = "/requisitionForm", method = RequestMethod.GET)
@@ -142,6 +197,17 @@ public class ApprovalController {
 		}		
 		return "approval/requisitionForm";
 	}
+	// 품의서 뷰 페이지로 이동
+	@RequestMapping(value = "/requisitionFormView", method = RequestMethod.GET)
+	public String requisitionFormView(HttpServletRequest request, Model model, String apprNo) throws Exception {
+		if(loginUtil.checkLogin(request)) {    
+			return "main/login";	 // 비로그인시 로그인 페이지로 이동.
+		}		
+		Approval appr = aService.selectApproval(apprNo);
+		model.addAttribute("appr",appr);
+		return "approval/requisitionFormView";
+	}
+	
 	
 	// 휴가신청서 페이지로 이동
 	@RequestMapping(value = "/leaveRequestForm", method = RequestMethod.GET)
@@ -151,6 +217,18 @@ public class ApprovalController {
 		}		
 		return "approval/leaveRequestForm";
 	}
+	// 휴가신청서 뷰 페이지로 이동
+	@RequestMapping(value = "/leaveRequestFormView", method = RequestMethod.GET)
+	public String leaveRequestFormView(HttpServletRequest request, Model model, String apprNo) throws Exception {
+		if(loginUtil.checkLogin(request)) {    
+			return "main/login";	 // 비로그인시 로그인 페이지로 이동.
+		}		
+		Approval appr = aService.selectApproval(apprNo);
+		model.addAttribute("appr",appr);
+		return "approval/leaveRequestFormView";
+	}
+	
+	
 	// 지출결의서 페이지로 이동
 	@RequestMapping(value = "/expenseResolutionForm", method = RequestMethod.GET)
 	public String expenseResolutionForm(HttpServletRequest request) throws Exception {
@@ -158,6 +236,16 @@ public class ApprovalController {
 			return "main/login";	 // 비로그인시 로그인 페이지로 이동.
 		}		
 		return "approval/expenseResolutionForm";
+	}
+	// 지출결의서 뷰 페이지로 이동
+	@RequestMapping(value = "/expenseResolutionFormView", method = RequestMethod.GET)
+	public String expenseResolutionFormView(HttpServletRequest request, Model model, String apprNo) throws Exception {
+		if(loginUtil.checkLogin(request)) {    
+			return "main/login";	 // 비로그인시 로그인 페이지로 이동.
+		}	
+		Approval appr = aService.selectApproval(apprNo);
+		model.addAttribute("appr",appr);
+		return "approval/expenseResolutionFormView";
 	}
 	
 	///////////// 메소드 /////////////////////////

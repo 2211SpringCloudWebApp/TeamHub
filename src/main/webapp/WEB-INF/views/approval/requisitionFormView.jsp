@@ -5,7 +5,7 @@
 	<html>
 	<head>
 		<meta charset="UTF-8">
-		<title>품의서</title>
+		<title>품의서 상세</title>
 		<link rel="stylesheet" href="../../../resources/css/approval/approvalDocuments.css">
 		<link rel="stylesheet" href="../../../resources/css/approval/documentModal.css">
 		<link rel="stylesheet" href="../../../resources/css/approval/requisitionForm.css">
@@ -83,14 +83,14 @@
 				                </tr>
 				                <tr class="tr5">
 				                    <td>제 목</td>
-				                    <td colspan="8"><input type="text" name="loaTitle" id="loaTitle"></td>
+				                    <td colspan="8"><input type="text" name="loaTitle" id="loaTitle" value="${appr.apprTitle }"></td>
 				                </tr>
 				                <tr class="tr6">
 				                    <td colspan="8">품의사유 및 상세내용</td>
 				                </tr>
 				                <tr class="tr7">
 				                    <td colspan="8">
-				                        <textarea name="loaContent" id="loaContent" cols="151px" rows="11px"></textarea>
+				                        <textarea name="loaContent" id="loaContent" cols="151px" rows="11px">${appr.apprContent }</textarea>
 				                    </td>
 				                </tr>
 				                <tr class="tr8">

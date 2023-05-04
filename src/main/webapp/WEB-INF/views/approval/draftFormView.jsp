@@ -5,7 +5,7 @@
 	<html>
 	<head>
 		<meta charset="UTF-8">
-		<title>품의서</title>
+		<title>기안서</title>
 		<link rel="stylesheet" href="../../../resources/css/approval/approvalDocuments.css">
 		<link rel="stylesheet" href="../../../resources/css/approval/documentModal.css">
 		<link rel="stylesheet" href="../../../resources/css/approval/requisitionForm.css">
@@ -17,13 +17,39 @@
 		#sideBar li:nth-child(8) a{
 			color: white !important;
 		}
-		
 		</style>
 	</head>
 	
 	<body>
 		<div id="container">
-			
+			<!-- 일정 등록시 모달창 띄우기 -->
+		    <div id="modal" class="modal-overlay">
+		        <div class="modal-window">
+					<div class="title">
+		                <h2>문서양식</h2>
+		            </div>
+					<div id="inner">
+						<div id="input-main">
+							<select name="document" id="document">                     <!-- name : 키-->
+				                <option value="requisition">품의서</option>
+				                <option value="leaveRequest">휴가신청서</option>
+				                <option value="expenseResolution">지출결의서</option>
+				                <option value="draft">기안서</option>         <!-- value : 값-->
+				            </select>
+						</div>
+						
+						<div id="input-btn">
+							<button type="button" onclick="closeModal();" style="background-color: #ffdea0;">
+								<span>취소</span>
+							</button>
+							<button type="button" onclick="approvalAdd();" style="margin-left: 17px; background-color: #d2e8ff;">
+								<span>확인</span>
+							</button>
+						</div>
+					</div>
+				</div>
+		    </div>
+		    <!-- ------------------------------------------------>
 			<jsp:include page="../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
 				<h1>전자결재</h1>
@@ -43,7 +69,7 @@
 				        <div class="cash-disbursement">
 				            <table border=2>
 				                <tr class="tr1">
-				                    <td rowspan="2" colspan="4" class="formTitle">품 의 서</td>
+				                    <td rowspan="2" colspan="4" class="formTitle">기 안 서</td>
 				                    <td rowspan="2" style="width: 70px;">
 				                        <span>결 재</span>
 				                    </td>
@@ -83,18 +109,18 @@
 				                </tr>
 				                <tr class="tr5">
 				                    <td>제 목</td>
-				                    <td colspan="8"><input type="text" name="loaTitle" id="loaTitle"></td>
+				                    <td colspan="8"><input type="text" name="loaTitle" id="loaTitle">${appr.apprTitle }</td>
 				                </tr>
 				                <tr class="tr6">
-				                    <td colspan="8">품의사유 및 상세내용</td>
+				                    <td colspan="8">상세내용</td>
 				                </tr>
 				                <tr class="tr7">
 				                    <td colspan="8">
-				                        <textarea name="loaContent" id="loaContent" cols="151px" rows="11px"></textarea>
+				                        <textarea name="loaContent" id="loaContent" cols="151px" rows="11px">${appr.apprContent }</textarea>
 				                    </td>
 				                </tr>
 				                <tr class="tr8">
-				                    <td colspan="8">위와 같은 품의사유로, 검토 후 결재 바랍니다.</td>
+				                    <td colspan="8">위와 같은 사유로, 검토 후 결재 바랍니다.</td>
 				                </tr>
 				                <tr class="tr9">
 				                    <td colspan="8">
@@ -120,7 +146,6 @@
 				    </div>
 				</form>
 			</main>
-			
 			
 			<!-- 결재 상신 버튼 클릭시 모달창 -->
 		    <div id="modal" class="modal-overlay">
@@ -311,14 +336,13 @@
 		    </div>
 		    <!-- ------------------------------------------------>
 		    
-    	</div>
-    	
-    	
+		    
+		</div>
 	<script type="text/javascript">
 	///////////////////// 모달창 ///////////////
 	var modal = document.querySelector("#modal");
 	var modalApproval = document.querySelector("#modalApproval");
-    modal.style.display = "none"; 
+    modal.style.display = "none";
     modalApproval.style.display ="none";
     
 	function openModal(){
@@ -330,7 +354,6 @@
 		  document.querySelector("body").style.overflow="visible";
 	      modal.style.display = "none";
 	}
-	
 	function openApprovalModal(title){
 		  $("#title-h2").html(title);
 		  document.querySelector("body").style.overflow="hidden";
@@ -341,7 +364,6 @@
 		  document.querySelector("body").style.overflow="visible";
 		  modalApproval.style.display = "none";
 	}
-	
     /////////////////////////////////////////////
     
 	// 결재상신 - 문서 양식 선택 
@@ -358,51 +380,17 @@
 		}
 		
 	}
-    //////////////////////////////////////////////
-    //// 결재자 검색
 	function approvalUserAdd(){
-    	if(referCheckNum == 6){
-    		$("#referList").html("박수정 부회장, 정기진 사장, 서정민 사장, 이유정 사장, 유현주 전무");
-    		
-    		closeApprovalModal();
-			$("#selectUserList").html("");
-    	} else{
-			$("#firstApprover").val("박수정");
-			$("#interimName").val("정기진");
-			$("#finalApprover").val("이유정");
-			closeApprovalModal();
-			$("#selectUserList").html("");
-    	}
+		$("#firstApprover").val("박수정");
+		$("#interimName").val("정기진");
+		$("#finalApprover").val("이유정");
+		closeApprovalModal();
+		$("#selectUserList").html("");
 	}
-	var referCheckNum = 0;
+	
     var checkNum = 0;
     function approvalUser(){
 	   	var selectUserList = "";
-    	var referList = "";
-    	
-    	if(referCheckNum == 1){
-    		referList += "박수정 부회장";
-    		$("#selectUserList").html(referList);
-    		referCheckNum++;
-    	} else if(referCheckNum == 2){
-    		referList += "박수정 부회장, 정기진 사장";
-			$("#selectUserList").html(referList);
-			referCheckNum++;
-    	} else if(referCheckNum == 3){
-    		referList += "박수정 부회장, 정기진 사장, 서정민 사장";
-			$("#selectUserList").html(referList);
-			referCheckNum++;
-    	} else if(referCheckNum == 4){
-    		referList += "박수정 부회장, 정기진 사장, 서정민 사장, <br>이유정 사장";
-			$("#selectUserList").html(referList);
-			referCheckNum++;
-    	} else if(referCheckNum == 5){
-    		referList += "박수정 부회장, 정기진 사장, 서정민 사장, <br>이유정 사장, 유현주 전무";
-			$("#selectUserList").html(referList);
-			referCheckNum++;
-    	}
-    	
-    	
     	if(checkNum == 0){
     		selectUserList += "박수정 부회장<br>";
 			$("#selectUserList").html(selectUserList);
@@ -414,10 +402,8 @@
 			$("#selectUserList").html(selectUserList);
     	} else if(checkNum == 3){
     		alert("3명만 선택하실 수 있습니다.")
-    		referCheckNum++;
+    		checkNum--;
     	} 
-    	
-    	
     	checkNum++;
     }
     
@@ -436,10 +422,9 @@
     	} 
     	checkNum2++;
     }
-	//////////////////////////////////////////////
-	</script>
-	
-	<!-- 오늘 날짜 스크립트 -->
+    </script>
+    
+    <!-- 오늘 날짜 스크립트 -->
 	<script>
 		const today = new Date();
 		const year = today.getFullYear();
@@ -448,7 +433,7 @@
 		var todayString = year + "-" + month + "-" + day;
 		$("#today").val(todayString);
 	</script>
-	
+    
 	<!-- 서명 클릭 스크립트  -->
     <script>
        $("#proposer").one("click",function(){
@@ -457,5 +442,6 @@
            $("#proposerText").append(proposerValue);
        });
     </script>
+    
 	</body>
 </html>

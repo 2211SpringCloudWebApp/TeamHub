@@ -92,7 +92,18 @@
 						<tr>
 							<td>${item.apprCreateDate }</td>
 							<td>${item.formTitle }</td>
-							<td><a href="/approval/draftDocuments?apprNo=${item.apprNo }">${item.apprTitle }</a></td>
+							<c:if test="${item.formTitle=='기안서'}">
+								<td><a href="/approval/draftFormView?apprNo=${item.apprNo }">${item.apprTitle }</a></td>
+							</c:if>
+							<c:if test="${item.formTitle=='휴가신청서'}">
+								<td><a href="/approval/leaveRequestFormView?apprNo=${item.apprNo }">${item.apprTitle }</a></td>
+							</c:if>
+							<c:if test="${item.formTitle=='품의서'}">
+								<td><a href="/approval/requisitionFormView?apprNo=${item.apprNo }">${item.apprTitle }</a></td>
+							</c:if>
+							<c:if test="${item.formTitle=='지출결의서'}">
+								<td><a href="/approval/expenseResolutionFormView?apprNo=${item.apprNo }">${item.apprTitle }</a></td>
+							</c:if>
 							<td>${item.apprNo }</td>
 							<td>${item.apprStatus }</td>
 						</tr>
@@ -189,7 +200,6 @@
 		} else if(documentOptionValue == 'expenseResolution'){  // 지출결의서
 			location.href="/approval/expenseResolutionForm";
 		}
-		
 	}
 
 	

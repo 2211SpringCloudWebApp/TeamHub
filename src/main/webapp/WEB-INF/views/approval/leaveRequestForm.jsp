@@ -18,7 +18,7 @@
 		}
 		input{
 			border: 0px;
-			font-size: 17px;
+			font-size: 20px;
    			text-align: center;
 		}
 		#radioType input{
@@ -48,6 +48,16 @@
 			resize: none; 
 			font-size:24px; 
 			margin-bottom:-42px;
+		}
+		.tr2 input{
+			font-size: 15px;
+		    width: 70px;
+		    height: 25px;
+		    text-align: center;
+		    border: 1px solid gray;
+		    background-color: #f0f0f0;
+		    cursor: pointer;
+		    margin: 11px;
 		}
 		.tr3 td:nth-child(1), .tr3 td:nth-child(2){
 			height: 70px;
@@ -127,67 +137,15 @@
 			                       <td style="width: 100px;">중간승인자</td>
 			                       <td style="width: 100px;">최종승인자</td>
 			                   </tr>
-			                   <tr>
-			                       <c:choose>
-			                     <c:when test="${approval.appPresent eq 'A'}">
-			                         <td name="firstA" id="firstA">${approval.firstApprover}</td>
-			                         <td name="interimA" id="interimA">${approval.interimApprover}</td>
-			                         <td name="finalA" id="finalA">${approval.finalApprover}</td>
-			                      </c:when>
-			                     <c:when test="${approval.appPresent eq 'B'}">
-			                          <td name="firstA" id="firstA">${approval.firstApprover}<img src="${path}/images/approved.png" style="position:absolute; width:130px; height:130px; margin-left:-92px; margin-top:-50px" /></td>
-			                          <td name="interimA" id="interimA">${approval.interimApprover}</td>
-			                          <td name="finalA" id="finalA">${approval.finalApprover}</td>
-			                      </c:when>
-			                     <c:when test="${approval.appPresent eq 'C'}">
-			                          <td name="firstA" id="firstA">${approval.firstApprover}<img src="${path}/images/approved.png" style="position:absolute; width:130px; height:130px; margin-left:-92px; margin-top:-50px" /></td>
-			                          <td name="interimA" id="interimA">${approval.interimApprover}<img src="${path}/images/approved.png" style="position:absolute; width:130px; height:130px; margin-left:-92px; margin-top:-50px" /></td>
-			                          <td name="finalA" id="finalA">${approval.finalApprover}</td>
-			                      </c:when>
-			                     <c:when test="${approval.appPresent eq 'D'}">
-			                          <td name="firstA" id="firstA">${approval.firstApprover}<img src="${path}/images/approved.png" style="position:absolute; width:130px; height:130px; margin-left:-92px; margin-top:-50px" /></td>
-			                          <td name="interimA" id="interimA">${approval.interimApprover}<img src="${path}/images/approved.png" style="position:absolute; width:130px; height:130px; margin-left:-92px; margin-top:-50px" /></td>
-			                          <td name="finalA" id="finalA">${approval.finalApprover}<img src="${path}/images/approved.png" style="position:absolute; width:130px; height:130px; margin-left:-92px; margin-top:-50px" /></td>
-			                      </c:when>
-			                     <c:otherwise>
-			                          <td name="firstA" id="firstA">${approval.firstApprover}</td>
-			                          <td name="interimA" id="interimA">${approval.interimApprover}</td>
-			                          <td name="finalA" id="finalA">${approval.finalApprover}</td>
-			                     </c:otherwise>
-			                  </c:choose>
+			                   <tr class="tr1">
+		                         <td id="firstA"> </td> 
+		                         <td id="interimA"> </td>
+		                         <td id="finalA"> </td>
 			                   </tr>
-			                   <tr style="height: 30px;">
-			                       <c:choose>
-			                          <c:when test="${!empty approval.appReason}">
-			                             <td><input type="button" name="Approver1" id="Approver1" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-			                        <td><input type="button" name="Approver2" id="Approver2" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-			                        <td><input type="button" name="Approver3" id="Approver3" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-			                          </c:when>
-			                          <c:otherwise>
-			                             <c:choose>
-			                           <c:when test="${loginMember.user_name eq approval.firstApprover && approval.appPresent eq 'A'}">
-			                               <td><input type="button" name="Approver1" id="Approver1" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" /></td>
-			                               <td><input type="button" name="Approver2" id="Approver2" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-			                               <td><input type="button" name="Approver3" id="Approver3" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-			                           </c:when>
-			                           <c:when test="${loginMember.user_name eq approval.interimApprover && approval.appPresent eq 'B'}">
-			                               <td><input type="button" name="Approver1" id="Approver1" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-			                               <td><input type="button" name="Approver2" id="Approver2" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" /></td>
-			                               <td><input type="button" name="Approver3" id="Approver3" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-			                           </c:when>
-			                           <c:when test="${loginMember.user_name eq approval.finalApprover && approval.appPresent eq 'C'}">
-			                                   <td><input type="button" name="Approver1" id="Approver1" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-			                                   <td><input type="button" name="Approver2" id="Approver2" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-			                                   <td><input type="button" name="Approver3" id="Approver3" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" /></td>
-			                           </c:when>
-			                           <c:otherwise>
-			                              <td><input type="button" name="Approver1" id="Approver1" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-			                              <td><input type="button" name="Approver2" id="Approver2" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-			                              <td><input type="button" name="Approver3" id="Approver3" style="font-size:15px; width:70px; height:25px; border: none; text-align: center; border-radius:20px;" value="결재서명" disabled /></td>
-			                           </c:otherwise>
-			                        </c:choose>
-			                          </c:otherwise>
-			                       </c:choose>
+			                   <tr class="tr2" style="height: 30px;">
+		                            <td><input type="button" value="검색" class="searchMember" id="thirdBtn" name="finalApprover" onclick="openApprovalModal('결재자');"></td>
+			                        <td><input type="button" value="검색" class="searchMember" id="thirdBtn" name="finalApprover" onclick="openApprovalModal('결재자');"></td>
+			                        <td><input type="button" value="검색" class="searchMember" id="thirdBtn" name="finalApprover" onclick="openApprovalModal('결재자');"></td>
 			                   </tr>
 			                   <tr class="tr3">
 				                    <td colspan="2">
@@ -207,26 +165,27 @@
 			                   </tr>
 			                   <tr>
 			                       <td colspan="3" style="height: 70px; width: 80px;">비 상 연 락 망</td>
-			                       <td colspan="5"><input type="text" value="${ approval.appEmergncyCall }" style="font-size: 25px;" readonly></td>
+			                       <td colspan="5"><input type="text" id="userPhone" style="font-size: 20px; font-weight: 300;" readonly></td>
 			                   </tr>
 			                   <tr>
-			                       <td colspan="3" style="height: 70px; width: 80px;">기 간</td>
+			                       <td colspan="3" style="height: 70px; width: 80px; font-size: 20px; font-weight: 300;">기 간</td>
 			                       <td colspan="5">
+			                         <input type="text">
 			                       </td>
 			                   </tr>
 			                   <tr>
 			                      <td style="width: 80px; height: 70px; font-family: 'InfinitySans-RegularA1'; font-size: 16px; font-weight: 600;">휴가 구분</td>
 			                      <td colspan="8" id="radioType">
-			                      	<input type="radio"><span>연차 </span>
-			                      	<input type="radio"><span>반차 </span>
-			                      	<input type="radio"><span>병가 </span> 
-			                      	<input type="radio"><span>기타 </span> 
+			                      	<input type="radio" name="vacation" checked="checked"><span>연차 </span>
+			                      	<input type="radio" name="vacation"><span>반차 </span>
+			                      	<input type="radio" name="vacation"><span>병가 </span> 
+			                      	<input type="radio" name="vacation"><span>기타 </span> 
 			                      </td>
 			                   </tr>
 			                   <tr>
 			                       <td style="width: 80px;">세부사항</td>
 			                       <td colspan="8">
-			                           <input style="height: 300px;" type="text" value="${ approval.leaveDetail }" readonly>
+			                           <input style="height: 300px;" type="text" value="">
 			                       </td>
 			                   </tr>
 			                   <tr>
@@ -234,7 +193,7 @@
 			                   </tr>
 			                   <tr class="tr9" style="border: white;">
 				                    <td colspan="8" style="text-align: center; height: 100px; border-left: 1px solid black; border-right: 1px solid black;">
-				                        <input type="text" value="2023-05-09" readonly style="text-align:center; font-size: 30px;">
+				                        <input type="text" id="today" readonly style="text-align:center; font-size: 30px;">
 				                    </td>
 				                </tr>
 			                   <tr class="tr10">
@@ -249,21 +208,226 @@
 			           </div>
 			       </form>
 			</main>
+			
+			<!-- 결재 상신 버튼 클릭시 모달창 -->
+		    <div id="modal" class="modal-overlay">
+		        <div class="modal-window">
+					<div class="title">
+		                <h2>문서양식</h2>
+		            </div>
+					<div id="inner">
+						<div id="input-main">
+							<select name="document" id="document">                     <!-- name : 키-->
+				                <option value="requisition">품의서</option>
+				                <option value="leaveRequest">휴가신청서</option>
+				                <option value="expenseResolution">지출결의서</option>
+				                <option value="draft">기안서</option>         <!-- value : 값-->
+				            </select>
+						</div>
+						
+						<div id="input-btn">
+							<button type="button" onclick="closeModal();" style="background-color: #ffdea0;">
+								<span>취소</span>
+							</button>
+							<button type="button" onclick="approvalAdd();" style="margin-left: 17px; background-color: #d2e8ff;">
+								<span>확인</span>
+							</button>
+						</div>
+					</div>
+				</div>
+		    </div>
+		    <!-- ------------------------------------------------>
+		    <!-- 결재자 검색 버튼 클릭시 모달창 -->
+		    <div id="modalApproval" class="modal-overlay">
+		        <div class="modal-window">
+					<div class="title">
+		                <h2 id="title-h2"></h2>
+		            </div>
+					<div id="inner">
+						<div id="searchUser">
+							<form action="" method="">
+								<select name="searchCondition" style="height: 30px;">
+									<option value="all"     <c:if test="${searchCondition == 'all' }">selected</c:if>>전체</option>
+									<option value="dept"    <c:if test="${searchCondition == 'dept' }">selected</c:if>>부서</option>
+									<option value="position"   <c:if test="${searchCondition == 'position' }">selected</c:if>>직급</option>
+									<option value="name" <c:if test="${searchCondition == 'name' }">selected</c:if>>이름</option>
+								</select>
+								<div>
+									<input type="text" name="searchKeyword" value="${searchKeyword }" style="width: 150px;">
+									<input type="submit" value="검색" style="width: 60px;">
+								</div>
+								<input type="hidden" name="userId" value="${sessionScope.user.userId }">
+							</form>
+						</div>
+						
+						<div id="selectUser" onclick="approvalUser();" style="cursor: pointer;">
+							<table>
+							 	<tr>
+							 		<td>경영팀</td>
+							 		<td>민봉식 회장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>경영팀</td>
+							 		<td>박수정 부회장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>인사팀</td>
+							 		<td>정기진 사장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>개발팀</td>
+							 		<td>서정민 사장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>회계팀</td>
+							 		<td>이유정 사장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>인사팀</td>
+							 		<td>유현주 전무</td>
+							 	</tr>
+							 	<tr>
+							 		<td>회계팀</td>
+							 		<td>양민경 전무</td>
+							 	</tr>
+							 	<tr>
+							 		<td>개발팀</td>
+							 		<td>박상은 전무</td>
+							 	</tr>
+							 	<tr>
+							 		<td>디자인팀</td>
+							 		<td>김하얀 상무</td>
+							 	</tr>
+							 	<tr>
+							 		<td>경영팀</td>
+							 		<td>구기효 상무</td>
+							 	</tr>
+							 	<tr>
+							 		<td>인사팀</td>
+							 		<td>허민아 이사</td>
+							 	</tr>
+							 	<tr>
+							 		<td>회계팀</td>
+							 		<td>설석현 이사</td>
+							 	</tr>
+							 	<tr>
+							 		<td>개발팀</td>
+							 		<td>김진하 이사</td>
+							 	</tr>
+							 	<tr>
+							 		<td>디자인팀</td>
+							 		<td>김승현 부장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>경영팀</td>
+							 		<td>전효성 부장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>인사팀</td>
+							 		<td>이지환 부장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>회계팀</td>
+							 		<td>박소현 부장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>개발팀</td>
+							 		<td>황세원 부장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>경영팀</td>
+							 		<td>김은지 부장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>인사팀</td>
+							 		<td>김은지 부장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>회계팀</td>
+							 		<td>김은지 부장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>개발팀</td>
+							 		<td>박은서 차장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>디자인팀</td>
+							 		<td>이수민 차장</td>
+							 	</tr> 
+							 	<tr>
+							 		<td>경영팀</td>
+							 		<td>박주혜 과장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>인사팀</td>
+							 		<td>유현주 과장</td>
+							 	</tr>
+							 	<tr>
+							 		<td>회계팀</td>
+							 		<td>최민준 사원</td>
+							 	</tr>
+							 	<tr>
+							 		<td>개발팀</td>
+							 		<td>윤지연 사원</td>
+							 	</tr>
+							 	<tr>
+							 		<td>디자인팀</td>
+							 		<td>박세정 사원</td>
+							 	</tr>
+							 	<tr>
+							 		<td>경영팀</td>
+							 		<td>이정훈 사원</td>
+							 	</tr>
+							</table>
+						</div>
+						<div id="selectUserList" onclick="removeApproval();">
+							
+						
+						</div>
+						
+						<div id="input-btn">
+							<button type="button" onclick="closeApprovalModal();" style="background-color: #ffdea0;">
+								<span>취소</span>
+							</button>
+							<button type="button" onclick="approvalUserAdd();" style="margin-left: 85px; background-color: #d2e8ff;">
+								<span>확인</span>
+							</button>
+						</div>
+					</div>
+				</div>
+		    </div>
+		    <!-- ------------------------------------------------>
 		</div>
 		
 	<script type="text/javascript">
+	var userPhone = "${user.userPhone}";
+	const formattedPhoneNumber = userPhone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+	$("#userPhone").val(formattedPhoneNumber);
+	
 	///////////////////// 모달창 ///////////////
 	var modal = document.querySelector("#modal");
+	var modalApproval = document.querySelector("#modalApproval");
     modal.style.display = "none";
+    modalApproval.style.display ="none";
     
 	function openModal(){
 		  document.querySelector("body").style.overflow="hidden";
 		  window.scrollTo(0,0);
-	      modal.style.display = "flex"
+	      modal.style.display = "flex";
 	}
 	function closeModal(){
 		  document.querySelector("body").style.overflow="visible";
-	      modal.style.display = "none"
+	      modal.style.display = "none";
+	}
+	function openApprovalModal(title){
+		  $("#title-h2").html(title);
+		  document.querySelector("body").style.overflow="hidden";
+		  window.scrollTo(0,0);
+		  modalApproval.style.display = "flex";
+	}
+	function closeApprovalModal(){
+		  document.querySelector("body").style.overflow="visible";
+		  modalApproval.style.display = "none";
 	}
     /////////////////////////////////////////////
     
@@ -279,8 +443,63 @@
 		} else if(documentOptionValue == 'expenseResolution'){  // 지출결의서
 			location.href="/approval/expenseResolutionForm";
 		}
+		
 	} 
-	</script>	
+	function approvalUserAdd(){ 
+		$("#firstA").html("박수정");
+		$("#interimA").html("정기진");
+		$("#finalA").html("이유정");
+		closeApprovalModal();
+		$("#selectUserList").html("");
+	}
+	
+    var checkNum = 0;
+    function approvalUser(){
+	   	var selectUserList = "";
+    	if(checkNum == 0){
+    		selectUserList += "박수정 부회장<br>";
+			$("#selectUserList").html(selectUserList);
+    	} else if(checkNum == 1){
+    		selectUserList += "박수정 부회장<br>정기진 사장<br>";
+			$("#selectUserList").html(selectUserList);
+    	} else if(checkNum == 2){
+    		selectUserList += "박수정 부회장<br>정기진 사장<br>서정민 사장<br>";
+			$("#selectUserList").html(selectUserList);
+    	} else if(checkNum == 3){
+    		alert("3명만 선택하실 수 있습니다.")
+    		checkNum--;
+    	} 
+    	checkNum++;
+    }
+    
+    var checkNum2 = 0;
+    function removeApproval(){
+    	var selectUserList = "";
+    	if(checkNum2 == 0){
+    		selectUserList += "박수정 부회장<br>정기진 사장<br>";
+			$("#selectUserList").html(selectUserList);
+    	} else if(checkNum2 == 1){
+    		selectUserList += "박수정 부회장<br>";
+			$("#selectUserList").html(selectUserList);
+    	} else if(checkNum2 == 2){
+    		selectUserList += "";
+			$("#selectUserList").html(selectUserList);
+    	} 
+    	checkNum2++;
+    }
+    
+	</script>
+	
+	<!-- 오늘 날짜 스크립트 -->
+	<script>
+		const today = new Date();
+		const year = today.getFullYear();
+		const month = String(today.getMonth() + 1).padStart(2, '0');
+		const day = String(today.getDate()).padStart(2, '0');
+		var todayString = year + "-" + month + "-" + day;
+		$("#today").val(todayString);
+	</script>
+	
 	
 	<!-- 서명 클릭 스크립트  -->
     <script>

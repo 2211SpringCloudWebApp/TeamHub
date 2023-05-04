@@ -5,10 +5,9 @@
 	<html>
 	<head>
 		<meta charset="UTF-8">
-		<title>품의서</title>
+		<title>휴가 신청서</title>
 		<link rel="stylesheet" href="../../../resources/css/approval/approvalDocuments.css">
 		<link rel="stylesheet" href="../../../resources/css/approval/documentModal.css">
-		<link rel="stylesheet" href="../../../resources/css/approval/requisitionForm.css">
 		<style type="text/css">
 		#sideBar li:nth-child(8){
 		    background-color: #2653e8ba;
@@ -17,13 +16,102 @@
 		#sideBar li:nth-child(8) a{
 			color: white !important;
 		}
+		input{
+			border: 0px;
+			font-size: 20px;
+   			text-align: center;
+		}
+		#radioType input{
+			margin-right: 10px;
+		}
+		#radioType span{
+			margin-right: 10px;
+		}
+		.tr10 td{
+			text-align: right; 
+			height: 100px; 
+			padding-right: 50px;
+		}
+		.tr10 input{
+			font-size:15px; 
+			width:70px; 
+			height:30px; 
+			border: none; 
+			text-align: center; 
+			border-radius:20px; 
+			margin-right:10px;
+		}
+		.tr10 textarea{
+			width:130px; 
+			border: none; 
+			text-align: center; 
+			resize: none; 
+			font-size:24px; 
+			margin-bottom:-42px;
+		}
+		.tr2 input{
+			font-size: 15px;
+		    width: 70px;
+		    height: 25px;
+		    text-align: center;
+		    border: 1px solid gray;
+		    background-color: #f0f0f0;
+		    cursor: pointer;
+		    margin: 11px;
+		}
+		.tr3 td:nth-child(1), .tr3 td:nth-child(2){
+			height: 70px;
+		}
+		.tr3 td:nth-child(1) button{
+			width: 200px;
+		    height: 52px;
+		    background-color: #f0f0f0;
+		    border: 1px solid gray;
+		    font-size: 22px;
+		    cursor: pointer;
+		}
 		
+		.tr3 td:nth-child(2) textArea{
+			border:none;
+			margin-bottom:-12px; 
+			font-size:19px;
+			width:600px; 
+			height:60px; 
+			resize: none;
+		}
 		</style>
 	</head>
 	
 	<body>
 		<div id="container">
-			
+			<!-- 일정 등록시 모달창 띄우기 -->
+		    <div id="modal" class="modal-overlay">
+		        <div class="modal-window">
+					<div class="title">
+		                <h2>문서양식</h2>
+		            </div>
+					<div id="inner">
+						<div id="input-main">
+							<select name="document" id="document">                     <!-- name : 키-->
+				                <option value="requisition">품의서</option>
+				                <option value="leaveRequest">휴가신청서</option>
+				                <option value="expenseResolution">지출결의서</option>
+				                <option value="draft">기안서</option>         <!-- value : 값-->
+				            </select>
+						</div>
+						
+						<div id="input-btn">
+							<button type="button" onclick="closeModal();" style="background-color: #ffdea0;">
+								<span>취소</span>
+							</button>
+							<button type="button" onclick="approvalAdd();" style="margin-left: 17px; background-color: #d2e8ff;">
+								<span>확인</span>
+							</button>
+						</div>
+					</div>
+				</div>
+		    </div>
+		    <!-- ------------------------------------------------>
 			<jsp:include page="../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
 				<h1>전자결재</h1>
@@ -38,70 +126,77 @@
 			<jsp:include page="../common/header.jsp"></jsp:include>
 			
 			<main>
-				<form action="/approval/draftDocuments" method="GET">
-				    <div class="cash-form-section">
-				        <div class="cash-disbursement">
-				            <table border=2>
-				                <tr class="tr1">
-				                    <td rowspan="2" colspan="4" class="formTitle">품 의 서</td>
-				                    <td rowspan="2" style="width: 70px;">
-				                        <span>결 재</span>
-				                    </td>
-				                    <td>최초승인자</td>
-				                    <td>중간승인자</td>
-				                    <td>최종승인자</td>
-				                </tr>
-				                <tr class="tr2">
-				                   <td>
-				                      <input type="text" value="" id="firstApprover" name="firstApprover" class="nameView" readonly>
-				                      <input type="button" value="검색" class="searchMember" id="firstBtn" name="firstApprover" onclick="openApprovalModal('결재자');">
-				                   </td>
-				                   <td>
-				                      <input type="text" value="" id="interimName" name="interimApprover" class="nameView" readonly>
-				                      <input type="button" value="검색" class="searchMember" id="secondBtn" name="interimApprover" onclick="openApprovalModal('결재자');">
-				                   </td>
-				                   <td>
-				                      <input type="text" value="" id="finalApprover" name="finalApprover" class="nameView" readonly>
-				                      <input type="button" value="검색" class="searchMember" id="thirdBtn" name="finalApprover" onclick="openApprovalModal('결재자');">
-				                   </td>
-				                </tr>
-				                <tr class="tr3">
+				 <form action="${path}/approval/leaveApplication" method="post">
+			       <div class="cash-form-section" style="height: 100%; width:68%; margin: 0 300px 0 300px;">
+			           <div class="cash-disbursement" style="text-align: center; margin: 80px 200px 80px 0px; border: 2px solid black;">
+			               <table border="2px" style="width: 100%; font-size: 20px; border-collapse: collapse;">
+			                   <tr>
+			                       <td rowspan="3" colspan="4" style="width: 300px; height: 140px; font-size: 40px; font-weight: 600;">휴 가 신 청 서</td>
+			                       <td rowspan="3" style="width: 20px; padding-top: 30px; font-size: 25px;">결 재</td>
+			                       <td style="height: 30px; width: 100px;">최초승인자</td>
+			                       <td style="width: 100px;">중간승인자</td>
+			                       <td style="width: 100px;">최종승인자</td>
+			                   </tr>
+			                   <tr class="tr1">
+		                         <td id="firstA"> </td> 
+		                         <td id="interimA"> </td>
+		                         <td id="finalA"> </td>
+			                   </tr>
+			                   <tr class="tr2" style="height: 30px;">
+		                            <td><input type="button" value="검색" class="searchMember" id="thirdBtn" name="finalApprover" onclick="openApprovalModal('결재자');"></td>
+			                        <td><input type="button" value="검색" class="searchMember" id="thirdBtn" name="finalApprover" onclick="openApprovalModal('결재자');"></td>
+			                        <td><input type="button" value="검색" class="searchMember" id="thirdBtn" name="finalApprover" onclick="openApprovalModal('결재자');"></td>
+			                   </tr>
+			                   <tr class="tr3">
 				                    <td colspan="2">
-				                        <button class="send-open" type="button" onclick="openApprovalModal('참조자');">수신참조자 +</button>
+				                        <button class="send-open" type="button" onclick="openApprovalModal();">수신참조자 +</button>
 				                    </td>
 				                    <td colspan="6">
 				                       <textArea readonly name="referList" id="referList"></textArea>
 				                    </td>   
 				                </tr>
-				                <tr class="tr4">
-				                    <td>성 명</td>
-				                    <td><input type="text" name="writerName" value="${user.userName}" readonly></td>
-				                    <td>부 서</td>
-				                    <td colspan="2"><input type="text" value="${user.deptName}" readonly></td>
-				                    <td>직 급</td>
-				                    <td colspan="2"><input type="text" value="${user.positionName}" readonly></td>
-				                </tr>
-				                <tr class="tr5">
-				                    <td>제 목</td>
-				                    <td colspan="8"><input type="text" name="loaTitle" id="loaTitle"></td>
-				                </tr>
-				                <tr class="tr6">
-				                    <td colspan="8">품의사유 및 상세내용</td>
-				                </tr>
-				                <tr class="tr7">
-				                    <td colspan="8">
-				                        <textarea name="loaContent" id="loaContent" cols="151px" rows="11px"></textarea>
+			                   <tr>
+			                       <td style="height: 70px; width: 80px;">성 명</td>
+			                       <td><input type="text" name="writerName"  value="${user.userName}" readonly></td>
+			                       <td style="width: 80px;">부 서</td>
+			                       <td><input type="text"  value="${user.deptName}" readonly></td>
+			                       <td style="width: 80px;">직 급</td>
+			                       <td colspan="3"><input type="text"  value="${user.positionName}" readonly></td>
+			                   </tr>
+			                   <tr>
+			                       <td colspan="3" style="height: 70px; width: 80px;">비 상 연 락 망</td>
+			                       <td colspan="5"><input type="text" id="userPhone" style="font-size: 20px; font-weight: 300;" readonly></td>
+			                   </tr>
+			                   <tr>
+			                       <td colspan="3" style="height: 70px; width: 80px; font-size: 20px; font-weight: 300;">기 간</td>
+			                       <td colspan="5">
+			                         <input type="text">
+			                       </td>
+			                   </tr>
+			                   <tr>
+			                      <td style="width: 80px; height: 70px; font-family: 'InfinitySans-RegularA1'; font-size: 16px; font-weight: 600;">휴가 구분</td>
+			                      <td colspan="8" id="radioType">
+			                      	<input type="radio" name="vacation" checked="checked"><span>연차 </span>
+			                      	<input type="radio" name="vacation"><span>반차 </span>
+			                      	<input type="radio" name="vacation"><span>병가 </span> 
+			                      	<input type="radio" name="vacation"><span>기타 </span> 
+			                      </td>
+			                   </tr>
+			                   <tr>
+			                       <td style="width: 80px;">세부사항</td>
+			                       <td colspan="8">
+			                           <input style="height: 300px;" type="text" value="${appr.apprContent }">
+			                       </td>
+			                   </tr>
+			                   <tr>
+			                       <td colspan="8" style="text-align: center; height: 100px; border-bottom: none;">위와 같이 휴가를 신청하오니 허락하여 주시기 바랍니다.</td>
+			                   </tr>
+			                   <tr class="tr9" style="border: white;">
+				                    <td colspan="8" style="text-align: center; height: 100px; border-left: 1px solid black; border-right: 1px solid black;">
+				                        <input type="text" id="today" readonly style="text-align:center; font-size: 30px;">
 				                    </td>
 				                </tr>
-				                <tr class="tr8">
-				                    <td colspan="8">위와 같은 품의사유로, 검토 후 결재 바랍니다.</td>
-				                </tr>
-				                <tr class="tr9">
-				                    <td colspan="8">
-				                        <input type="text" id="today" readonly>
-				                    </td>
-				                </tr>
-				                <tr class="tr10">
+			                   <tr class="tr10">
 				                    <td colspan="8">
 				                        <input type="button" name="proposer" id="proposer" value="서명" />
 				                        신청자 : 
@@ -109,18 +204,10 @@
 				                        (인)
 				                    </td>
 				                </tr>
-				            </table>
-				        </div>
-				        <div id="button" style="display: flex; justify-content: space-around; margin-bottom: 50px;">
-				           <input type="hidden" name="appKinds" value="품의서">
-				           <button type="submit" class="goToLeave" style="width: 200px; height: 96px; font-size: 29px;">상신</button>
-				           <input type="text" style="border: none; width: 40px;" disabled>
-				           <button type="reset" class="resetLeave" style="width: 200px; height: 96px; font-size: 29px;" onclick="">취소</button>
-				        </div>
-				    </div>
-				</form>
+			               </table>
+			           </div>
+			       </form>
 			</main>
-			
 			
 			<!-- 결재 상신 버튼 클릭시 모달창 -->
 		    <div id="modal" class="modal-overlay">
@@ -166,7 +253,7 @@
 									<option value="name" <c:if test="${searchCondition == 'name' }">selected</c:if>>이름</option>
 								</select>
 								<div>
-									<input type="text" name="searchKeyword" value="${searchKeyword }" >
+									<input type="text" name="searchKeyword" value="${searchKeyword }" style="width: 150px;">
 									<input type="submit" value="검색" style="width: 60px;">
 								</div>
 								<input type="hidden" name="userId" value="${sessionScope.user.userId }">
@@ -310,15 +397,17 @@
 				</div>
 		    </div>
 		    <!-- ------------------------------------------------>
-		    
-    	</div>
-    	
-    	
+		</div>
+		
 	<script type="text/javascript">
+	var userPhone = "${user.userPhone}";
+	const formattedPhoneNumber = userPhone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+	$("#userPhone").val(formattedPhoneNumber);
+	
 	///////////////////// 모달창 ///////////////
 	var modal = document.querySelector("#modal");
 	var modalApproval = document.querySelector("#modalApproval");
-    modal.style.display = "none"; 
+    modal.style.display = "none";
     modalApproval.style.display ="none";
     
 	function openModal(){
@@ -330,7 +419,6 @@
 		  document.querySelector("body").style.overflow="visible";
 	      modal.style.display = "none";
 	}
-	
 	function openApprovalModal(title){
 		  $("#title-h2").html(title);
 		  document.querySelector("body").style.overflow="hidden";
@@ -341,7 +429,6 @@
 		  document.querySelector("body").style.overflow="visible";
 		  modalApproval.style.display = "none";
 	}
-	
     /////////////////////////////////////////////
     
 	// 결재상신 - 문서 양식 선택 
@@ -357,52 +444,18 @@
 			location.href="/approval/expenseResolutionForm";
 		}
 		
+	} 
+	function approvalUserAdd(){ 
+		$("#firstA").html("박수정");
+		$("#interimA").html("정기진");
+		$("#finalA").html("이유정");
+		closeApprovalModal();
+		$("#selectUserList").html("");
 	}
-    //////////////////////////////////////////////
-    //// 결재자 검색
-	function approvalUserAdd(){
-    	if(referCheckNum == 6){
-    		$("#referList").html("박수정 부회장, 정기진 사장, 서정민 사장, 이유정 사장, 유현주 전무");
-    		
-    		closeApprovalModal();
-			$("#selectUserList").html("");
-    	} else{
-			$("#firstApprover").val("박수정");
-			$("#interimName").val("정기진");
-			$("#finalApprover").val("이유정");
-			closeApprovalModal();
-			$("#selectUserList").html("");
-    	}
-	}
-	var referCheckNum = 0;
+	
     var checkNum = 0;
     function approvalUser(){
 	   	var selectUserList = "";
-    	var referList = "";
-    	
-    	if(referCheckNum == 1){
-    		referList += "박수정 부회장";
-    		$("#selectUserList").html(referList);
-    		referCheckNum++;
-    	} else if(referCheckNum == 2){
-    		referList += "박수정 부회장, 정기진 사장";
-			$("#selectUserList").html(referList);
-			referCheckNum++;
-    	} else if(referCheckNum == 3){
-    		referList += "박수정 부회장, 정기진 사장, 서정민 사장";
-			$("#selectUserList").html(referList);
-			referCheckNum++;
-    	} else if(referCheckNum == 4){
-    		referList += "박수정 부회장, 정기진 사장, 서정민 사장, <br>이유정 사장";
-			$("#selectUserList").html(referList);
-			referCheckNum++;
-    	} else if(referCheckNum == 5){
-    		referList += "박수정 부회장, 정기진 사장, 서정민 사장, <br>이유정 사장, 유현주 전무";
-			$("#selectUserList").html(referList);
-			referCheckNum++;
-    	}
-    	
-    	
     	if(checkNum == 0){
     		selectUserList += "박수정 부회장<br>";
 			$("#selectUserList").html(selectUserList);
@@ -414,10 +467,8 @@
 			$("#selectUserList").html(selectUserList);
     	} else if(checkNum == 3){
     		alert("3명만 선택하실 수 있습니다.")
-    		referCheckNum++;
+    		checkNum--;
     	} 
-    	
-    	
     	checkNum++;
     }
     
@@ -436,7 +487,7 @@
     	} 
     	checkNum2++;
     }
-	//////////////////////////////////////////////
+    
 	</script>
 	
 	<!-- 오늘 날짜 스크립트 -->
@@ -448,6 +499,7 @@
 		var todayString = year + "-" + month + "-" + day;
 		$("#today").val(todayString);
 	</script>
+	
 	
 	<!-- 서명 클릭 스크립트  -->
     <script>

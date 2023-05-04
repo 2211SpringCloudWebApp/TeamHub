@@ -19,10 +19,10 @@ public class ApprovalStoreLogic implements ApprovalStore{
 	@Autowired
 	private SqlSession session;
 
+	//////////// 기안 문서함 ///////////
 	@Override
 	public int getListCount(Map<String, String> progressMap) {
 		int result = session.selectOne("ApprovalMapper.getListCount", progressMap);
-		System.out.println("storeLogic의 getListCount result값 : " + result);
 		return result;
 	}
 	
@@ -32,9 +32,7 @@ public class ApprovalStoreLogic implements ApprovalStore{
 		int currentPage = pi.getCurrentPage();
 		int offset = (currentPage -1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		System.out.println("storeLogic 해쉬맵 : " +progressMap);
 		List<ApprovalJoinForm> aList = session.selectList("ApprovalMapper.selectApprovalList", progressMap, rowBounds);
-		System.out.println("storeLogic 리스트 : " +aList);
 		return aList;
 	}
 	
@@ -52,6 +50,19 @@ public class ApprovalStoreLogic implements ApprovalStore{
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		List<ApprovalJoinForm> aList = session.selectList("ApprovalMapper.selectListByKeword", progressMap, rowBounds);
 		return aList;
+	}
+
+	//////////// 결재 문서함 ////////////////
+	@Override
+	public int apprGetListCount(Map<String, String> progressMap) {
+		int result = session.selectOne("ApprovalMapper.apprGetListCount", progressMap);
+		return result;
+	}
+
+	@Override
+	public Approval selectApproval(String apprNo) {
+		Approval appr = session.selectOne("ApprovalMapper.selectApproval", apprNo);
+		return appr;
 	}
 	
 	

@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ApprovalMapper">
+	<resultMap type="Approval"             id="approvalResultMap">
+		<id 	property="apprNo" 	       column="APPR_NO" />
+		<result property="formNo" 	       column="FORM_NO" />
+		<result property="userId" 	       column="USER_ID" />
+		<result property="apprTitle" 	   column="APPR_TITLE" />
+		<result property="apprContent" 	   column="APPR_CONTENT"/>
+		<result property="apprStatus" 	   column="APPR_STATUS" />
+		<result property="apprStorage" 	   column="APPR_STORAGE" />
+		<result property="apprCreateDate"  column="APPR_CREATE_DATE" />
+	</resultMap>
+
 	<resultMap type="ApprovalJoinForm"     id="approvalJoinFormResultMap">
 		<id 	property="apprNo" 	       column="APPR_NO" />
 		<result property="formNo" 	       column="FORM_NO" />
@@ -36,9 +47,9 @@
 	</select>
 
 	<select id="selectApprovalList" resultMap="approvalJoinFormResultMap">
-		SELECT * FROM APPROVAL_TBL A
-		         JOIN APPR_FORM_TBL F
-			     ON A.FORM_NO = F.FORM_NO
+		 SELECT * FROM APPROVAL_TBL A
+		          JOIN APPR_FORM_TBL F
+			      ON A.FORM_NO = F.FORM_NO
 	     WHERE USER_ID = #{userId} AND A.APPR_STORAGE = 'N'
 	     <choose>
 			<when test="apprStatus == '전체'">
@@ -239,5 +250,10 @@
 		</choose>
 		ORDER BY APPR_CREATE_DATE DESC
 	</select>
+	
+	<select id="selectApproval" resultMap="approvalResultMap">
+		SELECT * FROM APPROVAL_TBL WHERE APPR_NO = #{apprNo}
+	</select>
+	
 	
 </mapper>

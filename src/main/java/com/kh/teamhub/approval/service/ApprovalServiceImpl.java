@@ -41,5 +41,17 @@ public class ApprovalServiceImpl implements ApprovalService{
 		List<ApprovalJoinForm> aList = aStore.selectListByKeword(pi, progressMap);
 		return aList;
 	}
+
+	@Override
+	public int apprGetListCount(Map<String, String> progressMap) {
+		int result = aStore.apprGetListCount(progressMap);
+		return result;
+	}
+
+	@Override
+	public Approval selectApproval(String apprNo) {
+		Approval appr = aStore.selectApproval(apprNo);
+		return appr;
+	}
 	
 }
