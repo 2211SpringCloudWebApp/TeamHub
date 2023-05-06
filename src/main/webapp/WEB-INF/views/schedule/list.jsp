@@ -17,6 +17,11 @@
 		<script src='../../../resources/css/schedule/packages/timegrid/main.js'></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 		
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+		
 		<style type="text/css">
 			#sideBar li:nth-child(4){
 			    background-color: #2653e8ba;
@@ -68,8 +73,8 @@
 		       -webkit-backdrop-filter: blur( 13.5px );
 		       border-radius: 10px;
 		       border: 1px solid rgba( 255, 255, 255, 0.18 );
-		       width: 580px;
-		       height: 600px;
+		       width: 670px;
+		       height: 680px;
 		       position: relative;
 		       top: -50px;
 		       padding: 10px;
