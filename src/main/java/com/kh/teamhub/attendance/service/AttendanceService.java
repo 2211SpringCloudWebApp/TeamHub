@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.kh.teamhub.attendance.domain.AttenCount;
 import com.kh.teamhub.attendance.domain.Attendance;
+import com.kh.teamhub.attendance.domain.AttendanceUser;
+import com.kh.teamhub.common.PageInfo;
 
 public interface AttendanceService {
 
@@ -68,5 +70,9 @@ public interface AttendanceService {
 	 * @return
 	 */
 	AttenCount selectListByAtten(Attendance atten);
+
+	int getUserListCount();
+
+	List<AttendanceUser> selectUsers(PageInfo pi);
 
 }

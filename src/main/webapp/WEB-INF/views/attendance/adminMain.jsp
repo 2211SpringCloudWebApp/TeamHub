@@ -43,8 +43,8 @@
 	                <div id="time-btn">
 	                <div id="time"></div>
 	                <div id="btns">
-	                    <input type="button" class="home-btn" onclick="goToWork();" value="출근">
-	                    <input type="button" class="home-btn" onclick="goToHome();" value="퇴근">
+<!-- 	                    <input type="button" class="home-btn" onclick="goToWork();" value="출근"> -->
+<!-- 	                    <input type="button" class="home-btn" onclick="goToHome();" value="퇴근"> -->
 	                </div>
 	            </div>
 	                <div id="total">
@@ -88,15 +88,18 @@
                 <table id="board-table" class="table">
                     <thead class="table-light">
                         <tr>
+                            <th>이름</th>
                             <th>날짜</th>
                             <th>출근시간</th>
                             <th>퇴근시간</th>
                             <th>근무시간</th>
                             <th>근무상태</th>
                         </tr>
+                      </thead>
                         <tbody>
-	                        <c:forEach items="${aList }" var="attendance">
+	                        <c:forEach items="${uList }" var="attendance">
 	                            <tr>
+	                                <td>${attendance.userName}</td>
 	                                <td>${attendance.atteDate}</td>
 	                                <td>${attendance.startTime}</td>
 	                                <td>${attendance.finishTime}</td>
@@ -108,12 +111,30 @@
 	                    
                         <tfoot>
                               <tr align="center">
-                                  <td colspan="5">
-                                      1 2 >>
+                                  <td colspan="6">
+                                      <c:if test="${pi.currentPage > 1 }">
+										<a href="/attendance/adminView?status=${status }&page=1"> &#10094;&#10094; </a>&nbsp;&nbsp;
+									</c:if>
+									<c:if test="${pi.currentPage > 1 }">
+										<a href="/attendance/adminView?status=${status }&page=${pi.currentPage -1 }"> &#10094; </a>
+									</c:if>
+									&nbsp;&nbsp;&nbsp;
+									<c:forEach begin="${pi.startNavi }" end="${pi.endNavi }" var="page">
+										<c:url var="pageUrl" value="/attendance/adminView">
+											<c:param name="page" value="${page }" />
+											<c:param name="status" value="${status }" />
+										</c:url>
+										<a href="${pageUrl }">${page }</a>&nbsp;&nbsp;&nbsp;&nbsp;
+									</c:forEach>
+									<c:if test="${pi.currentPage < pi.maxPage }">
+										<a href="/attendance/adminView?status=${status }&page=${pi.currentPage +1}"> &#10095; </a>&nbsp;&nbsp;
+									</c:if>
+									<c:if test="${pi.currentPage < pi.maxPage }">
+										<a href="/attendance/adminView?status=${status }&page=${pi.maxPage }"> &#10095;&#10095; </a>
+									</c:if>
                                   </td>
                               </tr>
                             </tfoot>
-                    </thead>
                 </table>
             </div>
         </div>

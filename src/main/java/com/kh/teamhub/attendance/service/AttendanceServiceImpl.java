@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.kh.teamhub.attendance.domain.AttenCount;
 import com.kh.teamhub.attendance.domain.Attendance;
+import com.kh.teamhub.attendance.domain.AttendanceUser;
 import com.kh.teamhub.attendance.store.AttendanceStore;
+import com.kh.teamhub.common.PageInfo;
 
 @Service
 public class AttendanceServiceImpl implements AttendanceService{
@@ -70,6 +72,18 @@ public class AttendanceServiceImpl implements AttendanceService{
 	public AttenCount selectListByAtten(Attendance atten) {
 		AttenCount aCount = aStore.selectListByAtten(session, atten);
 		return aCount;
+	}
+
+	@Override
+	public int getUserListCount() {
+		int result = aStore.getUserListCount(session);
+		return result;
+	}
+
+	@Override
+	public List<AttendanceUser> selectUsers(PageInfo pi) {
+		List<AttendanceUser> aList = aStore.selectUsers(session, pi);
+		return aList;
 	}
 
 

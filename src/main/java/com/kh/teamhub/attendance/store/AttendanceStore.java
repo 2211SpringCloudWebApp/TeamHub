@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.kh.teamhub.attendance.domain.AttenCount;
 import com.kh.teamhub.attendance.domain.Attendance;
+import com.kh.teamhub.attendance.domain.AttendanceUser;
+import com.kh.teamhub.common.PageInfo;
 
 public interface AttendanceStore {
 
@@ -72,5 +74,9 @@ public interface AttendanceStore {
 	List<Attendance> selectMonthByAtten(SqlSession session, Attendance atten);
 
 	AttenCount selectListByAtten(SqlSession session, Attendance atten);
+
+	int getUserListCount(SqlSession session);
+
+	List<AttendanceUser> selectUsers(SqlSession session, PageInfo pi);
 
 }

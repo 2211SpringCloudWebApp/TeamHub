@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -23,8 +24,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kh.teamhub.attendance.domain.AttenCount;
 import com.kh.teamhub.attendance.domain.Attendance;
+import com.kh.teamhub.attendance.domain.AttendanceUser;
 import com.kh.teamhub.attendance.service.AttendanceService;
 import com.kh.teamhub.common.LoginUtil;
+import com.kh.teamhub.common.PageInfo;
 import com.kh.teamhub.user.domain.User;
 
 import oracle.jdbc.proxy.annotation.Post;
@@ -39,11 +42,27 @@ public class AttendanceController {
 	@Autowired
 	private LoginUtil loginUtil;
 	
+	PageInfo pi = null;
+	
 	
 	@RequestMapping(value = "/attendance/adminView", method = RequestMethod.GET)
-	public String mainAdmin(HttpServletRequest request, String searchValue) {
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("user");
+	public String mainAdmin(
+			HttpServletRequest request
+			, String searchValue
+			, @RequestParam(value="page", required=false, defaultValue="1") Integer page
+			, Model model
+			) throws Exception {
+		if(loginUtil.checkLogin(request)) {    
+			return "main/login";	 // 비로그인시 로그인 페이지로 이동. -> GET쓸때만 하기
+		}
+		int totalCount = aService.getUserListCount();
+		pi = this.getPageInfo(page, totalCount);
+		List<AttendanceUser> uList = aService.selectUsers(pi);
+//		System.out.println(pi);
+		if(!uList.isEmpty()) {
+			model.addAttribute("pi", pi);
+			model.addAttribute("uList", uList);
+		}
 		return "attendance/adminMain";
 	}
 	
@@ -246,6 +265,27 @@ public class AttendanceController {
 
 	        return jsonString;
 	    }
+	 
+	 /*===================================================
+	 * 페이징 처리
+	 *===================================================*/
+	private PageInfo getPageInfo(int currentPage, int totalCount) {
+		PageInfo pi = null;
+		int boardLimit = 10; 	// 한 페이지 당 게시글 갯수
+		int naviLimit = 5;		// 한 페이지 당 pageNavi 수
+		int maxPage;			// 페이지의 마지막 번호
+		int startNavi;			// pageNavi 시작값
+		int endNavi;			// pageNavi 끝값
+		
+		maxPage = (int)((double)totalCount/boardLimit+0.9);
+		startNavi = (((int)((double)currentPage/naviLimit+0.9))-1)*naviLimit+1;
+		endNavi = startNavi + naviLimit - 1;
+			if(endNavi > maxPage) {
+				endNavi = maxPage;
+			}
+		pi = new PageInfo(currentPage, boardLimit, naviLimit, startNavi, endNavi, totalCount, maxPage);
+		return pi;
+	}
 
 
 }

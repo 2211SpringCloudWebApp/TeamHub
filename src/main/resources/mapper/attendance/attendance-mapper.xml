@@ -10,6 +10,17 @@
 		<result property="totalWorkHour" column="TOTAL_WORKHOUR" />
 		<result property="atteStatus" column="ATTE_STATUS" />
 	</resultMap>
+	
+	<resultMap type="AttenUser" id="attenUserResultMap">
+		<id property="atteNo" column="ATTE_NO"></id>
+		<result property="userId" column="USER_ID" />
+		<result property="atteDate" column="ATTE_DATE" />
+		<result property="startTime" column="START_TIME" />
+		<result property="finishTime" column="FINISH_TIME" />
+		<result property="totalWorkHour" column="TOTAL_WORKHOUR" />
+		<result property="atteStatus" column="ATTE_STATUS" />
+		<result property="userName" column="USER_NAME" />
+	</resultMap>
 
 
 
@@ -79,4 +90,12 @@
 		WHERE USER_ID = #{userId} AND ATTE_STATUS = '출근' AND TO_CHAR(ATTE_DATE,'YYYY/MM/DD') LIKE #{date}||'%'
 	</select>
 	
+	<!-- 근태관리 관리자 -->
+	<select id="getUserListCount" resultType="_int">
+		SELECT COUNT(*) FROM ATTENDANCE_TBL
+	</select>
+	<select id="selectUsers" resultMap="attenUserResultMap">
+		SELECT * FROM ATTENDANCE_TBL A JOIN USER_TBL U ON A.USER_ID = U.USER_ID
+	</select>
+		
 </mapper>
