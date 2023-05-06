@@ -97,7 +97,7 @@
                         </tr>
                       </thead>
                         <tbody>
-	                        <c:forEach items="${uList }" var="attendance">
+	                        <c:forEach items="${searchList }" var="attendance">
 	                            <tr>
 	                                <td>${attendance.userName}</td>
 	                                <td>${attendance.atteDate}</td>
@@ -113,24 +113,24 @@
                               <tr align="center">
                                   <td colspan="6">
                                       <c:if test="${pi.currentPage > 1 }">
-										<a href="/attendance/adminView?status=${status }&page=1"> &#10094;&#10094; </a>&nbsp;&nbsp;
+										<a href="/admin/searchUser?searchValue=${searchValue }&page=1"> &#10094;&#10094; </a>&nbsp;&nbsp;
 									</c:if>
 									<c:if test="${pi.currentPage > 1 }">
-										<a href="/attendance/adminView?status=${status }&page=${pi.currentPage -1 }"> &#10094; </a>
+										<a href="/admin/searchUser?searchValue=${searchValue }&page=${pi.currentPage -1 }"> &#10094; </a>
 									</c:if>
 									&nbsp;&nbsp;&nbsp;
 									<c:forEach begin="${pi.startNavi }" end="${pi.endNavi }" var="page">
-										<c:url var="pageUrl" value="/attendance/adminView">
+										<c:url var="pageUrl" value="/admin/searchUser">
 											<c:param name="page" value="${page }" />
-											<c:param name="status" value="${status }" />
+											<c:param name="searchValue" value="${searchValue }" />
 										</c:url>
 										<a href="${pageUrl }">${page }</a>&nbsp;&nbsp;&nbsp;&nbsp;
 									</c:forEach>
 									<c:if test="${pi.currentPage < pi.maxPage }">
-										<a href="/attendance/adminView?status=${status }&page=${pi.currentPage +1}"> &#10095; </a>&nbsp;&nbsp;
+										<a href="/admin/searchUser?searchValue=${searchValue }&page=${pi.currentPage +1}"> &#10095; </a>&nbsp;&nbsp;
 									</c:if>
 									<c:if test="${pi.currentPage < pi.maxPage }">
-										<a href="/attendance/adminView?status=${status }&page=${pi.maxPage }"> &#10095;&#10095; </a>
+										<a href="/admin/searchUser?searchValue=${searchValue }&page=${pi.maxPage }"> &#10095;&#10095; </a>
 									</c:if>
                                   </td>
                               </tr>

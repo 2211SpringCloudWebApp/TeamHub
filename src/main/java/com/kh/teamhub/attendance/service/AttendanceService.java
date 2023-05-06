@@ -60,19 +60,43 @@ public interface AttendanceService {
 	/**
 	 * 년/월 리스트
 	 * @param atten
-	 * @return
+	 * @return List<Attendance>
 	 */
 	List<Attendance> selectMonthByAtten(Attendance atten);
 
 	/**
 	 * 지각.조퇴.출근 통계
 	 * @param atten
-	 * @return
+	 * @return AttenCount
 	 */
 	AttenCount selectListByAtten(Attendance atten);
 
+	/**
+	 * 관리자 근태관리- 유저 리스트 개수
+	 * @return int
+	 */
 	int getUserListCount();
 
+	/**
+	 * 관리자 근태관리- 유저 리스트
+	 * @param pi
+	 * @return List<AttendanceUser>
+	 */
 	List<AttendanceUser> selectUsers(PageInfo pi);
+
+	/**
+	 * 관리자 - 검색했을때 개수
+	 * @param searchValue
+	 * @return int
+	 */
+	int getSearchUserCount(String searchValue);
+
+	/**
+	 * 관리자 - 회원 검색
+	 * @param pi
+	 * @param searchValue
+	 * @return List<AttendanceUser>
+	 */
+	List<AttendanceUser> selectListByKeyword(PageInfo pi, String searchValue);
 
 }

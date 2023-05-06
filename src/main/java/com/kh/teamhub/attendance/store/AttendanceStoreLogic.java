@@ -87,4 +87,20 @@ public class AttendanceStoreLogic implements AttendanceStore{
 		return aList;
 	}
 
+	@Override
+	public int getSearchUserCount(SqlSession session, String searchValue) {
+		int result = session.selectOne("AttenMapper.getSearchUserCount", searchValue);
+		return result;
+	}
+
+	@Override
+	public List<AttendanceUser> selectListByKeyword(SqlSession session, PageInfo pi, String searchValue) {
+		int limit = pi.getBoardLimit();
+		int currentPage = pi.getCurrentPage();
+		int offset = (currentPage - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<AttendanceUser> searchList = session.selectList("AttenMapper.selectListByKeyword", searchValue, rowBounds);
+		return searchList;
+	}
+
 }

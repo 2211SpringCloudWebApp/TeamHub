@@ -86,5 +86,17 @@ public class AttendanceServiceImpl implements AttendanceService{
 		return aList;
 	}
 
+	@Override
+	public int getSearchUserCount(String searchValue) {
+		int result = aStore.getSearchUserCount(session, searchValue);
+		return result;
+	}
+
+	@Override
+	public List<AttendanceUser> selectListByKeyword(PageInfo pi, String searchValue) {
+		List<AttendanceUser> searchList = aStore.selectListByKeyword(session, pi, searchValue);
+		return searchList;
+	}
+
 
 }

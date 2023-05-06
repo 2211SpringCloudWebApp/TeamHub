@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,8 @@ import com.google.gson.GsonBuilder;
 import com.kh.teamhub.attendance.domain.AttenCount;
 import com.kh.teamhub.attendance.domain.Attendance;
 import com.kh.teamhub.attendance.domain.AttendanceUser;
+import com.kh.teamhub.attendance.domain.SearchVacation;
+import com.kh.teamhub.attendance.domain.Vacation;
 import com.kh.teamhub.attendance.service.AttendanceService;
 import com.kh.teamhub.common.LoginUtil;
 import com.kh.teamhub.common.PageInfo;
@@ -44,7 +47,7 @@ public class AttendanceController {
 	
 	PageInfo pi = null;
 	
-	
+	// 관리자 
 	@RequestMapping(value = "/attendance/adminView", method = RequestMethod.GET)
 	public String mainAdmin(
 			HttpServletRequest request
@@ -66,6 +69,28 @@ public class AttendanceController {
 		return "attendance/adminMain";
 	}
 	
+	// 관리자 - 이름으로 사용자 검색
+		@RequestMapping(value = "/admin/searchUser", method = RequestMethod.GET)
+		public String vacationSearch(
+				String searchValue
+				, HttpServletRequest request
+				, @RequestParam(value="page", required=false, defaultValue="1") Integer page
+				, Model model) throws Exception {
+			if(loginUtil.checkLogin(request)) {    
+				return "main/login";	 // 비로그인시 로그인 페이지로 이동. -> GET쓸때만 하기
+			}
+			int totalCount = aService.getSearchUserCount(searchValue);
+			pi = this.getPageInfo(page, totalCount);
+			List<AttendanceUser> searchList = aService.selectListByKeyword(pi, searchValue);
+			if(!searchList.isEmpty()) {
+				model.addAttribute("searchValue", searchValue);
+				model.addAttribute("pi", pi);
+				model.addAttribute("searchList", searchList);
+			}
+			return "attendance/searchAdmin";
+		}
+	
+	// 근태관리 메인
 	@RequestMapping(value = "/attendance/mainView", method = RequestMethod.GET)	// 근태관리 메인View
 	public String mainAttenView(HttpServletRequest request, Model model) throws Exception {
 		if(loginUtil.checkLogin(request)) {    
