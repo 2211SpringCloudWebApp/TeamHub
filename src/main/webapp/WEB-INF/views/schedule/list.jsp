@@ -245,12 +245,21 @@
 			<jsp:include page="../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
 				<h1>일정관리</h1>
+				<c:if test="${sessionScope.user.userType == 1}">
+					<h4>(관리자)</h4>
+				</c:if>
 				<button class="scheduleAddBtn" onclick="openModal('일정 등록');">일정등록</button>
 				<h3>내 캘린더</h3>
 				<ul>
 				    <li><input type="checkbox" id ="enterSche" name="enterSche" value="enterSche" checked="checked">전사일정</li>
-				    <li><input type="checkbox" id ="deptSche" name="deptSche" value="deptSche" checked="checked">부서일정</li>
-				    <li><input type="checkbox" id ="userSche" name="userSche" value="userSche" checked="checked">개인일정</li>
+				    <c:if test="${sessionScope.user.userType == 0}">
+					    <li><input type="checkbox" id ="deptSche" name="deptSche" value="deptSche" checked="checked">부서일정</li>
+					    <li><input type="checkbox" id ="userSche" name="userSche" value="userSche" checked="checked">개인일정</li>
+					</c:if>
+					<c:if test="${sessionScope.user.userType == 1}">
+					    <li><input type="hidden" id ="deptSche" name="deptSche" value="deptSche" checked="checked"></li>
+					    <li><input type="hidden" id ="userSche" name="userSche" value="userSche" checked="checked"></li>
+					</c:if>
 				</ul> 
 			</div>
 			<jsp:include page="../common/header.jsp"></jsp:include>

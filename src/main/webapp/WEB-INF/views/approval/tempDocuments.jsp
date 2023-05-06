@@ -92,38 +92,38 @@
 							<td>2023-04-22</td>
 							<td>품의서</td>
 							<td>품의서_테스트</td>
-							<td>임시</td>
+							<td style="color: gray;">임시</td>
 						</tr>
 						<tr>
 							<td>2023-04-22</td>
 							<td>지출결의서</td>
 							<td>지출결의서입니다_수정</td>
-							<td>임시</td>
+							<td style="color: gray;">임시</td>
 						</tr>
 						
 						<tr>
 							<td>2023-04-25</td>
 							<td>휴가신청서</td>
 							<td>휴가신청서입니다!!!!</td>
-							<td>임시</td>
+							<td style="color: gray;">임시</td>
 						</tr>
 						<tr>
 							<td>2023-04-27</td>
 							<td>지출결의서</td>
 							<td>지출결의서입니다_수정</td>
-							<td>임시</td>
+							<td style="color: gray;">임시</td>
 						</tr>
 						<tr>
 							<td>2023-05-01</td>
 							<td>기안서</td>
 							<td>기안서..</td>
-							<td>임시</td>
+							<td style="color: gray;">임시</td>
 						</tr>
 						<tr>
 							<td>2023-05-03</td>
 							<td>품의서</td>
 							<td>품의서_최종2</td>
-							<td>임시</td>
+							<td style="color: gray;">임시</td>
 						</tr>
 				    </tbody>
 				    

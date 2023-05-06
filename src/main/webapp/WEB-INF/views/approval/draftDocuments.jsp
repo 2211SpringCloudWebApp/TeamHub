@@ -105,7 +105,18 @@
 								<td><a href="/approval/expenseResolutionFormView?apprNo=${item.apprNo }">${item.apprTitle }</a></td>
 							</c:if>
 							<td>${item.apprNo }</td>
-							<td>${item.apprStatus }</td>
+							<c:if test="${item.apprStatus =='대기' }">
+								<td style="color: black;">${item.apprStatus }</td>
+							</c:if>
+							<c:if test="${item.apprStatus =='진행' }">
+								<td style="color: blue;">${item.apprStatus }</td>
+							</c:if>
+							<c:if test="${item.apprStatus =='반려' }">
+								<td style="color: red;">${item.apprStatus }</td>
+							</c:if>
+							<c:if test="${item.apprStatus =='완료' }">
+								<td style="color: green;">${item.apprStatus }</td>
+							</c:if>
 						</tr>
 					</c:forEach>
 				      
@@ -221,9 +232,26 @@
 			link.style.fontWeight = "normal"; 
 		}
 	}
-	/////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////
+	var progressColor = $(".progressColor");
+	progressColor.each(function(){
+		var statusText = $(this).text();
+		// 대기 진행 완료 반려
+		if(statusText == '대기'){
+			
+		} else if(statusText == '진행'){
+			
+		}
+		
+		console.log(statusText);
+	})
 	
 	
-	</script>		
+	</script>
 	</body>
 </html>
+
+
+
+
+

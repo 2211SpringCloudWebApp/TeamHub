@@ -102,70 +102,70 @@
 							<td>휴가신청서</td>
 							<td>휴가신청서입니다!!</td>
 							<td>김하얀</td>
-							<td>대기</td>
+							<td style="color: black;">대기</td>
 						</tr>
 						<tr>
 							<td>2023-04-22</td>
 							<td>품의서</td>
 							<td>품의서입니다!</td>
 							<td>구기효</td>
-							<td>대기</td>
+							<td style="color: black;">대기</td>
 						</tr>
 						<tr>
 							<td>2023-04-22</td>
 							<td>지출결의서</td>
 							<td>지출결의서입니다_수정</td>
 							<td>박수정</td>
-							<td>진행</td>
+							<td style="color: blue;">진행</td>
 						</tr>
 						<tr>
 							<td>2023-04-24</td>
 							<td>기안서</td>
 							<td>기안서입니다!!!</td>
 							<td>양민경</td>
-							<td>완료</td>
+							<td style="color: green;">완료</td>
 						</tr>
 						<tr>
 							<td>2023-04-25</td>
 							<td>휴가신청서</td>
 							<td>휴가신청서입니다!!!!</td>
 							<td>신희채</td>
-							<td>반려</td>
+							<td style="color: red;">반려</td>
 						</tr>
 						<tr>
 							<td>2023-04-27</td>
 							<td>지출결의서</td>
 							<td>지출결의서입니다_수정</td>
 							<td>박소현</td>
-							<td>대기</td>
+							<td style="color: black;">대기</td>
 						</tr>
 						<tr>
 							<td>2023-05-01</td>
 							<td>기안서</td>
 							<td>기안서입니다!</td>
 							<td>김하얀</td>
-							<td>반려</td>
+							<td style="color: red;">반려</td>
 						</tr>
 						<tr>
 							<td>2023-05-03</td>
 							<td>품의서</td>
 							<td>품의서 제출합니다.</td>
 							<td>박주혜</td>
-							<td>완료</td>
+							<td style="color: green;">완료</td>
 						</tr>
 						<tr>
 							<td>2023-05-04</td>
 							<td>지출결의서</td>
 							<td>지출결의서 결재부탁드립니다.</td>
 							<td>이유정</td>
-							<td>반려</td>
+							<td style="color: red;">반려</td>
 						</tr>
 						<tr>
 							<td>2023-05-07</td>
 							<td>휴가신청서</td>
 							<td>휴가신청서입니다_최종</td>
 							<td>유현주</td>
-							<td>대기</td>
+							<td style="color: black;">대기</td>
 						</tr>
 				    </tbody>
 				    
