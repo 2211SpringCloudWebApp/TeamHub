@@ -16,6 +16,9 @@
 		#sideBar li:nth-child(8) a{
 			color: white !important;
 		}
+		#sideBar span{
+				vertical-align: text-top !important;
+		}
 		</style>
 		<style>
 		    * {font-family: 'InfinitySans-RegularA1'; }

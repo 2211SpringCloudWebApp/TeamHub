@@ -17,7 +17,9 @@
 		#sideBar li:nth-child(8) a{
 			color: white !important;
 		}
-		
+		#sideBar span{
+				vertical-align: text-top !important;
+		}
 		</style>
 	</head>
 	

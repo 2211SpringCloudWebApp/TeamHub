@@ -9,7 +9,7 @@
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>11</java-version>
-		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
+		<org.springframework-version>4.3.2.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
@@ -23,6 +23,14 @@
 	</repositories>
 		
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-websocket -->
+		<!--  웹소켓 추가  -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		
 		<!-- 로그 -->
 		<dependency>
 		  <groupId>org.bgee.log4jdbc-log4j2</groupId>

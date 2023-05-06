@@ -9,13 +9,17 @@
 		<link rel="stylesheet" href="../../../resources/css/approval/approvalDocuments.css">
 		<link rel="stylesheet" href="../../../resources/css/approval/documentModal.css">
 		<link rel="stylesheet" href="../../../resources/css/approval/requisitionForm.css">
-		<style type="text/css">
+		
+ 		<style type="text/css">
 		#sideBar li:nth-child(8){
 		    background-color: #2653e8ba;
   				
 		}
 		#sideBar li:nth-child(8) a{
 			color: white !important;
+		}
+		#sideBar span{
+				vertical-align: text-top !important;
 		}
 		</style>
 	</head>

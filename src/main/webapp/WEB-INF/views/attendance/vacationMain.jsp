@@ -66,7 +66,7 @@
                     </div>
                     <div id="btn">
                         <h3><span id="selectedYear">${searchVacation.searchCondition}</span>년도 조회</h3>
-                        <input type="button" id="vacation-btn" value="연차신청">
+                        <input type="button" id="vacation-btn" value="연차신청" onclick="location.href='/approval/leaveRequestForm'">
                     </div>
                     <div id="list">
                         <table id="list-table" class="table">
