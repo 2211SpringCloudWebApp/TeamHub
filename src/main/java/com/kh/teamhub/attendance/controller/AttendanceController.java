@@ -28,6 +28,7 @@ import com.kh.teamhub.attendance.domain.Attendance;
 import com.kh.teamhub.attendance.domain.AttendanceUser;
 import com.kh.teamhub.attendance.domain.SearchVacation;
 import com.kh.teamhub.attendance.domain.Vacation;
+import com.kh.teamhub.attendance.domain.VacationUser;
 import com.kh.teamhub.attendance.service.AttendanceService;
 import com.kh.teamhub.common.LoginUtil;
 import com.kh.teamhub.common.PageInfo;
@@ -47,7 +48,49 @@ public class AttendanceController {
 	
 	PageInfo pi = null;
 	
-	// 관리자 
+	// 관리자 (연차)
+	@RequestMapping(value = "/attendance/adminVacation", method = RequestMethod.GET)
+	public String AdminVacation(
+			HttpServletRequest request
+			, String searchValue
+			, @RequestParam(value="page", required=false, defaultValue="1") Integer page
+			, Model model
+			) throws Exception {
+		if(loginUtil.checkLogin(request)) {    
+			return "main/login";	 // 비로그인시 로그인 페이지로 이동. -> GET쓸때만 하기
+		}
+		int totalCount = aService.getVacationListCount();
+		pi = this.getPageInfo(page, totalCount);
+		List<VacationUser> vuList = aService.selectVacation(pi);
+		if(!vuList.isEmpty()) {
+			model.addAttribute("pi", pi);
+			model.addAttribute("vuList", vuList);
+		}
+		return "/attendance/adminVacation";
+	}
+
+	// 관리자 - 이름으로 연차 검색
+	@RequestMapping(value = "/admin/searchVacation", method = RequestMethod.GET)
+	public String adminVacationSearch(
+			String searchValue
+			, HttpServletRequest request
+			, @RequestParam(value="page", required=false, defaultValue="1") Integer page
+			, Model model) throws Exception {
+		if(loginUtil.checkLogin(request)) {    
+			return "main/login";	 // 비로그인시 로그인 페이지로 이동. -> GET쓸때만 하기
+		}
+		int totalCount = aService.getSearchVacationListCount(searchValue);
+		pi = this.getPageInfo(page, totalCount);
+		List<VacationUser> searchVList = aService.selectVacationListByKeyword(pi, searchValue);
+		if(!searchVList.isEmpty()) {
+			model.addAttribute("searchValue", searchValue);
+			model.addAttribute("pi", pi);
+			model.addAttribute("searchVList", searchVList);
+		}
+		return "/attendance/adminSearchVacation";
+	}
+			
+	// 관리자 (근태)
 	@RequestMapping(value = "/attendance/adminView", method = RequestMethod.GET)
 	public String mainAdmin(
 			HttpServletRequest request

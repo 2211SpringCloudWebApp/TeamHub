@@ -26,7 +26,10 @@
 					<h4><a href="/attendance/mainView">근태관리</a></h4>
 					<h4><a href="/vacation/mainView">연차관리</a></h4>
 					<c:if test="${sessionScope.user.userType == 1 }">
-						<h4><a href="/attendance/adminView">관리자</a></h4>
+						<h4><a href="/attendance/adminView">관리자(근태)</a></h4>
+					</c:if>
+					<c:if test="${sessionScope.user.userType == 1 }">
+						<h4><a href="/attendance/adminVacation">관리자(연차)</a></h4>
 					</c:if>
 				</div>
 			<jsp:include page="../common/header.jsp"></jsp:include>
@@ -79,6 +82,7 @@
                                     <th>휴가종류</th>
                                     <th>사용일자</th>
                                     <th>사용일수</th>
+                                    <th>사유</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -88,6 +92,7 @@
                             			<td>${vacation.vacationDivision }</td>
                             			<td>${vacation.vacationStart }~${vacation.vacationEnd }</td>
                             			<td>${vacation.vacationUsed }</td>
+                            			<td>${vacation.vacationContent }</td>
                             		</tr>
                             	</c:forEach>
                             </tbody>

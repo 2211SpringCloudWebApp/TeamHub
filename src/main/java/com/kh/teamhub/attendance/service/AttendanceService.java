@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.teamhub.attendance.domain.AttenCount;
 import com.kh.teamhub.attendance.domain.Attendance;
 import com.kh.teamhub.attendance.domain.AttendanceUser;
+import com.kh.teamhub.attendance.domain.VacationUser;
 import com.kh.teamhub.common.PageInfo;
 
 public interface AttendanceService {
@@ -98,5 +99,33 @@ public interface AttendanceService {
 	 * @return List<AttendanceUser>
 	 */
 	List<AttendanceUser> selectListByKeyword(PageInfo pi, String searchValue);
+	
+	/**
+	 * 관리자 근태관리- 연차 리스트 개수
+	 * @return int
+	 */
+	int getVacationListCount();
+
+	/**
+	 * 관리자 근태관리- 연차 리스트
+	 * @param pi
+	 * @return List<VacationUser>
+	 */
+	List<VacationUser> selectVacation(PageInfo pi);
+
+	/**
+	 * 관리자 - 검색했을때 연차 개수
+	 * @param searchValue
+	 * @return int
+	 */
+	int getSearchVacationListCount(String searchValue);
+
+	/**
+	 * 관리자 - 회원 검색(연차)
+	 * @param pi
+	 * @param searchValue
+	 * @return List<VacationUser>
+	 */
+	List<VacationUser> selectVacationListByKeyword(PageInfo pi, String searchValue);
 
 }

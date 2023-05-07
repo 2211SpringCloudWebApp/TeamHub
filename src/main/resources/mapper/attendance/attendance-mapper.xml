@@ -103,5 +103,6 @@
 	<select id="selectListByKeyword" resultMap="attenUserResultMap">
 		SELECT * FROM ATTENDANCE_TBL A JOIN USER_TBL U ON A.USER_ID = U.USER_ID WHERE USER_NAME LIKE '%' || #{searchValue} || '%' ORDER BY ATTE_DATE DESC
 	</select>
+	
 		
 </mapper>

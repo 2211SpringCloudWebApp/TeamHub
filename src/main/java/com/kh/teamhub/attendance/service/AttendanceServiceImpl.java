@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.teamhub.attendance.domain.AttenCount;
 import com.kh.teamhub.attendance.domain.Attendance;
 import com.kh.teamhub.attendance.domain.AttendanceUser;
+import com.kh.teamhub.attendance.domain.VacationUser;
 import com.kh.teamhub.attendance.store.AttendanceStore;
 import com.kh.teamhub.common.PageInfo;
 
@@ -96,6 +97,30 @@ public class AttendanceServiceImpl implements AttendanceService{
 	public List<AttendanceUser> selectListByKeyword(PageInfo pi, String searchValue) {
 		List<AttendanceUser> searchList = aStore.selectListByKeyword(session, pi, searchValue);
 		return searchList;
+	}
+
+	@Override
+	public int getVacationListCount() {
+		int result = aStore.getVacationListCount(session);
+		return result;
+	}
+
+	@Override
+	public List<VacationUser> selectVacation(PageInfo pi) {
+		List<VacationUser> vuList = aStore.selectVacation(session, pi);
+		return vuList;
+	}
+
+	@Override
+	public int getSearchVacationListCount(String searchValue) {
+		int result = aStore.getSearchVacationListCount(session, searchValue);
+		return result;
+	}
+
+	@Override
+	public List<VacationUser> selectVacationListByKeyword(PageInfo pi, String searchValue) {
+		List<VacationUser> searchVList = aStore.selectVacationListByKeyword(session, pi, searchValue);
+		return searchVList;
 	}
 
 

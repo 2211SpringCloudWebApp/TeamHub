@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.teamhub.attendance.domain.AttenCount;
 import com.kh.teamhub.attendance.domain.Attendance;
 import com.kh.teamhub.attendance.domain.AttendanceUser;
+import com.kh.teamhub.attendance.domain.VacationUser;
 import com.kh.teamhub.common.PageInfo;
 
 @Repository
@@ -101,6 +102,38 @@ public class AttendanceStoreLogic implements AttendanceStore{
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		List<AttendanceUser> searchList = session.selectList("AttenMapper.selectListByKeyword", searchValue, rowBounds);
 		return searchList;
+	}
+
+	@Override
+	public int getVacationListCount(SqlSession session) {
+		int result = session.selectOne("VacationMapper.getVacationListCount");
+		return result;
+	}
+
+	@Override
+	public List<VacationUser> selectVacation(SqlSession session, PageInfo pi) {
+		int limit = pi.getBoardLimit();
+		int currentPage = pi.getCurrentPage();
+		int offset = (currentPage - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<VacationUser> vuList = session.selectList("VacationMapper.selectVacation", null, rowBounds);
+		return vuList;
+	}
+
+	@Override
+	public int getSearchVacationListCount(SqlSession session, String searchValue) {
+		int result = session.selectOne("VacationMapper.getSearchVacationListCount", searchValue);
+		return result;
+	}
+
+	@Override
+	public List<VacationUser> selectVacationListByKeyword(SqlSession session, PageInfo pi, String searchValue) {
+		int limit = pi.getBoardLimit();
+		int currentPage = pi.getCurrentPage();
+		int offset = (currentPage - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<VacationUser> searchVList = session.selectList("VacationMapper.selectVacationListByKeyword", searchValue, rowBounds);
+		return searchVList;
 	}
 
 }
