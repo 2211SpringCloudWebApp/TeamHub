@@ -52,3 +52,9 @@ ul {
     border-color: rgba(60, 114, 221, 0.13);
     margin-left: 10px;
 }
+/* 관리자 - 검색버튼 */
+#search-btn {
+	background-color: rgba(60, 114, 221, 0.13);
+    border-radius: 5px;
+    border-color: rgba(60, 114, 221, 0.13);
+}

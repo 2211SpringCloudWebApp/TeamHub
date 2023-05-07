@@ -32,7 +32,10 @@
 				<h4><a href="/attendance/mainView">근태관리</a></h4>
 				<h4><a href="/vacation/mainView">연차관리</a></h4>
 				<c:if test="${sessionScope.user.userType == 1 }">
-					<h4><a href="/attendance/adminView">관리자</a></h4>
+					<h4><a href="/attendance/adminView">관리자(근태)</a></h4>
+				</c:if>
+				<c:if test="${sessionScope.user.userType == 1 }">
+					<h4><a href="/attendance/adminVacation">관리자(연차)</a></h4>
 				</c:if>
 			</div>
 			<jsp:include page="../common/header.jsp"></jsp:include>

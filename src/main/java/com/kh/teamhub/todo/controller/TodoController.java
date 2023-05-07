@@ -54,7 +54,7 @@ public class TodoController {
 		if(!mList.isEmpty()) {
 			model.addAttribute("mList", mList);
 		}
-		return "todo/main2";
+		return "todo/main";
 	}
 	
 	/// 할 일 등록 ///

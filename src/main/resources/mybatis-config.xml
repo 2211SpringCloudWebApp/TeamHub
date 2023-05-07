@@ -18,7 +18,9 @@
 		<typeAlias type="com.kh.teamhub.project.domain.Project" alias="Project"/>
 		<typeAlias type="com.kh.teamhub.project.domain.Kanban" alias="Kanban"/>
 		<typeAlias type="com.kh.teamhub.attendance.domain.Attendance" alias="Atten"/>
+		<typeAlias type="com.kh.teamhub.attendance.domain.AttendanceUser" alias="AttenUser"/>
 		<typeAlias type="com.kh.teamhub.attendance.domain.Vacation" alias="Vacation"/>
+		<typeAlias type="com.kh.teamhub.attendance.domain.VacationUser" alias="VacationUser"/>
 		<typeAlias type="com.kh.teamhub.schedule.domain.Schedule" alias="Schedule"/>
 		<typeAlias type="com.kh.teamhub.todo.domain.Todo" alias="Todo"/>
 		<typeAlias type="com.kh.teamhub.todo.domain.Memo" alias="Memo"/>
