@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AlramMapper">
+
+	<resultMap type="Alram"                id="alramResultMap">
+		<id 	property="alramNo" 	       column="ALRAM_NO" />
+		<result property="userId" 	       column="USER_ID" />
+		<result property="alramKind" 	   column="ALRAM_KIND" />
+		<result property="alramContent"    column="ALRAM_CONTENT" />
+		<result property="alramDate" 	   column="ALRAM_DATE"/>
+		<result property="alramStatus" 	   column="ALRAM_STATUS" />
+		<result property="alramUrl" 	   column="ALRAM_URL" />
+	</resultMap>
+	
+	<select id="selectAlram" resultMap="alramResultMap">
+		SELECT * FROM ALRAM_TBL
+	</select>
+	
+	<select id="selectCountAlram" resultType="int">
+		SELECT COUNT(*) FROM ALRAM_TBL WHERE (USER_ID = 'admin' OR USER_ID = #{userId}) AND ALRAM_STATUS = 'N'
+	</select>
+	
+	<insert id="insertAlram" >
+		INSERT INTO ALRAM_TBL 
+		VALUES(SEQ_ALRAM_TBL.NEXTVAL, #{userId}, #{alramKind}, #{alramContent}, DEFAULT, DEFAULT, #{alramUrl})
+	</insert>
+	
+	<update id="updateAlram">
+		UPDATE ALRAM_TBL SET ALRAM_STATUS = 'Y' WHERE USER_ID = #{userId}
+	</update>
+</mapper>

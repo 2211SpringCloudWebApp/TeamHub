@@ -86,6 +86,8 @@ public interface NoticeService {
 	 * @return
 	 */
 	int deleteNotice(int noticeNo);
+
+	Notice selectNotice();
 	
 
 }

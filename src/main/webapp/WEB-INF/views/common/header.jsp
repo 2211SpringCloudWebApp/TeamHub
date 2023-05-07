@@ -8,22 +8,20 @@
 		<title>header</title>
 		<link rel="stylesheet" href="../../../resources/css/common/header.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script> 
 		<!-- No mapping for GET /favicon.ico 안뜨게 설정 -->
 		<link rel="icon" type="image/ico" href="${pageContext.request.contextPath}/resources/static/images/favicon.ico">
 		<style type="text/css">
-
 		#header nav ul {
 			display: flex;
 			justify-content: end;
 			align-items: center;
 			height: 80px;
 		}
-		
 		#header nav ul li {
 			padding: 30px 40px;
 			height: 80px;
 		} 
-		
 		#userInfo {
 			padding-right: 30px;
 		}
@@ -33,55 +31,120 @@
 			color: #333;
 			height: 100%;
 		}
-		
 		#header nav ul li ul {
 			display: none;
 			position: absolute;
 			background-color: #fff;
 			margin-top: 15px;
 		}
-		
 		#header nav ul li:hover ul {
 			display: block;
 		}
-		
 		#header nav ul li ul li {
 			width: 155px;
 			display: block;
 			background-color: white;
 		}
-		
 		#header nav ul li ul li:hover {
 			background-color: #eee;
 		}
-		
+		.side-icon{
+			width: 30px;
+		    margin-right: 15px;
+		}
+		#alram-count{
+			position: absolute;
+		    display: inline;
+		    top: 23px;
+		    left: 59px;
+		    width: 28px;
+		    height: 18px;
+		    line-height: 20px;
+		    padding: 0 5px;
+		    text-align: center;
+		    color: #fff;
+		    background-color: #fc0d1b;
+		    border-radius: 6px;
+		    z-index: 100;
+		}
 		</style>
-		
 	</head>
-	
-		
 		
 	<body>
-	
-	<div id="header">
-		<nav>
-			<ul>
-				<li class="dropdown">
-					<a>알림</a>
-				</li>
-				<li class="dropdown" style="padding-right: 130px;" ><a><b>${sessionScope.user.userName }</b>님</a>
-					<ul>
-						<li><a href="/user/mypage">마이페이지</a></li>
-						<li><a href="/user/logout">로그아웃</a></li>
-					</ul>
-				</li>
-			</ul>
-		</nav>
+		<div id="header">
+			<nav>
+				<ul>
+					<li class="dropdown" style="padding-right: 0px;">
+						<a href="#" onclick="openAlramList();">
+							<img class="side-icon" src="../../../resources/img/sidebar/alarm.svg" style="margin-right: 10px;">
+							<span id="alram-count"></span>
+						</a>
+					</li>
+					<li class="dropdown" style="padding-right: 130px; padding-left: 20px;" ><a><b>${sessionScope.user.userName }</b>님</a>
+						<ul>
+							<li><a href="/user/mypage">마이페이지</a></li>
+							<li><a href="/user/logout">로그아웃</a></li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</div>
+		
+		
+		<script type="text/javascript">
+		
+		// 전역변수 설정
+		var alarmDiv = $("#alarmDiv");
+		
+		const userId = "${sessionScope.user.userId}";
+		var socket = null;
+		
+		$(document).ready(function(){
+			connectWs();
+		})
+		
+		function connectWs(){
+			var ws = new SockJS("/alram");
+			socket = ws;
+			// onopen은 소켓이 연결 됐을 때
+			ws.onopen = function() {
+				console.log('open');
+				ws.send(userId);
+			 };
 
-		<!-- 
-		<h1 style="padding-right: 40px; text-align: right; line-height: 2.5;">${sessionScope.user.userName} 님</h1>  -->
-	</div>
-	
+			// onmessage 는 서버에서 메세지를 받았을 때
+			ws.onmessage = function(event) {  
+				console.log("onmessage: "+event.data);
+				
+				// Ajax를 이용해서 내 알림 숫자 구하기.
+				$.ajax({
+					 url : "/alram/count",
+					 data : {
+						 "userId": userId,
+						    },
+					 type : "post",
+					 success : function(data){
+					 	console.log("알람개수 : " + data)
+					 	$("#alram-count").html(data);
+					 },
+					 error : function(){
+						alert("알람 에러! 관리자 문의 요망");
+					 }
+				 })
+			};
+
+			// onclose는 소켓 연결 해제됐을 때
+			ws.onclose = function() {
+			    console.log('close');
+ 			};
+		};
+		
+		// 알람 클릭시 목록 출력 함수
+		function openAlramList(){
+
+		}
+		
+		
+	</script>
 	</body>
-	
 </html>

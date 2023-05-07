@@ -20,7 +20,6 @@
 		<property name="mapperLocations" value="classpath:mapper/*/*"></property>		
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
-	
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSession"></constructor-arg>
 	</bean>

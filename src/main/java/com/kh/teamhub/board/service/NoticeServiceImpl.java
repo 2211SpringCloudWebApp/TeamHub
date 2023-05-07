@@ -77,4 +77,10 @@ public class NoticeServiceImpl implements NoticeService{
 		int result = nStore.deleteNotice(session, noticeNo);
 		return result;
 	}
+	@Override
+	public Notice selectNotice() {
+		// TODO Auto-generated method stub
+		Notice noticeAlram = nStore.selectNotice(session);
+		return noticeAlram;
+	}
 }

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.teamhub.alram.domain.Alram;
+import com.kh.teamhub.alram.store.AlramStore;
 import com.kh.teamhub.board.domain.Free;
 import com.kh.teamhub.board.domain.FreeFile;
 import com.kh.teamhub.board.domain.Notice;
@@ -25,6 +27,7 @@ import com.kh.teamhub.board.domain.Search;
 import com.kh.teamhub.board.service.NoticeService;
 import com.kh.teamhub.common.LoginUtil;
 import com.kh.teamhub.common.file.FileUtil;
+import com.kh.teamhub.common.socket.EchoHandler;
 
 @Controller
 public class NoticeController {
@@ -32,6 +35,9 @@ public class NoticeController {
 	@Autowired
 	private NoticeService nService;
 
+	@Autowired
+	private AlramStore aStore;
+	
 	@Autowired
 	private LoginUtil loginUtil;
 	
@@ -122,6 +128,12 @@ public class NoticeController {
 				freefile.setFilePath(fileInfo.get("renameFilePath"));
 				System.out.println(freefile);
 				result += nService.insertNoticeFiles(freefile);
+				////// 상은 알람 부분  ///////
+				Notice noticeAlram = nService.selectNotice();
+				String noticeUrl = "/notice/detail?noticeNo="+noticeAlram.getNoticeNo();
+				Alram alram = new Alram(noticeAlram.getUserId(), "공지사항", noticeAlram.getNoticeTitle(), noticeUrl);
+				aStore.insertAlram(alram);
+				/////////////////////////////
 				return "redirect:/notice/list";
 			} catch (Exception e) {
 				e.printStackTrace();

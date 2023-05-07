@@ -91,6 +91,7 @@ public interface NoticeStore {
 	 * @return
 	 */
 	int deleteNotice(SqlSession session, int noticeNo);
+	Notice selectNotice(SqlSession session);
 	
 
 }

@@ -93,5 +93,8 @@
 		WHERE NOTICE_NO = #{noticeNo}
 	</update>
 	
+	<select id="selectNotice" resultMap="noticeResultMap">
+		SELECT * FROM BOARD_NOTICE_TBL WHERE NOTICE_NO = (SELECT MAX(NOTICE_NO) FROM BOARD_NOTICE_TBL)
+	</select>
 	
 </mapper>

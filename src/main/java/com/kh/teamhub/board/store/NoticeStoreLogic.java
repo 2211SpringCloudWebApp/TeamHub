@@ -90,4 +90,11 @@ public class NoticeStoreLogic implements NoticeStore {
 		return result;
 	}
 
+	@Override
+	public Notice selectNotice(SqlSession session) {
+		Notice noticeAlram = session.selectOne("NoticeMapper.selectNotice");
+		System.out.println("노티스알람: " + noticeAlram);
+		return noticeAlram;
+	}
+
 }

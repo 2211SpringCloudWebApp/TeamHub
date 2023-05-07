@@ -407,6 +407,13 @@ if (session.getAttribute("user") == null) {
 								//	$("#rWriter").val("");
 									$("#rContent").val("");
 									getReplyList();
+									
+									// 상은 댓글 알람 부분 //
+									var boardWriter = "${free.userId }";
+									var replyWriter = "${user.userName}";
+									var msg = boardWriter+","+"댓글,"+replyWriter+","+"/free/detail?freeNo="+freeNo;
+									socket.send(msg);
+									/////////////////////////
 								}else{
 									alert("[에러 발생] 로그 확인 필요")
 									console.log(result);
