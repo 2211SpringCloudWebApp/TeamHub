@@ -20,29 +20,34 @@
 
 <img width="500" alt="image" src="https://user-images.githubusercontent.com/119032800/236745945-7f09deeb-adbe-4c50-828d-8d15f0c7165b.png">
 
+
 ## 개발환경
-<img src="https://img.shields.io/badge/java-2C2255?style=for-the-badge&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"> 
-<img src="https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jQuery&logoColor=white"> 
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"> 
-<img src="https://img.shields.io/badge/CSS-1572B6?style=for-the-badge&logo=CSS&logoColor=white"> 
-<img src="https://img.shields.io/badge/JSTL-E34F26?style=for-the-badge&logo=JSTL&logoColor=white">
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/119032800/236772442-35f3d0b9-62b4-4932-9e12-15a9aacb5dc1.png">
 
-<img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=Oracle&logoColor=white"> <img src="https://img.shields.io/badge/Apache Maven-C71A36?style=for-the-badge&logo=Apache Maven&logoColor=white"> <img src="https://img.shields.io/badge/mybatis-2C2255?style=for-the-badge&logo=mybatis&logoColor=white">
-
-<img src="https://img.shields.io/badge/Eclipse IDE-2C2255?style=for-the-badge&logo=Eclipse IDE&logoColor=white"> <img src="https://img.shields.io/badge/Apache Tomcat-F8DC75?style=for-the-badge&logo=Apache Tomcat&logoColor=white"> <img src="https://img.shields.io/badge/VISUAL STUDIO CODE-1572B6?style=for-the-badge&logo=VISUAL STUDIO CODE&logoColor=white"> <img src="https://img.shields.io/badge/GITHUB-2C2255?style=for-the-badge&logo=GITHUB&logoColor=white">
+Category | Detail
+:-------:|:---:
+FrontEnd | HTML5, JS, CSS3, JQuery
+BackEnd | Java(JDK 11), Servlet, Spring(5.2.18), Mybatis
+OS | Windows 10
+Libray&API | JSTL, Fullcalendar
+IDE | STS(3.9.12.RELEASE), VisualStudio, SQL Developer
+Server | Apache Tomcat 9
+DateBase | ORACLE(21.3.0.0.0)
+Document | Google Drive, ERDCloud, diagrams.net, Slack, Notion, Figma
+CI | Github
 
 ## 주요기능
 
 ### 근태관리
 기능명 | 상세
--------|-----
-출퇴근 관리| 로그인한 사용자는 출,퇴근 시 자신의 근태 관리를 확인 할 수 있다. 출근, 퇴근 버튼을 클릭하면 현재 시간이 입력된다. 구분으로는 출근, 지각, 조퇴, 결근이 있다. 오전 9시전에 출근 버튼을 누를 시 출근, 오전 9시 이후에 출근 버튼을 누를 시 지각, 오후 6시전에 퇴근 버튼을 누를 시 조퇴, 해당 일의 출근이 없을시 결근으로 처리된다. 근태 리스트는 월별로 조회 가능하다. 당일의 출근 버튼을 두번 누를 경우 에러메세지가 출력된다. 출근과 퇴근 시간을 계산해 근무시간을 출력한다.
+:--------|-----
+출퇴근 관리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| 로그인한 사용자는 출,퇴근 시 자신의 근태 관리를 확인 할 수 있다. 출근, 퇴근 버튼을 클릭하면 현재 시간이 입력된다. 구분으로는 출근, 지각, 조퇴, 결근이 있다. 오전 9시전에 출근 버튼을 누를 시 출근, 오전 9시 이후에 출근 버튼을 누를 시 지각, 오후 6시전에 퇴근 버튼을 누를 시 조퇴, 해당 일의 출근이 없을시 결근으로 처리된다. 근태 리스트는 월별로 조회 가능하다. 당일의 출근 버튼을 두번 누를 경우 에러메세지가 출력된다. 출근과 퇴근 시간을 계산해 근무시간을 출력한다.
 연차관리|사용자는 연도를 선택해 해당 연도에 해당하는 총 연차, 사용 연차, 잔여 연차, 사용한 연차 내역을 확인할 수 있으며 연차 신청을 할 수 있다.
 
 ### 업무관리
 기능명 | 상세
--------|-----
-할 일 목록| 사용자는 업무 관리에서 할 일, 달력, 메모를 확인할 수 있다. 사용자는 할 일 목록을 등록, 삭제 할 수 있으며 달력에서 업무가 등록된 해당 일을 선택시 해당 일의 작성한 할 일 목록을 확인할 수 있으며, 달력에서 날짜를 클릭하면 해당 날짜에 할 일 등록이 가능하다.  작성한 할 일은 체크 박스 선택시 완료처리 시킬 수 있다.
+:-------|-----
+할 일 목록&nbsp;&nbsp;&nbsp;&nbsp;| 사용자는 업무 관리에서 할 일, 달력, 메모를 확인할 수 있다. 사용자는 할 일 목록을 등록, 삭제 할 수 있으며 달력에서 업무가 등록된 해당 일을 선택시 해당 일의 작성한 할 일 목록을 확인할 수 있으며, 달력에서 날짜를 클릭하면 해당 날짜에 할 일 등록이 가능하다.  작성한 할 일은 체크 박스 선택시 완료처리 시킬 수 있다.
 메모| 사용자는 메모를 등록, 삭제 할 수 있으며 메모 목록은 날짜가 바뀌더라도 항상 고정되어있다.
 
 ## TeamHub 살펴보기
