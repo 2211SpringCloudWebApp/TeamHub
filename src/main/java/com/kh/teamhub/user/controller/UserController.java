@@ -170,11 +170,20 @@ public class UserController {
 	
 	// 사원 정보 수정
 	@RequestMapping(value="/modify", method = {RequestMethod.POST, RequestMethod.GET})
-	public String modifyUser(Model model, @ModelAttribute User user) {
+	public String modifyUser(Model model
+			, @ModelAttribute User user
+			, HttpServletRequest request
+			, @RequestParam(value="uploadFile", required=false) MultipartFile multi) {
+		Map<String, String> fileInfo = null;
 		try {
+			if(multi.getSize() != 0 && !multi.getOriginalFilename().equals("")) {
+				fileInfo = fileUtil.saveFile(multi, request);
+				user.setUserFileName(fileInfo.get("rename"));
+				user.setUserfilePath(fileInfo.get("renameFilePath"));
+			}
 			int result = uService.updateUser(user);
 			if(result > 0) {
-				return "redirect:/user/list";
+				return "redirect:/user//userStateList";
 			}else {
 				model.addAttribute("msg", "수정이 완료되지 않았습니다.");
 				return "common/error";
