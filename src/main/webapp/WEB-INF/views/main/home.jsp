@@ -24,6 +24,9 @@
 				width: calc(100% - 250px) !important;
 				margin-left: 250px !important;
 			}
+			p{
+				margin-bottom: 0px;
+			}
 		</style>
 	</head>
 	
@@ -47,10 +50,9 @@
 							<div>
 								<p>${sessionScope.user.userName } ${sessionScope.user.positionName }</p>
 								<p>${sessionScope.user.deptName}</p>
-							</div>
-							<div>
-							
-							</div>
+								<p>결제 대기 문서</p>
+								<p>결제 진행 문서</p>
+								<p>결제 완료 문서</p>
 						</div>
 						<div id="main-notice">
 							<p>공지사항</p>
