@@ -13,7 +13,7 @@
 	</resultMap>
 	
 	<select id="selectAlram" resultMap="alramResultMap">
-		SELECT * FROM ALRAM_TBL
+		SELECT * FROM ALRAM_TBL WHERE ALRAM_STATUS = 'N' ORDER BY ALRAM_NO DESC
 	</select>
 	
 	<select id="selectCountAlram" resultType="int">
@@ -25,7 +25,15 @@
 		VALUES(SEQ_ALRAM_TBL.NEXTVAL, #{userId}, #{alramKind}, #{alramContent}, DEFAULT, DEFAULT, #{alramUrl})
 	</insert>
 	
-	<update id="updateAlram">
+	<update id="checkAlram">
+		UPDATE ALRAM_TBL SET ALRAM_STATUS = 'Y' WHERE ALRAM_NO = #{alramNo}
+	</update>
+	
+	<update id="checkAllAlram">
 		UPDATE ALRAM_TBL SET ALRAM_STATUS = 'Y' WHERE USER_ID = #{userId}
 	</update>
+	<update id="checkAllAdminAlram">
+		UPDATE ALRAM_TBL SET ALRAM_sTATUS = 'Y' WHERE USER_ID = 'admin'
+	</update>
+	
 </mapper>

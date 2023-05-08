@@ -451,6 +451,7 @@
   
   // "일정 등록"
   function scheduleAdd(){
+	  var userType = "${user.userType}";
 	  var userId = "${user.userId }";
 	  var userDeptName = "${user.deptName}";
 	  
@@ -511,6 +512,15 @@
 			 success : function(data){
 				 closeModal();
 				 updateCalendar();
+				 if(userType ==1){
+					//  전사일정 알람 부분 //
+					var boardWriter = "${free.userId }";
+					var replyWriter = "${user.userName}";
+					var msg = userId+","+"일정,"+scheduleName+","+"/schedule/list";
+					socket.send(msg);
+					/////////////////////////
+					 
+				 }
 			 },
 			 error : function(){
 				 alert("일정 등록 실패! 관리자 문의 요망");

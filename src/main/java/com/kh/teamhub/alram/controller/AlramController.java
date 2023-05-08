@@ -18,12 +18,21 @@ public class AlramController {
 	@ResponseBody
 	@RequestMapping(value = "/count", method = RequestMethod.POST)
 	public String alramCount(String userId) {
-		System.out.println("알람카운트 메소드 진입, 유저아이디 : " + userId);
-		
 		int result = aService.selectCountAlram(userId); 
-		
-		System.out.println(result);
-		
+		return String.valueOf(result);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/check", method = RequestMethod.POST)
+	public String alramCheck(String alramNo) {
+		int result = aService.checkAlram(alramNo); 
+		return String.valueOf(result);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/checkAll", method = RequestMethod.POST)
+	public String alramCheckAll(String userId) {
+		int result = aService.checkAllAlram(userId); 
 		return String.valueOf(result);
 	}
 }

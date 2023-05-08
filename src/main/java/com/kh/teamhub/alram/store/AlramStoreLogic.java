@@ -31,6 +31,19 @@ public class AlramStoreLogic implements AlramStore{
 		int result = session.selectOne("AlramMapper.selectCountAlram", userId);
 		return result;
 	}
+
+	@Override
+	public int checkAlram(String alramNo) {
+		int result = session.update("AlramMapper.checkAlram", alramNo);
+		return result;
+	}
+
+	@Override
+	public int checkAllAlram(String userId) {
+		int result = session.update("AlramMapper.checkAllAlram", userId);
+					 session.update("AlramMapper.checkAllAdminAlram");
+		return result;
+	}
 	
 
 }

@@ -16,6 +16,18 @@ public class AlramServiceImpl implements AlramService{
 		int result = aStore.selectCountAlram(userId);
 		return result;
 	}
+
+	@Override
+	public int checkAlram(String alramNo) {
+		int result = aStore.checkAlram(alramNo);
+		return result;
+	}
+
+	@Override
+	public int checkAllAlram(String userId) {
+		int result = aStore.checkAllAlram(userId);
+		return result;
+	}
 	
 	
 }

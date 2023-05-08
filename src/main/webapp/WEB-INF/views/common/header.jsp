@@ -67,7 +67,47 @@
 		    border-radius: 6px;
 		    z-index: 100;
 		}
+		#alram-menu{
+			position: absolute;
+		    width: 530px;
+		    height: 380px;
+		    top: 80px;
+		    left: -443px;
+		    background-color: aliceblue;
+		    font-size: 18px;
+		}
+		#alram-allCheck{
+			text-align: right;
+		    cursor: pointer;
+		    font-weight: 600;
+		    border: 1px solid gray;
+		    padding-top: 10px;
+		    padding-bottom: 10px;
+	        background-image: linear-gradient(78deg, #a1c4fd 0%, #c2e9fb 100%);
+		}
+		#alram-allCheck span{
+			margin-right: 20px;
+		}
+		#alram-list{
+			height: 100%;
+		    overflow-y: auto;
+		    background-color: aliceblue;
+		    padding-left: 20px;
+		    padding-right: 20px;
+		    border: 1px solid gray;
+		    border-top: none;
+		}
+		#alram-list a{
+			height: 2rem !important;
+		    margin-top: 20px;
+		    font-weight: 600;
+		}
+		#alram-list p{
+			color: gray;
+			border-bottom: 1px solid gray;
+		}
 		</style>
+		
 	</head>
 		
 	<body>
@@ -77,8 +117,14 @@
 					<li class="dropdown" style="padding-right: 0px;">
 						<a href="#" onclick="openAlramList();">
 							<img class="side-icon" src="../../../resources/img/sidebar/alarm.svg" style="margin-right: 10px;">
-							<span id="alram-count"></span>
+							<span id="alram-count">0</span>
 						</a>
+						<div id="alram-menu">
+							<p id="alram-allCheck" onclick="checkAllAlram();" style="margin-bottom: 0px;"><span>모두 읽음</span></p>
+							<div id="alram-list">
+								
+							</div>	
+						</div>
 					</li>
 					<li class="dropdown" style="padding-right: 130px; padding-left: 20px;" ><a><b>${sessionScope.user.userName }</b>님</a>
 						<ul>
@@ -94,14 +140,15 @@
 		<script type="text/javascript">
 		
 		// 전역변수 설정
-		var alarmDiv = $("#alarmDiv");
-		
+		var alarmTest = $("#alramTest");
+		var text ="";
 		const userId = "${sessionScope.user.userId}";
 		var socket = null;
 		
 		$(document).ready(function(){
 			connectWs();
 		})
+
 		
 		function connectWs(){
 			var ws = new SockJS("/alram");
@@ -114,7 +161,9 @@
 
 			// onmessage 는 서버에서 메세지를 받았을 때
 			ws.onmessage = function(event) {  
-				console.log("onmessage: "+event.data);
+				console.log(event.data);
+				$("#alram-list").append(event.data);
+				
 				
 				// Ajax를 이용해서 내 알림 숫자 구하기.
 				$.ajax({
@@ -139,11 +188,68 @@
  			};
 		};
 		
-		// 알람 클릭시 목록 출력 함수
-		function openAlramList(){
-
+		// 알람 개수
+		function alramCount(){
+			$.ajax({
+				 url : "/alram/count",
+				 data : {
+					 "userId": userId,
+					    },
+				 type : "post",
+				 success : function(data){
+				 	console.log("알람개수 : " + data)
+				 	$("#alram-count").html(data);
+				 },
+				 error : function(){
+					alert("알람 에러! 관리자 문의 요망");
+				 }
+			 })
 		}
 		
+		$("#alram-menu").css("display", "none");
+		// 알람 클릭시 목록 출력 함수
+		function openAlramList(){
+			var displayValue = $("#alram-menu").css("display");
+			 if (displayValue === "none") {
+			    // display 속성 값을 "block"으로 설정
+			    $("#alram-menu").css("display", "block");
+			  } else if(displayValue === "block"){
+			    $("#alram-menu").css("display", "none");
+			  }
+		}
+		
+		// 알람 클릭시 체크로 변경
+		function checkAlram(data){
+			console.log("번호: " + data);
+			$.ajax({
+				url: "/alram/check",
+				data: {"alramNo" : data},
+				type: "POST",
+				success: function(){
+					$("#alram-list").html("");
+					alramCount();
+				},
+				error: function(){
+					
+				}
+			})
+		}
+		// 모두읽음 클릭시 알람 전체 체크로 변경
+		function checkAllAlram(){
+			var userId = "${sessionScope.user.userId}";
+			$.ajax({
+				url: "/alram/checkAll",
+				data: {"userId" : userId},
+				type: "POST",
+				success: function(){
+					$("#alram-list").html("");
+					alramCount();
+				},
+				error: function(){
+					
+				}
+			})
+		}
 		
 	</script>
 	</body>
