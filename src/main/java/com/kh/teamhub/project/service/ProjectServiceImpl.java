@@ -77,4 +77,10 @@ public class ProjectServiceImpl implements ProjectService {
 		return kList;
 	}
 
+	@Override
+	public int removeKanban(int kanbanNo) {
+		int result = pStore.removeKanban(kanbanNo);
+		return result;
+	}
+
 }
