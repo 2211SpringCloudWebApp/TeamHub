@@ -80,4 +80,11 @@ public interface ProjectService {
 	 */
 	List<Kanban> selectAllKanban(int projectNo);
 
+	/**
+	 * 칸반보드 삭제 Service
+	 * @param kanbanNo
+	 * @return
+	 */
+	int removeKanban(int kanbanNo);
+
 }

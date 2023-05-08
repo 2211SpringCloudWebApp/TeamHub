@@ -20,7 +20,7 @@
 		width: 100%;
 		height: 100%;
 		overflow: auto;
-		background-color: rgba(0, 0, 0, 0.3);
+		background-color: rgba(0, 0, 0, .3);
 	}	
 	.close {
 		color: #aaa;
@@ -130,112 +130,138 @@
 				</div>
 				
 				<div id="btm-area">
-					<h5 style="font-weight:bold;">칸반보드</h5>
+					<h4 style="font-weight:bold; padding-left: 25px;">칸반보드</h4>
 					<div id="kanban-area">
+					<input type="hidden" id="projectNo" name="projectNo" value="${project.projectNo }">
 						<div class="col" data-order="0">
 							<div class="kanban-wrap">
-								<h3 id="noView"></h3>
-								<button class="btn-plus" type="button" onclick="openModal(this);">&#10133;</button>
-								<section class="section-modal">
-									<div class="section-modal_conts">
-										<button type="button" class="btn-close"></button>
-										<h3>칸반보드 추가</h3>
+								<div class="kanban-plus">
+									<h5 id="beforeView"></h5>
+									<button class="btn-plus" onclick="showinput('section0');">&#10133;</button>
+								</div>
+								<section class="section" id="section0">
+									<div id="kanban-input-section0" style="display:none">
+										<p>칸반보드 추가</p>
 										<ul>
-											<li><label for="">담당자</label><input type="text" id="kUsername0" value="${user.userName }" readonly></li>
-											<li><label for="">내용</label><input type="text" id="kContent0"></li>
+											<li>
+												<label for="">담당자</label><input type="text" id="kUsername0" value="${user.userName }" readonly>
+											</li>
+											<li>
+												<label for="">내용</label><input type="text" id="kContent0">
+											</li>
 										</ul>
 										<div class="btns-wrap">
-											<button class="point" type="button" onclick="addBtn(this);" value="0">추가</button>
-											<button class="finished closeWindow" type="button">닫기</button>
+											<button class="point" onclick="addKanban(this);" value="0">등록</button>
+											<button class="finished">닫기</button>
 										</div>
 									</div>
 								</section>
 							</div>
-							<div class="kanban-wrap mt-20 padding-20 kanbanCard" id="btbZero" data-draggable="target"></div>
+							<div class="kanbanCard" id="btbZero"></div>
 						</div>
 						<div class="col" data-order="1">
 							<div class="kanban-wrap">
-								<h3 id="beforeView"></h3>
-								<button class="btn-plus" type="button" onclick="openModal(this);">&#10010;</button>
-								<section class="section-modal">
-									<div class="section-modal_conts">
-										<button type="button" class="btn-close"></button>
-										<h3>칸반보드 추가</h3>
+								<div class="kanban-plus">
+									<h5 id="planView"></h5>
+									<button class="btn-plus" onclick="showinput('section1');">&#10133;</button>
+								</div>
+								<section class="section" id="section1">
+									<div id="kanban-input-section1" style="display:none">	
+										<p>칸반보드 추가</p>
 										<ul>
-											<li><label for="">담당자</label><input type="text" id="kUsername1" value="${user.userName }" readonly></li>
-											<li><label for="">내용</label><input type="text" id="kContent1"></li>
+											<li>
+												<label for="">담당자</label><input type="text" id="kUsername1" value="${user.userName }" readonly>
+											</li>
+											<li>
+												<label for="">내용</label><input type="text" id="kContent1">
+											</li>
 										</ul>
 										<div class="btns-wrap">
-											<button class="point" type="button" onclick="addBtn(this);" value="1">추가</button>
-											<button class="finished closeWindow" type="button">닫기</button>
+											<button class="point" onclick="addKanban(this);" value="1">등록</button>
+											<button class="finished">닫기</button>
 										</div>
 									</div>
 								</section>
 							</div>
-							<div class="kanban-wrap mt-20 padding-20 kanbanCard" id="btbOne" data-draggable="target"></div>
+							<div class="kanbanCard" id="btbOne"></div>
 						</div>
 						<div class="col" data-order="2">
 							<div class="kanban-wrap">
-								<h3 id="proceedingView"></h3>
-								<button class="btn-plus" type="button" onclick="openModal(this);">&#10010;</button>
-								<section class="section-modal">
-									<div class="section-modal_conts">
-										<button type="button" class="btn-close"></button>
-										<h3>칸반보드 추가</h3>
+								<div class="kanban-plus">
+									<h5 id="proceedingView"></h5>
+									<button class="btn-plus" onclick="showinput('section2');">&#10133;</button>
+								</div>
+								<section class="section" id="section2">
+									<div id="kanban-input-section2" style="display:none">	
+										<p>칸반보드 추가</p>
 										<ul>
-											<li><label for="">담당자</label><input type="text" id="kUsername2" value="${user.userName }" readonly></li>
-											<li><label for="">내용</label><input type="text" id="kContent2"></li>
+											<li>
+												<label for="">담당자</label><input type="text" id="kUsername2" value="${user.userName }" readonly>
+											</li>
+											<li>
+												<label for="">내용</label><input type="text" id="kContent2">
+											</li>
 										</ul>
 										<div class="btns-wrap">
-											<button class="point" type="button" onclick="addBtn(this);" value="2">추가</button>
-											<button class="finished closeWindow" type="button">닫기</button>
+											<button class="point" onclick="addKanban(this);" value="2">등록</button>
+											<button class="finished">닫기</button>
 										</div>
 									</div>
 								</section>
 							</div>
-							<div class="kanban-wrap mt-20 padding-20 kanbanCard" id="btbTwo" data-draggable="target"></div>
+							<div class="kanbanCard" id="btbTwo"></div>
 						</div>
 						<div class="col" data-order="3">
 							<div class="kanban-wrap">
-								<h3 id="completeView"></h3>
-								<button class="btn-plus" type="button" onclick="openModal(this);">&#10010;</button>
-								<section class="section-modal">
-									<div class="section-modal_conts">
-										<button type="button" class="btn-close"></button>
-										<h3>칸반보드 추가</h3>
+								<div class="kanban-plus">
+									<h5 id="completeView"></h5>
+									<button class="btn-plus" onclick="showinput('section3');">&#10133;</button>
+								</div>
+								<section class="section" id="section3">
+									<div id="kanban-input-section3" style="display:none">	
+										<p>칸반보드 추가</p>
 										<ul>
-											<li><label for="">담당자</label><input type="text" id="kUsername3" value="${user.userName }" readonly></li>
-											<li><label for="">내용</label><input type="text" id="kContent3"></li>
+											<li>
+												<label for="">담당자</label><input type="text" id="kUsername3" value="${user.userName }" readonly>
+											</li>
+											<li>
+												<label for="">내용</label><input type="text" id="kContent3">
+											</li>
 										</ul>
 										<div class="btns-wrap">
-											<button class="point" type="button" onclick="addBtn(this);" value="3">추가</button>
-											<button class="finished closeWindow" type="button">닫기</button>
+											<button class="point" onclick="addKanban(this);" value="3">등록</button>
+											<button class="finished">닫기</button>
 										</div>
 									</div>
 								</section>
 							</div>
-							<div class="kanban-wrap mt-20 padding-20 kanbanCard" id="btbThree" data-draggable="target"></div>
+							<div class="kanbanCard" id="btbThree"></div>
 						</div>
 						<div class="col" data-order="4">
 							<div class="kanban-wrap">
-								<h3 id="stopView"></h3>
-								<button class="btn-plus" type="button" onclick="openModal(this);">&#10010;</button>
-								<section class="section-modal">
-									<div class="section-modal_conts">
-										<button type="button" class="btn-close"></button>
-										<h3>칸반보드 추가</h3>
+								<div class="kanban-plus">
+									<h5 id="stopView"></h5>
+									<button class="btn-plus" onclick="showinput('section4');">&#10133;</button>
+								</div>
+								<section class="section" id="section4">
+									<div id="kanban-input-section4" style="display:none">
+										<p>칸반보드 추가</p>
 										<ul>
-											<li><label for="">담당자</label><input type="text" id="kUsername4" value="${user.userName }" readonly></li>
-											<li><label for="">내용</label><input type="text" id="kContent4"></li>
+											<li>
+												<label for="">담당자</label><input type="text" id="kUsername4" value="${user.userName }" readonly>
+											</li>
+											<li>
+												<label for="">내용</label><input type="text" id="kContent4">
+											</li>
 										</ul>
 										<div class="btns-wrap">
-											<button class="point" type="button" onclick="addBtn(this);" value="4">추가</button>
-											<button class="finished closeWindow" type="button">닫기</button>
+											<button class="point" onclick="addKanban(this);" value="4">등록</button>
+											<button class="finished">닫기</button>
 										</div>
 									</div>
 								</section>
 							</div>
-							<div class="kanban-wrap mt-20 padding-20 kanbanCard" id="btbFour" data-draggable="target"></div>
+							<div class="kanbanCard" id="btbFour"></div>
 						</div>
 					</div>
 				</div>
@@ -340,13 +366,22 @@
 				}
 			}
 			
-			// 칸반 모달
-			function openModal(modalWindow) {
-			    $(modalWindow).siblings('.section-modal').css('display', 'flex');
+			// 칸반보드 등록창 생성
+			function showinput(sectionID) {
+				var kanbanInput = document.querySelector("#kanban-input-"+sectionID);
+				if (kanbanInput) {
+					kanbanInput.style.display = "block";
+					var closeBtn2 = kanbanInput.querySelector(".finished");
+					if (closeBtn2) {
+						closeBtn2.onclick = function() {
+						kanbanInput.style.display = "none";
+				    	}
+					}
+				}
 			}
 			
 			// 칸반보드 추가
-			function addBtn(btn) {
+			function addKanban(btn) {
 				var projectNo = $("#projectNo").val();
 				var kanbanStatus = $(btn).val();
 				var userName = $("#kUsername"+kanbanStatus).val();
@@ -360,66 +395,72 @@
 						"kanbanContent" : kanbanContent,
 						"kanbanStatus" : kanbanStatus
 					},
-					success : function(data) {
-						location.reload();
-						$(".section-modal").stop().fadeOut(100);
+		            success: function(data) {
+		            	location.reload();
 						$("#kContent"+kanbanStatus).val("");
-						getBoardList();
-					},
-					error : function() {
-						alert("ajax 실패!");
-					}
-				});
-			}
+						getKanbanList();
+		            },
+		            error: function() {
+		                alert("ajax 실패");
+		            }
+		        });
+		    }
+ 			
+// 			function getKanbanList(callback) {
+// 				  var pNo = $("#projectNo").val();
+// 				  $.ajax({
+// 				    url: "/project/showKanban",
+// 				    type: "get",
+// 				    data: { "projectNo": pNo },
+// 				    async: false,
+// 				    success: function (data) {
+// 				      if (callback) {
+// 				        callback(data); // 받아온 데이터를 콜백 함수의 인자로 전달
+// 				      }
+// 				    },
+// 				    error: function (xhr, status, error) {
+// 				      console.log("ajax 요청 실패: " + error);
+// 				      alert("ajax 실패!");
+// 				    }
+// 				  });
+// 				}
+
+			// DOM 조작 별도 수행
+			$(document).ready(function () {
+				getKanbanList();
+			});
 			
-			// 칸반보드 리스트
+			// 칸반보드 목록 출력
 			function getKanbanList() {
 				var pNo = $("#projectNo").val();
 				$.ajax({
-					url : "/project/showKanban",
-					type : "get",
-					data : { "projectNo" : pNo },
-					dataType : "json",
-					async : false,
-					success : function(data) {
-						var count = data.length;
-						var $divZero = $("#btbZero");
-						var $divOne = $("#btbOne");
-						var $divTwo = $("#btbTwo");
-						var $divThree = $("#btbThree");
-						var $divFour = $("#btbFour");
-						$divZero.html("");
-						$divOne.html("");
-						$divTwo.html("");
-						$divThree.html("");
-						$divFour.html("");
-						for(var i = 0; i < data.length; i++) {
-							var $table = $("<table class='kanban-wrap kanban' data-draggable='item' data-number='"+data[i].kanbanNo+"'>");
-							var $trHead = $("<tr class='kanbanHead'>");
-							var $trBody = $("<tr class='kanbanBody'>");
-							var $userName = $("<td>").text(data[i].userName);
-							var $kanbanContent = $("<td colspan='2'>").text(data[i].kanbanContent);
-							var $btnArea = $("<td>")
-											.append("<button class='kanbanCloseBtn' type='button' onclick='openAlert(this);'></button>"
-										                    +"<section class='section-alert'>"
-									                        +"<div class='bg-black'></div>"
-									                        +"<div class='section-alert_conts'>"
-									                            +"<button class='btn-close' type='button'></button>"
-									                            +"<p style='color:black;'>"
-									                                +"칸반보드를 삭제하시겠습니까?"
-									                            +"</p>"
-									                            +"<div class='btns-wrap mt-20'>"
-									                                +"<button class='point' type='button' onclick='delKanban("+data[i].kanbanNo+");'>확인</button>"
-									                                +"<button class='finished closeWindow' type='button'>닫기</button>"
-									                            +"</div>"
-									                        +"</div>"
-									                    +"</section>");
-							$trHead.append($userName);
-							$trHead.append($btnArea);
-							$trBody.append($kanbanContent);
-							$table.append($trHead);
-							$table.append($trBody);
-							if(data[i].kanbanStatus == "0") {
+				    url: "/project/showKanban",
+				    type: "get",
+				    data: { "projectNo": pNo },
+				    async: false,
+				    success: function (data) {
+				        var count = data.length;
+				        var $divZero = $("#btbZero");
+				        var $divOne = $("#btbOne");
+				        var $divTwo = $("#btbTwo");
+				        var $divThree = $("#btbThree");
+				        var $divFour = $("#btbFour");
+				        $divZero.html("");
+				        $divOne.html("");
+				        $divTwo.html("");
+				        $divThree.html("");
+				        $divFour.html("");
+				        for (var i = 0; i < data.length; i++) {
+				            var $table = $("<table class='kanban-wrap kanbanCard' data-number='" + data[i].kanbanNo + "'>");
+				            var $trHead = $("<tr class='kanbanHead'>");
+				            var $trBody = $("<tr class='kanbanBody'>");
+				            var $userName = $("<td>").text(data[i].userName).append("<button class='exit' onclick='delKanban("+data[i].kanbanNo+");'>&#10006;</button>");
+				            var $kanbanContent = $("<td>").text(data[i].kanbanContent);
+				            $trHead.append($userName);
+				            $trBody.append($kanbanContent);
+				            $table.append($trHead);
+				            $table.append($trBody);
+				            if(data[i].kanbanStatus == "0") {
 								$divZero.append($table);
 							}else if(data[i].kanbanStatus == "1") {
 								$divOne.append($table);
@@ -430,45 +471,42 @@
 							}else if(data[i].kanbanStatus == "4") {
 								$divFour.append($table);
 							}
-						}
-						document.getElementById("noView").innerHTML = "진행사항없음("+$("#btbZero >table").length+"/999)";
-						document.getElementById("beforeView").innerHTML = "시작 전("+$("#btbOne >table").length+"/999)";
+				        }
+				        document.getElementById("beforeView").innerHTML = "시작 전("+$("#btbZero >table").length+"/999)";
+						document.getElementById("planView").innerHTML = "기획("+$("#btbOne >table").length+"/999)";
 						document.getElementById("proceedingView").innerHTML = "진행 중("+$("#btbTwo >table").length+"/999)";
 						document.getElementById("completeView").innerHTML = "완료("+$("#btbThree >table").length+"/999)";
 						document.getElementById("stopView").innerHTML = "중지("+$("#btbFour >table").length+"/999)";
 						var projectProgress =
 							Math.floor((($("#btbThree >table").length + 0.5) * ($("#btbTwo >table").length)) / (count-($("#btbFour >table").length)) * 100);
-						/* document.getElementById("progress").innerHTML = "진행률 <strong>" + projectProgress + "%</strong>";
-						document.getElementById("noP").innerHTML = $("#btbZero >table").length;
-						document.getElementById("beforeS").innerHTML = $("#btbOne >table").length;
-						document.getElementById("proceeding").innerHTML = $("#btbTwo >table").length;
-						document.getElementById("complete").innerHTML = $("#btbThree >table").length;
-						document.getElementById("stop").innerHTML = $("#btbFour >table").length; */
-						document.getElementById("project-progress").style.width = projectProgress + "%";
-					},
-					error : function() {
-						alert("ajax 실패!");
-					}
+				    },
+				    error: function () {
+				      alert("ajax 실패");
+				    }
 				});
 			}
 			
 			// 칸반보드 삭제
 			function delKanban(kanbanNo) {
+				if (confirm("칸반보드를 삭제하겠습니까?")) {
 				$.ajax({
 					url : "/project/deleteKanban",
 					type : "get",
+					async : "false",
 					data : { "kanbanNo" : kanbanNo },
 					success : function(data) {
 						if(data == "success") {
 							getKanbanList();
+// 							$(obj).parents(".kanbanCard").load(location.href+".kanbanCard");
 						}else {
-							alert("칸반보드 삭제 실패!");
+							alert("칸반보드 삭제 실패");
 						}
 					},
-					error : function() {
-						alert("Ajax 통신 실패!");
+					error: function (xhr, status, error) {
+						alert("ajax 실패");
 					}
 				});
+				}
 			}
 		</script>
 	</body>

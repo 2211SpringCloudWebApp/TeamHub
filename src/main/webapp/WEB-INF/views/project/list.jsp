@@ -84,10 +84,10 @@
 				<h2 class="thProject">프로젝트 관리</h2>
 				<button class="createBtn" onclick="showModal();">프로젝트 생성</button>
 				<ul>
-					<li <c:if test="${status eq 'all'}"> style="color: #275ab5;"</c:if>><a href="/project/list?status=all">전체 프로젝트</a></li>
-					<li <c:if test="${status eq 'working'}"> style="color: #275ab5;"</c:if>><a href="/project/list?status=working">진행 중인 프로젝트</a></li>
-					<li <c:if test="${status eq 'wait'}"> style="color: #275ab5;"</c:if>><a href="/project/list?status=wait">대기 중인 프로젝트</a></li>
-					<li <c:if test="${status eq 'done'}"> style="color: #275ab5;"</c:if>><a href="/project/list?status=done">종료된 프로젝트</a></li>
+					<li <c:if test="${status eq 'all'}"> style="color: #275ab5;"</c:if>><a href="/project/list?category=all">전체 프로젝트</a></li>
+					<li <c:if test="${status eq 'working'}"> style="color: #275ab5;"</c:if>><a href="/project/list?category=working">진행 중인 프로젝트</a></li>
+					<li <c:if test="${status eq 'wait'}"> style="color: #275ab5;"</c:if>><a href="/project/list?category=wait">대기 중인 프로젝트</a></li>
+					<li <c:if test="${status eq 'done'}"> style="color: #275ab5;"</c:if>><a href="/project/list?category=done">종료된 프로젝트</a></li>
 	           </ul>
 			</div>
 			<jsp:include page="../common/header.jsp"></jsp:include>
@@ -136,24 +136,24 @@
 							<tr align="center">
 								<td colspan="6">
 									<c:if test="${pi.currentPage > 1 }">
-										<a href="/project/list?status=${status }&page=1"> &#10094;&#10094; </a>&nbsp;&nbsp;
+										<a href="/project/list?category=${status }&currentPage=1"> &#10094;&#10094; </a>&nbsp;&nbsp;
 									</c:if>
 									<c:if test="${pi.currentPage > 1 }">
-										<a href="/project/list?status=${status }&page=${pi.currentPage -1 }"> &#10094; </a>
+										<a href="/project/list?category=${status }&currentPage=${pi.currentPage -1 }"> &#10094; </a>
 									</c:if>
 									&nbsp;&nbsp;&nbsp;
 									<c:forEach begin="${pi.startNav }" end="${pi.endNav }" var="page">
 										<c:url var="pageUrl" value="/project/list">
-											<c:param name="page" value="${page }" />
-											<c:param name="status" value="${status }" />
+											<c:param name="currentPage" value="${page }" />
+											<c:param name="category" value="${status }" />
 										</c:url>
 										<a href="${pageUrl }">${page }</a>&nbsp;&nbsp;&nbsp;&nbsp;
 									</c:forEach>
 									<c:if test="${pi.currentPage < pi.maxPage }">
-										<a href="/project/list?status=${status }&page=${pi.currentPage +1}"> &#10095; </a>&nbsp;&nbsp;
+										<a href="/project/list?category=${status }&currentPage=${pi.currentPage +1}"> &#10095; </a>&nbsp;&nbsp;
 									</c:if>
 									<c:if test="${pi.currentPage < pi.maxPage }">
-										<a href="/project/list?status=${status }&page=${pi.maxPage }"> &#10095;&#10095; </a>
+										<a href="/project/list?category=${status }&currentPage=${pi.maxPage }"> &#10095;&#10095; </a>
 									</c:if>
 								</td>
 							</tr>

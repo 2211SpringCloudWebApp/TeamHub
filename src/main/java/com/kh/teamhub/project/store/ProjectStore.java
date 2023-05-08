@@ -85,4 +85,11 @@ public interface ProjectStore {
 	 */
 	List<Kanban> selectAllKanban(int kanbanNo);
 
+	/**
+	 * 칸반보드 삭제 Store
+	 * @param kanbanNo
+	 * @return
+	 */
+	int removeKanban(int kanbanNo);
+
 }

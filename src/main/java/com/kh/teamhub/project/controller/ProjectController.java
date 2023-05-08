@@ -106,14 +106,14 @@ public class ProjectController {
 	// 프로젝트 목록 조회
 	@RequestMapping(value="/list", method=RequestMethod.GET)
 	public ModelAndView printAllProject(ModelAndView mv
-			, @RequestParam(value="page", required=false, defaultValue="1") Integer page
-			, @RequestParam(value="status", required=false, defaultValue="all") String status) {
+			, @RequestParam(value="currentPage", required=false, defaultValue="1") Integer page
+			, @RequestParam(value="category", required=false, defaultValue="all") String status) {
 		try {
 			int allTotalCnt = pService.getListCount(status);
 			PageInfo allPi = this.getPageInfo(page, allTotalCnt);
 			List<Project> pList = pService.selectAllProject(allPi, status);
 			mv.addObject("pi", allPi).addObject("status", status);
-			mv.addObject("pList", pList).setViewName("/project/list");
+			mv.addObject("pList", pList).setViewName("project/list");
 		} catch (Exception e) {
 			e.printStackTrace();
 			mv.addObject("msg", e.getMessage()).setViewName("common/error");
@@ -185,13 +185,18 @@ public class ProjectController {
 	// 칸반보드 삭제
 	@ResponseBody
 	@RequestMapping(value="/deleteKanban", method=RequestMethod.GET)
-	public String deleteKanban() {
-		return null;
+	public String deleteKanban(@RequestParam("kanbanNo") int kanbanNo) {
+		int result = pService.removeKanban(kanbanNo);
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
 	}
 	
 	// 칸반보드 조회
 	@ResponseBody
-	@RequestMapping(value="/showKanban", method=RequestMethod.GET)
+	@RequestMapping(value="/showKanban", method=RequestMethod.GET, produces="application/json;charset=utf-8")
 	public String showKanban(@RequestParam("projectNo") int projectNo) {
 		List<Kanban> kList = pService.selectAllKanban(projectNo);
 		if(!kList.isEmpty()) {

@@ -119,6 +119,10 @@
 	<insert id="insertKanban" parameterType="Kanban">
 		INSERT INTO PROJECT_KANBAN_TBL VALUES(SEQ_PROJECT_KANBAN_NO.NEXTVAL, #{projectNo}, #{userName}, #{kanbanContent}, #{kanbanStatus})
 	</insert>
+	<!-- 칸반보드 삭제 -->
+	<delete id="deleteKanban">
+		DELETE FROM PROJECT_KANBAN_TBL WHERE KANBAN_NO = #{kanbanNo}
+	</delete>
 	<!-- 칸반보드 조회 -->
 	<select id="selectAllKanban" resultMap="KanbanResultMap">
 		SELECT * 
@@ -126,4 +130,5 @@
 		WHERE PROJECT_NO = #{projectNo}
 		ORDER BY KANBAN_NO DESC
 	</select>
+	
 </mapper>

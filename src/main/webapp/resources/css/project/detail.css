@@ -73,43 +73,71 @@ a:hover{
 .progress-bar{
 	height: 1.75rem !important;
 }
-/* .progress-bar {
-	width: 100%;
-	height: 30px;
-	background-color: #dedede;
-	font-weight: 600;
-	font-size: .8rem;
-} */
-.progress-bar .progress {
-	width: 0; /* 나타내고자하는 퍼센트 값 */
-	height: 30px;
-	padding: 0;
-	text-align: center;
-	background-color: #0b2a60;
-	color: #111;
-	--background: linear-gradient(to right, #000 10%, #0b2a60, #00498c);
-    --transition: width 1.4s;
-}
 
 #btm-area{
 	margin: 20px 60px 0px 60px;
-	border : 1px solid #ccc;
-	height : 450px;
 }
 #kanban-area{
+	--width: 100%;
 	margin: 10px;
 	padding: 10px;
 	display: flex;
     border: 1px solid #ccc;
 }
-.kanban-wrap{
-	border: 1px solid #ccc;
+.col {
+	width: 20%;
 }
-.kanbanCloseBtn:before {
+.kanban-wrap{
+	--width: 100%;
+	border: 1px solid #ccc;
+	margin: 10px;
+	padding: 20px;
+	border-radius: 5px;
+}
+.kanban-wrap .btn-plus{
+	border : none;
+	background-color : white;
+	text-align: right;
+	font-size: 16px;
+}
+.kanban-wrap p{
+	font-weight: bold;
+	text-align: center;
+	font-size: 16px;
+	margin-top: 20px;
+}
+.kanban-wrap label{
+	font-weight: bold;
+}
+.kanban-wrap input{
+	width: 100%;
+	border:none;
+    border-bottom: 1px solid #bebebe;
+    text-align: center;
+}
+.kanban-plus {
+	display: flex; /* 부모 요소를 flex 컨테이너로 설정 */
+  	align-items: center; /* 자식 요소를 수직 중앙 정렬 */
+  	flex-wrap: nowrap;
+  	justify-content: space-between;
+}
+.kanban-plus h5 {
+	margin: 0px;
+	font-size: 16px;
+	font-weight: bold;
+}
+.btns-wrap {
+	text-align: center;
+}
+.btns-wrap button{
+	border: 1px solid #bebebe;
+	border-radius: 5px;
+}
+
+/* .kanbanCloseBtn:before {
 	content: "\f00d";
 	color: white;
 	font-size: 14px;
-	font-family: fontawesome;
 }
 .kanbanCloseBtn {
 	font-size: 0;
@@ -121,31 +149,87 @@ a:hover{
 	right: 12px;
 	top: 50%;
 	transform: translateY(-50%);
-}
-.kanban {
+}*/
+/* .kanban {
 	position: relative;
 	width: 100%;
 	cursor: pointer;
 	margin: 10px 0;
-}
+} */
 .kanbanCard {
-	box-sizing: border-box;
+	--width: 100%;
+	margin: 10px;
+	border-radius: 5px;
+	border: 1px solid #bebebe;
+}
+.kanbanCard table{
+	width: 90%;
+	margin: 10px auto;
 }
 .kanbanHead {
-	background-color: #0b2a60;
+	background-color: #748db8;
 	color: white;
 }
 .kanbanHead td,
 .kanbanBody td {
-	position: relative;
-	padding: 10px 4px;
+	padding: 5px 5px;
 }
-
-.section-modal {
+.exit {
+	border : none;
+	background-color: #748db8;
+	color: white;
+	font-size: 16px;
+}
+/* .section-modal {
 	display : flex;
 	display : none;
 }
-/* .progress-bar+h3 {
+.section-alert,
+.section-modal {
+    z-index: 20;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+.section-modal_conts {
+    position: relative;
+    max-width: 800px;
+    padding: 60px 30px 30px;
+    background-color: #fff;
+    font-size: 14px;
+    line-height: 1.6;
+    border: 1px solid #ccc;
+}
+.section-modal_conts h3 {
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+.section-modal_conts ul li>label:first-of-type {
+    display: inline-block;
+    width: 70px;
+}
+.section-modal_conts ul li>div {
+    display: inline-block;
+}
+.section-modal_conts ul li>div label {
+    font-size: 14px;
+}
+.section-alert .bg-black,
+.section-modal .bg-black {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .3);
+} */
+.progress-bar+h3 {
     font-size: 18px;
     text-align: right;
     font-weight: 300;
@@ -153,10 +237,5 @@ a:hover{
 .progress-bar+h3 strong {
     font-weight: 700;
     color: #0b2a60;
-} */
-
-btns-wrap button {
-    width: 100px;
-    height: 36px;
-    margin: 40px 4px;
 }
+
