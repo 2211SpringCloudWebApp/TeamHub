@@ -55,9 +55,7 @@ CI | Github
 ### 1. 메인 화면
 ### 2. 마이페이지
 ### 3. 근태관리
-<img width="960" alt="image" src="https://user-images.githubusercontent.com/119032800/236766576-ab609ab5-2fed-4cbb-b98b-90314caf517f.png">
-<img width="960" alt="image" src="https://user-images.githubusercontent.com/119032800/236766825-1950e41d-7a95-4cfe-90f5-3eccdd64fce0.png">
-<img width="960" alt="image" src="https://user-images.githubusercontent.com/119032800/236767435-3410b9e0-91b1-42cc-be01-c9beb4a2b181.png">
+
 연차관리
 
 ### 4. 일정관리
@@ -69,3 +67,6 @@ CI | Github
 ### 9. 게시판
 
 
+___
+### ERD
+![image](https://user-images.githubusercontent.com/119032800/236778623-504e1915-5d16-42e7-a3c0-f2db707f9366.png)
