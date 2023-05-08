@@ -120,7 +120,7 @@
 							<span id="alram-count">0</span>
 						</a>
 						<div id="alram-menu">
-							<p id="alram-allCheck" onclick="checkAllAlram();" style="margin-bottom: 0px;"><span>모두 읽음</span></p>
+							<p id="alram-allCheck" onclick="checkAllAlram();" style="margin-bottom: 0px;"><span>전체 읽음</span></p>
 							<div id="alram-list">
 								
 							</div>	
@@ -243,6 +243,7 @@
 				type: "POST",
 				success: function(){
 					$("#alram-list").html("");
+					$("#alram-menu").css("display", "none");
 					alramCount();
 				},
 				error: function(){
