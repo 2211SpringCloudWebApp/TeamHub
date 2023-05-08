@@ -7,11 +7,12 @@
 		<meta charset="UTF-8">
 		<title>사원 전체 목록</title>
 		<link rel="stylesheet" href="../../../resources/css/user/user.css">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 		<script src="../../../resources/js/jquery.treeview.js"></script>
 		<link rel="stylesheet" href="../../../resources/css/user/jquery.treeview.css" />
 <!-- 		<link rel="stylesheet" href="../../../resources/css/user/screen.css" /> -->
+
 	</head>
 
 	<body>

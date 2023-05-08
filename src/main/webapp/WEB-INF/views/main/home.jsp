@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>메인</title>
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="../../../resources/css/main/main.css">
 		<style type="text/css">
 			#sideBar li:nth-child(2){
@@ -53,12 +53,12 @@
 								<p>결제 대기 문서</p>
 								<p>결제 진행 문서</p>
 								<p>결제 완료 문서</p>
+							</div>
 						</div>
 						<div id="main-notice">
 							<p>공지사항</p>
 						</div>
 					</div>
-					
 			<!-- 메인 센터 -->
 					<div id="main-box-center">
 						<div id="main-schedule">
@@ -78,14 +78,6 @@
 							<p>project</p>
 						</div>
 					</div>
-				
-				
-				
-					
-					
-					
-					
-					
 				</div>
 			</main>
 		</div>
