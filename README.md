@@ -16,7 +16,8 @@
 </br>
 
 ## 팀원 및 역할분담
-협업해조 : 
+협업해조 : 협업 그룹웨어 제작을 위해 팀원들끼리 성공적으로 협업 해 보자는 긍정적인 의미
+
 <img width="500" alt="image" src="https://user-images.githubusercontent.com/119032800/236745945-7f09deeb-adbe-4c50-828d-8d15f0c7165b.png">
 
 ## 개발환경
