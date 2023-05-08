@@ -105,8 +105,16 @@ public class UserController {
 	
 	// 회원 정보 수정
 		@RequestMapping(value="/modifyMypage", method = {RequestMethod.POST, RequestMethod.GET})
-		public String modifyMypage(Model model, @ModelAttribute User user) {
+		public String modifyMypage(Model model, @ModelAttribute User user
+				, HttpServletRequest request
+				, @RequestParam(value="uploadFile", required=false) MultipartFile multi) {
+			Map<String, String> fileInfo = null;
 			try {
+				if(multi.getSize() != 0 && !multi.getOriginalFilename().equals("")) {
+					fileInfo = fileUtil.saveFile(multi, request);
+					user.setUserFileName(fileInfo.get("rename"));
+					user.setUserfilePath(fileInfo.get("renameFilePath"));
+				}
 				int result = uService.updateUserInfo(user);
 				if(result > 0) {
 					return "redirect:/user/home";

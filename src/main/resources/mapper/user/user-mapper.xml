@@ -33,7 +33,7 @@
 	</insert>
 <!-- 	회원 정보 수정 -->
 	<update id="updateUserInfo">
-		UPDATE USER_TBL SET USER_PW = #{userPw }, USER_EMAIL = #{userEmail }, USER_PHONE = #{userPhone } WHERE USER_ID = #{userId }
+		UPDATE USER_TBL SET USER_PW = #{userPw }, USER_EMAIL = #{userEmail }, USER_PHONE = #{userPhone }, USER_FILENAME = #{userFileName}, USER_FILEPATH = #{userfilePath} WHERE USER_ID = #{userId }
 	</update>
 <!-- 	사원 정보 수정 -->
 	<update id="updateUser">

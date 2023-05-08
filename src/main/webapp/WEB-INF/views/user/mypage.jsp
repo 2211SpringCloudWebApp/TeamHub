@@ -27,7 +27,7 @@
 					<h2>마이페이지</h2>
 				</div>
 				<div class="topArea"></div>
-				<form action="/user/modifyMypage" action="post">
+				<form action="/user/modifyMypage" method="post" enctype="multipart/form-data">
 					<div class="infoForm">
 						<div class="imgArea">
 							<c:if test="${!empty user.userFileName }">
@@ -42,6 +42,7 @@
 							</c:if>
 						</div>
 						<div class="infoArea">
+							<label>사진</label> <input type="file" name="uploadFile" onchange="loadImg(this)"><br>
 							<label>사원번호 </label><input type="text" name="userId" value="${user.userId }" readonly><br>
 							<label>비밀번호 </label><input type="password" name="userPw" value="${user.userPw }"><br>
 							<label>사원명 </label><input type="text" name="userName" value="${user.userName }" readonly><br>
@@ -60,6 +61,21 @@
 			</main>
 		</div>
 		<script>
+		
+			//이미지 미리보기
+			function loadImg(obj) {
+				if(obj.files.length != 0 && obj.files[0] != 0) {
+					let reader = new FileReader();
+					reader.readAsDataURL(obj.files[0]);
+					reader.onload = function(e) {
+						document.querySelector("#img-view").setAttribute("src", e.target.result);
+					}
+				}else {
+					document.querySelector("#img-view").setAttribute("src", "");
+				}
+			}
+		
+			// 삭제 여부 묻기
 			function removeCheck(userId) {
 		 		if(confirm("탈퇴하시겠습니까?")){
 		 			location.href="/user/delete?userId="+userId;
