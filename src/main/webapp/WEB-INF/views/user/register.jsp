@@ -6,42 +6,48 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>사원 등록</title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+		<link rel="stylesheet" href="../../../resources/css/user/user.css">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	</head>
 	
 	<body>
 		<div id="container">
 			<jsp:include page="../common/sideBar.jsp"></jsp:include>
-			<div id="subSideBar" style="overflow:auto;">
+			<div id="subSideBar">
+				<h2 style="font-weight:bold;">사원관리</h2><br>
 				<c:if test="${sessionScope.user.userType eq 1 }">
 					<a href="/user/list">사원 목록</a><br>
-					<a href="#">조직도</a><br>
 					<a href="/user/registerView">사원 등록</a><br>
-					<a href="/user/userStateList">사원 관리</a>
-					<hr>
-					<div>//조직도//</div>
+					<a href="/user/userStateList">사원 관리</a><br>
+					<button class="orgBtn" onclick="toggleOrg();">조직도</button>
+					<div id="orgList">
+					</div>
 				</c:if>
 				<c:if test="${sessionScope.user.userType ne 1 }">
 					<a href="/user/list">사원 목록</a><br>
-					<a href="#">조직도</a>
-					<hr>
-					<div>//조직도//</div>
+					<button class="orgBtn" onclick="toggleOrg();">조직도</button>
+					<div id="orgList">
+					</div>
 				</c:if> 
 			</div>
 			<jsp:include page="../common/header.jsp"></jsp:include>
 			
 			<main>
-				<form action="/user/register" method="post" enctype="multipart/form-data">
+				<div class="mainTitle">
+					<h2>사원 등록</h2>
+				</div>
+				<form id="registerForm" action="/user/register" method="post" enctype="multipart/form-data">
 					<div id="img-viewer">
 						<img id="img-view" alt="" src="../../../resources/img/main/userlogo.png" width="200" height="200">
 					</div>
-					사진 <input type="file" name="uploadFile" onchange="loadImg(this)"><br>
+					<label>사진</label> <input type="file" name="uploadFile" onchange="loadImg(this)"><br>
 <!-- 					<input type="hidden" name="userFilePath"><br> -->
-					아이디 <input type="text" name="userId" id="userId">
-					<button type="button" onclick="idDuplicateCheck()">중복체크</button><br>
-					비밀번호 <input type="password" name="userPw"><br>
-					이름 <input type="text" name="userName"><br>
-					부서 
+					<label>사원번호</label> <input type="text" name="userId" id="userId">
+					<button type="button" class="checkBtn" onclick="idDuplicateCheck()">중복체크</button><br>
+					<label>비밀번호</label> <input type="password" name="userPw"><br>
+					<label>사원명</label> <input type="text" name="userName"><br>
+					<label>부서 </label>
 					<select name="deptName" id="">
 						<option value="인사팀">인사팀</option>
 						<option value="회계팀">회계팀</option>
@@ -49,7 +55,7 @@
 						<option value="디자인팀">디자인팀</option>
 						<option value="경영팀">경영팀</option>
 					</select><br>
-					직급
+					<label>직급 </label>
 					<select name="positionName" id="">
 						<option value="회장">회장</option>
 						<option value="부회장">부회장</option>
@@ -66,21 +72,25 @@
 						<option value="사원">사원</option>
 						<option value="인턴">인턴</option>
 					</select><br>
-					이메일 <input type="text" name="userEmail"><br>
-					연락처 <input type="text" name="userPhone"><br>
-					생년월일 <input type="text" name="userBirth" placeholder="0000-00-00 형식으로 입력"><br>
-					재직상태 
+					<label>이메일</label> <input type="text" name="userEmail"><br>
+					<label>연락처</label> <input type="text" name="userPhone"><br>
+					<label>생년월일</label> <input type="text" name="userBirth" placeholder="0000-00-00 형식으로 입력"><br>
+					<label>재직상태 </label>
 					<label for="E"><input type="radio" name="userState" id="E" value="재직" checked> 재직</label> 
 					<label for="R"><input type="radio" name="userState" id="R" value="퇴직"> 퇴직</label><br>
 					
-					관리자여부 Y <input type="radio" name="userType" value="1" >
-					N <input type="radio" name="userType" value="0" checked><br>
-					<input type="submit" value="등록">
-					<input type="reset" value="초기화">
+					<label>관리자여부</label> 
+					<label for="Y">Y <input type="radio" name="userType" id="Y" value="1" ></label>
+					<label for="N">N <input type="radio" name="userType" id="N" value="0" checked></label><br>
+					<div class="formArea">
+						<input type="submit" class="formBtn" value="등록">
+						<input type="reset" class="formBtn" value="초기화">
+					</div>
 				</form>
 			</main>
 		</div>
 		<script>
+		
 			//이미지 미리보기
 			function loadImg(obj) {
 				if(obj.files.length != 0 && obj.files[0] != 0) {
@@ -116,7 +126,65 @@
 				});
 			}
 			
-
+			
+			var orgList = $("#orgList");
+			var isVisible = false;
+			
+			
+	 		/* 조직도 버튼 클릭시 */
+			function toggleOrg(){
+				if(isVisible) {
+					orgList.css("display", "none");
+				}else {
+					getOrg();
+					orgList.css("display", "block");
+				}
+				isVisible = !isVisible;
+			}
+			
+			/* 조직도 조회 */
+			function getOrg() {
+				$.ajax({
+					url : "/user/org",
+					type : "get",
+					dataType : "json",
+					success : function(data) {
+//	 					var orgList = $("#orgList");
+						orgList.empty();
+						var ul = $("<ul>");
+						var li, span;
+						var prevDept = null;
+						
+						$.each(data, function(e, i) {
+							if(prevDept !== i.deptName) {
+								li = $("<li>").text(i.deptName);
+//	 							var img = $("<img>").attr("src", "/resources/img/main/minus.gif");
+								ul.append(li);
+								prevDept = i.deptName;
+							}
+							
+							if(i.userName != null && i.positionName != null){
+								var span = $("<span>");
+								  var nameLink = $("<a>").attr("href", "/user/detail?userId=" + i.userId);
+								  var nameSpan = $("<span>").text(i.userName).addClass("user-name");
+//	 							  var img = $("<img>").attr("src", "/resources/img/main/minus.gif");
+								  var positionSpan = $("<span>").text(i.positionName);
+								  
+								  nameLink.append(nameSpan);
+								  span.append("　└ ").append(nameLink).append(" ").append(positionSpan);
+								  var li = $("<li>");
+								  li.append(span);
+								  ul.append(li);
+							}
+						});
+						
+						orgList.append(ul);
+					},
+					error : function() {
+						alert("Ajax 처리 실패");
+					}
+				});
+			}
 		</script>
 	</body>
 	
