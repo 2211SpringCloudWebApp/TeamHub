@@ -46,7 +46,7 @@ public class ProjectController {
 			project.setProjectEnd(Date.valueOf(projectEnd));
 			int result = pService.insertProject(project);
 			if(result > 0) {
-				mv.setViewName("redirect:/project/list?status=all");
+				mv.setViewName("redirect:/project/list?category=all");
 			} else {
 				mv.addObject("msg", "프로젝트 생성 실패").setViewName("common/error");
 			}

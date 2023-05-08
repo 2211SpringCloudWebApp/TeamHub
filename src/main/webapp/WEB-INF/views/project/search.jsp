@@ -84,10 +84,10 @@
 				<h2 class="thProject">프로젝트 관리</h2>
 				<button class="createBtn" onclick="showModal();">프로젝트 생성</button>
 				<ul>
-					<li><a href="/project/list?status=all">전체 프로젝트</a></li>
-					<li><a href="/project/list?status=working">진행 중인 프로젝트</a></li>
-					<li><a href="/project/list?status=wait">대기 중인 프로젝트</a></li>
-					<li><a href="/project/list?status=done">종료된 프로젝트</a></li>
+					<li><a href="/project/list?category=all">전체 프로젝트</a></li>
+					<li><a href="/project/list?category=working">진행 중인 프로젝트</a></li>
+					<li><a href="/project/list?category=wait">대기 중인 프로젝트</a></li>
+					<li><a href="/project/list?category=done">종료된 프로젝트</a></li>
 	           </ul>
 			</div>
 			<jsp:include page="../common/header.jsp"></jsp:include>
