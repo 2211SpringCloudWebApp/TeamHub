@@ -97,7 +97,7 @@
 					<div id="main-box-left">
 						<div id="main-user">
 							<div>
-								<p class="main-title" style="margin-top: 10px;">내 정보</p>
+								<p class="main-title" style="margin-top: 10px;"><span class="main-title-span">내 정보</span></p>
 							</div>
 							<div>
 								<c:if test="${!empty user.userFileName }">
@@ -121,7 +121,7 @@
 						</div>
 						<div id="main-project">
 							<div>
-								<p class="main-title" style="margin-top: 10px; margin-bottom: 20px;">참여중인 프로젝트</p>
+								<p class="main-title" style="margin-top: 10px; margin-bottom: 20px;"><span class="main-title-span">참여중인 프로젝트</span></p>
 								<c:forEach items="${pList }" var="project">
 									<a href="/project/detail/${project.projectNo }">
 										<div class="project-list">
@@ -143,7 +143,27 @@
 						</div>
 						<div id="main-todo">
 							<div>
-								<p class="main-title" style="margin-top: 10px;">오늘의 업무</p>
+								<img class="main-bookmark-3" src="../../../resources/img/main/push-pin.png">
+								<p class="main-title" style="margin-top: 10px; margin-bottom: 20px;"><span class="main-title-span">오늘의 업무</span></p>
+								
+                                <div id="todo-list">
+                                <c:forEach items="${tList }" var="todo">
+                                	<div class="item" style="font-size: 1.5rem; padding: 0.5rem; border-bottom: 1px solid #d2cccc;">
+                                	<!-- isFinished가 'Y'면 체크박스 체크되어있게 -->
+								        <input class="checkInput" type="checkbox" onclick="checkFinish(this,'${todo.todoNo}');" 
+								            <c:if test="${todo.isFinished == 'Y'}">
+								                checked
+								            </c:if>
+								        >
+								        <!-- isFinished가 'Y'면 글자에 줄 그어지게 -->
+								        <span style="margin-left: 20px; <c:if test="${todo.isFinished == 'Y'}"> text-decoration: line-through;</c:if>">
+								            ${todo.todoContent}
+								        </span>
+										<!-- 버튼 id를 todoNo로 줘서 삭제한 div를 선택할수 있도록 함 -->
+								        <button style="width: 70px; height: 30px; margin-top: 10px; font-size: 15px; float: right; background-color: #293a4b; color: white; border-radius: 5px;" id="${todo.todoNo }" onclick="deleteTodo('${todo.todoNo}');">제거하기</button>
+								    </div>
+                                </c:forEach>
+                                </div>
 							</div>
 						</div>
 					</div>
@@ -151,7 +171,7 @@
 			<!-- 메인 오른쪽 -->
 					<div id="main-box-right">
 						<div id="main-attendance">
-							<p class="main-title" style="padding-top: 10px;">근태 관리</p>
+							<p class="main-title" style="padding-top: 10px;"><span class="main-title-span">근태 관리</span></p>
 							<div id="time-btn">
 								<div id="today"></div>
 				                <div id="time"></div>
@@ -163,7 +183,7 @@
 						</div>
 						<div id="main-notice">
 							<div>
-								<p class="main-title" style="margin-top: 10px; margin-bottom: 15px;">공지사항</p>
+								<p class="main-title" style="margin-top: 10px; margin-bottom: 15px;"><span class="main-title-span">공지사항</span></p>
 								<table class="table table-hover">
 									<colgroup>
 									    <col style="width: 70%;">
@@ -390,6 +410,60 @@
         		}
         	})
         }
+		//////////////////////////////
+		////// 오늘의 업무 script /////
+		formattedDate2 = year + '/' +month + '/' +date;
+		$("#todoCreateDate").val(formattedDate);		
+		function checkFinish(checkbox, todoNo) {
+			$.ajax ({
+				url : '/ajaxCheckFinish',
+				data : {
+					"todoNo" : todoNo
+				},
+				dataType : "json",
+				type : 'post',
+				success : function(data) {
+					var isFinished = data.isFinished;
+					// isFinished가 Y면 체크박스 계속 체크되어있고 글자에 줄 그어지도록
+					if (isFinished == 'Y') {
+						checkbox.checked = true;
+						checkbox.nextElementSibling.style.textDecoration = 'line-through';
+					// isFinished가 N이면 체크박스 체크x, 글자에 줄 x
+					} else {
+						checkbox.checked = false;
+						checkbox.nextElementSibling.style.textDecoration = 'none';
+					}
+				},
+				error : function(data) {
+					
+				}
+			})
+		}
+		
+		// 삭제
+		function deleteTodo(todoNo) {
+			console.log(todoNo);
+			console.log($("#"+todoNo).parent());
+			if (confirm("정말로 삭제하시겠습니까?")) {
+				$.ajax ({
+					url : '/ajaxDeleteTodo',
+					data : {
+						"todoNo" : todoNo
+					},
+					type : 'post',
+					success : function(data) {
+						console.log(data);
+//							id를 todoNo로가진 버튼(내가 지운거)의 부모(div)를 지워줌
+						$("#"+todoNo).parent().remove();
+					},
+					error : function(data) {
+						
+					}
+				})
+				
+			}
+		}
+		///////////////////////////////
 	</script>
 	</body>
 </html>

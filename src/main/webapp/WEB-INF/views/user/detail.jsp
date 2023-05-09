@@ -54,7 +54,7 @@
 						</c:if>
 					</div>
 					<div class="infoArea">
-						<label>사원번호</label> <input type="text" name="userId" value="${user.userId }" readonly><br>
+						<label>아이디</label> <input type="text" name="userId" value="${user.userId }" readonly><br>
 						<label>사원명</label> <input type="text" name="userName" value="${user.userName }" readonly><br>
 						<label>부서</label> <input type="text" name="deptName" value="${user.deptName }" readonly><br>
 						<label>직급</label> <input type="text" name="positionName" value="${user.positionName }" readonly><br>

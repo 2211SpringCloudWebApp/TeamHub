@@ -74,18 +74,18 @@ public interface ProjectService {
 	int insertKanban(Kanban kanban);
 
 	/**
-	 * 칸반보드 조회 Service
-	 * @param projectNo
-	 * @return
-	 */
-	List<Kanban> selectAllKanban(int projectNo);
-
-	/**
 	 * 칸반보드 삭제 Service
 	 * @param kanbanNo
 	 * @return
 	 */
 	int removeKanban(int kanbanNo);
+
+	/**
+	 * 칸반보드 조회 Service
+	 * @param projectNo
+	 * @return
+	 */
+	List<Kanban> selectAllKanban(int projectNo);
 
 	List<Project> selectList(String userId);
 

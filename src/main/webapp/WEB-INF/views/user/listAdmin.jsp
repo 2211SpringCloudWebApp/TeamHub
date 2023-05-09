@@ -80,7 +80,7 @@
 					<table class="table table-hover" style="margin-bottom: 50px;">
 						<thead style="text-align: center;">
 							<tr class="table-light">
-								<th style="width:15%;">사원번호</th>
+								<th style="width:15%;">아이디</th>
 								<th style="width:20%;">사원명</th>
 								<th style="width:20%;">부서</th>
 								<th style="width:15%;">직급</th>
