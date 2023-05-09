@@ -34,6 +34,10 @@ if(session.getAttribute("user") == null){
 		#search li{
 			list-style-type: square !important;
 		}
+		
+		#head{
+		background-color: #FAFAFA;
+		}
 		</style>
 	</head>
 	
@@ -46,7 +50,7 @@ if(session.getAttribute("user") == null){
 				<li><a href="/free/list"><h5>자유게시판</h5></a></li>
 				<li><a href="/notice/list"><h5>공지사항</h5></a></li>
                 <li  style="color: #275ab5"><a href="/report/list"><h5>신고게시판</h5></a></li>
-                <li><h5>신고자 리스트</h5></li>
+                 <li><h5><a href="/free/blacklist">정지 리스트</a></h5></li>
 			</ul>
 			</div>
 			<jsp:include page="../../common/header.jsp"></jsp:include>
@@ -55,7 +59,7 @@ if(session.getAttribute("user") == null){
 				<table class="table table-hover">
 					<thead>
 					<h2>신고 목록</h2> 
-						<tr>
+						<tr id="head">
 							<th>번호</th>
 							<th>신고 사유</th>
 							<th>상세 내용</th>
