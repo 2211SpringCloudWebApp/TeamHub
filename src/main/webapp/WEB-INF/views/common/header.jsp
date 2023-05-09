@@ -126,7 +126,7 @@
 							</div>	
 						</div>
 					</li>
-					<li class="dropdown" style="padding-right: 130px; padding-left: 20px;" ><a><b>${sessionScope.user.userName }</b>님</a>
+					<li class="dropdown" style="padding-left: 20px;" ><a><b>${sessionScope.user.userName }</b>님</a>
 						<ul>
 							<li><a href="/user/mypage">마이페이지</a></li>
 							<li><a href="/user/logout">로그아웃</a></li>

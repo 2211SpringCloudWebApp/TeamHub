@@ -18,52 +18,73 @@
 	margin-top: 30px;	
 }
 .main-title{
-	margin-top: 10px;
     margin-left: 10px;
+    font-weight: 600;
+    font-size: 18px;
 }
 
 
 #main-user{
-    width: 350px;
+    width: 380px;
     height: 400px;
-    overflow-y: auto;
     background-color: #e1ffff;
+	border: 1px solid gray;
 }
 	#main-user-img{
-		width: 120px;
-	    height: 120px;
+		width: 170px;
+	    height: 130px;
 	    border-radius: 50%;
-	    margin-left: 120px;
-	    margin-top: 23px;
+	    margin-left: 85px;
+	    margin-top: 15px;
 	}
+	#main-user-info-name{
+		text-align: center;
+	    font-size: 21px;
+	    margin-top: 12px;
+	    font-weight: 600;
+	}
+	#main-user-info-dept{
+		text-align: center;
+	    font-size: 18px;
+	}
+	.main-user-document{
+		text-align: center;
+	    margin-top: 10px;
+	    font-size: 20px;
+	}
+	
 #main-schedule{
-    width: 600px;
-    height: 500px;
-    background-color: #dedeff;
+    width: 730px;
+    height: 602.79px;
+    border: 1px solid gray;
 }
 #main-attendance{
-    width: 350px;
-    height: 400px;
+    width: 380px;
+    height: 330px;
     background-color: #e5ffe5;
+    border: 1px solid gray;
 }
-#main-notice{
-	width: 350px;
-    height: 320px;
+#main-project{
+	width: 380px;
+    height: 360px;
     overflow-y: auto;
     background-color: #d2ffd2;
-    margin-top: 30px;
+    margin-top: 90px;
+    border: 1px solid gray;
 }
 #main-todo{
-    width: 480px;
+    width: 550px;
     height: 220px;
     overflow-y: auto;
     background-color: #ffffca;
     margin-top: 30px;
+    border: 1px solid gray;
 }
-#main-project{
-    width: 350px;
-    height: 320px;
+#main-notice{
+    width: 380px;
+    height: 430px;
     overflow-y: auto;
     background-color: #ffdfdf;
-    margin-top: 30px;
+    margin-top: 90px;
+    border: 1px solid gray;
 }
