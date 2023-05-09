@@ -28,6 +28,10 @@ if(session.getAttribute("user") == null){
 			list-style-type: square !important;
 		}
 		
+		
+		#head{
+		background-color: #FAFAFA;
+		}
 		</style>
 	
 	
@@ -50,7 +54,7 @@ if(session.getAttribute("user") == null){
 				<table class="table table-hover">
 				<h2>공지사항 </h2>
 					<thead>
-						<tr>
+						<tr id="head">
 							<th>번호</th>
 							<th>제목</th>
 							<th>작성자</th>
@@ -108,7 +112,7 @@ if(session.getAttribute("user") == null){
 									<option value="title">제목</option>
 									<option value="content">내용</option>
 								</select> <input type="text" id="id" name="searchValue" placeholder="검색어를 입력하세요">
-								<input type="submit" value="검색" onclick="return check()">
+								<input type="submit" value="검색" onclick="return check()" class="btn btn-primary">
 							</form>
 						</td>
 	

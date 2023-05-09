@@ -42,15 +42,16 @@ if(session.getAttribute("user") == null){
 			<div id="subSideBar">
 			<h1> 자유게시판 </h1>
 			<ul id="search">
-				<li style="color: #275ab5"><a href="/free/list"><h5>자유게시판</h5></a></li>
-				<li><a href="/notice/list"><h5>공지사항</h5></a></li>
+				<li><a href="/free/list"><h5>자유게시판</h5></a></li>
+				<li style="color: #275ab5"><a href="/notice/list"><h5>공지사항</h5></a></li>
 				 <c:if test="${sessionScope.user.userType eq 1}">
                 <li><a href="/report/list"><h5>신고게시판</h5></a></li>
                 <li><a href="/free/blacklist"><h5>정지 리스트</h5></a></li>
             </c:if>
 			</ul>
 			</div>
-			<jsp:include page="../../common/header.jsp"></jsp:include>			<main>
+			<jsp:include page="../../common/header.jsp"></jsp:include>	
+					<main>
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -101,7 +102,7 @@ if(session.getAttribute("user") == null){
 									</c:url>
 									<a href="${pageUrl }">${p }</a>&nbsp;
 								</c:forEach><br> <br> <input type="button" value="전체 목록으로 이동"
-								onclick="location='/notice/list'">
+								onclick="location='/notice/list'" class="btn btn-primary">
 							</td>
 						</tr>
 						
@@ -115,12 +116,12 @@ if(session.getAttribute("user") == null){
 									<option value="content">내용</option>
 								</select>
 									<input type="text" id="id" name="searchValue" placeholder="검색어를 입력해주세요">
-									<input type="submit" value="검색" onclick="return check()">
+									<input type="submit" value="검색" onclick="return check()" class="btn btn-primary">
 								</form>
 							</td>
 							<td>
 								<c:if test="${sessionScope.user.userType == 1}">
-									<button onclick="location.href='/notice/writeView'">게시판 쓰기</button>
+									<button onclick="location.href='/notice/writeView'" class="btn btn-primary">게시판 쓰기</button>
 								</c:if>
 							</td>
 						</tr>

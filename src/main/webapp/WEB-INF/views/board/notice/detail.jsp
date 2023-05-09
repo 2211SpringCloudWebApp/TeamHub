@@ -28,6 +28,14 @@ if(session.getAttribute("user") == null){
 		#search li{
 			list-style-type: square !important;
 		}
+		#buttt{
+			text-align: center;
+		}
+		.container{
+			height: 800px;
+		}
+		
+		
 		
 		</style>
 		
@@ -40,8 +48,8 @@ if(session.getAttribute("user") == null){
 			<div id="subSideBar">
 			<h1> 자유게시판 </h1>
 			<ul id="search">
-				<li style="color: #275ab5"><a href="/free/list"><h5>자유게시판</h5></a></li>
-				<li><a href="/notice/list"><h5>공지사항</h5></a></li>
+				<li><a href="/free/list"><h5>자유게시판</h5></a></li>
+				<li  style="color: #275ab5"><a href="/notice/list"><h5>공지사항</h5></a></li>
 				 <c:if test="${sessionScope.user.userType eq 1}">
                 <li><a href="/report/list"><h5>신고게시판</h5></a></li>
                 <li><a href="/free/blacklist"><h5>정지 리스트</h5></a></li>
@@ -50,24 +58,47 @@ if(session.getAttribute("user") == null){
 			</div>
 			<jsp:include page="../../common/header.jsp"></jsp:include>
 			<main>
-				<h1>게시글 보기</h1>
-				번호 : ${notice.noticeNo } / 제목 : ${notice.noticeTitle } / 작성자 : ${notice.userId }
-				/ 작성날짜 : ${notice.noticeWriteDate }
-				<br>
-				내용 : ${notice.noticeContent }
-				<br>
-				첨부파일 : 
-				<c:forEach items="${fileList }" var="freeFile">
-					${freeFile.fileName }
-				</c:forEach>
+			<div class="container">
+				<table class="table table-hover" >
+					<tbody>
+						<tr>
+							<th>번호</th>
+							<td>${notice.noticeNo }</td>
+							<th>작성자</th>
+							<td>${notice.userId }</td>
+						</tr>
+						<tr>
+							<th>첨부파일</th>
+							<td><c:forEach items="${fileList }" var="freeFile">
+									${freeFile.fileName }
+							</c:forEach></td>
+							<th>작성날짜</th>
+							<td>${notice.noticeWriteDate }</td>
+						</tr>
+						<tr>
+							<th>제목</th>
+							<td>${free.freeTitle }</td>
+							<th></th>
+							<td></td>
+						</tr>
+						<tr style="height: 600px;">
+						<td>${notice.noticeContent }</td>
+						<th></th>
+						<td></td>
+						<th></th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+				<div id="buttt">
 				<c:url var="nModify" value="/notice/modifyView">
 					<c:param name="noticeNo" value="${notice.noticeNo }"/>
 				</c:url>
 				<c:if test="${sessionScope.user.userType == 1}">
-					<a href="${nModify }">수정 페이지로 이동</a>
-					<a href="javascript:void(0);" onclick="removeCheck(${notice.noticeNo});">게시판 삭제</a>
+					<a href="${nModify }" class="btn btn-primary">수정 페이지로 이동</a>
+					<a href="javascript:void(0);" onclick="removeCheck(${notice.noticeNo});"  class="btn btn-primary">게시판 삭제</a>
 				</c:if>
-				
+				</div>
 				<script>
 					function removeCheck(noticeNo){
 						if(confirm("정말 삭제하시겠습니까?"))
