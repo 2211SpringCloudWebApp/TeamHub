@@ -97,4 +97,10 @@ public class NoticeStoreLogic implements NoticeStore {
 		return noticeAlram;
 	}
 
+	@Override
+	public List<Notice> selectList(SqlSession session) {
+		List<Notice> nList = session.selectList("NoticeMapper.selectList");
+		return nList;
+	}
+
 }

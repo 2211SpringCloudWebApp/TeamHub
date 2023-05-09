@@ -82,12 +82,6 @@ if(session.getAttribute("user") == null){
 							<td>${notice.userId }</td>
 							<td>${notice.noticeWriteDate }</td>
 							<td>${notice.noticeCount }</td>
-							
-							
-						<%-- 	<td>
-								<c:if test= "${not empty free.freeFilename }">O</c:if>
-								<c:if test= "${empty free.freeFilename }">X</c:if>
-							</td> --%>
 						</tr>
 						</c:forEach>
 					</tbody>

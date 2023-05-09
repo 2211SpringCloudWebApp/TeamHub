@@ -27,8 +27,9 @@
 #main-user{
     width: 380px;
     height: 400px;
-    background-color: #e1ffff;
 	border: 1px solid gray;
+	background-image: linear-gradient(195deg, #ffffff 0%, #daf3ff 100%);
+	box-shadow: 3px 3px 10px 3px rgba(0, 0, 0, 0.3);
 }
 	#main-user-img{
 		width: 170px;
@@ -57,34 +58,39 @@
     width: 730px;
     height: 602.79px;
     border: 1px solid gray;
+    box-shadow: 3px 3px 10px 3px rgba(0, 0, 0, 0.3);
 }
 #main-attendance{
     width: 380px;
     height: 330px;
-    background-color: #e5ffe5;
     border: 1px solid gray;
+    background-image: linear-gradient(195deg, #ffffff 0%, #daf3ff 100%);
+    box-shadow: 3px 3px 10px 3px rgba(0, 0, 0, 0.3);
 }
 #main-project{
 	width: 380px;
     height: 360px;
     overflow-y: auto;
-    background-color: #d2ffd2;
     margin-top: 90px;
     border: 1px solid gray;
+    background-image: linear-gradient(195deg, #ffffff 0%, #daf3ff 100%);
+    box-shadow: 3px 3px 10px 3px rgba(0, 0, 0, 0.3);
 }
 #main-todo{
     width: 550px;
     height: 220px;
     overflow-y: auto;
-    background-color: #ffffca;
     margin-top: 30px;
     border: 1px solid gray;
+    background-image: linear-gradient(195deg, #ffffff 0%, #daf3ff 100%);
+    box-shadow: 3px 3px 10px 3px rgba(0, 0, 0, 0.3);
 }
 #main-notice{
     width: 380px;
     height: 430px;
     overflow-y: auto;
-    background-color: #ffdfdf;
     margin-top: 90px;
     border: 1px solid gray;
+    background-image: linear-gradient(195deg, #ffffff 0%, #daf3ff 100%);
+    box-shadow: 3px 3px 10px 3px rgba(0, 0, 0, 0.3);
 }

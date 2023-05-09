@@ -107,7 +107,7 @@ if(session.getAttribute("user") == null){
 	</head>
 	
 	<body>
-		<<div id="container">
+		<div id="container">
 		<jsp:include page="../../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
 			<h1> 자유게시판 </h1>

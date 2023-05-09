@@ -88,6 +88,9 @@ public interface NoticeService {
 	int deleteNotice(int noticeNo);
 
 	Notice selectNotice();
+
+	// 상은 홈화면 리스트
+	List<Notice> selectList();
 	
 
 }

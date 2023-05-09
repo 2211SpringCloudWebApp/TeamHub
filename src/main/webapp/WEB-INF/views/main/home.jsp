@@ -77,7 +77,7 @@
 			    border: 1px solid gray;
 			    border-radius: 30px 30px 30px 30px;
 			    background-color: white;
-			    color: #5358e9;
+			    color: black;
 			    font-size: 23px;
 			    font-weight: 600;
 		  	}
@@ -146,11 +146,37 @@
 						</div>
 						<div id="main-notice">
 							<div>
-								<p class="main-title" style="margin-top: 10px;">공지사항</p>
+								<p class="main-title" style="margin-top: 10px; margin-bottom: 15px;">공지사항</p>
 								<table class="table table-hover">
-									<th>제목</th>
-									<th>작성자</th>
-									<th>작성날짜</th>
+									<colgroup>
+									    <col style="width: 70%;">
+									    <col style="width: 30%;">
+									</colgroup>
+									<thead>
+										<tr>
+											<th>제목</th>
+											<th>등록일</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${nList }" var="notice">
+											<tr>
+												<td><a href="/notice/detail?noticeNo=${notice.noticeNo }">${notice.noticeTitle }</a>
+													<c:choose>
+													    <c:when test="${notice.noticeFilename eq null }">
+													    </c:when>
+													    <c:when test="${notice.noticeFilename ne null }">
+													        <img alt="" src="../../../../resources/img/kooimg/Web_(35).jpg" width="20px" height="20px">
+													    </c:when>
+													    <c:otherwise>
+													        <!-- ${free.freefilename}이 null인 경우 처리할 내용 작성 -->
+													    </c:otherwise>
+													</c:choose>
+												</td>
+												<td>${notice.noticeWriteDate }</td>
+											</tr>
+										</c:forEach>
+									</tbody>
 								</table>
 							</div>
 						</div>

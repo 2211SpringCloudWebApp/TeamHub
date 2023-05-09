@@ -92,6 +92,7 @@ public interface NoticeStore {
 	 */
 	int deleteNotice(SqlSession session, int noticeNo);
 	Notice selectNotice(SqlSession session);
+	List<Notice> selectList(SqlSession session);
 	
 
 }

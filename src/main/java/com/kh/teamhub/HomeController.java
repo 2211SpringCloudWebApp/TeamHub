@@ -2,6 +2,7 @@ package com.kh.teamhub;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kh.teamhub.board.domain.Notice;
+import com.kh.teamhub.board.service.NoticeService;
 import com.kh.teamhub.common.LoginUtil;
 
 /**
@@ -26,11 +29,10 @@ public class HomeController {
 	
 	@Autowired
 	private LoginUtil loginUtil;
+	@Autowired
+	private NoticeService nService;
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 * @throws Exception 
-	 */
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request) throws Exception {
 		if(loginUtil.checkLogin(request)) {    
@@ -45,6 +47,11 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
+		
+		
+		// 홈화면 공지사항 리스트 넘겨주기
+		List<Notice> nList = nService.selectList();
+		model.addAttribute("nList", nList);
 		
 		return "/main/home";
 	}

@@ -14,7 +14,7 @@
 		<div id="sideBar">
 	           <ul>
 	               <li style="height: 235px;"><img id="sideBarLogo" src="../../../resources/img/main/logo.png"></li>
-	               <li><a href="/user/home"><img class="side-icon" src="../../../resources/img/sidebar/home.png"><span>홈</span></a></li>
+	               <li><a href="/"><img class="side-icon" src="../../../resources/img/sidebar/home.png"><span>홈</span></a></li>
 	               <li><a href="/attendance/mainView"><img class="side-icon" src="../../../resources/img/sidebar/atten.png"><span>근태관리</span></a></li>
 	               <li><a href="/schedule/list"><img class="side-icon" src="../../../resources/img/sidebar/schedule.png"><span>일정관리</span></a></li>
 	               <li><a href="/todo/mainView"><img class="side-icon" src="../../../resources/img/sidebar/todo.png"><span>업무관리</span></a></li>
