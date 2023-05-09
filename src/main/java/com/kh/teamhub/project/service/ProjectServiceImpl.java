@@ -83,4 +83,11 @@ public class ProjectServiceImpl implements ProjectService {
 		return result;
 	}
 
+	// 상은 홈화면 프로젝트 리스트
+	@Override
+	public List<Project> selectList(String userId) {
+		List<Project> pList = pStore.selectList(userId);
+		return pList;
+	}
+
 }

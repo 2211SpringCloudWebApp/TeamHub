@@ -104,7 +104,7 @@ main{
 	height: 75px;
 }
 
-#sideBar li a {
+.sideBar-a{
     display: block;
     color: #000;
     text-decoration: none;
@@ -113,7 +113,7 @@ main{
     line-height: 0;
 }
 
-#sideBar li a:hover {
+.sideBar-a:hover {
     background-color: #2653e8ba;
     color: white;
 }

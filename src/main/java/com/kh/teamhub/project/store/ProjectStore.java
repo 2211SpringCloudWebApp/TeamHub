@@ -92,4 +92,6 @@ public interface ProjectStore {
 	 */
 	int removeKanban(int kanbanNo);
 
+	List<Project> selectList(String userId);
+
 }

@@ -35,7 +35,7 @@
 		width: 170px;
 	    height: 130px;
 	    border-radius: 50%;
-	    margin-left: 85px;
+	    margin-left: 100px;
 	    margin-top: 15px;
 	}
 	#main-user-info-name{
@@ -76,6 +76,16 @@
     background-image: linear-gradient(195deg, #ffffff 0%, #daf3ff 100%);
     box-shadow: 3px 3px 10px 3px rgba(0, 0, 0, 0.3);
 }
+	.project-list{
+		margin-left: 40px;
+	    margin-right: 50px;
+	    margin-bottom: 25px;
+	    background-color: white;
+	    border: 1px solid black;
+	    width: 300px;
+	    font-size: 18px;
+	    padding: 10px 15px 10px 15px;
+	}
 #main-todo{
     width: 550px;
     height: 220px;

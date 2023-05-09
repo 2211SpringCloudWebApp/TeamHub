@@ -56,7 +56,7 @@ public class UserController {
 			if(loginUser != null) {
 				HttpSession session = request.getSession();
 				session.setAttribute("user", loginUser);
-				return "main/home";
+				return "redirect:/";
 			} else {
 				return "main/login";
 			}

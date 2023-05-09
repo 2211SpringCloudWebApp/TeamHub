@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.kh.teamhub.board.domain.Notice;
 import com.kh.teamhub.board.service.NoticeService;
 import com.kh.teamhub.common.LoginUtil;
+import com.kh.teamhub.project.domain.Project;
+import com.kh.teamhub.project.service.ProjectService;
+import com.kh.teamhub.user.domain.User;
 
 /**
  * Handles requests for the application home page.
@@ -31,27 +35,30 @@ public class HomeController {
 	private LoginUtil loginUtil;
 	@Autowired
 	private NoticeService nService;
+	@Autowired
+	private ProjectService pService;
 	
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model, HttpServletRequest request) throws Exception {
+	public String home(Locale locale, Model model, HttpServletRequest request, HttpSession session) throws Exception {
 		if(loginUtil.checkLogin(request)) {    
 			return "main/login";	 // 비로그인시 로그인 페이지로 이동.
 		}
-		
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
 		String formattedDate = dateFormat.format(date);
-		
 		model.addAttribute("serverTime", formattedDate );
+
 		
+		User user = (User)session.getAttribute("user");
 		
 		// 홈화면 공지사항 리스트 넘겨주기
 		List<Notice> nList = nService.selectList();
+		List<Project> pList = pService.selectList(user.getUserId());
 		model.addAttribute("nList", nList);
+		model.addAttribute("pList", pList);
+		
 		
 		return "/main/home";
 	}

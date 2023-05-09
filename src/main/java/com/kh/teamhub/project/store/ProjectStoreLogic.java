@@ -92,4 +92,11 @@ public class ProjectStoreLogic implements ProjectStore {
 		return result;
 	}
 
+	// 상은 홈화면 프로젝트 리스트
+	@Override
+	public List<Project> selectList(String userId) {
+		List<Project> pList = session.selectList("ProjectMapper.selectList", userId);
+		return pList;
+	}
+
 }

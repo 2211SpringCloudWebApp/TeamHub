@@ -100,7 +100,16 @@
 								<p class="main-title" style="margin-top: 10px;">내 정보</p>
 							</div>
 							<div>
-								<img id="main-user-img" src="../../../resources/img/main/p9s9e9-img.jpg">
+								<c:if test="${!empty user.userFileName }">
+									<div>
+										<img id="main-user-img" src="../../../resources/fileUploads/${user.userFileName }" width="50px" height="50px">
+									</div>
+								</c:if>
+								<c:if test="${empty user.userFileName }">
+									<div>
+										<img id="main-user-img" src="../../../resources/img/main/userlogo.png" width="50px" height="50px">
+									</div>
+								</c:if>
 							</div>
 							<div id="main-user-info">
 								<p id="main-user-info-name">${sessionScope.user.userName } ${sessionScope.user.positionName }</p>
@@ -112,8 +121,16 @@
 						</div>
 						<div id="main-project">
 							<div>
-								<p class="main-title" style="margin-top: 10px;">참여중인 프로젝트</p>
-								
+								<p class="main-title" style="margin-top: 10px; margin-bottom: 20px;">참여중인 프로젝트</p>
+								<c:forEach items="${pList }" var="project">
+									<a href="/project/detail/${project.projectNo }">
+										<div class="project-list">
+											<p style="border-bottom: 1px solid gray; margin-bottom: 10px;">${project.projectName }</p>
+											<p style="font-size: 16px;">진행상태: ${project.projectStatus }</p>
+											<p style="font-size: 16px;">&nbsp;&nbsp;&nbsp;기간: ${project.projectStart } ~ ${project.projectEnd }</p>
+										</div>
+									</a>
+								</c:forEach>
 							</div>
 						</div>
 					</div>
