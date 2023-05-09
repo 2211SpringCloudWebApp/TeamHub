@@ -144,6 +144,7 @@ public class ProjectController {
 		return mv;
 	}
 	
+	
 	// 페이징
 	private PageInfo getPageInfo(int currentPage, int totalCount) {
 		PageInfo pi = null;
@@ -163,6 +164,7 @@ public class ProjectController {
 		return pi;
 	}
 	
+	
 	// 칸반보드 추가
 	@ResponseBody
 	@RequestMapping(value="/addKanban", method=RequestMethod.POST)
@@ -174,14 +176,7 @@ public class ProjectController {
 			return "fail";
 		}
 	}
-	
-	// 칸반보드 수정
-	@ResponseBody
-	@RequestMapping(value="/editKanban", method=RequestMethod.POST)
-	public String editKanban() {
-		return null;
-	}
-	
+
 	// 칸반보드 삭제
 	@ResponseBody
 	@RequestMapping(value="/deleteKanban", method=RequestMethod.GET)
@@ -199,11 +194,21 @@ public class ProjectController {
 	@RequestMapping(value="/showKanban", method=RequestMethod.GET, produces="application/json;charset=utf-8")
 	public String showKanban(@RequestParam("projectNo") int projectNo) {
 		List<Kanban> kList = pService.selectAllKanban(projectNo);
-		if(!kList.isEmpty()) {
-			Gson gson = new Gson();
-			return gson.toJson(kList);
-		}
-		return "";
+//		if(!kList.isEmpty()) {
+		Gson gson = new Gson();
+		return gson.toJson(kList);
+//		}
+//		return "";
 	}
+	
+	
+	/*
+	 * // 칸반보드 수정
+	 * 
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping(value="/editKanban", method=RequestMethod.POST) public String
+	 * editKanban() { return null; }
+	 */
 	
 }
