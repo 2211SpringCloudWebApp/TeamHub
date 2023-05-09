@@ -72,15 +72,15 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public List<Kanban> selectAllKanban(int projectNo) {
-		List<Kanban> kList = pStore.selectAllKanban(projectNo);
-		return kList;
-	}
-
-	@Override
 	public int removeKanban(int kanbanNo) {
 		int result = pStore.removeKanban(kanbanNo);
 		return result;
+	}
+
+	@Override
+	public List<Kanban> selectAllKanban(int projectNo) {
+		List<Kanban> kList = pStore.selectAllKanban(projectNo);
+		return kList;
 	}
 
 }

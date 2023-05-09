@@ -81,15 +81,15 @@ public class ProjectStoreLogic implements ProjectStore {
 	}
 
 	@Override
-	public List<Kanban> selectAllKanban(int kanbanNo) {
-		List<Kanban> kList = session.selectList("ProjectMapper.selectAllKanban", kanbanNo);
-		return kList;
-	}
-
-	@Override
 	public int removeKanban(int kanbanNo) {
 		int result = session.delete("ProjectMapper.deleteKanban", kanbanNo);
 		return result;
+	}
+
+	@Override
+	public List<Kanban> selectAllKanban(int kanbanNo) {
+		List<Kanban> kList = session.selectList("ProjectMapper.selectAllKanban", kanbanNo);
+		return kList;
 	}
 
 }
