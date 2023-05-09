@@ -30,6 +30,14 @@ if(session.getAttribute("user") == null){
 		#sideBar ul{
 			padding: 0 !important;
 		}
+			.btnbtn {
+		   	background-color: skyblue;
+		    width: 200px;
+		    height: 60px;
+		    border: 1px;
+		    margin: 50px 0px;
+		    font-size: 21px;
+		}
 		
 	
 		</style>
@@ -40,14 +48,15 @@ if(session.getAttribute("user") == null){
 		<jsp:include page="../../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
 			<h1> 자유게시판 </h1>
+			<button class="btnbtn" onclick="location.href='/free/writeView';">게시글 작성</button>
 			<ul id="search">
 				<li style="color: #275ab5"><a href="/free/list"><h5>자유게시판</h5></a></li>
 				<li><a href="/notice/list"><h5>공지사항</h5></a></li>
 				 <c:if test="${sessionScope.user.userType eq 1}">
                 <li><a href="/report/list"><h5>신고게시판</h5></a></li>
                 <li><a href="/free/blacklist"><h5>정지 리스트</h5></a></li>
-            	</c:if>
-	           
+	            </c:if>
+	             
 			</ul>
 			</div>
 			<jsp:include page="../../common/header.jsp"></jsp:include>
@@ -139,7 +148,7 @@ if(session.getAttribute("user") == null){
 										      </c:otherwise>
 										    </c:choose>
 										  " 
-										  class="btn btn-primary">게시판 쓰기
+										  class="btn btn-primary">게시판 작성
 										</button>
 							</td>
 						</tr>

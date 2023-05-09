@@ -113,7 +113,11 @@ public class NoticeController {
 			User user = (User)session.getAttribute("user");
 			if(user != null) {
 				if(1 == user.getUserType()) {
+					return "board/notice/write";
 				}
+				else {
+				}
+				
 				}
 			return "redirect:/notice/list";
 		}

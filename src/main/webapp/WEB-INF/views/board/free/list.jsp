@@ -15,13 +15,7 @@ if(session.getAttribute("user") == null){
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   </head>
 		<style>
-		#sideBar li:nth-child(9){
-		    background-color: #2653e8ba;
-  				
-		}
-		#sideBar li:nth-child(9) a{
-			color: white !important;
-		}
+		
 		table{
 			border : 1px solid black;
 		}
@@ -37,6 +31,15 @@ if(session.getAttribute("user") == null){
 		background-color: #FAFAFA;
 		}
 		
+		.btnbtn {
+		   	background-color: skyblue;
+		    width: 200px;
+		    height: 60px;
+		    border: 1px;
+		    margin: 50px 0px;
+		    font-size: 21px;
+		}
+		
 		</style>
 	</head>
 	
@@ -45,6 +48,7 @@ if(session.getAttribute("user") == null){
 		<jsp:include page="../../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
 			<h1> 자유게시판 </h1>
+			<button class="btnbtn" onclick="location.href='/free/writeView';">게시글 작성</button>
 			<ul id="search">
 				<li style="color: #275ab5"><a href="/free/list"><h5>자유게시판</h5></a></li>
 				<li><a href="/notice/list"><h5>공지사항</h5></a></li>
@@ -146,7 +150,7 @@ if(session.getAttribute("user") == null){
 										      </c:otherwise>
 										    </c:choose>
 										  " 
-										  class="btn btn-primary">게시판 쓰기
+										  class="btn btn-primary">게시판 작성
 										</button>
 							</td>
 						</tr>
