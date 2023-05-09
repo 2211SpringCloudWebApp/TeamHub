@@ -44,6 +44,8 @@
 						<a href="/user/userStateList">목록</a>
 					</div>
 					<form action="/user/modify" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="userFileName" value="${user.userFileName }">
+						<input type="hidden" name="userfilePath" value="${user.userfilePath }">
 						<div class="infoForm">
 							<div class="imgArea">
 								<c:if test="${!empty user.userFileName }">
