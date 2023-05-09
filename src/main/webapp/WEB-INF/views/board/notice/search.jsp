@@ -66,7 +66,7 @@ if(session.getAttribute("user") == null){
 							<th>작성자</th>
 							<th>작성날짜</th>
 							<th>조회수</th>
-						<!--   	<th>첨부파일</th> -->
+						<!--   	<th>첨부파일</th>bbnnb -->
 						</tr>
 					</thead>
 					<tbody>
