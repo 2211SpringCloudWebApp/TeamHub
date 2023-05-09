@@ -12,17 +12,30 @@
 #main-box-center{
 	margin-left: 30px;
 	margin-top: 30px;	
-}
+} 
+
 #main-box-right{
 	margin-left: 30px;
 	margin-top: 30px;	
 }
+.main-bookmark-3{
+	position: absolute;
+    width: 45px;
+    height: 45px;
+    top: 719px;
+    left: 749px;
+}
 .main-title{
     margin-left: 10px;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 21px;
+    color: black;
+    border-bottom: 1px solid black;
+    /* #a1c4fd #6060ff */
+    text-align: center;
 }
-
+.main-title-span{
+}
 
 #main-user{
     width: 380px;
@@ -94,6 +107,7 @@
     border: 1px solid gray;
     background-image: linear-gradient(195deg, #ffffff 0%, #daf3ff 100%);
     box-shadow: 3px 3px 10px 3px rgba(0, 0, 0, 0.3);
+    margin-left: 86px;
 }
 #main-notice{
     width: 380px;
