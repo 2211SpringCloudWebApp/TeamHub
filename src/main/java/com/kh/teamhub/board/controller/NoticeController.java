@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,6 +29,7 @@ import com.kh.teamhub.board.service.NoticeService;
 import com.kh.teamhub.common.LoginUtil;
 import com.kh.teamhub.common.file.FileUtil;
 import com.kh.teamhub.common.socket.EchoHandler;
+import com.kh.teamhub.user.domain.User;
 
 @Controller
 public class NoticeController {
@@ -51,6 +53,7 @@ public class NoticeController {
 				Model model
 				, @RequestParam(value="page", required=false, defaultValue="1") Integer page)
 		{
+			
 			int totalCount = nService.getListCount();
 			PageInfo pi = this.getPageInfo(page, totalCount);
 			List<NoticePlus> nList = nService.selectNoticeList(page);
@@ -106,9 +109,13 @@ public class NoticeController {
 		
 		// 공지사항 등록화면
 		@RequestMapping(value = "/notice/writeView", method = RequestMethod.GET)
-		public String writeView() {
-			
-			return "board/notice/write";
+		public String writeView(HttpSession session) {
+			User user = (User)session.getAttribute("user");
+			if(user != null) {
+				if(1 == user.getUserType()) {
+				}
+				}
+			return "redirect:/notice/list";
 		}
 
 		// 공지사항 등록
@@ -143,9 +150,26 @@ public class NoticeController {
 		}
 
 		// 공지사항 수정화면
+		/*
+		 * @RequestMapping(value="/notice/modifyView", method=RequestMethod.GET) public
+		 * String freeModifyView(@RequestParam("noticeNo") Integer noticeNo , Model
+		 * model ) { try { Notice notice = nService.selectOneById(noticeNo);
+		 * List<FreeFile> nList = nService.selectFileList(noticeNo); if(notice != null)
+		 * { model.addAttribute("notice", notice); model.addAttribute("freefile",
+		 * nList); return "board/notice/modify"; }else {
+		 * model.addAttribute("msg","데이터 조회에 실패하였습니다"); return "common/error"; } } catch
+		 * (Exception e) { e.printStackTrace(); model.addAttribute("msg",
+		 * e.getMessage()); return "common/error"; } }
+		 */
+		
 		@RequestMapping(value="/notice/modifyView", method=RequestMethod.GET)
 		public String freeModifyView(@RequestParam("noticeNo") Integer noticeNo
-				, Model model) {
+				, Model model
+				, HttpSession session
+				) {
+			User user = (User)session.getAttribute("user");
+			if(user != null) {
+				if(1 == user.getUserType()) {
 			try {
 				Notice notice = nService.selectOneById(noticeNo);
 				List<FreeFile> nList = nService.selectFileList(noticeNo);
@@ -153,6 +177,7 @@ public class NoticeController {
 					model.addAttribute("notice", notice);
 					model.addAttribute("freefile", nList);
 					return "board/notice/modify";
+			
 				}else {
 					model.addAttribute("msg","데이터 조회에 실패하였습니다");
 					return "common/error";
@@ -162,6 +187,9 @@ public class NoticeController {
 				model.addAttribute("msg", e.getMessage());
 				return "common/error";
 			}
+		}
+			}
+			return "redirect:/notice/list";
 		}
 		
 		//공지사항 수정

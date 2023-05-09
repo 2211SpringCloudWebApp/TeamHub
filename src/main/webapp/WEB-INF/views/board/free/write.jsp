@@ -31,11 +31,7 @@ if(session.getAttribute("user") == null){
 		#sideBar ul{
 			padding: 0 !important;
 		}
-		#search li{
-			list-style-type: square !important;
-			border-bottom: none;
-		}
-		
+	
 	
 		
 		.board_write{
@@ -170,6 +166,7 @@ if(session.getAttribute("user") == null){
 
         if (title == "" || content == "") {
             alert("제목과 내용은 필수 입력 항목입니다.");
+         
         } else {
             document.getElementById("freeForm").submit();
         }
