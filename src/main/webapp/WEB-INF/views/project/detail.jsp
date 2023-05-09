@@ -123,25 +123,26 @@
 				
 				<div id="mid-area">
 					<div class="progress-bar">
-						<div class="progress" id="project-progress"></div>
+						<div class="progress" id="project-progress" aria-label="pLabel"></div>
 					</div>
-					<h3 id="progress" class="mt-10"></h3>
-					<!-- 계산식 {(완료)+0.5*(진행중)/(전체-중지)}*100 -->
 				</div>
 				
 				<div id="btm-area">
 					<h4 style="font-weight:bold; padding-left: 25px;">칸반보드</h4>
 					<div id="kanban-area">
 					<input type="hidden" id="projectNo" name="projectNo" value="${project.projectNo }">
+					<input type="hidden" id="projectStatus" name="projectStatus" value="${project.projectStatus }">
 						<div class="col" data-order="0">
 							<div class="kanban-wrap">
 								<div class="kanban-plus">
 									<h5 id="beforeView"></h5>
-									<button class="btn-plus" onclick="showinput('section0');">&#10133;</button>
+									<c:if test="${project.projectStatus == '진행'}">
+										<button class="btn-plus" onclick="showinput('section0');">&#10133;</button>
+									</c:if>
 								</div>
 								<section class="section" id="section0">
 									<div id="kanban-input-section0" style="display:none">
-										<p>칸반보드 추가</p>
+										<br>
 										<ul>
 											<li>
 												<label for="">담당자</label><input type="text" id="kUsername0" value="${user.userName }" readonly>
@@ -163,11 +164,13 @@
 							<div class="kanban-wrap">
 								<div class="kanban-plus">
 									<h5 id="planView"></h5>
-									<button class="btn-plus" onclick="showinput('section1');">&#10133;</button>
+									<c:if test="${project.projectStatus == '진행'}">
+										<button class="btn-plus" onclick="showinput('section1');">&#10133;</button>
+									</c:if>
 								</div>
 								<section class="section" id="section1">
-									<div id="kanban-input-section1" style="display:none">	
-										<p>칸반보드 추가</p>
+									<div id="kanban-input-section1" style="display:none">
+										<br>	
 										<ul>
 											<li>
 												<label for="">담당자</label><input type="text" id="kUsername1" value="${user.userName }" readonly>
@@ -189,11 +192,13 @@
 							<div class="kanban-wrap">
 								<div class="kanban-plus">
 									<h5 id="proceedingView"></h5>
-									<button class="btn-plus" onclick="showinput('section2');">&#10133;</button>
+									<c:if test="${project.projectStatus == '진행'}">
+										<button class="btn-plus" onclick="showinput('section2');">&#10133;</button>
+									</c:if>
 								</div>
 								<section class="section" id="section2">
 									<div id="kanban-input-section2" style="display:none">	
-										<p>칸반보드 추가</p>
+										<br>
 										<ul>
 											<li>
 												<label for="">담당자</label><input type="text" id="kUsername2" value="${user.userName }" readonly>
@@ -215,11 +220,13 @@
 							<div class="kanban-wrap">
 								<div class="kanban-plus">
 									<h5 id="completeView"></h5>
-									<button class="btn-plus" onclick="showinput('section3');">&#10133;</button>
+									<c:if test="${project.projectStatus == '진행'}">
+										<button class="btn-plus" onclick="showinput('section3');">&#10133;</button>
+									</c:if>
 								</div>
 								<section class="section" id="section3">
-									<div id="kanban-input-section3" style="display:none">	
-										<p>칸반보드 추가</p>
+									<div id="kanban-input-section3" style="display:none">
+										<br>	
 										<ul>
 											<li>
 												<label for="">담당자</label><input type="text" id="kUsername3" value="${user.userName }" readonly>
@@ -241,11 +248,13 @@
 							<div class="kanban-wrap">
 								<div class="kanban-plus">
 									<h5 id="stopView"></h5>
-									<button class="btn-plus" onclick="showinput('section4');">&#10133;</button>
+									<c:if test="${project.projectStatus == '진행'}">
+										<button class="btn-plus" onclick="showinput('section4');">&#10133;</button>
+									</c:if>
 								</div>
 								<section class="section" id="section4">
 									<div id="kanban-input-section4" style="display:none">
-										<p>칸반보드 추가</p>
+										<br>
 										<ul>
 											<li>
 												<label for="">담당자</label><input type="text" id="kUsername4" value="${user.userName }" readonly>
@@ -406,26 +415,7 @@
 		        });
 		    }
  			
-// 			function getKanbanList(callback) {
-// 				  var pNo = $("#projectNo").val();
-// 				  $.ajax({
-// 				    url: "/project/showKanban",
-// 				    type: "get",
-// 				    data: { "projectNo": pNo },
-// 				    async: false,
-// 				    success: function (data) {
-// 				      if (callback) {
-// 				        callback(data); // 받아온 데이터를 콜백 함수의 인자로 전달
-// 				      }
-// 				    },
-// 				    error: function (xhr, status, error) {
-// 				      console.log("ajax 요청 실패: " + error);
-// 				      alert("ajax 실패!");
-// 				    }
-// 				  });
-// 				}
-
-			// DOM 조작 별도 수행
+			// DOM 조작
 			$(document).ready(function () {
 				getKanbanList();
 			});
@@ -450,16 +440,20 @@
 				        $divTwo.html("");
 				        $divThree.html("");
 				        $divFour.html("");
-				        for (var i = 0; i < data.length; i++) {
+				         for (var i = 0; i < data.length; i++) {
 				            var $table = $("<table class='kanban-wrap kanbanCard' data-number='" + data[i].kanbanNo + "'>");
 				            var $trHead = $("<tr class='kanbanHead'>");
 				            var $trBody = $("<tr class='kanbanBody'>");
-				            var $userName = $("<td>").text(data[i].userName).append("<button class='exit' onclick='delKanban("+data[i].kanbanNo+");'>&#10006;</button>");
-				            var $kanbanContent = $("<td>").text(data[i].kanbanContent);
-				            $trHead.append($userName);
+				            var $userName = $("<td>").text(data[i].userName);
+				            var $exitBtn = $("<td id='exit'>").append("<button class='exit' onclick='delKanban("+data[i].kanbanNo+");'>&#10006;</button>");
+				            var $kanbanContent = $("<td colspan='2'>").text(data[i].kanbanContent);
+				            if (${project.projectStatus == '진행'}) {
+						        $trHead.append($userName).append($exitBtn);
+						    } else {
+						        $trHead.append($userName);
+						    }
 				            $trBody.append($kanbanContent);
-				            $table.append($trHead);
-				            $table.append($trBody);
+				            $table.append($trHead).append($trBody);
 				            if(data[i].kanbanStatus == "0") {
 								$divZero.append($table);
 							}else if(data[i].kanbanStatus == "1") {
@@ -476,9 +470,14 @@
 						document.getElementById("planView").innerHTML = "기획("+$("#btbOne >table").length+"/999)";
 						document.getElementById("proceedingView").innerHTML = "진행 중("+$("#btbTwo >table").length+"/999)";
 						document.getElementById("completeView").innerHTML = "완료("+$("#btbThree >table").length+"/999)";
-						document.getElementById("stopView").innerHTML = "중지("+$("#btbFour >table").length+"/999)";
-						var projectProgress =
-							Math.floor((($("#btbThree >table").length + 0.5) * ($("#btbTwo >table").length)) / (count-($("#btbFour >table").length)) * 100);
+						document.getElementById("stopView").innerHTML = "중지("+$("#btbFour >table").length+"/999)"; 
+						var numPlan = $("#btbOne > table").length;
+				        var numProceeding = $("#btbTwo > table").length;
+				        var numComplete = $("#btbThree > table").length;
+				        var countCategories = numPlan + numProceeding + numComplete;
+				        var projectProgress = Math.round((numPlan*0.1)+(numProceeding*0.5)+numComplete / countCategories * 100);
+						document.getElementById("project-progress").innerHTML = "<p>" + projectProgress + "%</p>";
+						document.getElementById("project-progress").style.width = projectProgress + "%";
 				    },
 				    error: function () {
 				      alert("ajax 실패");
