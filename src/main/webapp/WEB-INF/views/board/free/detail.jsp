@@ -69,9 +69,7 @@ if (session.getAttribute("user") == null) {
 	cursor: pointer;
 }
 
-#search li {
-	list-style-type: square !important;
-}
+
 
 #limit{
 	width: 70px;

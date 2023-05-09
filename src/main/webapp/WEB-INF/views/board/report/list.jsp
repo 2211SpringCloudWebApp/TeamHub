@@ -31,9 +31,7 @@ if(session.getAttribute("user") == null){
 		#sideBar ul{
 			padding: 0 !important;
 		}
-		#search li{
-			list-style-type: square !important;
-		}
+	
 		
 		#head{
 		background-color: #FAFAFA;

@@ -36,7 +36,7 @@ if(session.getAttribute("user") == null){
 			padding: 0 !important;
 		}
 		#search li{
-			list-style-type: square !important;
+			
 			border-bottom: none;
 		}
 		
@@ -115,7 +115,7 @@ if(session.getAttribute("user") == null){
 		<div id="container">
 		<jsp:include page="../../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
-			<h1> 자유게시판 </h1>
+			<h1> 공지사항 </h1>
 			<ul id="search">
 				<li><a href="/free/list"><h5>자유게시판</h5></a></li>
 				<li  style="color: #275ab5"><a href="/notice/list"><h5>공지사항</h5></a></li>
@@ -158,11 +158,22 @@ if(session.getAttribute("user") == null){
 					</div>
 					
 					<div id="cancle">
-					<input type="submit" value="등록" onclick="checkForm()" class="btn btn-primary">
+					<input type="submit" value="등록" onclick="return checkForm()" class="btn btn-primary">
 					<input type="reset" value="취소" onclick="location='/notice/list'" class="btn btn-primary">
 					</div>
 				</form>
 			<script>
+			 function checkForm() {
+			        var title = document.getElementsByName("noticeTitle")[0].value;
+			        var content = document.getElementsByName("noticeContent")[0].value;
+
+			        if (title == "" || content == "") {
+			            alert("제목과 내용은 필수 입력 항목입니다.");
+			            return false;
+			        } else {
+			            document.getElementById("noticeform").submit();
+			        }
+			    }
 			
 			// 공지사항 등록 form
 			const form = document.querySelector('form[action="/notice/write"]');
