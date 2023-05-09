@@ -306,7 +306,7 @@
 		const date = String(today.getDate()).padStart(2, '0');
 		const dayList = ['일', '월', '화', '수', '목', '금', '토'];
 		const day = dayList[today.getDay()];
-		const formattedDate = year+"-"+month+"-"+date+"("+day+")";
+		const formattedDate = year+"-"+month+"-"+date+" ("+day+")";
 		$("#today").html(formattedDate);
 		
 		const dpTime = function () { 		// 	실시간시간

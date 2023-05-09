@@ -36,6 +36,14 @@ if(session.getAttribute("user") == null){
 		#head{
 		background-color: #FAFAFA;
 		}
+		.btnbtn{
+			background-color: skyblue;
+			width: 200px;
+			height: 60px;
+			border: 1px;
+			margin: 50px 0px;
+			font-size:21 px;
+		}
 		
 		</style>
 	</head>
@@ -45,6 +53,7 @@ if(session.getAttribute("user") == null){
 		<jsp:include page="../../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
 			<h1> 자유게시판 </h1>
+			<button class="btnbtn" onclick="location.href='/free/writeView';">게시글 작성</button>
 			<ul id="search">
 				<li style="color: #275ab5"><a href="/free/list"><h5>자유게시판</h5></a></li>
 				<li><a href="/notice/list"><h5>공지사항</h5></a></li>
