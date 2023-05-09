@@ -78,6 +78,8 @@ public interface ProjectStore {
 	 */
 	int insertKanban(Kanban kanban);
 
+	int modifyKanban(Kanban kanban);
+
 	/**
 	 * 칸반보드 삭제 Store
 	 * @param kanbanNo
@@ -92,6 +94,7 @@ public interface ProjectStore {
 	 */
 	List<Kanban> selectAllKanban(int kanbanNo);
 
+	
 	List<Project> selectList(String userId);
 
 }

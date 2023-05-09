@@ -98,6 +98,8 @@
 						<div id="btn-area">
 							<c:if test="${project.userName == user.userName && project.projectStatus != '종료'}">
 								<button onclick="showModal();">수정</button>
+							</c:if>
+							<c:if test="${(project.userName == user.userName && project.projectStatus != '종료') || user.userType == 1}">
 								<button onclick="removeCheck('${project.projectNo}');">삭제</button>
 							</c:if>
 						</div>
@@ -158,7 +160,7 @@
 									</div>
 								</section>
 							</div>
-							<div class="kanbanCard" id="btbZero"></div>
+							<div class="kanbanCard" id="btbZero" data-draggable="target"></div>
 						</div>
 						<div class="col" data-order="1">
 							<div class="kanban-wrap">
@@ -186,7 +188,7 @@
 									</div>
 								</section>
 							</div>
-							<div class="kanbanCard" id="btbOne"></div>
+							<div class="kanbanCard" id="btbOne" data-draggable="target"></div>
 						</div>
 						<div class="col" data-order="2">
 							<div class="kanban-wrap">
@@ -214,7 +216,7 @@
 									</div>
 								</section>
 							</div>
-							<div class="kanbanCard" id="btbTwo"></div>
+							<div class="kanbanCard" id="btbTwo" data-draggable="target"></div>
 						</div>
 						<div class="col" data-order="3">
 							<div class="kanban-wrap">
@@ -242,7 +244,7 @@
 									</div>
 								</section>
 							</div>
-							<div class="kanbanCard" id="btbThree"></div>
+							<div class="kanbanCard" id="btbThree" data-draggable="target"></div>
 						</div>
 						<div class="col" data-order="4">
 							<div class="kanban-wrap">
@@ -270,7 +272,7 @@
 									</div>
 								</section>
 							</div>
-							<div class="kanbanCard" id="btbFour"></div>
+							<div class="kanbanCard" id="btbFour" data-draggable="target"></div>
 						</div>
 					</div>
 				</div>
@@ -441,7 +443,7 @@
 				        $divThree.html("");
 				        $divFour.html("");
 				         for (var i = 0; i < data.length; i++) {
-				            var $table = $("<table class='kanban-wrap kanbanCard' data-number='" + data[i].kanbanNo + "'>");
+				            var $table = $("<table class='kanban-wrap kanbanCard' data-draggable='item' data-number='" + data[i].kanbanNo + "'>");
 				            var $trHead = $("<tr class='kanbanHead'>");
 				            var $trBody = $("<tr class='kanbanBody'>");
 				            var $userName = $("<td>").text(data[i].userName);
@@ -506,6 +508,80 @@
 					}
 				});
 				}
+			}
+			
+			// 드래그앤드롭
+			$(function(){
+				getKanbanList();
+				if
+				(
+					!document.querySelectorAll 
+					|| 
+					!('draggable' in document.createElement('span')) 
+					|| 
+					window.opera
+				) 
+				{ return; }
+				
+				for(var 
+					items = document.querySelectorAll('[data-draggable="item"]'), 
+					len = items.length, 
+					i = 0; i < len; i ++)
+				{
+					items[i].setAttribute('draggable', 'true');
+				}
+				
+				var item = null;
+		
+				document.addEventListener('dragstart', function(e)
+				{
+					item = e.target;
+					e.dataTransfer.setData('text', '');
+				
+				}, false);
+		
+				document.addEventListener('dragover', function(e)
+				{
+					if(item)
+					{
+						e.preventDefault();
+					}
+				
+				}, false);	
+		
+				document.addEventListener('drop', function(e)
+				{
+					if(e.target.getAttribute('data-draggable') == 'target')
+					{
+						e.target.appendChild(item);
+						
+						e.preventDefault();
+						modifyKanban(item);
+					}
+				}, false);
+				
+				document.addEventListener('dragend', function(e)
+				{
+					item = null;
+				
+				}, false);
+			});
+			
+			// 칸반보드 드래그앤드롭 시 상태값 수정
+			function modifyKanban(obj) {
+				var kanbanNo = $(obj).attr("data-number");
+				var kanbanStatus = $(obj).parent().parent().attr("data-order");
+				$.ajax({
+					url : "/project/editKanban",
+					type : "post",
+					data : { "kanbanNo" : kanbanNo, "kanbanStatus" : kanbanStatus},
+					success : function(data) {
+						location.reload();
+					},
+					error : function() {
+						alert("ajax 실패!");
+					}
+				});
 			}
 		</script>
 	</body>

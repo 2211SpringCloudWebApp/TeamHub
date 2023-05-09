@@ -119,6 +119,12 @@
 	<insert id="insertKanban" parameterType="Kanban">
 		INSERT INTO PROJECT_KANBAN_TBL VALUES(SEQ_PROJECT_KANBAN_NO.NEXTVAL, #{projectNo}, #{userName}, #{kanbanContent}, #{kanbanStatus})
 	</insert>
+	<!-- 칸반보드 드래그앤드롭 시 상태값 수정 -->
+	<update id="updateKanban" parameterType="Kanban">
+		UPDATE PROJECT_KANBAN_TBL SET
+		KANBAN_STATUS = #{kanbanStatus}
+		WHERE KANBAN_NO = #{kanbanNo}
+	</update>
 	<!-- 칸반보드 삭제 -->
 	<delete id="deleteKanban">
 		DELETE FROM PROJECT_KANBAN_TBL WHERE KANBAN_NO = #{kanbanNo}
@@ -130,6 +136,7 @@
 		WHERE PROJECT_NO = #{projectNo}
 		ORDER BY KANBAN_NO DESC
 	</select>
+		
 	
 	<!--  상은 홈화면 프로젝트 리스트 -->
 	<select id="selectList" resultMap="ProjectResultMap">

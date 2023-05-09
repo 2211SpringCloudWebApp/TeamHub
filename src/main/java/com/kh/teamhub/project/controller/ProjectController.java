@@ -177,6 +177,22 @@ public class ProjectController {
 		}
 	}
 
+	// 칸반보드 수정
+	@ResponseBody
+	@RequestMapping(value="/editKanban", method=RequestMethod.POST)
+	public String editKanban(@ModelAttribute Kanban kanban
+			, @RequestParam("kanbanNo") int kanbanNo
+			, @RequestParam("kanbanStatus") String kanbanStatus) {
+		kanban.setKanbanNo(kanbanNo);
+		kanban.setKanbanStatus(kanbanStatus);
+		int result = pService.modifyKanban(kanban);
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+
 	// 칸반보드 삭제
 	@ResponseBody
 	@RequestMapping(value="/deleteKanban", method=RequestMethod.GET)
@@ -200,15 +216,5 @@ public class ProjectController {
 //		}
 //		return "";
 	}
-	
-	
-	/*
-	 * // 칸반보드 수정
-	 * 
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping(value="/editKanban", method=RequestMethod.POST) public String
-	 * editKanban() { return null; }
-	 */
-	
+	 
 }

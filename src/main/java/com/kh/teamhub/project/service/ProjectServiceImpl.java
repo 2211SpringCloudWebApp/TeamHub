@@ -72,6 +72,12 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
+	public int modifyKanban(Kanban kanban) {
+		int result = pStore.modifyKanban(kanban);
+		return result;
+	}
+
+	@Override
 	public int removeKanban(int kanbanNo) {
 		int result = pStore.removeKanban(kanbanNo);
 		return result;

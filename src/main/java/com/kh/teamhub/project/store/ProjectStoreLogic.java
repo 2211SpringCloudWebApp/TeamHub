@@ -81,6 +81,12 @@ public class ProjectStoreLogic implements ProjectStore {
 	}
 
 	@Override
+	public int modifyKanban(Kanban kanban) {
+		int result = session.update("ProjectMapper.updateKanban", kanban);
+		return result;
+	}
+
+	@Override
 	public int removeKanban(int kanbanNo) {
 		int result = session.delete("ProjectMapper.deleteKanban", kanbanNo);
 		return result;
