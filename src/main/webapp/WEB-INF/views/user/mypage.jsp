@@ -45,7 +45,7 @@
 						</div>
 						<div class="infoArea">
 							<label>사진</label> <input type="file" name="uploadFile" onchange="loadImg(this)"><br>
-							<label>사원번호 </label><input type="text" name="userId" value="${user.userId }" readonly><br>
+							<label>아이디 </label><input type="text" name="userId" value="${user.userId }" readonly><br>
 							<label>비밀번호 </label><input type="password" name="userPw" value="${user.userPw }"><br>
 							<label>사원명 </label><input type="text" name="userName" value="${user.userName }" readonly><br>
 							<label>부서 </label><input type="text" name="deptName" value="${user.deptName }" readonly><br>

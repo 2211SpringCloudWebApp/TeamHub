@@ -88,7 +88,14 @@ if (session.getAttribute("user") == null) {
 #rContent{
 	width: 1100px;
 }
-
+.btnbtn{
+			background-color: skyblue;
+			width: 200px;
+			height: 60px;
+			border: 1px;
+			margin: 50px 0px;
+			font-size:21 px;
+		}
 
 </style>
 </head>
@@ -98,6 +105,7 @@ if (session.getAttribute("user") == null) {
 		<jsp:include page="../../common/sideBar.jsp"></jsp:include>
 		<div id="subSideBar">
 			<h1>자유게시판</h1>
+			<button class="btnbtn" onclick="location.href='/free/writeView';">게시글 작성</button>
 			<ul id="search">
 				<li style="color: #275ab5"><a href="/free/list"><h5>자유게시판</h5></a></li>
 				<li><a href="/notice/list"><h5>공지사항</h5></a></li>
@@ -468,6 +476,13 @@ if (session.getAttribute("user") == null) {
 								//	$("#rWriter").val("");
 									$("#rContent").val("");
 									getReplyList();
+									
+									// 상은 댓글 알람 부분 //
+									var boardWriter = "${free.userId }";
+									var replyWriter = "${user.userName}";
+									var msg = boardWriter+","+"댓글,"+replyWriter+","+"/free/detail?freeNo="+freeNo;
+									socket.send(msg);
+									/////////////////////////
 								}else{
 									alert("[에러 발생] 로그 확인 필요")
 									console.log(result);

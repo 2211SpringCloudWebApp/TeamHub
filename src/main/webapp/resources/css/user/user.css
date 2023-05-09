@@ -19,6 +19,10 @@
     border-radius: 5px;
 }
 
+/* #orgList ul { */
+/* 	font-weight: bold; */
+/* } */
+
 #subSideBar {
 	font-size: 21px;
 	line-height: 40px;
@@ -53,7 +57,7 @@ main .mainTitle {
 main .tableTitle {
 	margin-top: 50px;
 	margin-bottom: 50px;
-	margin-left: 80px;
+	margin-left: 110px;
 	font-size: 21px;
 }
 

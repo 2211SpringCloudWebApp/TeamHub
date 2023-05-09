@@ -129,12 +129,13 @@
 					</li>
 					<li style="padding: 0px; height: 60px; padding-left: 30px;">
 						<div class="imgArea">
-							<c:if test="${!empty user.userFileName }">
+							<c:if test="${!empty sessionScope.user.userFileName }">
+				<%-- ${sessionScope.user.userFileName } : 그냥 ${user.userFileName }로 하면 사원관리 들어갔을때 클릭한 사원의 사진으로 바뀜 --%>
 								<div>
-									<img alt="" src="../../../resources/fileUploads/${user.userFileName }" width="60px" height="60px" style="border-radius: 50%;">
+									<img alt="" src="../../../resources/fileUploads/${sessionScope.user.userFileName }" width="60px" height="60px" style="border-radius: 50%;">
 								</div>
 							</c:if>
-							<c:if test="${empty user.userFileName }">
+							<c:if test="${empty sessionScope.user.userFileName }">
 								<div>
 									<img alt="" src="../../../resources/img/main/userlogo.png" width="60px" height="60px" style="border-radius: 50%;">
 								</div>

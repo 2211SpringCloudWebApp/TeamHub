@@ -32,6 +32,14 @@ if(session.getAttribute("user") == null){
 		.container{
 			height: 800px;
 		}
+		.btnbtn{
+			background-color: skyblue;
+			width: 200px;
+			height: 60px;
+			border: 1px;
+			margin: 50px 0px;
+			font-size:21 px;
+		}
 		
 		
 		
@@ -44,7 +52,7 @@ if(session.getAttribute("user") == null){
 		<div id="container">
 		<jsp:include page="../../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
-			<h1> 공지사항 </h1>
+			<h1 style="margin-bottom: 121px;"> 공지사항 </h1>
 			<ul id="search">
 				<li><a href="/free/list"><h5>자유게시판</h5></a></li>
 				<li  style="color: #275ab5"><a href="/notice/list"><h5>공지사항</h5></a></li>
