@@ -34,12 +34,12 @@
 						<div class="imgArea">
 							<c:if test="${!empty user.userFileName }">
 							<div>
-								<img alt="" src="../resources/fileUploads/${user.userFileName }" width="340px" height="330px">
+								<img alt="" src="../../../resources/fileUploads/${user.userFileName }" width="340px" height="330px">
 							</div>
 							</c:if>
 							<c:if test="${empty user.userFileName }">
 							<div>
-								<img alt="" src="../resources/img/main/userlogo.png" width="340px" height="330px">
+								<img alt="" src="../../../resources/img/main/userlogo.png" width="340px" height="330px">
 							</div>
 							</c:if>
 						</div>
