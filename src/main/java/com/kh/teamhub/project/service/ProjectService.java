@@ -87,4 +87,6 @@ public interface ProjectService {
 	 */
 	List<Kanban> selectAllKanban(int projectNo);
 
+	List<Project> selectList(String userId);
+
 }

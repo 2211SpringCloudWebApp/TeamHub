@@ -83,4 +83,9 @@ public class NoticeServiceImpl implements NoticeService{
 		Notice noticeAlram = nStore.selectNotice(session);
 		return noticeAlram;
 	}
+	@Override
+	public List<Notice> selectList() {
+		List<Notice> nList = nStore.selectList(session);
+		return nList;
+	}
 }

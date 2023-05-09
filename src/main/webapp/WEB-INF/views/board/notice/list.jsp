@@ -23,11 +23,15 @@ if(session.getAttribute("user") == null){
 		}
 		#sideBar ul{
 			padding: 0 !important;
-		}
-		#search li{
-			list-style-type: square !important;
+			
 		}
 		
+		
+		
+		
+		#head{
+		background-color: #FAFAFA;
+		}
 		</style>
 	
 	
@@ -35,7 +39,7 @@ if(session.getAttribute("user") == null){
 		<div id="container">
 			<jsp:include page="../../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
-			<h1> 자유게시판 </h1>
+			<h1> 공지사항 </h1>
 			<ul id="search">
 				<li><a href="/free/list"><h5>자유게시판</h5></a></li>
 				<li style="color: #275ab5"><a href="/notice/list"><h5>공지사항</h5></a></li>
@@ -50,7 +54,7 @@ if(session.getAttribute("user") == null){
 				<table class="table table-hover">
 				<h2>공지사항 </h2>
 					<thead>
-						<tr>
+						<tr id="head">
 							<th>번호</th>
 							<th>제목</th>
 							<th>작성자</th>
@@ -78,12 +82,6 @@ if(session.getAttribute("user") == null){
 							<td>${notice.userId }</td>
 							<td>${notice.noticeWriteDate }</td>
 							<td>${notice.noticeCount }</td>
-							
-							
-						<%-- 	<td>
-								<c:if test= "${not empty free.freeFilename }">O</c:if>
-								<c:if test= "${empty free.freeFilename }">X</c:if>
-							</td> --%>
 						</tr>
 						</c:forEach>
 					</tbody>
@@ -108,7 +106,7 @@ if(session.getAttribute("user") == null){
 									<option value="title">제목</option>
 									<option value="content">내용</option>
 								</select> <input type="text" id="id" name="searchValue" placeholder="검색어를 입력하세요">
-								<input type="submit" value="검색" onclick="return check()">
+								<input type="submit" value="검색" onclick="return check()" class="btn btn-primary">
 							</form>
 						</td>
 	

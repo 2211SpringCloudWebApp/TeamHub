@@ -31,8 +31,10 @@ if(session.getAttribute("user") == null){
 		#sideBar ul{
 			padding: 0 !important;
 		}
-		#search li{
-			list-style-type: square !important;
+		
+		
+		#head{
+		background-color: #FAFAFA;
 		}
 		
 		</style>
@@ -58,7 +60,7 @@ if(session.getAttribute("user") == null){
 				<table class="table table-hover">
 					<thead>
 					<h2>자유게시판 목록</h2> 
-						<tr>
+						<tr id="head">
 							<th>번호</th>
 							<th>제목</th>
 							<th>작성자</th>

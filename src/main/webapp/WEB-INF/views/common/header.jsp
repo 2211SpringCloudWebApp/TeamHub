@@ -17,6 +17,7 @@
 			justify-content: end;
 			align-items: center;
 			height: 80px;
+			margin-right: 50px;
 		}
 		#header nav ul li {
 			padding: 30px 40px;
@@ -55,8 +56,8 @@
 		#alram-count{
 			position: absolute;
 		    display: inline;
-		    top: 23px;
-		    left: 59px;
+		    top: 13px;
+		    left: 30px;
 		    width: 28px;
 		    height: 18px;
 		    line-height: 20px;
@@ -68,11 +69,11 @@
 		    z-index: 100;
 		}
 		#alram-menu{
-			position: absolute;
+		    position: absolute;
 		    width: 530px;
 		    height: 380px;
 		    top: 80px;
-		    left: -443px;
+		    left: -477px;
 		    background-color: aliceblue;
 		    font-size: 18px;
 		}
@@ -114,9 +115,9 @@
 		<div id="header">
 			<nav>
 				<ul>
-					<li class="dropdown" style="padding-right: 0px;">
+					<li class="dropdown" style="padding:0px; padding-right: 0px;">
 						<a href="#" onclick="openAlramList();">
-							<img class="side-icon" src="../../../resources/img/sidebar/alarm.svg" style="margin-right: 10px;">
+							<img class="side-icon" src="../../../resources/img/sidebar/alarm.svg" style="margin-right: -7px;width: 44px; height: 83px;">
 							<span id="alram-count">0</span>
 						</a>
 						<div id="alram-menu">
@@ -126,7 +127,21 @@
 							</div>	
 						</div>
 					</li>
-					<li class="dropdown" style="padding-right: 130px; padding-left: 20px;" ><a><b>${sessionScope.user.userName }</b>님</a>
+					<li style="padding: 0px; height: 60px; padding-left: 30px;">
+						<div class="imgArea">
+							<c:if test="${!empty user.userFileName }">
+								<div>
+									<img alt="" src="../../../resources/fileUploads/${user.userFileName }" width="60px" height="60px" style="border-radius: 50%;">
+								</div>
+							</c:if>
+							<c:if test="${empty user.userFileName }">
+								<div>
+									<img alt="" src="../../../resources/img/main/userlogo.png" width="60px" height="60px" style="border-radius: 50%;">
+								</div>
+							</c:if>
+						</div>
+					</li>
+					<li class="dropdown" style="padding-left: 20px;" ><a><b>${sessionScope.user.userName }</b>님</a>
 						<ul>
 							<li><a href="/user/mypage">마이페이지</a></li>
 							<li><a href="/user/logout">로그아웃</a></li>

@@ -42,6 +42,7 @@ public class FreeController {
 	//자유게시판 등록화면
 	@RequestMapping(value="/free/writeView", method=RequestMethod.GET)
 	public String writeView() {
+		
 		return "/board/free/write";
 	}
 	

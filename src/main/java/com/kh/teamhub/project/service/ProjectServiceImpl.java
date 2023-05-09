@@ -81,6 +81,15 @@ public class ProjectServiceImpl implements ProjectService {
 	public List<Kanban> selectAllKanban(int projectNo) {
 		List<Kanban> kList = pStore.selectAllKanban(projectNo);
 		return kList;
+  }
+  
+  
+	// 상은 홈화면 프로젝트 리스트
+	@Override
+	public List<Project> selectList(String userId) {
+		List<Project> pList = pStore.selectList(userId);
+		return pList;
+
 	}
 
 }

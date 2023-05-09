@@ -32,8 +32,9 @@ if(session.getAttribute("user") == null){
 		#sideBar ul{
 			padding: 0 !important;
 		}
-		#search li{
-			list-style-type: square !important;
+		
+		#head{
+		background-color: #FAFAFA;
 		}
 		</style>
 	</head>
@@ -42,12 +43,12 @@ if(session.getAttribute("user") == null){
 		<div id="container">
 		<jsp:include page="../../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
-			<h1> 자유게시판 </h1>
+			<h1> 정지 리스트 </h1>
 			<ul id="search">
 				<li><a href="/free/list"><h5>자유게시판</h5></a></li>
 				<li><a href="/notice/list"><h5>공지사항</h5></a></li>
                 <li><a href="/report/list"><h5>신고게시판</h5></a></li>
-                <li  style="color: #275ab5"><h5><a href="/board/free/blacklist">정지 리스트</a></h5></li>
+                <li  style="color: #275ab5"><h5><a href="/free/blacklist">정지 리스트</a></h5></li>
 			</ul>
 			</div>
 			<jsp:include page="../../common/header.jsp"></jsp:include>
@@ -56,7 +57,7 @@ if(session.getAttribute("user") == null){
 				<table class="table table-hover">
 					<thead>
 					<h2>신고 목록</h2> 
-						<tr>
+						<tr id="head">
 							<th>번호</th>
 							<th>ID</th>
 							<th>이름</th>
