@@ -21,6 +21,9 @@
 		#sideBar span{
 				vertical-align: text-top !important;
 		}
+		#alram-count{
+			left: 1079px !important;
+		}
 		</style>
 	</head>
 	
