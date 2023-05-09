@@ -61,7 +61,7 @@
 							</div>
 							<div class="infoArea">
 								<label>사진</label> <input type="file" name="uploadFile" onchange="loadImg(this)"><br>
-								<label>사원번호</label> <input type="text" name="userId" value="${user.userId }"><br>
+								<label>아이디</label> <input type="text" name="userId" value="${user.userId }"><br>
 								<label>사원명</label> <input type="text" name="userName" value="${user.userName }"><br>
 								<label>부서</label>
 								<select name="deptName" id="">
