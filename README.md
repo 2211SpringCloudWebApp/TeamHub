@@ -148,15 +148,28 @@ CI | Github
 
 <img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/01066a39-a232-4a62-841c-f5084272a9b2">
 
-'+' 버튼을 눌러 메모 생성, 내용 입력 후 '✓'을 눌러야 저장가능
+'+' 버튼을 눌러 메모 생성, 내용 입력 후 '✓'버튼을 눌러야 저장가능
 
 ### 6. 사원관리
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/4d1000f0-208e-467f-84ba-e258228aba67">
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/4112e90c-8965-4634-b0bd-b5084f89d96e">
 
 
 
 ### 7. 프로젝트
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/c060624e-da0e-487e-a0a8-ff904da86a58">
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/3d9f0fcf-6427-449e-acb5-010c150d75f2">
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/954bb636-831e-48bc-bfd6-bf941d390bd2">
+
+
 ### 8. 전자결재
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/3f40399b-d29b-4983-bb22-e3dce9d9a2bb">
+
+
 ### 9. 게시판
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/9251f4fd-7c5e-4fae-a22e-54c1e49d3800">
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/100bad81-8b94-4130-aba8-ada7c41e544c">
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/0f89027e-df15-4033-9055-4846b06c7df3">
 
 
 ___
