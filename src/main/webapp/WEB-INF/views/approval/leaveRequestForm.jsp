@@ -133,8 +133,8 @@
 			
 			<main>
 				 <form action="${path}/approval/leaveApplication" method="post">
-			       <div class="cash-form-section" style="height: 100%; width:68%; margin: 0 300px 0 300px;">
-			           <div class="cash-disbursement" style="text-align: center; margin: 80px 200px 80px 0px; border: 2px solid black;">
+			       <div class="cash-form-section" style="height: 100%; width:68%; margin: 0 300px 0 200px;">
+			           <div class="cash-disbursement" style="text-align: center; margin: 80px -60px 80px 0px; border: 2px solid black;">
 			               <table border="2px" style="width: 100%; font-size: 20px; border-collapse: collapse;">
 			                   <tr>
 			                       <td rowspan="3" colspan="4" style="width: 300px; height: 140px; font-size: 40px; font-weight: 600;">휴 가 신 청 서</td>
@@ -469,7 +469,7 @@
     		selectUserList += "박수정 부회장<br>정기진 사장<br>";
 			$("#selectUserList").html(selectUserList);
     	} else if(checkNum == 2){
-    		selectUserList += "박수정 부회장<br>정기진 사장<br>서정민 사장<br>";
+    		selectUserList += "박수정 부회장<br>정기진 사장<br>이유정 사장<br>";
 			$("#selectUserList").html(selectUserList);
     	} else if(checkNum == 3){
     		alert("3명만 선택하실 수 있습니다.")

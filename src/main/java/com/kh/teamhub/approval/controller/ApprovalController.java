@@ -186,6 +186,16 @@ public class ApprovalController {
 		model.addAttribute("appr",appr);
 		return "approval/draftFormView";
 	}
+	// 기안서 뷰 페이지로 이동 (더미값)
+	@RequestMapping(value = "/draftFormView2", method = RequestMethod.GET)
+	public String draftFormView2(HttpServletRequest request, Model model, String apprNo) throws Exception {
+		if(loginUtil.checkLogin(request)) {    
+			return "main/login";	 // 비로그인시 로그인 페이지로 이동.
+		}		
+		Approval appr = aService.selectApproval(apprNo);
+		model.addAttribute("appr",appr);
+		return "approval/draftFormView2";
+	}
 	
 	
 	
@@ -206,6 +216,16 @@ public class ApprovalController {
 		Approval appr = aService.selectApproval(apprNo);
 		model.addAttribute("appr",appr);
 		return "approval/requisitionFormView";
+	}
+	// 품의서 뷰 페이지로 이동 (더미클래스)
+	@RequestMapping(value = "/requisitionFormView2", method = RequestMethod.GET)
+	public String requisitionFormView2(HttpServletRequest request, Model model, String apprNo) throws Exception {
+		if(loginUtil.checkLogin(request)) {    
+			return "main/login";	 // 비로그인시 로그인 페이지로 이동.
+		}		
+		Approval appr = aService.selectApproval(apprNo);
+		model.addAttribute("appr",appr);
+		return "approval/requisitionFormView2";
 	}
 	
 	

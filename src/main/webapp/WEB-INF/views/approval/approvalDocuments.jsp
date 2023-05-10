@@ -69,7 +69,7 @@
 			
 			<main>
 				<div class="mainDiv">
-				  <h2>기안 문서함</h2>
+				  <h2>결재 문서함</h2>
 				  <ul class="progressNav">
 				  	<li><a class="progressLink" href="/approval/draftDocuments?progress=전체" style="color: black; font-weight: 600;">전체</a></li>
 				  	<li><a class="progressLink" href="/approval/draftDocuments?progress=대기">대기</a></li>
@@ -98,6 +98,20 @@
 				    
 				    <tbody>
 						<tr>
+							<td>2023-04-24</td>
+							<td>기안서</td>
+							<td><a href="/approval/draftFormView?apprNo=186">인사팀 조직 개편 제안서</a></td>
+							<td>양민경</td>
+							<td style="color: green;">완료</td>
+						</tr>
+						<tr>
+							<td>2023-04-22</td>
+							<td>품의서</td>
+							<td><a href="/approval/requisitionFormView?apprNo=187">휴게실 내부 조명 교체 요청서</a></td>
+							<td>구기효</td>
+							<td style="color: black;">대기</td>
+						</tr>
+						<tr>
 							<td>2023-04-21</td>
 							<td>휴가신청서</td>
 							<td>휴가신청서입니다!!</td>
@@ -106,24 +120,10 @@
 						</tr>
 						<tr>
 							<td>2023-04-22</td>
-							<td>품의서</td>
-							<td>품의서입니다!</td>
-							<td>구기효</td>
-							<td style="color: black;">대기</td>
-						</tr>
-						<tr>
-							<td>2023-04-22</td>
 							<td>지출결의서</td>
 							<td>지출결의서입니다_수정</td>
 							<td>박수정</td>
 							<td style="color: blue;">진행</td>
-						</tr>
-						<tr>
-							<td>2023-04-24</td>
-							<td>기안서</td>
-							<td>기안서입니다!!!</td>
-							<td>양민경</td>
-							<td style="color: green;">완료</td>
 						</tr>
 						<tr>
 							<td>2023-04-25</td>

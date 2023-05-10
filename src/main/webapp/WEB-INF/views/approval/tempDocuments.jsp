@@ -69,7 +69,7 @@
 			
 			<main>
 				<div class="mainDiv">
-				  <h2>기안 문서함</h2>
+				  <h2>임시 저장함</h2>
 				  
 				  <table class="table table-hover">
 				  	<colgroup>
@@ -91,7 +91,7 @@
 						<tr>
 							<td>2023-04-22</td>
 							<td>품의서</td>
-							<td>품의서_테스트</td>
+							<td><a href="/approval/requisitionFormView2?apprNo=182">행사용 간판 제작 요청서</a></td>
 							<td style="color: gray;">임시</td>
 						</tr>
 						<tr>

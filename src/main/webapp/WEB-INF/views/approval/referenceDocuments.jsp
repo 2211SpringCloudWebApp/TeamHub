@@ -69,7 +69,7 @@
 			
 			<main>
 				<div class="mainDiv">
-				  <h2>기안 문서함</h2>
+				  <h2>참조 문서함</h2>
 				  <ul class="progressNav">
 				  	<li><a class="progressLink" href="/approval/draftDocuments?progress=전체" style="color: black; font-weight: 600;">전체</a></li>
 				  	<li><a class="progressLink" href="/approval/draftDocuments?progress=대기">대기</a></li>
@@ -97,12 +97,11 @@
 				    </thead>
 				    
 				    <tbody>
-						
 						<tr>
 							<td>2023-04-22</td>
-							<td>품의서</td>
-							<td>품의서입니다!</td>
-							<td>구기효</td>
+							<td>기안서</td>
+							<td><a href="/approval/draftFormView2?apprNo=170">새로운 상품 출시를 위한 기획안 작성서</a></td>
+							<td>김하얀</td>
 							<td style="color: black;">대기</td>
 						</tr>
 						<tr>

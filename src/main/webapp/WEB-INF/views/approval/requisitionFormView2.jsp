@@ -5,7 +5,8 @@
 	<html>
 	<head>
 		<meta charset="UTF-8">
-		<title>품의서</title>
+		<title>품의서 상세</title>  
+		<!-- 임시저장함에서 클릭시 -->
 		<link rel="stylesheet" href="../../../resources/css/approval/approvalDocuments.css">
 		<link rel="stylesheet" href="../../../resources/css/approval/documentModal.css">
 		<link rel="stylesheet" href="../../../resources/css/approval/requisitionForm.css">
@@ -45,7 +46,7 @@
 			<main>
 				<form action="/approval/draftDocuments" method="GET">
 				    <div class="cash-form-section">
-				        <div class="cash-disbursement" style="margin: 80px -57px 80px 0px;">
+				        <div class="cash-disbursement">
 				            <table border=2>
 				                <tr class="tr1">
 				                    <td rowspan="2" colspan="4" class="formTitle">품 의 서</td>
@@ -59,15 +60,16 @@
 				                <tr class="tr2">
 				                   <td>
 				                      <input type="text" value="" id="firstApprover" name="firstApprover" class="nameView" readonly>
-				                      <input type="button" value="검색" class="searchMember" id="firstBtn" name="firstApprover" onclick="openApprovalModal('결재자');">
+				                      <input type="button" value="결재" class="searchMember" id="firstBtn" name="firstApprover" onclick="appr();">
 				                   </td>
 				                   <td>
 				                      <input type="text" value="" id="interimName" name="interimApprover" class="nameView" readonly>
-				                      <input type="button" value="검색" class="searchMember" id="secondBtn" name="interimApprover" onclick="openApprovalModal('결재자');">
+				                      <input type="button" value="결재" class="searchMember" id="secondBtn" name="interimApprover" onclick="appr();">
 				                   </td>
 				                   <td>
+				                   	  <img id="tr2-img2" src="../../../resources/img/approval/rejected.png" style="width: 80px; height: 86px; position: absolute; left: 1498px; top: 182px;">
 				                      <input type="text" value="" id="finalApprover" name="finalApprover" class="nameView" readonly>
-				                      <input type="button" value="검색" class="searchMember" id="thirdBtn" name="finalApprover" onclick="openApprovalModal('결재자');">
+				                      <input type="button" value="결재" class="searchMember" id="thirdBtn" name="finalApprover" onclick="appr();">
 				                   </td>
 				                </tr>
 				                <tr class="tr3">
@@ -88,7 +90,7 @@
 				                </tr>
 				                <tr class="tr5">
 				                    <td>제 목</td>
-				                    <td colspan="8"><input type="text" name="loaTitle" id="loaTitle"></td>
+				                    <td colspan="8"><input type="text" name="loaTitle" id="loaTitle" value="행사용 간판 제작 요청서"></td>
 				                </tr>
 				                <tr class="tr6">
 				                    <td colspan="8">품의사유 및 상세내용</td>
@@ -118,9 +120,9 @@
 				        </div>
 				        <div id="button" style="display: flex; justify-content: space-around; margin-bottom: 50px;">
 				           <input type="hidden" name="appKinds" value="품의서">
-				           <button type="submit" class="goToLeave" style="width: 200px; height: 96px; font-size: 29px;">상신</button>
+				           <button type="button" class="goToLeave" style="width: 200px; height: 96px; font-size: 29px;" onclick="reject();">저장</button>
 				           <input type="text" style="border: none; width: 40px;" disabled>
-				           <button type="reset" class="resetLeave" style="width: 200px; height: 96px; font-size: 29px;" onclick="">취소</button>
+				           <button type="button" class="resetLeave" style="width: 200px; height: 96px; font-size: 29px;" onclick="reject();">상신</button>
 				        </div>
 				    </div>
 				</form>
@@ -415,7 +417,7 @@
     		selectUserList += "박수정 부회장<br>정기진 사장<br>";
 			$("#selectUserList").html(selectUserList);
     	} else if(checkNum == 2){
-    		selectUserList += "박수정 부회장<br>정기진 사장<br>이유정 사장<br>";
+    		selectUserList += "박수정 부회장<br>정기진 사장<br>서정민 사장<br>";
 			$("#selectUserList").html(selectUserList);
     	} else if(checkNum == 3){
     		alert("3명만 선택하실 수 있습니다.")
@@ -461,6 +463,13 @@
         
            $("#proposerText").append(proposerValue);
        });
+       
+    var img2 = document.querySelector("#tr2-img2");
+    img2.style.display = "none";
+    
+    function reject(){
+    	location.href='/approval/draftDocuments';
+    }
     </script>
 	</body>
 </html>

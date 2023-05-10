@@ -58,16 +58,19 @@
 				                </tr>
 				                <tr class="tr2">
 				                   <td>
-				                      <input type="text" value="" id="firstApprover" name="firstApprover" class="nameView" readonly>
-				                      <input type="button" value="검색" class="searchMember" id="firstBtn" name="firstApprover" onclick="openApprovalModal('결재자');">
+				                 	  <img src="../../../resources/img/approval/approved.png" style="width: 100px; height: 100px; position: absolute; left: 1191px; top: 176px;">
+				                      <input type="text" value="박수정" id="firstApprover" name="firstApprover" class="nameView" readonly>
+				                      <input type="button" value="결재" class="searchMember" id="firstBtn" name="firstApprover" onclick="appr();">
 				                   </td>
 				                   <td>
-				                      <input type="text" value="" id="interimName" name="interimApprover" class="nameView" readonly>
-				                      <input type="button" value="검색" class="searchMember" id="secondBtn" name="interimApprover" onclick="openApprovalModal('결재자');">
+				                  	  <img src="../../../resources/img/approval/approved.png" style="width: 100px; height: 100px; position: absolute; left: 1340px; top: 176px;">
+				                      <input type="text" value="정기진" id="interimName" name="interimApprover" class="nameView" readonly>
+				                      <input type="button" value="결재" class="searchMember" id="secondBtn" name="interimApprover" onclick="appr();">
 				                   </td>
 				                   <td>
-				                      <input type="text" value="" id="finalApprover" name="finalApprover" class="nameView" readonly>
-				                      <input type="button" value="검색" class="searchMember" id="thirdBtn" name="finalApprover" onclick="openApprovalModal('결재자');">
+				                   	  <img id="tr2-img2" src="../../../resources/img/approval/rejected.png" style="width: 80px; height: 86px; position: absolute; left: 1498px; top: 182px;">
+				                      <input type="text" value="이유정" id="finalApprover" name="finalApprover" class="nameView" readonly>
+				                      <input type="button" value="결재" class="searchMember" id="thirdBtn" name="finalApprover" onclick="appr();">
 				                   </td>
 				                </tr>
 				                <tr class="tr3">
@@ -75,7 +78,7 @@
 				                        <button class="send-open" type="button" onclick="openApprovalModal('참조자');">수신참조자 +</button>
 				                    </td>
 				                    <td colspan="6">
-				                       <textArea readonly name="referList" id="referList"></textArea>
+				                       <textArea readonly name="referList" id="referList">박수정 부회장, 정기진 사장, 서정민 사장, 이유정 사장, 유현주 전무</textArea>
 				                    </td>   
 				                </tr>
 				                <tr class="tr4">
@@ -118,9 +121,9 @@
 				        </div>
 				        <div id="button" style="display: flex; justify-content: space-around; margin-bottom: 50px;">
 				           <input type="hidden" name="appKinds" value="품의서">
-				           <button type="submit" class="goToLeave" style="width: 200px; height: 96px; font-size: 29px;">상신</button>
+				           <button type="submit" class="goToLeave" style="width: 200px; height: 96px; font-size: 29px;">결재</button>
 				           <input type="text" style="border: none; width: 40px;" disabled>
-				           <button type="reset" class="resetLeave" style="width: 200px; height: 96px; font-size: 29px;" onclick="">취소</button>
+				           <button type="reset" class="resetLeave" style="width: 200px; height: 96px; font-size: 29px;" onclick="reject();">반려</button>
 				        </div>
 				    </div>
 				</form>
@@ -461,6 +464,13 @@
         
            $("#proposerText").append(proposerValue);
        });
+       
+    var img2 = document.querySelector("#tr2-img2");
+    img2.style.display = "none";
+    
+    function reject(){
+    	img2.style.display = "block";
+    }
     </script>
 	</body>
 </html>

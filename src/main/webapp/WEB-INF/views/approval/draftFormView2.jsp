@@ -5,7 +5,7 @@
 	<html>
 	<head>
 		<meta charset="UTF-8">
-		<title>품의서</title>
+		<title>기안서</title>
 		<link rel="stylesheet" href="../../../resources/css/approval/approvalDocuments.css">
 		<link rel="stylesheet" href="../../../resources/css/approval/documentModal.css">
 		<link rel="stylesheet" href="../../../resources/css/approval/requisitionForm.css">
@@ -28,7 +28,34 @@
 	
 	<body>
 		<div id="container">
-			
+			<!-- 일정 등록시 모달창 띄우기 -->
+		    <div id="modal" class="modal-overlay">
+		        <div class="modal-window">
+					<div class="title">
+		                <h2>문서양식</h2>
+		            </div>
+					<div id="inner">
+						<div id="input-main">
+							<select name="document" id="document">                     <!-- name : 키-->
+				                <option value="requisition">품의서</option>
+				                <option value="leaveRequest">휴가신청서</option>
+				                <option value="expenseResolution">지출결의서</option>
+				                <option value="draft">기안서</option>         <!-- value : 값-->
+				            </select>
+						</div>
+						
+						<div id="input-btn">
+							<button type="button" onclick="closeModal();" style="background-color: #ffdea0;">
+								<span>취소</span>
+							</button>
+							<button type="button" onclick="approvalAdd();" style="margin-left: 17px; background-color: #d2e8ff;">
+								<span>확인</span>
+							</button>
+						</div>
+					</div>
+				</div>
+		    </div>
+		    <!-- ------------------------------------------------>
 			<jsp:include page="../common/sideBar.jsp"></jsp:include>
 			<div id="subSideBar">
 				<h1>전자결재</h1>
@@ -45,10 +72,10 @@
 			<main>
 				<form action="/approval/draftDocuments" method="GET">
 				    <div class="cash-form-section">
-				        <div class="cash-disbursement" style="margin: 80px -57px 80px 0px;">
+				        <div class="cash-disbursement">
 				            <table border=2>
 				                <tr class="tr1">
-				                    <td rowspan="2" colspan="4" class="formTitle">품 의 서</td>
+				                    <td rowspan="2" colspan="4" class="formTitle">기 안 서</td>
 				                    <td rowspan="2" style="width: 70px;">
 				                        <span>결 재</span>
 				                    </td>
@@ -58,16 +85,18 @@
 				                </tr>
 				                <tr class="tr2">
 				                   <td>
-				                      <input type="text" value="" id="firstApprover" name="firstApprover" class="nameView" readonly>
-				                      <input type="button" value="검색" class="searchMember" id="firstBtn" name="firstApprover" onclick="openApprovalModal('결재자');">
+					                  <img id="tr2-img1" src="../../../resources/img/approval/approved.png" style="width: 100px; height: 100px; position: absolute; left: 1192px; top: 178px;">
+				                      <input type="text" value="신희채" id="firstApprover" name="firstApprover" class="nameView" readonly>
+				                      <input type="button" value="결재" class="searchMember" id="firstBtn" name="firstApprover" onclick="appr();">
 				                   </td>
 				                   <td>
-				                      <input type="text" value="" id="interimName" name="interimApprover" class="nameView" readonly>
-				                      <input type="button" value="검색" class="searchMember" id="secondBtn" name="interimApprover" onclick="openApprovalModal('결재자');">
+				                   	  <img id="tr2-img2" src="../../../resources/img/approval/rejected.png" style="width: 80px; height: 86px; position: absolute; left: 1348px; top: 183px;">
+				                      <input type="text" value="구기효" id="interimName" name="interimApprover" class="nameView" readonly>
+				                      <input type="button" value="결재" class="searchMember" id="secondBtn" name="interimApprover" onclick="appr();">
 				                   </td>
 				                   <td>
-				                      <input type="text" value="" id="finalApprover" name="finalApprover" class="nameView" readonly>
-				                      <input type="button" value="검색" class="searchMember" id="thirdBtn" name="finalApprover" onclick="openApprovalModal('결재자');">
+				                      <input type="text" value="정기진" id="finalApprover" name="finalApprover" class="nameView" readonly>
+				                      <input type="button" value="결재" class="searchMember" id="thirdBtn" name="finalApprover" onclick="appr();">
 				                   </td>
 				                </tr>
 				                <tr class="tr3">
@@ -75,31 +104,31 @@
 				                        <button class="send-open" type="button" onclick="openApprovalModal('참조자');">수신참조자 +</button>
 				                    </td>
 				                    <td colspan="6">
-				                       <textArea readonly name="referList" id="referList"></textArea>
+				                       <textArea readonly name="referList" id="referList">이유정 사장, 유현주 전무, 박상은 사원</textArea>
 				                    </td>   
 				                </tr>
 				                <tr class="tr4">
 				                    <td>성 명</td>
-				                    <td><input type="text" name="writerName" value="${user.userName}" readonly></td>
+				                    <td><input type="text" name="writerName" value="설석현" readonly></td>
 				                    <td>부 서</td>
-				                    <td colspan="2"><input type="text" value="${user.deptName}" readonly></td>
+				                    <td colspan="2"><input type="text" value="인사팀" readonly></td>
 				                    <td>직 급</td>
-				                    <td colspan="2"><input type="text" value="${user.positionName}" readonly></td>
+				                    <td colspan="2"><input type="text" value="사원" readonly></td>
 				                </tr>
 				                <tr class="tr5">
 				                    <td>제 목</td>
-				                    <td colspan="8"><input type="text" name="loaTitle" id="loaTitle"></td>
+				                    <td colspan="8"><input type="text" name="loaTitle" id="loaTitle">${appr.apprTitle }</td>
 				                </tr>
 				                <tr class="tr6">
-				                    <td colspan="8">품의사유 및 상세내용</td>
+				                    <td colspan="8">상세내용</td>
 				                </tr>
 				                <tr class="tr7">
 				                    <td colspan="8">
-				                        <textarea name="loaContent" id="loaContent" cols="151px" rows="11px"></textarea>
+				                        <textarea name="loaContent" id="loaContent" cols="151px" rows="11px">${appr.apprContent }</textarea>
 				                    </td>
 				                </tr>
 				                <tr class="tr8">
-				                    <td colspan="8">위와 같은 품의사유로, 검토 후 결재 바랍니다.</td>
+				                    <td colspan="8">위와 같은 사유로, 검토 후 결재 바랍니다.</td>
 				                </tr>
 				                <tr class="tr9">
 				                    <td colspan="8">
@@ -116,16 +145,9 @@
 				                </tr>
 				            </table>
 				        </div>
-				        <div id="button" style="display: flex; justify-content: space-around; margin-bottom: 50px;">
-				           <input type="hidden" name="appKinds" value="품의서">
-				           <button type="submit" class="goToLeave" style="width: 200px; height: 96px; font-size: 29px;">상신</button>
-				           <input type="text" style="border: none; width: 40px;" disabled>
-				           <button type="reset" class="resetLeave" style="width: 200px; height: 96px; font-size: 29px;" onclick="">취소</button>
-				        </div>
 				    </div>
 				</form>
 			</main>
-			
 			
 			<!-- 결재 상신 버튼 클릭시 모달창 -->
 		    <div id="modal" class="modal-overlay">
@@ -316,17 +338,16 @@
 		    </div>
 		    <!-- ------------------------------------------------>
 		    
-    	</div>
-    	
-    	
+		    
+		</div>
 	<script type="text/javascript">
 	///////////////////// 모달창 ///////////////
 	var modal = document.querySelector("#modal");
 	var modalApproval = document.querySelector("#modalApproval");
-    modal.style.display = "none"; 
+    modal.style.display = "none";
     modalApproval.style.display ="none";
-    
-	function openModal(){
+
+    function openModal(){
 		  document.querySelector("body").style.overflow="hidden";
 		  window.scrollTo(0,0);
 	      modal.style.display = "flex";
@@ -335,7 +356,6 @@
 		  document.querySelector("body").style.overflow="visible";
 	      modal.style.display = "none";
 	}
-	
 	function openApprovalModal(title){
 		  $("#title-h2").html(title);
 		  document.querySelector("body").style.overflow="hidden";
@@ -346,7 +366,6 @@
 		  document.querySelector("body").style.overflow="visible";
 		  modalApproval.style.display = "none";
 	}
-	
     /////////////////////////////////////////////
     
 	// 결재상신 - 문서 양식 선택 
@@ -363,51 +382,17 @@
 		}
 		
 	}
-    //////////////////////////////////////////////
-    //// 결재자 검색
 	function approvalUserAdd(){
-    	if(referCheckNum == 6){
-    		$("#referList").html("박수정 부회장, 정기진 사장, 서정민 사장, 이유정 사장, 유현주 전무");
-    		
-    		closeApprovalModal();
-			$("#selectUserList").html("");
-    	} else{
-			$("#firstApprover").val("박수정");
-			$("#interimName").val("정기진");
-			$("#finalApprover").val("이유정");
-			closeApprovalModal();
-			$("#selectUserList").html("");
-    	}
+		$("#firstApprover").val("박수정");
+		$("#interimName").val("정기진");
+		$("#finalApprover").val("이유정");
+		closeApprovalModal();
+		$("#selectUserList").html("");
 	}
-	var referCheckNum = 0;
+	
     var checkNum = 0;
     function approvalUser(){
 	   	var selectUserList = "";
-    	var referList = "";
-    	
-    	if(referCheckNum == 1){
-    		referList += "박수정 부회장";
-    		$("#selectUserList").html(referList);
-    		referCheckNum++;
-    	} else if(referCheckNum == 2){
-    		referList += "박수정 부회장, 정기진 사장";
-			$("#selectUserList").html(referList);
-			referCheckNum++;
-    	} else if(referCheckNum == 3){
-    		referList += "박수정 부회장, 정기진 사장, 서정민 사장";
-			$("#selectUserList").html(referList);
-			referCheckNum++;
-    	} else if(referCheckNum == 4){
-    		referList += "박수정 부회장, 정기진 사장, 서정민 사장, <br>이유정 사장";
-			$("#selectUserList").html(referList);
-			referCheckNum++;
-    	} else if(referCheckNum == 5){
-    		referList += "박수정 부회장, 정기진 사장, 서정민 사장, <br>이유정 사장, 유현주 전무";
-			$("#selectUserList").html(referList);
-			referCheckNum++;
-    	}
-    	
-    	
     	if(checkNum == 0){
     		selectUserList += "박수정 부회장<br>";
 			$("#selectUserList").html(selectUserList);
@@ -415,14 +400,12 @@
     		selectUserList += "박수정 부회장<br>정기진 사장<br>";
 			$("#selectUserList").html(selectUserList);
     	} else if(checkNum == 2){
-    		selectUserList += "박수정 부회장<br>정기진 사장<br>이유정 사장<br>";
+    		selectUserList += "박수정 부회장<br>정기진 사장<br>서정민 사장<br>";
 			$("#selectUserList").html(selectUserList);
     	} else if(checkNum == 3){
     		alert("3명만 선택하실 수 있습니다.")
-    		referCheckNum++;
+    		checkNum--;
     	} 
-    	
-    	
     	checkNum++;
     }
     
@@ -441,10 +424,9 @@
     	} 
     	checkNum2++;
     }
-	//////////////////////////////////////////////
-	</script>
-	
-	<!-- 오늘 날짜 스크립트 -->
+    </script>
+    
+    <!-- 오늘 날짜 스크립트 -->
 	<script>
 		const today = new Date();
 		const year = today.getFullYear();
@@ -453,14 +435,26 @@
 		var todayString = year + "-" + month + "-" + day;
 		$("#today").val(todayString);
 	</script>
-	
+    
 	<!-- 서명 클릭 스크립트  -->
     <script>
-       $("#proposer").one("click",function(){
            var proposerValue = $("input[name='writerName']").val();
         
            $("#proposerText").append(proposerValue);
-       });
+       
+    <!-- 승인, 반려-->   
+    
+    var img1 = document.querySelector("#tr2-img1");
+    var img2 = document.querySelector("#tr2-img2");
+    
+    function appr(){
+    	img1.style.display = "block";
+    }
+    function reject(){
+    	img2.style.display = "block";
+    }
+    
     </script>
+    
 	</body>
 </html>

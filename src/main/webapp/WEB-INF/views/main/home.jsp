@@ -126,8 +126,8 @@
 									<a href="/project/detail/${project.projectNo }">
 										<div class="project-list">
 											<p style="border-bottom: 1px solid gray; margin-bottom: 10px;">${project.projectName }</p>
-											<p style="font-size: 16px;">진행상태: ${project.projectStatus }</p>
-											<p style="font-size: 16px;">&nbsp;&nbsp;&nbsp;기간: ${project.projectStart } ~ ${project.projectEnd }</p>
+											<p style="font-size: 16px;">진행상태 : ${project.projectStatus }</p>
+											<p style="font-size: 16px;">기간 : ${project.projectStart } ~ ${project.projectEnd }</p>
 										</div>
 									</a>
 								</c:forEach>

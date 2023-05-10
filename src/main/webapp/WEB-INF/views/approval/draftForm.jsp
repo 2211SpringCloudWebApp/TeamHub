@@ -405,7 +405,7 @@
     		selectUserList += "박수정 부회장<br>정기진 사장<br>";
 			$("#selectUserList").html(selectUserList);
     	} else if(checkNum == 2){
-    		selectUserList += "박수정 부회장<br>정기진 사장<br>서정민 사장<br>";
+    		selectUserList += "박수정 부회장<br>정기진 사장<br>이유정 사장<br>";
 			$("#selectUserList").html(selectUserList);
     	} else if(checkNum == 3){
     		alert("3명만 선택하실 수 있습니다.")
