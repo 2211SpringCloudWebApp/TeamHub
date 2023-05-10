@@ -99,15 +99,42 @@ CI | Github
 ## TeamHub 살펴보기
 
 ### 1. 메인 화면
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/db2c0169-b308-4411-bb42-ba4dec55800d">
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/113f36b8-b093-4184-ba9f-1ee887b389b4">
+
 ### 2. 마이페이지
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/22347e1e-e85b-4109-b81a-8099e524b4c4">
+
 ### 3. 근태관리
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/55ddac1c-5182-4bff-88d3-ee89eaef659b">
+
+출근버튼을 누르면 출근, 퇴근버튼을 누르면 퇴근처리
+
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/48c7636e-e7c8-4453-a94a-1ca860429c87">
+
+월별로 검색가능
 
 연차관리
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/e4c6b14b-3c91-48e7-9be8-eb0ded04e245">
 
 ### 4. 일정관리
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/e4d66791-ae93-4b4f-81e0-ed8d0d71d3ff">
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/eadd3a4c-007b-450b-b5b8-2d684c2e5d9c">
+
+체크표시한 일정만 확인가능
+
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/644fefde-5210-4c41-ad36-02805b6e89bb">
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/79d23c48-fe4d-418c-8143-38d6a21d0a97">
+
+일정등록
+
 ### 5. 업무관리
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/023aae1b-fb42-43a5-a776-c1296f263e4d">
 
 ### 6. 사원관리
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/5dee90ba-803e-4b82-869c-d1833ccfc6a6">
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/6ccd23b4-bda0-416d-b182-da9482f50f7c">
+
 ### 7. 프로젝트
 ### 8. 전자결재
 ### 9. 게시판
