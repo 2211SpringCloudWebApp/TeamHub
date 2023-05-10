@@ -131,11 +131,24 @@ CI | Github
 체크표시한 일정만 확인가능
 
 <img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/b26fd30d-575c-4075-b0eb-87f5f245aa31">
-<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/97a2e332-1e55-4bae-b988-7231c7a4e79e">
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/52392bcf-b8cc-41a3-a4ff-0c70d5e26126">
 
+--
 일정등록
 
 ### 5. 업무관리
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/3a4e96fc-da47-4142-8a2e-2a4740881528">
+
+할 일 등록
+
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/b3e5409c-591e-4382-9b4d-d2b734c21a9c">
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/6abb0f8c-dd09-4474-af4b-3a9d525e4828">
+
+-메모
+
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/01066a39-a232-4a62-841c-f5084272a9b2">
+
+'+' 버튼을 눌러 메모 생성, 내용 입력 후 '✓'을 눌러야 저장가능
 
 ### 6. 사원관리
 
