@@ -164,12 +164,50 @@ CI | Github
 
 ### 8. 전자결재
 <img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/3f40399b-d29b-4983-bb22-e3dce9d9a2bb">
+<img width="436" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/b335ef17-1352-4fd3-8a6b-919300e045d7">
 
 
 ### 9. 게시판
 <img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/9251f4fd-7c5e-4fae-a22e-54c1e49d3800">
 <img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/100bad81-8b94-4130-aba8-ada7c41e544c">
 <img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/0f89027e-df15-4033-9055-4846b06c7df3">
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/9ae13a70-62c9-4836-9967-8b7ce529ded5">
+
+### 관리자
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/bcc72a82-5f2c-40cd-980b-b7ab668b9893">
+
+관리자
+
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/67cb0d30-96e5-46f3-b082-fefdfc7538df">
+
+관리자 - 근태
+
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/d2e3dad2-9f8b-49d7-81dc-58ffc181be54">
+
+관리자 - 연차
+
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/8cf721b1-8283-4260-a1a3-906e5f22bac8">
+
+관리자 - 일정 : 전사일정만 등록가능
+
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/eed3b338-cc66-4759-810a-2c1f99066108">
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/eb0f111b-2c98-458e-a581-37b987c3c6ae">
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/76e1b5fe-df21-4086-b5dc-b921a3b15e7e">
+
+관리자 - 사원관리
+
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/0828aec2-26ba-47dd-867e-4cf82de4c50e">
+
+관리자 - 프로젝트 : 프로젝트 삭제 가능
+
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/226e8459-25b9-410f-9743-d6016c1dba3a">
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/a6c8336f-183a-472f-a1ab-7b56f8d6461a">
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/f8166d03-c97c-4693-b61a-753d986258b0">
+
+<img width="960" alt="image" src="https://github.com/2211SpringCloudWebApp/TeamHub/assets/119032800/8d7668fa-270a-428b-9dc2-e7c03a126977">
+
+
+관리자 - 게시판 : 관리자만 공지사항 등록 가능, 작성자 제한 가능
 
 
 ___
